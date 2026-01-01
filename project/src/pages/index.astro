@@ -1,122 +1,127 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import NewYearPopup from '../components/NewYearPopup';
 ---
 
 <Layout title="One Nation - Communication sur mesure">
-	<div class="landing">
-		<div class="logo-container">
-			<img src="/logoOneNation.jpg" alt="One Nation" class="logo" />
-		</div>
-		<button class="enter-button" id="enterButton">Entrer →</button>
-	</div>
+  <!-- Popup Nouvel An, montée côté client -->
+  <NewYearPopup client:load />
 
-	<div class="content hidden" id="main-content">
-		<Header />
-		<main>
-		</main>
-	</div>
+  <div class="landing">
+    <div class="logo-container">
+      <img src="/logoOneNation.jpg" alt="One Nation" class="logo" />
+    </div>
+    <button class="enter-button" id="enterButton">Entrer →</button>
+  </div>
+
+  <div class="content hidden" id="main-content">
+    <Header />
+    <main>
+      <!-- ton contenu principal -->
+    </main>
+  </div>
 </Layout>
 
 <style>
-	.landing {
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		background-color: var(--color-background);
-		position: fixed;
-		width: 100%;
-		z-index: 1000;
-	}
+  .landing {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-background);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+  }
 
-	.landing.fade-out {
-		opacity: 0;
-		pointer-events: none;
-	}
+  .landing.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
 
-	.logo-container {
-		position: relative;
-		padding: 2rem;
-		border-radius: 20px;
-		overflow: hidden;
-		transition: transform 0.5s ease;
-	}
+  .logo-container {
+    position: relative;
+    padding: 2rem;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.5s ease;
+  }
 
-	.logo-container::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: var(--color-accent);
-		opacity: 0;
-		transition: opacity 0.3s ease;
-		border-radius: 20px;
-	}
+  .logo-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 20px;
+  }
 
-	.logo-container:hover {
-		transform: translateY(-10px);
-	}
+  .logo-container:hover {
+    transform: translateY(-10px);
+  }
 
-	.logo-container:hover::before {
-		opacity: 0.1;
-	}
+  .logo-container:hover::before {
+    opacity: 0.1;
+  }
 
-	.logo {
-		width: 400px;
-		height: auto;
-		border-radius: 20px;
-		transition: transform 0.5s ease;
-	}
+  .logo {
+    width: 400px;
+    height: auto;
+    border-radius: 20px;
+    transition: transform 0.5s ease;
+  }
 
-	.enter-button {
-		background: transparent;
-		border: none;
-		color: var(--color-accent);
-		padding: 1rem 2rem;
-		font-size: 1.2rem;
-		font-family: 'Montserrat', sans-serif;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-top: 2rem;
-	}
+  .enter-button {
+    background: transparent;
+    border: none;
+    color: var(--color-accent);
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
 
-	.enter-button:hover {
-		transform: translateX(10px);
-		color: var(--color-white);
-	}
+  .enter-button:hover {
+    transform: translateX(10px);
+    color: var(--color-white);
+  }
 
-	.content {
-		opacity: 0;
-		transition: opacity 0.5s ease-in-out;
-	}
+  .content {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
 
-	.content.fade-in {
-		opacity: 1;
-	}
+  .content.fade-in {
+    opacity: 1;
+  }
 
-	.hidden {
-		display: none;
-	}
+  .hidden {
+    display: none;
+  }
 </style>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const enterButton = document.getElementById('enterButton');
-		const landing = document.querySelector('.landing');
+  document.addEventListener('DOMContentLoaded', () => {
+    const enterButton = document.getElementById('enterButton');
+    const landing = document.querySelector('.landing');
 
-		enterButton?.addEventListener('click', () => {
-			landing?.classList.add('fade-out');
-			
-			setTimeout(() => {
-				window.location.href = '/vision';
-			}, 500);
-		});
-	});
+    enterButton?.addEventListener('click', () => {
+      landing?.classList.add('fade-out');
+
+      setTimeout(() => {
+        window.location.href = '/vision';
+      }, 500);
+    });
+  });
 </script>
