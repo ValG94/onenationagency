@@ -1,0 +1,405 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+const projects = [
+	{
+		title: "PaieCashPlay Landing Page",
+		client: "PaieCash",
+		category: "Digital & SEO",
+		image: "/paycashplay landing page.jpg",
+		description: "Réalisation complète de la landing page PaiecashPlay destinée à une levée de fonds.",
+		link: "https://invest.paiecashplay.com/"
+	},
+	{
+		title: "Nomadéo Africa website",
+		client: "Nomadéo",
+		category: "Digital",
+		image: "/nomadeo africa home.jpg",
+		description: "Nomadeo Africa est votre partenaire de confiance pour tous vos besoins en mobilier de bureau en Afrique et est implanté au Cameroun.",
+		link: "https://nomadeo.africa/"
+	},
+	{
+		title: "Coplacam refonte site Internet",
+		client: "Coplacam Design & Build",
+		category: "Digital",
+		image: "/coplacam.jpg",
+		description: "Refonte du site Coplacam Design & build pour le rendre plus actuel.",
+		link:"https://coplacam.com/"
+	},
+	{
+		title: "PaicashPlay, des solutions digitales dédiées au monde du sport",
+		client: "PaieCash",
+		category: "Digital & SEO",
+		image: "/paiecash.jpg",
+		description: "Conception et réalisation du site, de la charte graphique et du référencement SEO.",
+		link:"https://www.paiecashplay.com/"
+	},
+	{
+		title: "Campagne Présidentielle pour le candidat Serge Djorie en Centrafrique",
+		client: "Serge Ghislain Djorie",
+		category: "Communication 360",
+		image: "/homeDjorie.jpg",
+		description: "Conception et déploiement d'un site de campagne présidentielle pour le candidat Serge Djorie de la République Centrafricaine, en vue de l'élection de décembre 2025. Réalisation d'affiches publicitaires, de dépliant et affiches pour les candidats du CAPNCA.",
+		link: "https://www.sergedjorie.com/"
+	},
+	{
+		title: "Stratégie Digitale pour Banque Africaine",
+		client: "Groupe Bancaire Panafricain",
+		category: "Stratégie Digitale",
+		image: "/campagneReseau.jpg",
+		description: "Développement d'une stratégie digitale complète pour un groupe bancaire présent dans 12 pays africains."
+	},
+	{
+		title: "Lancement Produit",
+		client: "FoodTech",
+		category: "Communication 360",
+		image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&auto=format",
+		description: "Stratégie de lancement pour une nouvelle gamme de produits alimentaires."
+	},
+	{
+		title: "Communication RSE",
+		client: "GreenCorp",
+		category: "Stratégie",
+		image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format",
+		description: "Développement de la stratégie de communication RSE et environnementale."
+	},
+	{
+		title: "Chatbot pour Ministère",
+		client: "Ministère Africain",
+		category: "Intelligence Artificielle",
+		image: "/chatbot.jpg",
+		description: "Développement d'un assistant virtuel intelligent pour améliorer le service aux citoyens et réduire la charge des centres d'appel."
+	},
+	{
+		title: "Optimisation SEO pour site e-commerce",
+		client: "Retailer International",
+		category: "SEO",
+		image: "/social_media.jpg",
+		description: "Audit complet et optimisation du référencement naturel pour augmenter la visibilité et le trafic organique."
+	}
+];
+
+// Extraction dynamique des catégories à partir des projets
+const allCategories = projects.map(project => {
+	// Pour gérer les catégories multiples (comme "Digital & SEO")
+	if (project.category.includes('&')) {
+		return project.category.split('&').map(cat => cat.trim());
+	}
+	return project.category;
+}).flat();
+
+// Élimination des doublons et tri alphabétique
+const uniqueCategories = [...new Set(allCategories)].sort();
+
+// Ajout de la catégorie "Tous" en premier
+const categories = ["Tous", ...uniqueCategories];
+---
+
+<Layout title="Portfolio - One Nation">
+	<Header />
+	<main>
+		<section class="portfolio">
+			<div class="container">
+				<h1>Nos réalisations</h1>
+				<p class="intro-text">Découvrez une sélection de nos projets récents, illustrant notre expertise et notre approche créative à travers différents secteurs et défis de communication.</p>
+				
+				<div class="filter-container">
+					<div class="filter-buttons">
+						{categories.map((category) => (
+							<button class="filter-btn" data-category={category === "Tous" ? "all" : category}>{category}</button>
+						))}
+					</div>
+				</div>
+				
+				<div class="portfolio-grid">
+					{projects.map((project) => (
+						<div class="portfolio-card" data-category={project.category}>
+							<div class="card-image">
+								<img src={project.image} alt={project.title} loading="lazy" />
+							</div>
+							<div class="card-content">
+								<span class="category">{project.category}</span>
+								<h3>{project.title}</h3>
+								<p class="client">Client : {project.client}</p>
+								<p class="description">{project.description}</p>
+								<a href={project.link || "#"} class="view-project" target={project.link ? "_blank" : "_self"} rel={project.link ? "noopener noreferrer" : ""}>
+									Voir le projet
+									<span class="arrow">→</span>
+								</a>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="cta-section">
+			<div class="container">
+				<h2>Vous avez un projet en tête ?</h2>
+				<p>Contactez-nous pour discuter de votre projet et découvrir comment nous pouvons vous aider à atteindre vos objectifs de communication.</p>
+				<a href="/contact" class="cta-button">Parlons de votre projet</a>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.portfolio {
+		padding: 8rem 0;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	h1 {
+		font-size: 3rem;
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+
+	.intro-text {
+		text-align: center;
+		max-width: 800px;
+		margin: 0 auto 3rem;
+		font-size: 1.2rem;
+		line-height: 1.8;
+		color: var(--color-accent);
+	}
+
+	.filter-container {
+		margin-bottom: 3rem;
+	}
+
+	.filter-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1rem;
+	}
+
+	.filter-btn {
+		background: rgba(255, 255, 255, 0.05);
+		border: none;
+		color: var(--color-white);
+		padding: 0.8rem 1.5rem;
+		border-radius: 50px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 0.9rem;
+	}
+
+	.filter-btn:hover, .filter-btn.active {
+		background: var(--color-accent);
+		color: var(--color-background);
+	}
+
+	.portfolio-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+		gap: 2rem;
+	}
+
+	.portfolio-card {
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 8px;
+		overflow: hidden;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		position: relative;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.portfolio-card:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+	}
+
+	.card-image {
+		position: relative;
+		height: 0;
+		padding-top: 66.67%; /* 3:2 aspect ratio */
+		overflow: hidden;
+	}
+
+	.card-image img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 90%;
+		object-fit: cover;
+		object-position: center;
+		transition: transform 0.3s ease;
+	}
+
+	.portfolio-card:hover .card-image img {
+		transform: scale(1.1);
+	}
+
+	.card-content {
+		padding: 1.5rem;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.category {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: var(--color-accent);
+		display: inline-block;
+		margin-bottom: 0.5rem;
+	}
+
+	h3 {
+		font-size: 1.5rem;
+		margin: 0.5rem 0;
+		color: var(--color-white);
+	}
+
+	.client {
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.7);
+		margin-bottom: 1rem;
+	}
+
+	.description {
+		margin-bottom: 1.5rem;
+		line-height: 1.6;
+		color: var(--color-accent);
+		flex-grow: 1;
+	}
+
+	.view-project {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--color-white);
+		text-decoration: none;
+		font-weight: 500;
+		transition: gap 0.3s ease;
+		margin-top: auto;
+	}
+
+	.view-project:hover {
+		gap: 1rem;
+	}
+
+	.arrow {
+		transition: transform 0.3s ease;
+	}
+
+	.view-project:hover .arrow {
+		transform: translateX(5px);
+	}
+
+	.cta-section {
+		padding: 6rem 0;
+		text-align: center;
+		background: linear-gradient(rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/benefit.jpg') center/cover no-repeat;
+	}
+
+	.cta-section h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1.5rem;
+		color: var(--color-white);
+	}
+
+	.cta-section p {
+		font-size: 1.2rem;
+		max-width: 800px;
+		margin: 0 auto 2.5rem;
+		color: var(--color-accent);
+	}
+
+	.cta-button {
+		display: inline-block;
+		background: var(--color-accent);
+		color: var(--color-background);
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 768px) {
+		.portfolio-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.filter-buttons {
+			flex-direction: row;
+			overflow-x: auto;
+			padding-bottom: 1rem;
+			justify-content: flex-start;
+		}
+
+		.filter-btn {
+			flex: 0 0 auto;
+		}
+		
+		.card-image {
+			padding-top: 75%; /* 4:3 aspect ratio for mobile */
+		}
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const filterButtons = document.querySelectorAll('.filter-btn');
+		const portfolioCards = document.querySelectorAll('.portfolio-card');
+		
+		// Set "Tous" as active by default
+		document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+		
+		filterButtons.forEach(button => {
+			button.addEventListener('click', () => {
+				// Remove active class from all buttons
+				filterButtons.forEach(btn => btn.classList.remove('active'));
+				
+				// Add active class to clicked button
+				button.classList.add('active');
+				
+				const category = button.getAttribute('data-category');
+				
+				portfolioCards.forEach(card => {
+					if (category === 'all') {
+						card.style.display = 'block';
+					} else {
+						// Check if the card's category contains the selected category
+						// This handles cases like "Digital & SEO" when filtering by either "Digital" or "SEO"
+						const cardCategory = card.getAttribute('data-category');
+						if (cardCategory.includes(category)) {
+							card.style.display = 'block';
+						} else {
+							card.style.display = 'none';
+						}
+					}
+				});
+				
+				// Animate cards
+				setTimeout(() => {
+					document.querySelectorAll('.portfolio-card[style="display: block"]').forEach((card, index) => {
+						setTimeout(() => {
+							card.style.opacity = '1';
+							card.style.transform = 'translateY(0)';
+						}, index * 100);
+					});
+				}, 100);
+			});
+		});
+	});
+</script>

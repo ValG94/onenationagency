@@ -1,0 +1,765 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Section from '../components/Section.astro';
+
+const metaDescription = "Optimisez votre présence sur les réseaux sociaux avec nos services de gestion stratégique. Création de contenu, community management et stratégies d'engagement pour renforcer votre marque et développer votre communauté.";
+---
+
+<Layout 
+	title="Gestion des Réseaux Sociaux | One Nation" 
+	description={metaDescription}
+	ogImage="/images/reseaux-sociaux-banner.jpg"
+>
+	<Header />
+	<main id="main-content">
+		<section class="hero">
+			<div class="hero-content">
+				<h1>Gestion stratégique des Réseaux Sociaux</h1>
+				<p>Développez votre présence sociale, engagez votre communauté et amplifiez votre message</p>
+				<a href="/contact" class="cta-button">Discuter de votre projet</a>
+			</div>
+		</section>
+
+		<Section id="social-services" title="Nos services Réseaux Sociaux">
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="12" cy="12" r="3"></circle>
+							<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+						</svg>
+					</div>
+					<h3>Stratégie Social Media</h3>
+					<p>Développement de stratégies personnalisées pour chaque plateforme sociale, alignées avec vos objectifs commerciaux et votre positionnement de marque.</p>
+				</div>
+				
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+							<polyline points="14 2 14 8 20 8"></polyline>
+							<line x1="16" y1="13" x2="8" y2="13"></line>
+							<line x1="16" y1="17" x2="8" y2="17"></line>
+							<polyline points="10 9 9 9 8 9"></polyline>
+						</svg>
+					</div>
+					<h3>Création de contenu</h3>
+					<p>Production de contenus engageants et adaptés à chaque plateforme : visuels, vidéos, infographies, articles et publications qui résonnent avec votre audience.</p>
+				</div>
+				
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+							<circle cx="9" cy="7" r="4"></circle>
+							<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+							<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+						</svg>
+					</div>
+					<h3>Community Management</h3>
+					<p>Gestion quotidienne de vos communautés sociales, interaction avec votre audience et modération des commentaires pour maintenir un environnement positif.</p>
+				</div>
+				
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+							<line x1="8" y1="21" x2="16" y2="21"></line>
+							<line x1="12" y1="17" x2="12" y2="21"></line>
+						</svg>
+					</div>
+					<h3>Publicité Social Media</h3>
+					<p>Conception et gestion de campagnes publicitaires ciblées sur les réseaux sociaux pour maximiser votre portée et votre retour sur investissement.</p>
+				</div>
+				
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+							<path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+						</svg>
+					</div>
+					<h3>Analyse & Reporting</h3>
+					<p>Suivi et analyse des performances de vos réseaux sociaux avec des rapports détaillés et des recommandations d'optimisation.</p>
+				</div>
+				
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M12 20h9"></path>
+							<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+						</svg>
+					</div>
+					<h3>Formation & Coaching</h3>
+					<p>Programmes de formation pour vos équipes sur les meilleures pratiques des réseaux sociaux et coaching personnalisé pour optimiser votre présence.</p>
+				</div>
+			</div>
+		</Section>
+
+		<section class="platforms">
+			<div class="container">
+				<h2>Notre expertise par Plateforme</h2>
+				<div class="platforms-grid">
+					<div class="platform-card">
+						<div class="platform-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+							</svg>
+						</div>
+						<h3>Facebook</h3>
+						<p>Stratégies de contenu, gestion de communauté et publicité ciblée pour développer votre présence sur la plus grande plateforme sociale.</p>
+					</div>
+					
+					<div class="platform-card">
+						<div class="platform-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+							</svg>
+						</div>
+						<h3>Instagram</h3>
+						<p>Création de contenu visuel attrayant, stratégies de Stories et Reels, et développement d'une esthétique cohérente pour votre marque.</p>
+					</div>
+					
+					<div class="platform-card">
+						<div class="platform-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+							</svg>
+						</div>
+						<h3>LinkedIn</h3>
+						<p>Développement de votre présence professionnelle, création de contenu B2B pertinent et stratégies de networking pour renforcer votre autorité sectorielle.</p>
+					</div>
+					
+					<div class="platform-card">
+						<div class="platform-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+							</svg>
+						</div>
+						<h3>X ex Twitter</h3>
+						<p>Stratégies de communication en temps réel, veille et engagement avec votre communauté pour renforcer votre présence dans les conversations de votre secteur.</p>
+					</div>
+					
+					<div class="platform-card">
+						<div class="platform-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/> 
+							</svg>
+						</div>
+						<h3>TikTok</h3>
+						<p>Création de contenu vidéo court et tendance pour toucher les audiences plus jeunes et augmenter votre visibilité de manière créative.</p>
+					</div>
+					
+					<div class="platform-card">
+						<div class="platform-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.441 16.892c-2.102.144-6.784.144-8.883 0-2.276-.156-2.541-1.27-2.558-4.892.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0 2.277.156 2.541 1.27 2.559 4.892-.018 3.629-.285 4.736-2.559 4.892zm-6.441-7.234l4.917 2.338-4.917 2.346v-4.684z"/>
+							</svg>
+						</div>
+						<h3>YouTube</h3>
+						<p>Développement de votre chaîne, création de contenu vidéo de qualité et optimisation pour le référencement sur la plus grande plateforme vidéo.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="benefits">
+			<div class="container">
+				<h2>Pourquoi investir dans les Réseaux Sociaux ?</h2>
+				<div class="benefits-grid">
+					<div class="benefit-card">
+						<div class="benefit-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+								<circle cx="9" cy="7" r="4"></circle>
+								<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+								<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+							</svg>
+						</div>
+						<h3>Engagement direct</h3>
+						<p>Interagissez directement avec votre audience, recueillez des feedbacks et construisez une relation de confiance avec votre communauté.</p>
+					</div>
+					
+					<div class="benefit-card">
+						<div class="benefit-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<circle cx="12" cy="12" r="10"></circle>
+								<line x1="2" y1="12" x2="22" y2="12"></line>
+								<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+							</svg>
+						</div>
+						<h3>Visibilité globale</h3>
+						<p>Atteignez une audience mondiale et développez votre notoriété au-delà des frontières géographiques traditionnelles.</p>
+					</div>
+					
+					<div class="benefit-card">
+						<div class="benefit-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<line x1="12" y1="1" x2="12" y2="23"></line>
+								<path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+							</svg>
+						</div>
+						<h3>Coût-Efficacité</h3>
+						<p>Bénéficiez d'un canal marketing offrant un excellent retour sur investissement par rapport aux médias traditionnels.</p>
+					</div>
+					
+					<div class="benefit-card">
+						<div class="benefit-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+								<polyline points="22 4 12 14.01 9 11.01"></polyline>
+							</svg>
+						</div>
+						<h3>Ciblage précis</h3>
+						<p>Atteignez exactement les audiences qui vous intéressent grâce aux options de ciblage avancées des plateformes sociales.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="case-studies">
+			<div class="container">
+				<h2>Nos réussites</h2>
+				<div class="case-studies-grid">
+					<div class="case-study">
+						<img src="/reseaux_sociaux.jpg" alt="Stratégie réseaux sociaux" loading="lazy">
+						<div class="case-study-content">
+							<h3>Refonte d'une stratégie réseaux sociaux</h3>
+							<p>Développement d'une nouvelle stratégie de contenu et d'engagement pour une institution financière sur LinkedIn et Twitter.</p>
+							<div class="case-results">
+								<div class="result">
+									<span class="result-number">+215%</span>
+									<span class="result-label">Engagement</span>
+								</div>
+								<div class="result">
+									<span class="result-number">+180%</span>
+									<span class="result-label">Followers</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="case-study">
+						<img src="/campagneReseau.jpg" alt="Campagne social media" loading="lazy">
+						<div class="case-study-content">
+							<h3>Campagne Social Media Panafricaine</h3>
+							<p>Conception et déploiement d'une campagne multi-plateformes pour une organisation internationale opérant dans plusieurs pays africains.</p>
+							<div class="case-results">
+								<div class="result">
+									<span class="result-number">+320%</span>
+									<span class="result-label">Portée</span>
+								</div>
+								<div class="result">
+									<span class="result-number">+150%</span>
+									<span class="result-label">Conversions</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="process">
+			<div class="container">
+				<h2>Notre processus d'analyse</h2>
+				<div class="process-steps">
+					<div class="process-step">
+						<div class="step-number">01</div>
+						<div class="step-content">
+							<h3>Audit & Analyse</h3>
+							<p>Nous évaluons votre présence actuelle sur les réseaux sociaux, analysons votre audience et votre concurrence pour établir un point de départ solide.</p>
+						</div>
+					</div>
+					
+					<div class="process-step">
+						<div class="step-number">02</div>
+						<div class="step-content">
+							<h3>Stratégie & Planification</h3>
+							<p>Nous développons une stratégie social media sur mesure avec un calendrier éditorial, des objectifs clairs et un plan d'action détaillé.</p>
+						</div>
+					</div>
+					
+					<div class="process-step">
+						<div class="step-number">03</div>
+						<div class="step-content">
+							<h3>Création & Publication</h3>
+							<p>Notre équipe crée et publie du contenu engageant et pertinent pour chaque plateforme, en respectant votre identité de marque et vos objectifs.</p>
+						</div>
+					</div>
+					
+					<div class="process-step">
+						<div class="step-number">04</div>
+						<div class="step-content">
+							<h3>Community Management</h3>
+							<p>Nous gérons activement votre communauté, répondons aux commentaires et messages, et créons des interactions positives avec votre audience.</p>
+						</div>
+					</div>
+					
+					<div class="process-step">
+						<div class="step-number">05</div>
+						<div class="step-content">
+							<h3>Analyse & Optimisation</h3>
+							<p>Nous analysons en continu les performances de vos réseaux sociaux et optimisons la stratégie pour maximiser les résultats.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="faq">
+			<div class="container">
+				<h2>Questions fréquentes</h2>
+				<div class="faq-list">
+					<details class="faq-item">
+						<summary>Sur quelles plateformes sociales devrions-nous être présents ?</summary>
+						<div class="faq-answer">
+							<p>La sélection des plateformes dépend de plusieurs facteurs : votre secteur d'activité, vos objectifs, et surtout, là où se trouve votre audience cible. Il n'est pas nécessaire d'être présent sur toutes les plateformes. Une présence ciblée et qualitative sur 2-3 réseaux pertinents est généralement plus efficace qu'une présence diluée sur de nombreuses plateformes. Nous réalisons une analyse approfondie pour déterminer les plateformes les plus stratégiques pour votre organisation et concentrons nos efforts là où ils auront le plus d'impact.</p>
+						</div>
+					</details>
+					
+					<details class="faq-item">
+						<summary>Quelle est la fréquence idéale de publication sur les réseaux sociaux ?</summary>
+						<div class="faq-answer">
+							<p>La fréquence optimale varie selon les plateformes et votre audience. Sur LinkedIn, 3-5 publications par semaine peuvent être suffisantes, tandis que sur Twitter ou Instagram, une présence quotidienne peut être nécessaire. Cependant, la qualité prime toujours sur la quantité. Il est préférable de publier moins mais avec un contenu de qualité qui génère de l'engagement, plutôt que de publier fréquemment du contenu médiocre. Nous établissons un calendrier de publication adapté à vos ressources et objectifs, tout en veillant à maintenir une présence régulière et cohérente.</p>
+						</div>
+					</details>
+					
+					<details class="faq-item">
+						<summary>Comment mesurez-vous le succès sur les réseaux sociaux ?</summary>
+						<div class="faq-answer">
+							<p>Nous définissons des KPIs spécifiques alignés sur vos objectifs commerciaux. Ces indicateurs peuvent inclure l'engagement (likes, commentaires, partages), la croissance de l'audience, la portée des publications, le taux de clics vers votre site web, les conversions générées, ou encore le sentiment général autour de votre marque. Nous utilisons des outils d'analyse avancés pour suivre ces métriques et fournissons des rapports réguliers qui vont au-delà des chiffres bruts pour vous donner des insights actionnables sur la performance de votre stratégie social media.</p>
+						</div>
+					</details>
+					
+					<details class="faq-item">
+						<summary>Comment gérez-vous les commentaires négatifs ou les crises sur les réseaux sociaux ?</summary>
+						<div class="faq-answer">
+							<p>Nous adoptons une approche proactive de la gestion de crise sur les réseaux sociaux. Cela commence par la mise en place de protocoles clairs pour différents types de situations. Pour les commentaires négatifs courants, nous répondons de manière professionnelle et constructive, en cherchant à résoudre le problème et à transformer une expérience négative en positive. Pour les situations plus graves, nous avons des procédures d'escalade et des modèles de réponse préapprouvés qui nous permettent de réagir rapidement. Notre équipe est formée pour distinguer les critiques légitimes des trolls, et pour adapter la réponse en conséquence. L'objectif est toujours de protéger votre réputation tout en démontrant votre engagement envers la satisfaction client.</p>
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+
+		<section class="cta-section">
+			<div class="container">
+				<h2>Prêt à transformer votre présence sur les Réseaux Sociaux ?</h2>
+				<p>Contactez-nous dès aujourd'hui pour discuter de vos besoins en gestion de réseaux sociaux et découvrir comment nous pouvons vous aider à atteindre vos objectifs.</p>
+				<div class="cta-buttons">
+					<a href="/contact" class="primary-button">Demander un audit gratuit</a>
+					<a href="/services" class="secondary-button">Explorer nos services</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.hero {
+		height: 80vh;
+		min-height: 600px;
+		background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/reseaux_sociaux.jpg') center/cover no-repeat;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		margin-top: 72px;
+	}
+
+	.hero-content {
+		max-width: 800px;
+		padding: 0 2rem;
+	}
+
+	.hero h1 {
+		font-size: 3.5rem;
+		margin-bottom: 1.5rem;
+		line-height: 1.2;
+	}
+
+	.hero p {
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		opacity: 0.9;
+	}
+
+	.cta-button {
+		display: inline-block;
+		background: var(--color-accent);
+		color: var(--color-background);
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.service-card {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 2.5rem 2rem;
+		border-radius: 12px;
+		transition: transform 0.3s ease;
+		text-align: center;
+		height: 100%;
+	}
+
+	.service-card:hover {
+		transform: translateY(-10px);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.service-icon {
+		color: var(--color-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.service-card h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.platforms {
+		padding: 8rem 0;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.platforms h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.platforms-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+	}
+
+	.platform-card {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 2.5rem 2rem;
+		border-radius: 12px;
+		transition: transform 0.3s ease;
+		text-align: center;
+		height: 100%;
+	}
+
+	.platform-card:hover {
+		transform: translateY(-10px);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.platform-icon {
+		color: var(--color-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.platform-card h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.benefits {
+		padding: 8rem 0;
+	}
+
+	.benefits h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.benefits-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 3rem;
+	}
+
+	.benefit-card {
+		text-align: center;
+		padding: 2.5rem 2rem;
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 12px;
+		transition: transform 0.3s ease;
+		height: 100%;
+	}
+
+	.benefit-card:hover {
+		transform: translateY(-10px);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.benefit-icon {
+		color: var(--color-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.benefit-card h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.case-studies {
+		padding: 8rem 0;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.case-studies h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.case-studies-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: 3rem;
+	}
+
+	.case-study {
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 12px;
+		overflow: hidden;
+		transition: transform 0.3s ease;
+	}
+
+	.case-study:hover {
+		transform: translateY(-10px);
+	}
+
+	.case-study img {
+		width: 100%;
+		height: 250px;
+		object-fit: cover;
+	}
+
+	.case-study-content {
+		padding: 2rem;
+	}
+
+	.case-study h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.case-results {
+		display: flex;
+		justify-content: space-around;
+		margin: 1.5rem 0;
+	}
+
+	.result {
+		text-align: center;
+	}
+
+	.result-number {
+		display: block;
+		font-size: 1.8rem;
+		font-weight: 700;
+		color: var(--color-accent);
+	}
+
+	.result-label {
+		font-size: 0.9rem;
+		opacity: 0.8;
+	}
+
+	.process {
+		padding: 8rem 0;
+	}
+
+	.process h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.process-steps {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.process-step {
+		display: flex;
+		gap: 2rem;
+		margin-bottom: 3rem;
+		position: relative;
+	}
+
+	.process-step:not(:last-child)::after {
+		content: '';
+		position: absolute;
+		top: 3rem;
+		left: 1.5rem;
+		width: 2px;
+		height: calc(100% + 3rem);
+		background: rgba(255, 255, 255, 0.1);
+		z-index: -1;
+	}
+
+	.step-number {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--color-accent);
+		flex-shrink: 0;
+		width: 3rem;
+		text-align: center;
+	}
+
+	.step-content h3 {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.faq {
+		padding: 8rem 0;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.faq h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.faq-list {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.faq-item {
+		margin-bottom: 1.5rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.faq-item summary {
+		padding: 1.5rem 0;
+		font-size: 1.2rem;
+		font-weight: 500;
+		cursor: pointer;
+		position: relative;
+		list-style: none;
+	}
+
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item summary::after {
+		content: '+';
+		position: absolute;
+		right: 0;
+		font-size: 1.5rem;
+		transition: transform 0.3s ease;
+	}
+
+	.faq-item[open] summary::after {
+		transform: rotate(45deg);
+	}
+
+	.faq-answer {
+		padding: 0 0 1.5rem;
+	}
+
+	.cta-section {
+		padding: 6rem 0;
+		text-align: center;
+		background: linear-gradient(rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/campagneReseau.jpg') center/cover no-repeat;
+	}
+
+	.cta-section h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-section p {
+		font-size: 1.2rem;
+		max-width: 800px;
+		margin: 0 auto 2.5rem;
+		opacity: 0.9;
+	}
+
+	.cta-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.primary-button, .secondary-button {
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.primary-button {
+		background: var(--color-accent);
+		color: var(--color-background);
+	}
+
+	.secondary-button {
+		background: transparent;
+		color: var(--color-white);
+		border: 2px solid var(--color-accent);
+	}
+
+	.primary-button:hover, .secondary-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 992px) {
+		.process-step {
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		.process-step:not(:last-child)::after {
+			display: none;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			height: 70vh;
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+
+		.hero p {
+			font-size: 1.2rem;
+		}
+
+		.services-grid, .platforms-grid, .benefits-grid, .case-studies-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.cta-buttons {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+</style>

@@ -1,0 +1,539 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+const services = [
+	{
+		title: "Intelligence artificielle",
+		description: "Solutions d'IA innovantes pour optimiser votre communication et automatiser vos processus.",
+		icon: "ai",
+		link: "/intelligence-artificielle",
+		image: "/IA.jpg"
+	},
+	{
+		title: "Afrique",
+		description: "Expertise locale et solutions sur mesure pour les marchés africains avec notre réseau panafricain.",
+		icon: "africa",
+		link: "/afrique",
+		image: "/afrique.jpg"
+	},
+	{
+		title: "Référencement SEO",
+		description: "Stratégies de référencement naturel pour améliorer votre visibilité en ligne et attirer un trafic qualifié.",
+		icon: "seo",
+		link: "/referencement",
+		image: "/social_media.jpg"
+	},
+	{
+		title: "Webmarketing",
+		description: "Stratégies digitales intégrées pour transformer votre présence en ligne et maximiser votre impact.",
+		icon: "webmarketing",
+		link: "/webmarketing",
+		image: "/webmarketing.jpg"
+	},
+	{
+		title: "Design Graphique",
+		description: "Création d'identités visuelles distinctives et conception de supports de communication impactants.",
+		icon: "design",
+		link: "/design-graphique",
+		image: "/design_graphique.jpg"
+	},
+	{
+		title: "Conseil Stratégique",
+		description: "Accompagnement personnalisé pour définir et mettre en œuvre votre stratégie de communication.",
+		icon: "strategy",
+		link: "/conseil-strategique",
+		image: "/conseils.jpg"
+	},
+	{
+		title: "E-réputation",
+		description: "Gestion et protection de votre image en ligne pour renforcer votre crédibilité et votre confiance.",
+		icon: "reputation",
+		link: "/e-reputation",
+		image: "/porteCartes.jpg"
+	},
+	{
+		title: "Réseaux sociaux",
+		description: "Gestion stratégique de vos réseaux sociaux pour engager votre communauté et amplifier votre message.",
+		icon: "social",
+		link: "/reseaux-sociaux",
+		image: "/reseaux_sociaux.jpg"
+	},
+	{
+		title: "Relations presse",
+		description: "Développement et maintien de relations solides avec les médias pour maximiser votre couverture.",
+		icon: "press",
+		link: "/relations-presse",
+		image: "/fake-news.jpg"
+	}
+];
+---
+
+<Layout title="Services - One Nation">
+	<Header />
+	<main>
+		<section class="services" id="services">
+			<div class="hero-section">
+				<img src="/backgroundTeams.jpg" alt="Nos services" class="hero-image">
+				<div class="hero-overlay"></div>
+				<h1>Nos services</h1>
+			</div>
+			<div class="container">
+				<p class="intro-text">Chez One Nation, nous proposons une gamme complète de services de communication adaptés aux besoins spécifiques des institutions et des entreprises. Notre approche intégrée garantit cohérence et efficacité dans toutes vos actions de communication.</p>
+				
+				<div class="services-grid">
+					{services.map((service) => (
+						<a href={service.link} class="service-card-link">
+							<div class="service-card">
+								<div class="service-image">
+									<img src={service.image} alt={service.title} loading="lazy" />
+									<div class="service-overlay"></div>
+								</div>
+								<div class="service-content">
+									<div class="icon">
+										{service.icon === 'ai' && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<path d="M12 2c1.1 0 2 .9 2 2v2c0 1.1-.9 2-2 2s-2-.9-2-2V4c0-1.1.9-2 2-2zm0 16c1.1 0 2 .9 2 2v2c0 1.1-.9 2-2 2s-2-.9-2-2v-2c0-1.1.9-2 2-2zm10-8c0 1.1-.9 2-2 2h-2c-1.1 0-2-.9-2-2s.9-2 2-2h2c1.1 0 2 .9 2 2zM6 10c0 1.1-.9 2-2 2H2c-1.1 0-2-.9-2-2s.9-2 2-2h2c1.1 0 2 .9 2 2zm10.7-4.3c.4.4.4 1 0 1.4l-1.4 1.4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0zM8.7 16.7c.4.4.4 1 0 1.4l-1.4 1.4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0zM19.7 16.7c.4.4.4 1 0 1.4l-1.4 1.4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0zM8.7 5.7c.4.4.4 1 0 1.4L7.3 8.5c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0z"></path>
+											</svg>
+										)}
+										{service.icon === 'africa' && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"></path>
+												<path d="M12 2a10 10 0 0 1 10 10M12 2v20M2 12h20"></path>
+											</svg>
+										)}
+										{service.icon === 'seo' && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<circle cx="11" cy="11" r="8"></circle>
+												<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+											</svg>
+										)}
+										{service.icon === 'webmarketing' && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<circle cx="12" cy="12" r="10"></circle>
+												<circle cx="12" cy="12" r="6"></circle>
+												<circle cx="12" cy="12" r="2"></circle>
+											</svg>
+										)}
+										{service.icon === 'design' && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+												<line x1="16" y1="8" x2="2" y2="22"></line>
+												<line x1="17.5" y1="15" x2="9" y2="15"></line>
+											</svg>
+										)}
+										{service.icon === 'strategy' && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<circle cx="12" cy="12" r="3"></circle>
+												<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+											</svg>
+										)}
+										{service.icon === 'reputation' && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+												<path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+												<line x1="9" y1="9" x2="9.01" y2="9"></line>
+												<line x1="15" y1="9" x2="15.01" y2="9"></line>
+											</svg>
+										)}
+										{service.icon === 'social' && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+											</svg>
+										)}
+										{service.icon === 'press' && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+												<circle cx="9" cy="7" r="4"></circle>
+												<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+												<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+											</svg>
+										)}
+									</div>
+									<h3>{service.title}</h3>
+									<p>{service.description}</p>
+									<span class="read-more">En savoir plus <span class="arrow">→</span></span>
+								</div>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="approach">
+			<div class="container">
+				<h2>Notre approche</h2>
+				<div class="approach-content">
+					<div class="approach-text">
+						<p>Chez One Nation, nous croyons en une approche intégrée de la communication qui combine stratégie, créativité et technologie. Notre méthodologie en 4 étapes garantit des résultats mesurables et durables :</p>
+						
+						<div class="approach-steps">
+							<div class="step">
+								<div class="step-number">01</div>
+								<div class="step-content">
+									<h3>Analyse & Découverte</h3>
+									<p>Nous commençons par une analyse approfondie de votre organisation, de votre marché et de vos objectifs pour établir une base solide.</p>
+								</div>
+							</div>
+							
+							<div class="step">
+								<div class="step-number">02</div>
+								<div class="step-content">
+									<h3>Stratégie & Planification</h3>
+									<p>Nous développons une stratégie sur mesure avec un plan d'action détaillé, des KPIs clairs et un calendrier de déploiement.</p>
+								</div>
+							</div>
+							
+							<div class="step">
+								<div class="step-number">03</div>
+								<div class="step-content">
+									<h3>Exécution & Déploiement</h3>
+									<p>Notre équipe met en œuvre la stratégie avec précision, en s'assurant que chaque élément est exécuté selon les plus hauts standards.</p>
+								</div>
+							</div>
+							
+							<div class="step">
+								<div class="step-number">04</div>
+								<div class="step-content">
+									<h3>Mesure & Optimisation</h3>
+									<p>Nous analysons en continu les résultats et optimisons nos actions pour maximiser l'impact et le retour sur investissement.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="approach-image">
+						<img src="ourApproch.jpg" alt="Notre approche" loading="lazy">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="cta-section">
+			<div class="container">
+				<h2>Prêt à transformer votre communication ?</h2>
+				<p>Contactez-nous dès aujourd'hui pour discuter de vos besoins et découvrir comment nous pouvons vous aider à atteindre vos objectifs.</p>
+				<div class="cta-buttons">
+					<a href="/contact" class="primary-button">Demander un devis</a>
+					<a href="/portfolio" class="secondary-button">Voir nos réalisations</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.services {
+		padding: 0 0 8rem 0;
+	}
+
+	.hero-section {
+		position: relative;
+		height: 400px;
+		margin-bottom: 4rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.hero-image {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: brightness(0.3);
+	}
+
+	.hero-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(rgba(72, 71, 68, 0.7), rgba(72, 71, 68, 0.9));
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	h1 {
+		font-size: 3.5rem;
+		text-align: center;
+		margin: 0;
+		color: var(--color-white);
+		position: relative;
+		z-index: 2;
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.intro-text {
+		text-align: center;
+		max-width: 800px;
+		margin: 0 auto 4rem;
+		font-size: 1.2rem;
+		line-height: 1.8;
+		color: var(--color-accent);
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: 2rem;
+	}
+
+	.service-card-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+		transition: transform 0.3s ease;
+	}
+
+	.service-card-link:hover {
+		transform: translateY(-10px);
+	}
+
+	.service-card {
+		background: rgba(175, 175, 174, 0.1);
+		border-radius: 12px;
+		overflow: hidden;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		transition: box-shadow 0.3s ease;
+	}
+
+	.service-card-link:hover .service-card {
+		box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+	}
+
+	.service-image {
+		height: 200px;
+		overflow: hidden;
+		position: relative;
+	}
+
+	.service-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.service-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(rgba(72, 71, 68, 0.3), rgba(72, 71, 68, 0.7));
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.service-card-link:hover .service-image img {
+		transform: scale(1.1);
+	}
+
+	.service-card-link:hover .service-overlay {
+		opacity: 1;
+	}
+
+	.service-content {
+		padding: 2rem;
+		text-align: center;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.icon {
+		margin-bottom: 1.5rem;
+		color: var(--color-accent);
+		transition: transform 0.3s ease;
+	}
+
+	.service-card-link:hover .icon {
+		transform: scale(1.1);
+	}
+
+	h3 {
+		font-size: 1.5rem;
+		margin: 0 0 1rem 0;
+		color: var(--color-white);
+	}
+
+	p {
+		margin: 0;
+		line-height: 1.6;
+		font-weight: 300;
+		color: var(--color-accent);
+		flex-grow: 1;
+	}
+
+	.read-more {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 1.5rem;
+		color: var(--color-white);
+		font-weight: 500;
+	}
+
+	.arrow {
+		transition: transform 0.3s ease;
+	}
+
+	.service-card-link:hover .arrow {
+		transform: translateX(5px);
+	}
+
+	.approach {
+		padding: 8rem 0;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.approach h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.approach-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: center;
+	}
+
+	.approach-text p {
+		font-size: 1.2rem;
+		line-height: 1.8;
+		margin-bottom: 3rem;
+	}
+
+	.approach-steps {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.step {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.step-number {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--color-accent);
+		opacity: 0.5;
+		line-height: 1;
+	}
+
+	.step-content h3 {
+		font-size: 1.3rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.approach-image img {
+		width: 100%;
+		border-radius: 12px;
+		box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+	}
+
+	.cta-section {
+		padding: 6rem 0;
+		text-align: center;
+		background: linear-gradient(rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/conseils.jpg') center/cover no-repeat;
+	}
+
+	.cta-section h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-section p {
+		font-size: 1.2rem;
+		max-width: 800px;
+		margin: 0 auto 2.5rem;
+		opacity: 0.9;
+		color: var(--color-white);
+	}
+
+	.cta-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.primary-button, .secondary-button {
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.primary-button {
+		background: var(--color-accent);
+		color: var(--color-background);
+	}
+
+	.secondary-button {
+		background: transparent;
+		color: var(--color-white);
+		border: 2px solid var(--color-accent);
+	}
+
+	.primary-button:hover, .secondary-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 992px) {
+		.approach-content {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+		}
+
+		.approach-image {
+			order: -1;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero-section {
+			height: 300px;
+		}
+
+		h1 {
+			font-size: 2.5rem;
+			padding: 0 1rem;
+		}
+
+		.services-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.step {
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.step-number {
+			font-size: 2rem;
+		}
+
+		.cta-buttons {
+			flex-direction: column;
+			align-items: center;
+			gap: 1rem;
+		}
+	}
+</style>

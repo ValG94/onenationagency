@@ -1,0 +1,186 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+	<div class="container">
+		<div class="footer-content">
+			<div class="footer-left">
+				<div class="footer-logo">
+					<img src="/logoOneNation.jpg" alt="One Nation" width="80" height="auto">
+				</div>
+				<div class="copyright">
+					<p>&copy; {currentYear} One Nation</p>
+					<p>Tous droits réservés</p>
+				</div>
+			</div>
+			<div class="footer-right">
+				<nav class="footer-nav">
+					<ul>
+						<li><a href="/mentions-legales">Mentions légales</a></li>
+						<li><a href="/cgv">CGV</a></li>
+						<li><a href="/politique-confidentialite">Confidentialité</a></li>
+						<li><a href="/politique-cookies">Cookies</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="footer-address">
+			<div class="address-block">
+				<p class="address-title">Agence France :</p>
+				<p>3 rue de Suresnes </p>
+        <p>Quartier de l'Elysée </p>
+        <p>75008 Paris</p>
+			</div>
+			<div class="address-block">
+				<p class="address-title">Agence Afrique Centrale :</p>
+				<p>BP 848 Yaoundé </p>
+        <p>Golf Ambassade des USA </p>
+        <p>Avenue Rosa Parks - Cameroun</p>
+			</div>
+			<div class="contact-info">
+				<p><a href="mailto:contact@onenationagency.com">contact@onenationagency.com</a></p>
+				<p><a href="https://www.onenationagency.com" target="_blank" rel="noopener noreferrer">www.onenationagency.com</a></p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		background-color: #333;
+		color: var(--color-white);
+		padding: 3rem 0 2rem;
+		margin-top: 4rem;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.footer-content {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		flex-wrap: wrap;
+		margin-bottom: 2rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		padding-bottom: 2rem;
+	}
+
+	.footer-left {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+	}
+
+	.footer-logo img {
+		border-radius: 8px;
+		transition: opacity 0.3s ease;
+	}
+
+	.footer-logo img:hover {
+		opacity: 0.8;
+	}
+
+	.copyright p {
+		margin: 0;
+		font-size: 0.9rem;
+		color: var(--color-accent);
+	}
+
+	.footer-right {
+		padding-top: 0.5rem;
+	}
+
+	.footer-nav ul {
+		display: flex;
+		gap: 1.5rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.footer-nav a {
+		color: var(--color-accent);
+		text-decoration: none;
+		font-size: 0.9rem;
+		transition: all 0.3s ease;
+		position: relative;
+	}
+
+	.footer-nav a::after {
+		content: '';
+		position: absolute;
+		width: 0;
+		height: 1px;
+		bottom: -2px;
+		left: 0;
+		background-color: var(--color-white);
+		transition: width 0.3s ease;
+	}
+
+	.footer-nav a:hover {
+		color: var(--color-white);
+	}
+
+	.footer-nav a:hover::after {
+		width: 100%;
+	}
+
+	.footer-address {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		font-size: 0.9rem;
+		color: var(--color-accent);
+	}
+
+	.address-block p {
+		margin: 0.3rem 0;
+	}
+
+	.address-title {
+		font-weight: 600;
+		color: var(--color-white);
+	}
+
+	.contact-info p {
+		margin: 0.3rem 0;
+	}
+
+	.contact-info a {
+		color: var(--color-accent);
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.contact-info a:hover {
+		color: var(--color-white);
+	}
+
+	@media (max-width: 768px) {
+		.footer-content {
+			flex-direction: column;
+			gap: 2rem;
+		}
+
+		.footer-left {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1rem;
+		}
+
+		.footer-nav ul {
+			flex-wrap: wrap;
+			gap: 1rem 1.5rem;
+		}
+
+		.footer-address {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+	}
+</style>

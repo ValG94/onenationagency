@@ -1,0 +1,235 @@
+---
+import Footer from '../components/Footer.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+	canonical?: string;
+	ogImage?: string;
+}
+
+const { 
+	title, 
+	description = "One Nation est une agence de conseil en communication institutionnelle qui vous accompagne dans vos stratégies de communication, relations publiques et communication digitale. Experts en création de marque, refonte logo, marketing digital et digitalisation institutionnelle.",
+	canonical = Astro.url.pathname,
+	ogImage = "/logoOneNation.jpg"
+} = Astro.props;
+
+const isHomePage = title === "One Nation - Communication sur mesure";
+const fullCanonicalUrl = `https://www.onenationagency.com${canonical}`;
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="author" content="One Nation" />
+		<meta name="keywords" content="communication institutionnelle, stratégie de communication, relations publiques, communication digitale, agence de communication, conseil en communication, création marque, refonte logo, création logo, marketing digital, digitalisation institutionnelle, intelligence artificielle, agent IA, chatbot, afrique, marketing, design graphique, conseil stratégique, référencement, webmarketing, e-reputation, réseaux sociaux, relations presse" />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href={fullCanonicalUrl} />
+		
+		<!-- Open Graph / Social Media -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:url" content={fullCanonicalUrl} />
+		<meta property="og:site_name" content="One Nation Agency" />
+		
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		
+		<!-- Favicons -->
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<meta name="theme-color" content="#484744" />
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		
+		<!-- Structured Data / Schema.org -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "ProfessionalService",
+				"name": "One Nation Agency",
+				"image": "https://www.onenationagency.com/logoOneNation.jpg",
+				"@id": "https://www.onenationagency.com",
+				"url": "https://www.onenationagency.com",
+				"telephone": "+33625523859",
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "3 rue de Suresnes",
+					"addressLocality": "Paris",
+					"postalCode": "75008",
+					"addressCountry": "FR"
+				},
+				"geo": {
+					"@type": "GeoCoordinates",
+					"latitude": 48.8722,
+					"longitude": 2.3064
+				},
+				"openingHoursSpecification": {
+					"@type": "OpeningHoursSpecification",
+					"dayOfWeek": [
+						"Monday",
+						"Tuesday",
+						"Wednesday",
+						"Thursday",
+						"Friday"
+					],
+					"opens": "09:00",
+					"closes": "18:00"
+				},
+				"sameAs": [
+					"https://www.facebook.com/onenationagency",
+					"https://www.linkedin.com/company/one-nation-agency",
+					"https://twitter.com/onenationagency",
+					"https://www.instagram.com/onenationagency"
+				],
+				"priceRange": "€€€",
+				"description": "One Nation est une agence de conseil en communication institutionnelle qui vous accompagne dans vos stratégies de communication, relations publiques et communication digitale."
+			}
+		</script>
+	</head>
+	<body>
+		<slot />
+		{!isHomePage && (
+			<a href="https://wa.me/33625523859" class="whatsapp-button" target="_blank" rel="noopener noreferrer" aria-label="Nous contacter sur WhatsApp">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+					<path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 1.856.001 3.598.723 4.907 2.034 1.31 1.311 2.031 3.054 2.03 4.908-.001 3.825-3.113 6.938-6.937 6.938z"/>
+				</svg>
+			</a>
+		)}
+		{!isHomePage && <Footer />}
+		<style is:global>
+			:root {
+				--color-background: #484744;
+				--color-white: #ffffff;
+				--color-accent: #AFAFAE;
+			}
+			html {
+				font-family: 'Montserrat', sans-serif;
+				background: var(--color-background);
+				color: var(--color-white);
+				scroll-behavior: smooth;
+			}
+			body {
+				margin: 0;
+				padding: 0;
+				min-height: 100vh;
+				display: flex;
+				flex-direction: column;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			main {
+				flex: 1;
+			}
+			.whatsapp-button {
+				position: fixed;
+				bottom: 20px;
+				right: 20px;
+				background-color: #25D366;
+				color: white;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+				z-index: 1000;
+			}
+			.whatsapp-button:hover {
+				transform: scale(1.1);
+				box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+			}
+			.whatsapp-button svg {
+				width: 28px;
+				height: 28px;
+			}
+			
+			/* Style pour les liens avec focus amélioré */
+			a {
+				position: relative;
+				text-decoration: none;
+				color: inherit;
+			}
+			
+			a:focus {
+				outline: none; /* Supprime l'encadrement rectangulaire par défaut */
+				text-decoration: underline; /* Maintient le soulignement */
+			}
+			
+			a:focus:not(:focus-visible) {
+				/* Supprime le soulignement pour les navigateurs qui supportent :focus-visible 
+				   quand le focus est déclenché par la souris plutôt que par le clavier */
+				text-decoration: none;
+			}
+			
+			a:focus-visible {
+				/* Style spécifique pour le focus clavier */
+				text-decoration: underline;
+				text-underline-offset: 3px; /* Espace entre le texte et la ligne de soulignement */
+				text-decoration-thickness: 1px; /* Épaisseur de la ligne de soulignement */
+				text-decoration-color: var(--color-accent); /* Couleur de la ligne de soulignement */
+			}
+			
+			/* Optimisations pour l'accessibilité - autres éléments interactifs */
+			button:focus, input:focus, textarea:focus, select:focus {
+				outline: none;
+				box-shadow: 0 0 0 2px var(--color-accent);
+				border-radius: 2px;
+			}
+			
+			.skip-to-content {
+				position: absolute;
+				left: -9999px;
+				top: auto;
+				width: 1px;
+				height: 1px;
+				overflow: hidden;
+			}
+			.skip-to-content:focus {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: auto;
+				height: auto;
+				padding: 10px 15px;
+				background: var(--color-accent);
+				color: var(--color-background);
+				z-index: 9999;
+				font-weight: bold;
+			}
+			/* Optimisations pour l'impression */
+			@media print {
+				.whatsapp-button, .footer-nav {
+					display: none !important;
+				}
+				body {
+					background: white;
+					color: black;
+				}
+				a {
+					color: black;
+					text-decoration: underline;
+				}
+			}
+		</style>
+	</body>
+</html>
