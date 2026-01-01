@@ -1,9 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import NewYearPopup from '../components/NewYearPopup';
 ---
 
 <Layout title="One Nation - Communication sur mesure">
+	<!-- Popup Nouvel An, montée côté client -->
+	<NewYearPopup client:load />
+
 	<div class="landing">
 		<div class="logo-container">
 			<img src="/logoOneNation.jpg" alt="One Nation" class="logo" />
