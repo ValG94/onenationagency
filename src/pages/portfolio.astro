@@ -3,12 +3,20 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 
 const projects = [
+		{
+		title: "Campagne présidentielle 2026 – Alexis Mohamed (Djibouti)",
+		client: "Alexis Mohamed",
+		category: "Communication 360",
+		image: "/homeMohamed.jpg",
+		description: "Conception et développement full-stack d’un site de campagne présidentielle trilingue (FR/EN/AR) pour le candidat Alexis Mohamed, en vue de l’élection d’avril 2026 en République de Djibouti.",
+		link: "https://www.alexis-mohamed.com/"
+	},
 	{
-		title: "Campagne Présidentielle pour le candidat Serge Djorie en Centrafrique",
+		title: "Campagne présidentielle 2025 – Serge Ghislain Djorie (Centrafrique)",
 		client: "Serge Ghislain Djorie",
 		category: "Communication 360",
 		image: "/homeDjorie.jpg",
-		description: "Conception et déploiement d'un site de campagne présidentielle pour le candidat Serge Djorie de la République Centrafricaine, en vue de l'élection de décembre 2025. Réalisation d'affiches publicitaires, de dépliant et affiches pour les candidats du CAPNCA.",
+		description: "Conception et développement full-stack d’un site de campagne présidentielle bilingue (FR/EN) pour le candidat Serge Ghislain Djorie en République centrafricaine, en vue de l’élection de décembre 2025. Réalisation d’affiches publicitaires, de dépliants et de supports visuels pour les candidats du CAPNCA.",
 		link: "https://www.sergedjorie.com/"
 	},
 	{
@@ -359,11 +367,12 @@ const categories = ["Tous", ...uniqueCategories];
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
-		const filterButtons = document.querySelectorAll('.filter-btn');
-		const portfolioCards = document.querySelectorAll('.portfolio-card');
+		const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+		const portfolioCards = document.querySelectorAll<HTMLElement>('.portfolio-card');
 		
 		// Set "Tous" as active by default
-		document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+		const defaultBtn = document.querySelector<HTMLButtonElement>('.filter-btn[data-category="all"]');
+		if (defaultBtn) defaultBtn.classList.add('active');
 		
 		filterButtons.forEach(button => {
 			button.addEventListener('click', () => {
@@ -373,7 +382,7 @@ const categories = ["Tous", ...uniqueCategories];
 				// Add active class to clicked button
 				button.classList.add('active');
 				
-				const category = button.getAttribute('data-category');
+				const category = button.getAttribute('data-category') || '';
 				
 				portfolioCards.forEach(card => {
 					if (category === 'all') {
@@ -381,7 +390,7 @@ const categories = ["Tous", ...uniqueCategories];
 					} else {
 						// Check if the card's category contains the selected category
 						// This handles cases like "Digital & SEO" when filtering by either "Digital" or "SEO"
-						const cardCategory = card.getAttribute('data-category');
+						const cardCategory = card.getAttribute('data-category') || '';
 						if (cardCategory.includes(category)) {
 							card.style.display = 'block';
 						} else {
@@ -392,7 +401,7 @@ const categories = ["Tous", ...uniqueCategories];
 				
 				// Animate cards
 				setTimeout(() => {
-					document.querySelectorAll('.portfolio-card[style="display: block"]').forEach((card, index) => {
+					document.querySelectorAll<HTMLElement>('.portfolio-card[style="display: block"]').forEach((card, index) => {
 						setTimeout(() => {
 							card.style.opacity = '1';
 							card.style.transform = 'translateY(0)';
