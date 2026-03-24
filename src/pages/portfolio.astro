@@ -4,9 +4,9 @@ import Header from '../components/Header.astro';
 
 const projects = [
 	{
-	title: "AFAC26 – Site trilingue, agent IA et solution de paiement pour une conférence d’envergure internationale",
+	title: "AFAC26 – Site trilingue, agent IA et solution de paiement pour une conférence d'envergure internationale",
 	client: "African Football Agents Conference",
-	category: "Communication 360",
+	category: "Intelligence Artificielle",
 	image: "/Afac26_home.jpg",
 	description: "Développement de la plateforme digitale d’AFAC26 avec une approche alliant image, performance et innovation. Nous avons conçu un site web trilingue, intégré un agent IA pour améliorer l’expérience utilisateur et l’accès à l’information, et mis en place une solution de paiement en ligne pour simplifier les inscriptions. Un dispositif complet au service d’un événement premium, international et tourné vers l’avenir.",
 	link: "https://www.afaaconference.com/en"
@@ -248,8 +248,8 @@ const categories = ["Tous", ...uniqueCategories];
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 90%;
-		object-fit: cover;
+		height: 100%;
+		object-fit: contain;
 		object-position: center;
 		transition: transform 0.3s ease;
 	}
