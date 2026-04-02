@@ -1,0 +1,876 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Mockup types: 'laptop' | 'phone' | 'screen'
+const projects = [
+  {
+    id: "01",
+    mockup: "laptop",
+    title: "Centrachat Africa",
+    subtitle: "Première centrale d'achats panafricaine",
+    category: "Digital & Stratégie",
+    country: "CAMEROUN",
+    description: "Création de la plateforme digitale de la première centrale d'achats panafricaine basée à Yaoundé. Site bilingue, système d'adhésion en ligne, identité de marque complète.",
+    tags: ["Web Premium", "Stratégie", "Branding"],
+    image: "/homeCentrachat.webp",
+    link: "https://www.centrachat.africa",
+    color: "#1a3a5c"
+  },
+  {
+    id: "02",
+    mockup: "phone",
+    title: "PaieCashPlay",
+    subtitle: "Solutions digitales pour les associations sportives",
+    category: "Fintech & Intelligence Artificielle",
+    country: "FRANCE / AFRIQUE",
+    description: "Conception et développement de l'écosystème digital PaieCashPlay : paiements digitaux, e-commerce, streaming, agent IA et digitalisation des clubs sportifs.",
+    tags: ["Fintech", "Agent IA", "App Mobile"],
+    image: "/homePaiecashplay.webp",
+    link: "https://www.paiecashplay.com",
+    color: "#1a1a2e"
+  },
+  {
+    id: "03",
+    mockup: "screen",
+    title: "AFAC26 Conference",
+    subtitle: "Site trilingue, agent IA et paiement international",
+    category: "Intelligence Artificielle",
+    country: "INTERNATIONAL",
+    description: "Conception et développement du site officiel de l'African Football Agents Conference 2026. Plateforme trilingue (FR/EN/PT), agent IA intégré, système de paiement international et accréditation.",
+    tags: ["Agent IA", "Web Trilingue", "Paiement"],
+    image: "/Afac26_home.jpg",
+    link: "https://www.afaaconference.com/en",
+    color: "#0d1b2a"
+  },
+  {
+    id: "04",
+    mockup: "laptop",
+    title: "Alexis Mohamed — Djibouti",
+    subtitle: "Campagne présidentielle 2026",
+    category: "Communication 360",
+    country: "DJIBOUTI",
+    description: "Stratégie de communication complète pour la campagne présidentielle 2026 d'Alexis Mohamed. Identité visuelle, site officiel, gestion des réseaux sociaux et relations presse.",
+    tags: ["Communication Politique", "Web", "Réseaux Sociaux"],
+    image: "/homeMohamed.jpg",
+    link: "https://www.alexismohamed.dj",
+    color: "#1c3a5e"
+  },
+  {
+    id: "05",
+    mockup: "screen",
+    title: "Dr Serge Ghislain Djorie",
+    subtitle: "Campagne présidentielle 2025 — Centrafrique",
+    category: "Communication 360",
+    country: "CENTRAFRIQUE",
+    description: "Direction de la communication pour la campagne présidentielle 2025 en Centrafrique. Stratégie digitale, site officiel, production de contenus et coordination médias.",
+    tags: ["Communication Politique", "Stratégie", "Médias"],
+    image: "/homeDjorie.jpg",
+    link: "https://www.djorie2025.cf",
+    color: "#1a0a2e"
+  },
+  {
+    id: "06",
+    mockup: "laptop",
+    title: "Nomadéo Africa",
+    subtitle: "Refonte site e-commerce mobilier de bureau",
+    category: "Digital",
+    country: "CAMEROUN",
+    description: "Refonte complète du site e-commerce de Nomadéo Africa, leader du mobilier de bureau au Cameroun. UX/UI premium, catalogue produits, SEO et intégration paiement.",
+    tags: ["E-commerce", "UX/UI", "SEO"],
+    image: "/nomadeo africa home.jpg",
+    link: "https://www.nomadeoafrica.com",
+    color: "#1a2a1a"
+  },
+  {
+    id: "07",
+    mockup: "phone",
+    title: "Coplacam",
+    subtitle: "Refonte site institutionnel Design & Build",
+    category: "Digital",
+    country: "CAMEROUN",
+    description: "Refonte du site institutionnel de Coplacam Design & Build, acteur majeur de l'agencement sur mesure en Afrique centrale. Identité visuelle renforcée et expérience utilisateur premium.",
+    tags: ["Web Institutionnel", "Design", "Branding"],
+    image: "/coplacam_home.png",
+    link: "https://www.coplacam.com",
+    color: "#2a1a0a"
+  }
+];
+---
+
+<Layout title="Portfolio — One Nation Agency | Projets Stratégiques & Digitaux" description="Découvrez les projets stratégiques, digitaux et institutionnels réalisés par One Nation Agency en Afrique, Europe et au Moyen-Orient.">
+  <Header />
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section class="pf-hero">
+      <div class="pf-hero__bg"></div>
+      <div class="pf-hero__content">
+        <span class="pf-hero__label">Nos Réalisations</span>
+        <h1 class="pf-hero__title">Portfolio</h1>
+        <p class="pf-hero__sub">Projets stratégiques, digitaux et institutionnels à forte valeur ajoutée</p>
+      </div>
+      <div class="pf-hero__stats">
+        <div class="pf-hero__stat">
+          <span class="pf-hero__stat-num">07</span>
+          <span class="pf-hero__stat-label">Projets</span>
+        </div>
+        <div class="pf-hero__stat">
+          <span class="pf-hero__stat-num">12+</span>
+          <span class="pf-hero__stat-label">Pays</span>
+        </div>
+        <div class="pf-hero__stat">
+          <span class="pf-hero__stat-num">3</span>
+          <span class="pf-hero__stat-label">Expertises</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projets -->
+    <section class="pf-projects">
+      {projects.map((project, index) => (
+        <article
+          class={`pf-item pf-item--${project.mockup} ${index % 2 !== 0 ? 'pf-item--alt' : ''}`}
+          style={`--project-color: ${project.color};`}
+          data-index={index}
+        >
+          <!-- Visuel avec mockup -->
+          <div class="pf-item__visual">
+            <div class="pf-item__bg" style={`background: ${project.color};`}></div>
+
+            {project.mockup === 'laptop' && (
+              <div class="mockup mockup--laptop">
+                <div class="mockup__laptop-body">
+                  <div class="mockup__laptop-screen">
+                    <div class="mockup__laptop-bar">
+                      <span class="mockup__dot mockup__dot--red"></span>
+                      <span class="mockup__dot mockup__dot--yellow"></span>
+                      <span class="mockup__dot mockup__dot--green"></span>
+                    </div>
+                    <div class="mockup__screen-content">
+                      <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
+                <div class="mockup__laptop-base">
+                  <div class="mockup__laptop-hinge"></div>
+                </div>
+              </div>
+            )}
+
+            {project.mockup === 'phone' && (
+              <div class="mockup mockup--phone">
+                <div class="mockup__phone-body">
+                  <div class="mockup__phone-notch"></div>
+                  <div class="mockup__phone-screen">
+                    <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" />
+                  </div>
+                  <div class="mockup__phone-home"></div>
+                </div>
+              </div>
+            )}
+
+            {project.mockup === 'screen' && (
+              <div class="mockup mockup--screen">
+                <div class="mockup__screen-frame">
+                  <div class="mockup__screen-bezel">
+                    <div class="mockup__screen-content">
+                      <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
+                <div class="mockup__screen-stand">
+                  <div class="mockup__screen-neck"></div>
+                  <div class="mockup__screen-foot"></div>
+                </div>
+              </div>
+            )}
+
+            <div class="pf-item__num-bg">{project.id}</div>
+          </div>
+
+          <!-- Infos -->
+          <div class="pf-item__info">
+            <div class="pf-item__meta">
+              <span class="pf-item__country">{project.country}</span>
+              <span class="pf-item__sep">|</span>
+              <span class="pf-item__category">{project.category}</span>
+            </div>
+            <div class="pf-item__num">{project.id}</div>
+            <h2 class="pf-item__title">{project.title}</h2>
+            <p class="pf-item__subtitle">{project.subtitle}</p>
+            <p class="pf-item__desc">{project.description}</p>
+            <div class="pf-item__tags">
+              {project.tags.map(tag => (
+                <span class="pf-item__tag">{tag}</span>
+              ))}
+            </div>
+            {project.link !== '#' ? (
+              <a href={project.link} target="_blank" rel="noopener noreferrer" class="pf-item__cta">
+                <span>Voir le projet</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+              </a>
+            ) : (
+              <span class="pf-item__cta pf-item__cta--locked">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Projet confidentiel</span>
+              </span>
+            )}
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <!-- CTA -->
+    <section class="pf-cta">
+      <div class="pf-cta__glow"></div>
+      <div class="pf-cta__inner">
+        <span class="pf-cta__label">Votre projet</span>
+        <h2 class="pf-cta__title">Construisons ensemble<br/>votre prochaine réussite</h2>
+        <a href="/contact" class="pf-cta__btn">Discutons de votre projet</a>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+/* ============================================
+   VARIABLES
+   ============================================ */
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c96e;
+  --bg: #0a0a0a;
+  --bg2: #111;
+  --white: #fff;
+  --grey: rgba(255,255,255,0.5);
+  --border: rgba(255,255,255,0.07);
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.pf-hero {
+  position: relative;
+  min-height: 45vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 9rem 6vw 4rem;
+  background: var(--bg);
+  overflow: hidden;
+  gap: 2rem;
+}
+
+.pf-hero__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 60%, rgba(201,168,76,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 30%, rgba(201,168,76,0.04) 0%, transparent 45%);
+}
+
+.pf-hero__content { position: relative; z-index: 1; }
+
+.pf-hero__label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.pf-hero__title {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+  margin: 0 0 1rem;
+  letter-spacing: -0.03em;
+}
+
+.pf-hero__sub {
+  font-size: 0.95rem;
+  color: var(--grey);
+  max-width: 380px;
+  line-height: 1.6;
+}
+
+.pf-hero__stats {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 3rem;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.pf-hero__stat { text-align: center; }
+
+.pf-hero__stat-num {
+  display: block;
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.pf-hero__stat-label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-top: 0.4rem;
+}
+
+/* ============================================
+   PROJETS
+   ============================================ */
+.pf-projects { background: var(--bg); }
+
+.pf-item {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  min-height: 90vh;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.pf-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pf-item--alt {
+  grid-template-columns: 45% 55%;
+  direction: rtl;
+}
+
+.pf-item--alt > * { direction: ltr; }
+
+/* Visuel */
+.pf-item__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4rem 3rem;
+}
+
+.pf-item__bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.85;
+  transition: opacity 0.5s;
+}
+
+.pf-item:hover .pf-item__bg { opacity: 1; }
+
+.pf-item__num-bg {
+  position: absolute;
+  bottom: -2rem;
+  right: -1rem;
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(6rem, 12vw, 14rem);
+  font-weight: 700;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ============================================
+   MOCKUPS
+   ============================================ */
+
+/* --- LAPTOP --- */
+.mockup--laptop {
+  position: relative;
+  z-index: 2;
+  width: min(480px, 85%);
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.pf-item:hover .mockup--laptop { transform: translateY(-8px) rotate(-1deg); }
+
+.mockup__laptop-body {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 12px 12px 0 0;
+  padding: 10px 10px 0;
+  border: 1.5px solid rgba(255,255,255,0.12);
+}
+
+.mockup__laptop-screen {
+  background: #000;
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+}
+
+.mockup__laptop-bar {
+  background: #1a1a1a;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px;
+  flex-shrink: 0;
+}
+
+.mockup__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.mockup__dot--red { background: #ff5f57; }
+.mockup__dot--yellow { background: #febc2e; }
+.mockup__dot--green { background: #28c840; }
+
+.mockup__screen-content {
+  width: 100%;
+  height: calc(100% - 22px);
+  overflow: hidden;
+}
+
+.mockup__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: object-position 4s ease;
+}
+
+.pf-item:hover .mockup__img { object-position: bottom center; }
+
+.mockup__laptop-base {
+  background: linear-gradient(to bottom, #2a2a2a, #222);
+  height: 14px;
+  border-radius: 0 0 4px 4px;
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-top: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mockup__laptop-hinge {
+  width: 60px;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+}
+
+/* --- PHONE --- */
+.mockup--phone {
+  position: relative;
+  z-index: 2;
+  width: min(200px, 45%);
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7));
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.pf-item:hover .mockup--phone { transform: translateY(-10px) rotate(2deg); }
+
+.mockup__phone-body {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 28px;
+  padding: 12px 8px;
+  border: 2px solid rgba(255,255,255,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.mockup__phone-notch {
+  width: 60px;
+  height: 8px;
+  background: #000;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.mockup__phone-screen {
+  width: 100%;
+  aspect-ratio: 9/18;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mockup__phone-screen .mockup__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.pf-item:hover .mockup__phone-screen .mockup__img { object-position: bottom; }
+
+.mockup__phone-home {
+  width: 36px;
+  height: 5px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* --- GRAND ÉCRAN --- */
+.mockup--screen {
+  position: relative;
+  z-index: 2;
+  width: min(500px, 88%);
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.pf-item:hover .mockup--screen { transform: translateY(-6px) scale(1.02); }
+
+.mockup__screen-frame {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 10px;
+  padding: 10px;
+  border: 2px solid rgba(255,255,255,0.12);
+}
+
+.mockup__screen-bezel {
+  background: #000;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+
+.mockup__screen-bezel .mockup__screen-content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mockup__screen-bezel .mockup__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.pf-item:hover .mockup__screen-bezel .mockup__img { object-position: center; }
+
+.mockup__screen-stand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mockup__screen-neck {
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(to bottom, #222, #1a1a1a);
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+
+.mockup__screen-foot {
+  width: 120px;
+  height: 8px;
+  background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ============================================
+   INFOS PROJET
+   ============================================ */
+.pf-item__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 5vw 4rem 4vw;
+  background: var(--bg);
+  position: relative;
+}
+
+.pf-item--alt .pf-item__info { padding: 4rem 4vw 4rem 5vw; }
+
+.pf-item__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pf-item__country {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.pf-item__sep {
+  color: rgba(255,255,255,0.2);
+  font-size: 0.8rem;
+}
+
+.pf-item__category {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.pf-item__num {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 700;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin-bottom: -0.75rem;
+  user-select: none;
+}
+
+.pf-item__title {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin: 0 0 0.6rem;
+}
+
+.pf-item__subtitle {
+  font-size: 0.9rem;
+  color: var(--gold);
+  font-style: italic;
+  margin: 0 0 1rem;
+}
+
+.pf-item__desc {
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: var(--grey);
+  margin: 0 0 1.75rem;
+  max-width: 400px;
+}
+
+.pf-item__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+}
+
+.pf-item__tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  transition: all 0.3s;
+}
+
+.pf-item:hover .pf-item__tag {
+  border-color: rgba(201,168,76,0.4);
+  color: var(--gold);
+}
+
+.pf-item__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+  padding: 0.9rem 1.75rem;
+  border: 1px solid rgba(201,168,76,0.45);
+  border-radius: 100px;
+  transition: all 0.35s;
+  width: fit-content;
+  position: relative;
+  overflow: hidden;
+}
+
+.pf-item__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.pf-item__cta:hover::before { transform: translateX(0); }
+
+.pf-item__cta span,
+.pf-item__cta svg {
+  position: relative;
+  z-index: 1;
+}
+
+.pf-item__cta:hover { color: #000; border-color: var(--gold); }
+
+.pf-item__cta--locked {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+  font-size: 0.75rem;
+}
+
+/* ============================================
+   CTA FINAL
+   ============================================ */
+.pf-cta {
+  background: var(--bg);
+  padding: 9rem 6vw;
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.pf-cta__glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse at center bottom, rgba(201,168,76,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.pf-cta__inner { position: relative; z-index: 1; }
+
+.pf-cta__label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.pf-cta__title {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  margin: 0 0 3rem;
+}
+
+.pf-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  padding: 1.2rem 3rem;
+  background: var(--gold);
+  border-radius: 100px;
+  transition: all 0.35s;
+}
+
+.pf-cta__btn:hover {
+  background: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 50px rgba(201,168,76,0.35);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .pf-item {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    direction: ltr !important;
+  }
+
+  .pf-item__visual {
+    min-height: 50vw;
+    padding: 3rem 2rem;
+  }
+
+  .pf-item__info {
+    padding: 3rem 5vw !important;
+  }
+
+  .mockup--laptop { width: min(400px, 80%); }
+  .mockup--phone { width: min(160px, 38%); }
+  .mockup--screen { width: min(420px, 85%); }
+}
+
+@media (max-width: 768px) {
+  .pf-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.5rem;
+    padding: 7.5rem 5vw 3rem;
+  }
+
+  .pf-hero__stats { gap: 2rem; }
+
+  .pf-item__visual { min-height: 60vw; padding: 2.5rem 1.5rem; }
+
+  .mockup--laptop { width: min(320px, 85%); }
+  .mockup--phone { width: min(130px, 40%); }
+  .mockup--screen { width: min(340px, 88%); }
+
+  .pf-item__num { font-size: 3.5rem; }
+  .pf-cta { padding: 6rem 5vw; }
+}
+
+@media (max-width: 480px) {
+  .pf-hero { padding: 6.5rem 5vw 2.5rem; }
+  .pf-item__visual { min-height: 65vw; padding: 2rem 1rem; }
+  .mockup--laptop { width: 90%; }
+  .mockup--phone { width: 38%; }
+  .mockup--screen { width: 92%; }
+}
+</style>
+
+<script>
+// Animation d'entrée au scroll
+const items = document.querySelectorAll('.pf-item');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+items.forEach(item => observer.observe(item));
+</script>

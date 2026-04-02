@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout title="Conditions Générales de Vente - One Nation">
+	<Header />
+	<main>
+		<section class="cgv">
+			<div class="container">
+				<h1>Conditions Générales de Vente</h1>
+				
+				<div class="cgv-content">
+					<h2>Article 1 - Objet et champ d'application</h2>
+					<p>Les présentes conditions générales de vente (CGV) constituent le socle de la négociation commerciale et sont systématiquement adressées ou remises à chaque client pour lui permettre de passer commande.</p>
+					<p>Les CGV s'appliquent à toutes les ventes de services par One Nation Agency auprès des clients professionnels, quelles que soient les clauses pouvant figurer sur les documents du client, et notamment ses conditions générales d'achat.</p>
+					
+					<h2>Article 2 - Commandes et exécution</h2>
+					<p>Par commande, il faut entendre tout ordre portant sur les prestations de One Nation Agency et accepté par celle-ci. Toute commande est ferme et définitive dès la signature du devis par le client.</p>
+					<p>One Nation Agency s'engage à mettre en œuvre tous les moyens nécessaires à la réalisation des prestations commandées.</p>
+					
+					<h2>Article 3 - Tarifs</h2>
+					<p>Les prestations de services sont fournies aux tarifs en vigueur au jour de la passation de la commande, selon le devis préalablement établi par One Nation Agency et accepté par le client.</p>
+					<p>Les tarifs s'entendent nets et HT. Une facture est établie par One Nation Agency et remise au client lors de chaque fourniture de services.</p>
+					
+					<h2>Article 4 - Conditions de règlement</h2>
+					<p>Un acompte de 30% du prix total des prestations commandées est exigé lors de la passation de la commande. Le solde du prix est payable au comptant, au jour de la fourniture des prestations.</p>
+					<p>Aucun escompte ne sera pratiqué par One Nation Agency pour paiement avant la date figurant sur la facture ou dans un délai inférieur à celui mentionné aux présentes CGV.</p>
+					
+					<h2>Article 5 - Retard de paiement</h2>
+					<p>En cas de retard de paiement, One Nation Agency pourra suspendre toutes les commandes en cours, sans préjudice de toute autre voie d'action.</p>
+					<p>Toute somme non payée à l'échéance figurant sur la facture entraîne l'application de pénalités d'un montant égal à trois fois le taux d'intérêt légal.</p>
+					
+					<h2>Article 6 - Propriété intellectuelle</h2>
+					<p>One Nation Agency reste propriétaire de tous les droits de propriété intellectuelle sur les études, dessins, modèles, prototypes, etc., réalisés (même à la demande du client) en vue de la fourniture des services au client.</p>
+					<p>Le client s'interdit donc toute reproduction ou exploitation desdites études, dessins, modèles et prototypes, etc., sans l'autorisation expresse, écrite et préalable de One Nation Agency qui peut la conditionner à une contrepartie financière.</p>
+					
+					<h2>Article 7 - Responsabilité</h2>
+					<p>La responsabilité de One Nation Agency ne peut être engagée qu'en cas de faute prouvée par le client et est limitée aux préjudices directs à l'exclusion de tout préjudice indirect, de quelque nature que ce soit.</p>
+					
+					<h2>Article 8 - Force majeure</h2>
+					<p>La responsabilité de One Nation Agency ne pourra pas être mise en œuvre si la non-exécution ou le retard dans l'exécution de l'une de ses obligations décrites dans les présentes CGV découle d'un cas de force majeure.</p>
+					
+					<h2>Article 9 - Droit applicable et juridiction compétente</h2>
+					<p>Les présentes CGV et les opérations qui en découlent sont régies par le droit français.</p>
+					<p>Tout différend au sujet de l'application des présentes CGV et de leur interprétation, de leur exécution et des contrats de vente conclus par One Nation Agency, ou au paiement du prix, sera porté devant le tribunal de commerce de Paris, quel que soit le lieu de la commande, de la livraison, et du paiement et le mode de paiement, et même en cas d'appel en garantie ou de pluralité de défendeurs.</p>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.cgv {
+		padding: 8rem 0;
+	}
+
+	.container {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	h1 {
+		font-size: 3rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.cgv-content {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 3rem;
+		border-radius: 12px;
+	}
+
+	h2 {
+		font-size: 1.8rem;
+		color: var(--color-accent);
+		margin: 2.5rem 0 1rem;
+	}
+
+	h2:first-child {
+		margin-top: 0;
+	}
+
+	p {
+		margin: 0.8rem 0;
+		line-height: 1.6;
+	}
+
+	@media (max-width: 768px) {
+		.cgv {
+			padding: 6rem 0;
+		}
+
+		h1 {
+			font-size: 2.5rem;
+			margin-bottom: 3rem;
+		}
+
+		.cgv-content {
+			padding: 2rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+		}
+	}
+</style>

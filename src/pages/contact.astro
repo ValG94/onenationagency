@@ -443,29 +443,81 @@ import Footer from '../components/Footer.astro';
 </style>
 
 <script>
-  // Gestion du formulaire de contact
   const form = document.getElementById('contactForm') as HTMLFormElement;
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = form.querySelector('.btn-submit') as HTMLButtonElement;
       const btnText = form.querySelector('.btn-text') as HTMLSpanElement;
+      const consentCheckbox = form.querySelector('input[name="consent"]') as HTMLInputElement;
+
+      // Validation RGPD — bloque l'envoi si non cochée
+      if (!consentCheckbox || !consentCheckbox.checked) {
+        const consentLabel = form.querySelector('.checkbox-label') as HTMLElement;
+        if (consentLabel) {
+          consentLabel.style.color = '#e74c3c';
+          consentLabel.style.transition = 'color 0.3s';
+          setTimeout(() => { consentLabel.style.color = ''; }, 3000);
+        }
+        const checkboxBox = form.querySelector('.checkbox-box') as HTMLElement;
+        if (checkboxBox) {
+          checkboxBox.style.borderColor = '#e74c3c';
+          setTimeout(() => { checkboxBox.style.borderColor = ''; }, 3000);
+        }
+        return;
+      }
 
       btn.disabled = true;
       btnText.textContent = 'Envoi en cours...';
 
-      // Simulation d'envoi (à remplacer par EmailJS ou API)
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const formData = new FormData(form);
+      const payload = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        company: formData.get('company'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        consent: consentCheckbox.checked,
+      };
 
-      btnText.textContent = '✓ Message envoyé !';
-      btn.style.background = '#2a9d5c';
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
 
-      setTimeout(() => {
-        form.reset();
-        btnText.textContent = 'Envoyer le message';
+        const result = await res.json();
+
+        if (res.ok && result.success) {
+          btnText.textContent = '✓ Message envoyé !';
+          btn.style.background = '#2a9d5c';
+          setTimeout(() => {
+            form.reset();
+            btnText.textContent = 'Envoyer le message →';
+            btn.disabled = false;
+            btn.style.background = '';
+          }, 4000);
+        } else {
+          btnText.textContent = result.error || 'Erreur — réessayez';
+          btn.style.background = '#e74c3c';
+          btn.disabled = false;
+          setTimeout(() => {
+            btnText.textContent = 'Envoyer le message →';
+            btn.style.background = '';
+          }, 4000);
+        }
+      } catch (err) {
+        btnText.textContent = 'Erreur réseau — réessayez';
+        btn.style.background = '#e74c3c';
         btn.disabled = false;
-        btn.style.background = '';
-      }, 3000);
+        setTimeout(() => {
+          btnText.textContent = 'Envoyer le message →';
+          btn.style.background = '';
+        }, 4000);
+      }
     });
   }
 </script>

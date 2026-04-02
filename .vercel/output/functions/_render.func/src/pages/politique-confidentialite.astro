@@ -1,0 +1,124 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout title="Politique de confidentialité - One Nation">
+	<Header />
+	<main>
+		<section class="privacy">
+			<div class="container">
+				<h1>Politique de confidentialité</h1>
+				
+				<div class="privacy-content">
+					<h2>Introduction</h2>
+					<p>One Nation Agency s'engage à protéger la vie privée des utilisateurs de son site internet. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations personnelles lorsque vous visitez notre site ou utilisez nos services.</p>
+					
+					<h2>Collecte des informations</h2>
+					<p>Nous collectons des informations lorsque vous vous inscrivez sur notre site, remplissez un formulaire ou soumettez une demande de contact. Les informations collectées incluent votre nom, votre adresse e-mail, votre numéro de téléphone et le nom de votre entreprise.</p>
+					<p>Nous collectons également automatiquement des informations sur votre ordinateur, y compris votre adresse IP, votre navigateur et les pages que vous consultez sur notre site.</p>
+					
+					<h2>Utilisation des informations</h2>
+					<p>Les informations que nous collectons auprès de vous peuvent être utilisées pour :</p>
+					<ul>
+						<li>Personnaliser votre expérience et répondre à vos besoins individuels</li>
+						<li>Améliorer notre site web</li>
+						<li>Améliorer notre service client et vos besoins de support</li>
+						<li>Vous contacter par e-mail</li>
+						<li>Administrer un concours, une promotion, ou une enquête</li>
+					</ul>
+					
+					<h2>Protection des informations</h2>
+					<p>Nous mettons en œuvre une variété de mesures de sécurité pour préserver la sécurité de vos informations personnelles. Nous utilisons un cryptage à la pointe de la technologie pour protéger les informations sensibles transmises en ligne. Nous protégeons également vos informations hors ligne.</p>
+					
+					<h2>Cookies</h2>
+					<p>Nous utilisons des cookies pour comprendre et enregistrer vos préférences pour vos futures visites, tenir à jour des statistiques sur le nombre de visiteurs qui visitent notre site et comment ils utilisent le site, et pour aider à optimiser votre expérience sur notre site.</p>
+					
+					<h2>Divulgation à des tiers</h2>
+					<p>Nous ne vendons, n'échangeons, ni ne transférons de quelque autre manière que ce soit vos informations personnelles identifiables à des tiers. Cela ne comprend pas les tiers de confiance qui nous aident à exploiter notre site web ou à mener nos affaires, tant que ces parties conviennent de garder ces informations confidentielles.</p>
+					
+					<h2>Consentement</h2>
+					<p>En utilisant notre site, vous consentez à notre politique de confidentialité.</p>
+					
+					<h2>Modifications de notre politique de confidentialité</h2>
+					<p>Si nous décidons de changer notre politique de confidentialité, nous publierons ces changements sur cette page.</p>
+					
+					<h2>Nous contacter</h2>
+					<p>Si vous avez des questions concernant cette politique de confidentialité, vous pouvez nous contacter à l'adresse suivante :</p>
+					<p>One Nation Agency<br>
+					3 rue de Suresnes<br>
+					75008 Paris, France<br>
+					Email : contact@onenationagency.com</p>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.privacy {
+		padding: 8rem 0;
+	}
+
+	.container {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	h1 {
+		font-size: 3rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.privacy-content {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 3rem;
+		border-radius: 12px;
+	}
+
+	h2 {
+		font-size: 1.8rem;
+		color: var(--color-accent);
+		margin: 2.5rem 0 1rem;
+	}
+
+	h2:first-child {
+		margin-top: 0;
+	}
+
+	p {
+		margin: 0.8rem 0;
+		line-height: 1.6;
+	}
+
+	ul {
+		margin: 1rem 0;
+		padding-left: 2rem;
+	}
+
+	li {
+		margin-bottom: 0.5rem;
+		line-height: 1.6;
+	}
+
+	@media (max-width: 768px) {
+		.privacy {
+			padding: 6rem 0;
+		}
+
+		h1 {
+			font-size: 2.5rem;
+			margin-bottom: 3rem;
+		}
+
+		.privacy-content {
+			padding: 2rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+		}
+	}
+</style>
