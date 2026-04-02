@@ -14,10 +14,16 @@ import Footer from '../components/Footer.astro';
       <div class="splash-logo">
         <img src="/logoOnenation.png" alt="One Nation Agency" />
       </div>
-      <div class="splash-text">
-        <span class="splash-word" data-word="ONE">ONE</span>
-        <span class="splash-word" data-word="NATION">NATION</span>
-        <span class="splash-word" data-word="AGENCY">AGENCY</span>
+      <div class="splash-title-wrap">
+        <div class="splash-line">
+          <span class="splash-letter" style="--i:0">O</span><span class="splash-letter" style="--i:1">N</span><span class="splash-letter" style="--i:2">E</span>
+        </div>
+        <div class="splash-line splash-line--gold">
+          <span class="splash-letter" style="--i:3">N</span><span class="splash-letter" style="--i:4">A</span><span class="splash-letter" style="--i:5">T</span><span class="splash-letter" style="--i:6">I</span><span class="splash-letter" style="--i:7">O</span><span class="splash-letter" style="--i:8">N</span>
+        </div>
+        <div class="splash-line">
+          <span class="splash-letter" style="--i:9">A</span><span class="splash-letter" style="--i:10">G</span><span class="splash-letter" style="--i:11">E</span><span class="splash-letter" style="--i:12">N</span><span class="splash-letter" style="--i:13">C</span><span class="splash-letter" style="--i:14">Y</span>
+        </div>
       </div>
       <p class="splash-tagline">Communication sur mesure</p>
     </div>
@@ -320,7 +326,7 @@ import Footer from '../components/Footer.astro';
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), visibility 0.8s ease;
   }
   .splash.hidden {
     opacity: 0;
@@ -331,48 +337,102 @@ import Footer from '../components/Footer.astro';
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
   }
   .splash-logo img {
-    height: 50px;
+    height: 56px;
     width: auto;
     opacity: 0;
-    animation: fadeIn 0.5s ease 0.2s forwards;
+    animation: fadeIn 0.6s ease 0.1s forwards;
+    filter: drop-shadow(0 0 12px rgba(184,150,80,0.3));
   }
-  .splash-text {
+  /* Titre structuré sur 3 lignes */
+  .splash-title-wrap {
     display: flex;
-    gap: 0.6rem;
+    flex-direction: column;
     align-items: center;
+    gap: 0.1rem;
   }
-  .splash-word {
+  .splash-line {
+    display: flex;
+    gap: 0.05em;
+    line-height: 1;
+  }
+  /* Chaque lettre */
+  .splash-letter {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 6vw, 4.5rem);
+    font-size: clamp(3.5rem, 10vw, 8rem);
     font-weight: 900;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     color: var(--white);
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px) scale(0.9);
+    animation: letterIn 0.45s cubic-bezier(0.22,1,0.36,1) calc(0.3s + var(--i) * 0.06s) forwards;
+    /* Effet métallique blanc */
+    background: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #e8e8e8 30%,
+      #ffffff 50%,
+      #c8c8c8 70%,
+      #ffffff 100%
+    );
+    background-size: 100% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: letterIn 0.45s cubic-bezier(0.22,1,0.36,1) calc(0.3s + var(--i) * 0.06s) forwards,
+               metalSheen 3s ease-in-out 1.5s infinite;
   }
-  .splash-word:nth-child(1) { animation: fadeUp 0.5s ease 0.4s forwards; }
-  .splash-word:nth-child(2) { animation: fadeUp 0.5s ease 0.6s forwards; color: var(--gold); }
-  .splash-word:nth-child(3) { animation: fadeUp 0.5s ease 0.8s forwards; }
+  /* Ligne NATION — effet or métallique avec reflet */
+  .splash-line--gold .splash-letter {
+    background: linear-gradient(
+      180deg,
+      #f5d98a 0%,
+      #c8960c 20%,
+      #f0c040 40%,
+      #b8860b 55%,
+      #e8b84b 65%,
+      #ffd700 75%,
+      #c8960c 85%,
+      #f5d98a 100%
+    );
+    background-size: 100% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: letterIn 0.45s cubic-bezier(0.22,1,0.36,1) calc(0.3s + var(--i) * 0.06s) forwards,
+               goldSheen 2.5s ease-in-out 1.8s infinite;
+    filter: drop-shadow(0 0 8px rgba(184,150,80,0.4));
+  }
+  @keyframes letterIn {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes metalSheen {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; }
+  }
+  @keyframes goldSheen {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; }
+  }
   .splash-tagline {
     font-family: var(--font-display);
-    font-size: 0.8rem;
-    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    letter-spacing: 0.45em;
     text-transform: uppercase;
-    color: var(--grey);
+    color: rgba(255,255,255,0.45);
     opacity: 0;
-    animation: fadeIn 0.5s ease 1.1s forwards;
+    animation: fadeIn 0.8s ease 1.8s forwards;
   }
   .splash-bar {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 3px;
-    background: var(--gold);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
     width: 0;
-    animation: loadBar 1.8s ease 0.3s forwards;
+    animation: loadBar 2.2s ease 0.2s forwards;
   }
   @keyframes loadBar {
     to { width: 100%; }
@@ -860,6 +920,7 @@ import Footer from '../components/Footer.astro';
     const splash = document.getElementById('splash');
     const siteWrapper = document.getElementById('site-wrapper');
 
+    // Durée : 0.3s + 14 lettres * 0.06s = ~1.14s d'animation + 1.2s de lecture = ~3.2s total
     setTimeout(() => {
       splash?.classList.add('hidden');
       siteWrapper?.classList.add('visible');
@@ -873,6 +934,6 @@ import Footer from '../components/Footer.astro';
         }, { threshold: 0.08 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
       }, 100);
-    }, 2200);
+    }, 3400);
   });
 </script>
