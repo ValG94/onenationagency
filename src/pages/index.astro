@@ -12,7 +12,7 @@ import Footer from '../components/Footer.astro';
   <div class="splash" id="splash" aria-hidden="true">
     <div class="splash-content">
       <div class="splash-logo">
-        <img src="/logoOnenation.png" alt="One Nation Agency" />
+        <img src="/ON_white.png" alt="One Nation Agency" />
       </div>
       <div class="splash-title-wrap">
         <div class="splash-line">
@@ -25,7 +25,7 @@ import Footer from '../components/Footer.astro';
           <span class="splash-letter" style="--i:9">A</span><span class="splash-letter" style="--i:10">G</span><span class="splash-letter" style="--i:11">E</span><span class="splash-letter" style="--i:12">N</span><span class="splash-letter" style="--i:13">C</span><span class="splash-letter" style="--i:14">Y</span>
         </div>
       </div>
-      <p class="splash-tagline">Communication sur mesure</p>
+      <p class="splash-tagline">La communication sur mesure</p>
     </div>
     <div class="splash-bar"></div>
   </div>
@@ -340,11 +340,10 @@ import Footer from '../components/Footer.astro';
     gap: 2rem;
   }
   .splash-logo img {
-    height: 80px;
+    height: 90px;
     width: auto;
     opacity: 0;
     animation: fadeIn 0.6s ease 0.1s forwards;
-    filter: brightness(1.4) drop-shadow(0 0 18px rgba(184,150,80,0.5)) drop-shadow(0 0 6px rgba(255,255,255,0.2));
   }
   /* Titre structuré sur 3 lignes */
   .splash-title-wrap {
@@ -418,16 +417,13 @@ import Footer from '../components/Footer.astro';
   }
   .splash-tagline {
     font-family: var(--font-display);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.45);
     opacity: 0;
     animation: fadeIn 0.8s ease 1.8s forwards;
-    /* Étirer sur toute la largeur d'AGENCY via word-spacing adaptatif */
-    width: 100%;
-    text-align: justify;
-    text-align-last: justify;
-    letter-spacing: 0.2em;
+    text-align: center;
   }
   .splash-bar {
     position: absolute;
