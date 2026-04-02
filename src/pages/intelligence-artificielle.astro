@@ -1,467 +1,582 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import Section from '../components/Section.astro';
-
-const metaDescription = "Découvrez comment One Nation intègre l'intelligence artificielle dans ses stratégies de communication pour optimiser votre présence digitale et institutionnelle. Expertise en IA conversationnelle, analyse prédictive et automatisation marketing.";
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout 
-	title="Intelligence Artificielle pour la Communication Institutionnelle | One Nation" 
-	description={metaDescription}
-	ogImage="/images/intelligence-artificielle-banner.jpg"
+<Layout
+  title="Intelligence Artificielle & Agents IA — One Nation Agency"
+  description="One Nation Agency crée des agents IA sur mesure pour qualifier vos prospects, automatiser vos processus et servir vos audiences 24h/24. Innovation au service de votre croissance."
 >
-	<Header />
-	<main id="main-content">
-		<section class="hero">
-			<div class="hero-content">
-				<h1>Intelligence Artificielle au service de votre Communication</h1>
-				<p>Transformez votre stratégie de communication grâce aux solutions d'IA innovantes de One Nation</p>
-				<a href="/contact" class="cta-button">Discuter de votre projet</a>
-			</div>
-		</section>
+  <Header />
 
-		<Section id="ia-solutions" title="Nos solutions d'Intelligence Artificielle">
-			<div class="solutions-grid">
-				<div class="solution-card">
-					<div class="solution-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<circle cx="12" cy="12" r="10"></circle>
-							<path d="M12 16v-4"></path>
-							<path d="M12 8h.01"></path>
-						</svg>
-					</div>
-					<h3>IA conversationnelle</h3>
-					<p>Développement de chatbots et d'assistants virtuels personnalisés pour améliorer l'engagement client et optimiser votre service client 24/7.</p>
-				</div>
-				
-				<div class="solution-card">
-					<div class="solution-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-							<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-							<line x1="12" y1="22.08" x2="12" y2="12"></line>
-						</svg>
-					</div>
-					<h3>Analyse prédictive</h3>
-					<p>Utilisation des algorithmes d'IA pour analyser les données et prédire les tendances futures, permettant une prise de décision stratégique éclairée.</p>
-				</div>
-				
-				<div class="solution-card">
-					<div class="solution-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-							<line x1="8" y1="21" x2="16" y2="21"></line>
-							<line x1="12" y1="17" x2="12" y2="21"></line>
-						</svg>
-					</div>
-					<h3>Automatisation marketing</h3>
-					<p>Mise en place de systèmes d'automatisation intelligents pour vos campagnes marketing, optimisant le ciblage et la personnalisation des messages.</p>
-				</div>
-				
-				<div class="solution-card">
-					<div class="solution-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-							<polyline points="14 2 14 8 20 8"></polyline>
-							<line x1="16" y1="13" x2="8" y2="13"></line>
-							<line x1="16" y1="17" x2="8" y2="17"></line>
-							<polyline points="10 9 9 9 8 9"></polyline>
-						</svg>
-					</div>
-					<h3>Génération de contenu</h3>
-					<p>Création de contenus optimisés pour le SEO grâce à l'IA, tout en conservant votre voix de marque unique et votre expertise sectorielle.</p>
-				</div>
-			</div>
-		</Section>
+  <main id="main-content">
 
-		<section class="benefits">
-			<div class="container">
-				<h2>Avantages de l'IA pour votre communication</h2>
-				<div class="benefits-list">
-					<div class="benefit-item">
-						<span class="benefit-number">01</span>
-						<h3>Personnalisation à grande échelle</h3>
-						<p>Adaptez vos messages à chaque segment de votre audience tout en maintenant une cohérence de marque.</p>
-					</div>
-					<div class="benefit-item">
-						<span class="benefit-number">02</span>
-						<h3>Optimisation des ressources</h3>
-						<p>Réduisez les coûts opérationnels tout en augmentant l'efficacité de vos campagnes de communication.</p>
-					</div>
-					<div class="benefit-item">
-						<span class="benefit-number">03</span>
-						<h3>Insights data-driven</h3>
-						<p>Prenez des décisions basées sur des données concrètes plutôt que sur des intuitions.</p>
-					</div>
-					<div class="benefit-item">
-						<span class="benefit-number">04</span>
-						<h3>Réactivité accrue</h3>
-						<p>Répondez rapidement aux évolutions du marché et aux crises potentielles grâce à la veille automatisée.</p>
-					</div>
-				</div>
-			</div>
-		</section>
+    <!-- HERO IA -->
+    <section class="ai-hero">
+      <div class="ai-hero-bg" aria-hidden="true">
+        <div class="ai-grid"></div>
+        <div class="ai-glow"></div>
+      </div>
+      <div class="container">
+        <div class="ai-hero-content">
+          <span class="label reveal">Intelligence Artificielle</span>
+          <div class="gold-bar reveal"></div>
+          <h1 class="reveal reveal-delay-1">
+            L'IA AU SERVICE<br />
+            <span class="gold-text">DE VOTRE AMBITION.</span>
+          </h1>
+          <p class="ai-lead reveal reveal-delay-2">
+            Nous concevons des agents IA sur mesure qui qualifient vos prospects, automatisent vos processus métier et servent vos audiences 24h/24, 7j/7 — en français, en anglais, et dans la langue de vos clients.
+          </p>
+          <div class="ai-hero-actions reveal reveal-delay-3">
+            <a href="/contact" class="btn-gold">
+              Discuter de votre projet IA
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#use-cases" class="btn-outline">Voir les cas d'usage</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-		<section class="case-studies">
-			<div class="container">
-				<h2>Nos réalisations en IA</h2>
-				<div class="case-studies-grid">
-					<div class="case-study">
-						<img src="/chatbot.jpg" alt="Chatbot pour institution gouvernementale" loading="lazy">
-						<div class="case-study-content">
-							<h3>Chatbot pour Institution Gouvernementale</h3>
-							<p>Développement d'un assistant virtuel intelligent pour améliorer le service aux citoyens et réduire la charge des centres d'appel.</p>
-							<a href="/portfolio" class="read-more">Voir l'étude de cas</a>
-						</div>
-					</div>
-					<div class="case-study">
-						<img src="/analysePredictive.jpg" alt="Analyse prédictive pour ONG" loading="lazy">
-						<div class="case-study-content">
-							<h3>Analyse Prédictive pour ONG</h3>
-							<p>Mise en place d'un système d'analyse prédictive pour optimiser les campagnes de collecte de fonds et maximiser l'impact social.</p>
-							<a href="/portfolio" class="read-more">Voir l'étude de cas</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+    <!-- POURQUOI L'IA -->
+    <section class="why-ai">
+      <div class="container">
+        <div class="why-ai-grid">
+          <div class="why-ai-text">
+            <span class="label reveal">Pourquoi l'IA ?</span>
+            <div class="gold-bar reveal"></div>
+            <h2 class="reveal">LE FUTUR EST DÉJÀ LÀ.</h2>
+            <p class="reveal reveal-delay-1">
+              Les organisations qui intègrent l'IA aujourd'hui prennent une longueur d'avance décisive sur leurs concurrents. Un agent IA bien conçu peut traiter des milliers d'interactions simultanément, qualifier des leads en temps réel et personnaliser chaque échange.
+            </p>
+            <p class="reveal reveal-delay-2">
+              Chez One Nation Agency, nous ne nous contentons pas de déployer des chatbots génériques. Nous créons des <strong>intelligences conversationnelles sur mesure</strong>, formées sur votre domaine d'expertise, alignées sur votre identité de marque et intégrées à vos outils existants.
+            </p>
+            <div class="why-ai-stats reveal reveal-delay-3">
+              <div class="ai-stat">
+                <span class="ai-stat-num">24/7</span>
+                <span class="ai-stat-label">Disponibilité</span>
+              </div>
+              <div class="ai-stat">
+                <span class="ai-stat-num">-70%</span>
+                <span class="ai-stat-label">Coût de traitement</span>
+              </div>
+              <div class="ai-stat">
+                <span class="ai-stat-num">+3x</span>
+                <span class="ai-stat-label">Taux de conversion</span>
+              </div>
+            </div>
+          </div>
+          <div class="why-ai-visual reveal">
+            <div class="ai-demo-card">
+              <div class="ai-demo-header">
+                <div class="ai-demo-dot"></div>
+                <span>Agent IA One Nation</span>
+              </div>
+              <div class="ai-demo-messages">
+                <div class="ai-msg ai-msg--bot">
+                  <p>Bonjour ! Je suis l'assistant de One Nation Agency. Comment puis-je vous aider aujourd'hui ?</p>
+                </div>
+                <div class="ai-msg ai-msg--user">
+                  <p>Je cherche une agence pour ma campagne présidentielle.</p>
+                </div>
+                <div class="ai-msg ai-msg--bot">
+                  <p>Excellente démarche. Nous avons accompagné plusieurs candidats en Afrique francophone. Quel est votre pays et votre calendrier électoral ?</p>
+                </div>
+                <div class="ai-typing">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-		<section class="cta-section">
-			<div class="container">
-				<h2>Prêt à transformer votre communication avec l'IA?</h2>
-				<p>Contactez nos experts pour une consultation personnalisée et découvrez comment l'intelligence artificielle peut révolutionner votre stratégie de communication.</p>
-				<div class="cta-buttons">
-					<a href="/contact" class="primary-button">Demander un devis</a>
-					<a href="/services" class="secondary-button">Explorer nos services</a>
-				</div>
-			</div>
-		</section>
+    <!-- NOS AGENTS IA -->
+    <section class="ai-products" id="use-cases">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="label">Nos solutions</span>
+          <div class="gold-bar"></div>
+          <h2>NOS AGENTS IA</h2>
+          <p class="section-intro">Chaque agent est conçu sur mesure pour répondre à vos objectifs spécifiques.</p>
+        </div>
 
-		<section class="faq">
-			<div class="container">
-				<h2>Questions fréquentes sur l'IA</h2>
-				<div class="faq-list">
-					<details class="faq-item">
-						<summary>Comment l'IA peut-elle améliorer notre communication institutionnelle ?</summary>
-						<div class="faq-answer">
-							<p>L'IA peut analyser de grandes quantités de données pour identifier les tendances et préférences de votre audience, permettant une personnalisation plus précise de vos messages. Elle peut également automatiser certaines tâches répétitives, libérant ainsi vos équipes pour se concentrer sur des aspects plus stratégiques de votre communication.</p>
-						</div>
-					</details>
-					<details class="faq-item">
-						<summary>Est-ce que l'IA va remplacer nos équipes de communication ?</summary>
-						<div class="faq-answer">
-							<p>Non, l'IA est un outil qui vient augmenter les capacités de vos équipes, pas les remplacer. Elle automatise les tâches répétitives et fournit des insights précieux, mais la créativité, l'empathie et la compréhension contextuelle humaines restent essentielles pour une communication efficace.</p>
-						</div>
-					</details>
-					<details class="faq-item">
-						<summary>Combien de temps faut-il pour implémenter une solution d'IA ?</summary>
-						<div class="faq-answer">
-							<p>Le délai d'implémentation varie selon la complexité du projet. Un chatbot simple peut être déployé en quelques semaines, tandis qu'un système d'analyse prédictive plus sophistiqué peut prendre plusieurs mois. Chez One Nation, nous travaillons avec vous pour établir un calendrier réaliste adapté à vos besoins.</p>
-						</div>
-					</details>
-					<details class="faq-item">
-						<summary>Comment mesurer le ROI de nos investissements en IA ?</summary>
-						<div class="faq-answer">
-							<p>Nous définissons des KPIs clairs dès le début du projet, qui peuvent inclure l'augmentation du taux d'engagement, la réduction des coûts opérationnels, l'amélioration de la satisfaction client, ou l'augmentation des conversions. Nous mettons en place des systèmes de suivi pour mesurer ces indicateurs et ajuster la stratégie si nécessaire.</p>
-						</div>
-					</details>
-				</div>
-			</div>
-		</section>
-	</main>
+        <div class="ai-products-grid">
+          <article class="ai-product-card reveal reveal-delay-1">
+            <div class="ai-product-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <h3>Agent Commercial</h3>
+            <p>Qualifie vos prospects entrants, répond aux questions fréquentes, prend des rendez-vous et transfère les leads chauds à votre équipe commerciale.</p>
+            <ul class="ai-product-features">
+              <li>Qualification automatique des leads</li>
+              <li>Prise de rendez-vous intégrée</li>
+              <li>CRM synchronisé</li>
+              <li>Multilingue</li>
+            </ul>
+          </article>
+
+          <article class="ai-product-card ai-product-card--featured reveal reveal-delay-2">
+            <div class="ai-product-badge">Bestseller</div>
+            <div class="ai-product-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+              </svg>
+            </div>
+            <h3>Agent Institutionnel</h3>
+            <p>Conçu pour les institutions, les partis politiques et les organisations publiques. Gère les demandes citoyennes, diffuse les messages officiels et oriente vers les bons interlocuteurs.</p>
+            <ul class="ai-product-features">
+              <li>Gestion des demandes citoyennes</li>
+              <li>Diffusion de messages officiels</li>
+              <li>Modération intelligente</li>
+              <li>Reporting en temps réel</li>
+            </ul>
+          </article>
+
+          <article class="ai-product-card reveal reveal-delay-3">
+            <div class="ai-product-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <path d="M8 21h8M12 17v4"/>
+              </svg>
+            </div>
+            <h3>Agent Événementiel</h3>
+            <p>Gère les inscriptions, répond aux questions des participants, envoie des rappels et collecte les feedbacks pour vos conférences, sommets et événements.</p>
+            <ul class="ai-product-features">
+              <li>Gestion des inscriptions</li>
+              <li>FAQ automatisée</li>
+              <li>Rappels personnalisés</li>
+              <li>Collecte de feedbacks</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESSUS -->
+    <section class="ai-process">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="label">Notre méthode</span>
+          <div class="gold-bar"></div>
+          <h2>COMMENT ÇA MARCHE ?</h2>
+        </div>
+
+        <div class="process-steps">
+          <div class="process-step reveal reveal-delay-1">
+            <div class="step-num">01</div>
+            <h3>Audit & Cadrage</h3>
+            <p>Nous analysons vos besoins, vos processus existants et vos objectifs pour définir le périmètre exact de votre agent IA.</p>
+          </div>
+          <div class="process-arrow" aria-hidden="true">→</div>
+          <div class="process-step reveal reveal-delay-2">
+            <div class="step-num">02</div>
+            <h3>Conception & Formation</h3>
+            <p>Nous formons l'agent sur votre domaine d'expertise, votre identité de marque et vos cas d'usage spécifiques.</p>
+          </div>
+          <div class="process-arrow" aria-hidden="true">→</div>
+          <div class="process-step reveal reveal-delay-3">
+            <div class="step-num">03</div>
+            <h3>Intégration & Tests</h3>
+            <p>Déploiement sur vos canaux (site web, WhatsApp, Messenger) avec une phase de tests intensifs et d'ajustements.</p>
+          </div>
+          <div class="process-arrow" aria-hidden="true">→</div>
+          <div class="process-step reveal reveal-delay-4">
+            <div class="step-num">04</div>
+            <h3>Suivi & Optimisation</h3>
+            <p>Monitoring continu, rapports mensuels et optimisations régulières pour maximiser les performances de votre agent.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA IA -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-inner reveal">
+          <span class="label">Passez à l'action</span>
+          <h2>PRÊT À INTÉGRER<br /><span class="gold-text">L'IA DANS VOTRE ORGANISATION ?</span></h2>
+          <p>Discutons de vos besoins et construisons ensemble l'agent IA qui fera la différence pour votre organisation.</p>
+          <div class="cta-actions">
+            <a href="/contact" class="btn-gold">
+              Demander une démo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="https://wa.me/33625523859" target="_blank" rel="noopener noreferrer" class="btn-outline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 1.856.001 3.598.723 4.907 2.034 1.31 1.311 2.031 3.054 2.03 4.908-.001 3.825-3.113 6.938-6.937 6.938z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
 </Layout>
 
 <style>
-	.hero {
-		height: 80vh;
-		min-height: 600px;
-		background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/IA.jpg') center/cover no-repeat;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-		margin-top: 72px;
-	}
+  /* HERO IA */
+  .ai-hero {
+    position: relative;
+    padding: 12rem 0 7rem;
+    overflow: hidden;
+  }
+  .ai-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .ai-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .ai-glow {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .ai-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ai-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    margin: 1rem 0 1.5rem;
+  }
+  .ai-lead {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.85;
+    max-width: 680px;
+    margin: 0 auto 2.5rem;
+  }
+  .ai-hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-	.hero-content {
-		max-width: 800px;
-		padding: 0 2rem;
-	}
+  /* POURQUOI L'IA */
+  .why-ai {
+    padding: var(--pad-section);
+    background: var(--anthracite);
+    border-top: 1px solid var(--border);
+  }
+  .why-ai-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .why-ai-text h2 {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    margin-bottom: 1.5rem;
+  }
+  .why-ai-text p {
+    margin-bottom: 1.2rem;
+    font-size: 0.98rem;
+    line-height: 1.85;
+  }
+  .why-ai-text strong { color: var(--white); font-weight: 600; }
+  .why-ai-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+  }
+  .ai-stat { text-align: center; }
+  .ai-stat-num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .ai-stat-label {
+    font-size: 0.72rem;
+    color: var(--grey);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-display);
+  }
 
-	.hero h1 {
-		font-size: 3.5rem;
-		margin-bottom: 1.5rem;
-		line-height: 1.2;
-	}
+  /* DEMO CARD */
+  .why-ai-visual { display: flex; justify-content: center; }
+  .ai-demo-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .ai-demo-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.2rem;
+    background: rgba(201,168,76,0.06);
+    border-bottom: 1px solid var(--border);
+  }
+  .ai-demo-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulseGold 2s ease-in-out infinite;
+  }
+  .ai-demo-header span {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .ai-demo-messages {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-height: 200px;
+  }
+  .ai-msg { max-width: 85%; }
+  .ai-msg p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+  }
+  .ai-msg--bot p {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.15);
+    color: var(--off-white);
+    border-radius: 0 8px 8px 8px;
+  }
+  .ai-msg--user {
+    align-self: flex-end;
+  }
+  .ai-msg--user p {
+    background: rgba(255,255,255,0.06);
+    color: var(--grey-light);
+    border-radius: 8px 0 8px 8px;
+  }
+  .ai-typing {
+    display: flex;
+    gap: 4px;
+    padding: 0.8rem 1rem;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 0 8px 8px 8px;
+    width: fit-content;
+  }
+  .ai-typing span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: typing 1.2s ease-in-out infinite;
+  }
+  .ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing {
+    0%, 60%, 100% { opacity: 0.2; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-4px); }
+  }
 
-	.hero p {
-		font-size: 1.5rem;
-		margin-bottom: 2rem;
-		opacity: 0.9;
-	}
+  /* PRODUITS IA */
+  .ai-products {
+    padding: var(--pad-section);
+  }
+  .ai-products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .ai-product-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .ai-product-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--border);
+    transition: background 0.3s ease;
+  }
+  .ai-product-card:hover {
+    border-color: var(--border);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+  .ai-product-card:hover::before { background: var(--gold); }
+  .ai-product-card--featured::before { background: var(--gold); }
+  .ai-product-badge {
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
+  .ai-product-icon {
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .ai-product-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+  }
+  .ai-product-card > p {
+    font-size: 0.88rem;
+    color: var(--grey);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .ai-product-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .ai-product-features li {
+    font-size: 0.82rem;
+    color: var(--grey-light);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .ai-product-features li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.75rem;
+  }
 
-	.cta-button {
-		display: inline-block;
-		background: var(--color-accent);
-		color: var(--color-background);
-		padding: 1rem 2rem;
-		border-radius: 50px;
-		font-weight: 600;
-		text-decoration: none;
-		transition: all 0.3s ease;
-	}
+  /* PROCESSUS */
+  .ai-process {
+    padding: var(--pad-section);
+    background: var(--anthracite);
+  }
+  .process-steps {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .process-step {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .process-step:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .process-step h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .process-step p {
+    font-size: 0.85rem;
+    color: var(--grey);
+    line-height: 1.7;
+  }
+  .process-arrow {
+    font-size: 1.5rem;
+    color: var(--gold);
+    opacity: 0.4;
+    flex-shrink: 0;
+    margin-top: 3rem;
+  }
 
-	.cta-button:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-	}
+  /* CTA */
+  .cta-section {
+    padding: var(--pad-section);
+    border-top: 1px solid var(--border);
+  }
+  .cta-inner {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .cta-inner h2 {
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    margin: 0.8rem 0 1.5rem;
+  }
+  .cta-inner p {
+    font-size: 1rem;
+    color: var(--grey);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-	.solutions-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 2rem;
-		margin-top: 3rem;
-	}
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .why-ai-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .ai-products-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { flex-direction: column; }
+    .process-arrow { display: none; }
+  }
 
-	.solution-card {
-		background: rgba(255, 255, 255, 0.05);
-		padding: 2rem;
-		border-radius: 12px;
-		transition: transform 0.3s ease;
-		text-align: center;
-	}
-
-	.solution-card:hover {
-		transform: translateY(-10px);
-	}
-
-	.solution-icon {
-		color: var(--color-accent);
-		margin-bottom: 1.5rem;
-	}
-
-	.solution-card h3 {
-		font-size: 1.5rem;
-		margin-bottom: 1rem;
-	}
-
-	.benefits {
-		padding: 8rem 0;
-		background: linear-gradient(to right, rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/benefit.jpg') center/cover no-repeat;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 2rem;
-	}
-
-	.benefits h2 {
-		font-size: 2.5rem;
-		text-align: center;
-		margin-bottom: 4rem;
-	}
-
-	.benefits-list {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 3rem;
-	}
-
-	.benefit-item {
-		position: relative;
-	}
-
-	.benefit-number {
-		font-size: 4rem;
-		font-weight: 700;
-		color: rgba(255, 255, 255, 0.1);
-		position: absolute;
-		top: -30px;
-		left: -10px;
-		z-index: -1;
-	}
-
-	.benefit-item h3 {
-		font-size: 1.5rem;
-		margin-bottom: 1rem;
-		color: var(--color-accent);
-	}
-
-	.case-studies {
-		padding: 8rem 0;
-	}
-
-	.case-studies h2 {
-		font-size: 2.5rem;
-		text-align: center;
-		margin-bottom: 4rem;
-	}
-
-	.case-studies-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-		gap: 3rem;
-	}
-
-	.case-study {
-		background: rgba(255, 255, 255, 0.05);
-		border-radius: 12px;
-		overflow: hidden;
-		transition: transform 0.3s ease;
-	}
-
-	.case-study:hover {
-		transform: translateY(-10px);
-	}
-
-	.case-study img {
-		width: 100%;
-		height: 250px;
-		object-fit: cover;
-	}
-
-	.case-study-content {
-		padding: 2rem;
-	}
-
-	.case-study h3 {
-		font-size: 1.5rem;
-		margin-bottom: 1rem;
-	}
-
-	.read-more {
-		display: inline-block;
-		margin-top: 1rem;
-		color: var(--color-accent);
-		text-decoration: none;
-		font-weight: 500;
-		transition: color 0.3s ease;
-	}
-
-	.read-more:hover {
-		color: var(--color-white);
-	}
-
-	.cta-section {
-		padding: 6rem 0;
-		background: linear-gradient(rgba(72, 71, 68, 0.9), rgba(72, 71, 68, 0.9)), url('/circuitElect.jpg') center/cover no-repeat;
-		text-align: center;
-	}
-
-	.cta-section h2 {
-		font-size: 2.5rem;
-		margin-bottom: 1.5rem;
-	}
-
-	.cta-section p {
-		font-size: 1.2rem;
-		max-width: 800px;
-		margin: 0 auto 2.5rem;
-		opacity: 0.9;
-	}
-
-	.cta-buttons {
-		display: flex;
-		justify-content: center;
-		gap: 1.5rem;
-		flex-wrap: wrap;
-	}
-
-	.primary-button, .secondary-button {
-		padding: 1rem 2rem;
-		border-radius: 50px;
-		font-weight: 600;
-		text-decoration: none;
-		transition: all 0.3s ease;
-	}
-
-	.primary-button {
-		background: var(--color-accent);
-		color: var(--color-background);
-	}
-
-	.secondary-button {
-		background: transparent;
-		color: var(--color-white);
-		border: 2px solid var(--color-accent);
-	}
-
-	.primary-button:hover, .secondary-button:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-	}
-
-	.faq {
-		padding: 8rem 0;
-	}
-
-	.faq h2 {
-		font-size: 2.5rem;
-		text-align: center;
-		margin-bottom: 4rem;
-	}
-
-	.faq-list {
-		max-width: 800px;
-		margin: 0 auto;
-	}
-
-	.faq-item {
-		margin-bottom: 1.5rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	.faq-item summary {
-		padding: 1.5rem 0;
-		font-size: 1.2rem;
-		font-weight: 500;
-		cursor: pointer;
-		position: relative;
-		list-style: none;
-	}
-
-	.faq-item summary::-webkit-details-marker {
-		display: none;
-	}
-
-	.faq-item summary::after {
-		content: '+';
-		position: absolute;
-		right: 0;
-		font-size: 1.5rem;
-		transition: transform 0.3s ease;
-	}
-
-	.faq-item[open] summary::after {
-		transform: rotate(45deg);
-	}
-
-	.faq-answer {
-		padding: 0 0 1.5rem;
-	}
-
-	@media (max-width: 768px) {
-		.hero {
-			height: 70vh;
-		}
-
-		.hero h1 {
-			font-size: 2.5rem;
-		}
-
-		.hero p {
-			font-size: 1.2rem;
-		}
-
-		.benefits-list, .case-studies-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.cta-buttons {
-			flex-direction: column;
-			align-items: center;
-		}
-	}
+  @media (max-width: 768px) {
+    .ai-hero { padding: 9rem 0 5rem; }
+    .ai-products-grid { grid-template-columns: 1fr; }
+    .why-ai-stats { gap: 1.5rem; }
+    .ai-hero-actions { flex-direction: column; align-items: center; }
+  }
 </style>

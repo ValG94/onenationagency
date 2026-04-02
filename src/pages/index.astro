@@ -1,126 +1,878 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-// import NewYearPopup from '../components/NewYearPopup';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="One Nation - Communication sur mesure">
-	<!-- Popup Nouvel An, montée côté client -->
-	<!-- <NewYearPopup client:load /> -->
+<Layout
+  title="One Nation Agency — Communication Stratégique, Agents IA & Web Premium"
+  description="One Nation Agency — Agence premium spécialisée en communication stratégique institutionnelle, création d'agents IA sur mesure et développement web haut de gamme."
+>
+  <!-- SPLASH SCREEN -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash-content">
+      <div class="splash-logo">
+        <img src="/logoOnenation.png" alt="One Nation Agency" />
+      </div>
+      <div class="splash-text">
+        <span class="splash-word" data-word="ONE">ONE</span>
+        <span class="splash-word" data-word="NATION">NATION</span>
+        <span class="splash-word" data-word="AGENCY">AGENCY</span>
+      </div>
+      <p class="splash-tagline">Communication sur mesure</p>
+    </div>
+    <div class="splash-bar"></div>
+  </div>
 
-	<div class="landing">
-		<div class="logo-container">
-			<img src="/logoOneNation.jpg" alt="One Nation" class="logo" />
-		</div>
-		<button class="enter-button" id="enterButton">Entrer →</button>
-	</div>
+  <!-- SITE PRINCIPAL -->
+  <div class="site-wrapper" id="site-wrapper">
+    <Header />
 
-	<div class="content hidden" id="main-content">
-		<Header />
-		<main>
-		</main>
-	</div>
+    <main id="main-content">
+
+      <!-- ===== HERO ===== -->
+      <section class="hero" id="hero">
+        <div class="hero-video-wrap">
+          <video
+            class="hero-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            aria-hidden="true"
+          >
+            <source src="/presentationOneNation-compressed.mp4" type="video/mp4" />
+          </video>
+          <div class="hero-overlay"></div>
+        </div>
+
+        <div class="hero-content container">
+          <div class="hero-badge reveal">
+            <span class="label">Paris · Afrique · International</span>
+          </div>
+          <h1 class="hero-title reveal reveal-delay-1">
+            L'EXCELLENCE<br />
+            <span class="gold-text">STRATÉGIQUE.</span><br />
+            L'INNOVATION<br />
+            <span class="gold-text">DIGITALE.</span>
+          </h1>
+          <p class="hero-sub reveal reveal-delay-2">
+            Nous accompagnons les institutions, les dirigeants et les organisations ambitieuses dans la maîtrise de leur image et la transformation de leur écosystème digital.
+          </p>
+          <div class="hero-actions reveal reveal-delay-3">
+            <a href="/vision" class="btn-gold">
+              Découvrir notre vision
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="/contact" class="btn-outline">Nous contacter</a>
+          </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator" aria-hidden="true">
+          <div class="scroll-line"></div>
+          <span>Scroll</span>
+        </div>
+      </section>
+
+      <!-- ===== STATS ===== -->
+      <section class="stats-bar">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-item reveal">
+              <span class="stat-num">+50</span>
+              <span class="stat-label">Projets livrés</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item reveal reveal-delay-1">
+              <span class="stat-num">12+</span>
+              <span class="stat-label">Pays couverts</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item reveal reveal-delay-2">
+              <span class="stat-num">8</span>
+              <span class="stat-label">Années d'expertise</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item reveal reveal-delay-3">
+              <span class="stat-num">100%</span>
+              <span class="stat-label">Clients satisfaits</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 3 PILIERS ===== -->
+      <section class="pillars" id="expertises">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="label">Nos expertises</span>
+            <div class="gold-bar"></div>
+            <h2>TROIS EXPERTISES.<br />UNE VISION.</h2>
+            <p class="section-intro">
+              À la croisée du conseil stratégique, de l'intelligence artificielle et de la création digitale, One Nation Agency déploie une offre intégrée et sur mesure pour les acteurs qui comptent.
+            </p>
+          </div>
+
+          <div class="pillars-grid">
+            <!-- Pilier 1 -->
+            <article class="pillar-card reveal reveal-delay-1">
+              <div class="pillar-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 3h18v18H3z" rx="2"/>
+                  <path d="M3 9h18M9 21V9"/>
+                </svg>
+              </div>
+              <span class="pillar-num">01</span>
+              <h3>Communication<br />Institutionnelle</h3>
+              <p>Façonner l'opinion. Protéger votre réputation. Nous concevons des stratégies d'influence sur mesure pour les acteurs publics et privés de premier plan.</p>
+              <a href="/conseil-strategique" class="pillar-link">
+                Explorer
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </article>
+
+            <!-- Pilier 2 -->
+            <article class="pillar-card pillar-card--featured reveal reveal-delay-2">
+              <div class="pillar-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+                </svg>
+              </div>
+              <span class="pillar-num">02</span>
+              <h3>Agents IA &<br />Automatisation</h3>
+              <p>L'intelligence artificielle au service de votre croissance. Des assistants virtuels sur mesure pour qualifier, convertir et servir vos audiences 24h/24.</p>
+              <a href="/intelligence-artificielle" class="pillar-link">
+                Explorer
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <div class="pillar-featured-badge">Premium</div>
+            </article>
+
+            <!-- Pilier 3 -->
+            <article class="pillar-card reveal reveal-delay-3">
+              <div class="pillar-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/>
+                  <path d="M8 21h8M12 17v4"/>
+                </svg>
+              </div>
+              <span class="pillar-num">03</span>
+              <h3>Création Web<br />Premium</h3>
+              <p>Des plateformes digitales immersives, performantes et mémorables. L'écrin technologique que mérite votre ambition.</p>
+              <a href="/services" class="pillar-link">
+                Explorer
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION AGENCE ===== -->
+      <section class="agency-section">
+        <div class="container">
+          <div class="agency-grid">
+            <div class="agency-visual reveal">
+              <div class="agency-img-wrap">
+                <img src="/equipe_Afrique.jpg" alt="One Nation Agency — Équipe Afrique" loading="lazy" />
+                <div class="agency-img-overlay"></div>
+              </div>
+              <div class="agency-badge-float">
+                <span class="label">Depuis 2016</span>
+                <p>Paris · Afrique · International</p>
+              </div>
+            </div>
+            <div class="agency-text">
+              <span class="label reveal">L'Agence</span>
+              <div class="gold-bar reveal"></div>
+              <h2 class="reveal">UNE VISION GLOBALE.<br />UN ANCRAGE AFRICAIN.</h2>
+              <p class="reveal reveal-delay-1">
+                One Nation Agency n'est pas une simple agence de communication. Nous sommes les architectes de votre influence. À la croisée du conseil stratégique, des relations publiques et de l'innovation technologique, nous construisons des ponts entre les institutions, les marchés et les citoyens.
+              </p>
+              <p class="reveal reveal-delay-2">
+                Notre compréhension fine des enjeux panafricains et internationaux nous permet de déployer des campagnes d'une précision chirurgicale, adaptées aux réalités culturelles et politiques de chaque territoire.
+              </p>
+              <div class="agency-actions reveal reveal-delay-3">
+                <a href="/vision" class="btn-gold">
+                  Notre vision
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="/portfolio" class="btn-outline">Nos réalisations</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PORTFOLIO APERÇU ===== -->
+      <section class="portfolio-preview" id="portfolio">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="label">Portfolio</span>
+            <div class="gold-bar"></div>
+            <h2>NOS DERNIÈRES<br />RÉALISATIONS.</h2>
+          </div>
+
+          <div class="portfolio-grid">
+            <article class="portfolio-card reveal reveal-delay-1">
+              <a href="https://afac26.com" target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
+                <div class="portfolio-img-wrap">
+                  <img src="/Afac26_home.jpg" alt="AFAC26 — Site trilingue et agent IA" loading="lazy" />
+                  <div class="portfolio-overlay">
+                    <span class="portfolio-visit">Voir le projet</span>
+                  </div>
+                </div>
+                <div class="portfolio-info">
+                  <span class="portfolio-cat">Intelligence Artificielle</span>
+                  <h3>AFAC26 — Site trilingue, agent IA et solution de paiement</h3>
+                  <p>Conférence internationale des agents de football africains</p>
+                </div>
+              </a>
+            </article>
+
+            <article class="portfolio-card reveal reveal-delay-2">
+              <div class="portfolio-card-link">
+                <div class="portfolio-img-wrap">
+                  <img src="/homeMohamed.jpg" alt="Campagne présidentielle Alexis Mohamed" loading="lazy" />
+                  <div class="portfolio-overlay">
+                    <span class="portfolio-visit">Voir le projet</span>
+                  </div>
+                </div>
+                <div class="portfolio-info">
+                  <span class="portfolio-cat">Communication 360</span>
+                  <h3>Campagne présidentielle 2026 — Alexis Mohamed (Djibouti)</h3>
+                  <p>Stratégie digitale et communication institutionnelle</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="portfolio-card reveal reveal-delay-3">
+              <a href="https://www.centrachat.africa" target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
+                <div class="portfolio-img-wrap">
+                  <img src="/centrachat_home.webp" alt="Centrachat Africa — Centrale d'achats panafricaine" loading="lazy" />
+                  <div class="portfolio-overlay">
+                    <span class="portfolio-visit">Voir le projet</span>
+                  </div>
+                </div>
+                <div class="portfolio-info">
+                  <span class="portfolio-cat">Digital</span>
+                  <h3>Centrachat Africa — 1ère centrale d'achats panafricaine</h3>
+                  <p>Plateforme B2B premium, Yaoundé, Cameroun</p>
+                </div>
+              </a>
+            </article>
+          </div>
+
+          <div class="portfolio-cta reveal">
+            <a href="/portfolio" class="btn-outline">
+              Voir toutes nos réalisations
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CTA FINAL ===== -->
+      <section class="cta-section">
+        <div class="container">
+          <div class="cta-inner reveal">
+            <span class="label">Prêt à démarrer ?</span>
+            <h2>PARLONS DE<br /><span class="gold-text">VOTRE PROJET.</span></h2>
+            <p>Que vous ayez besoin d'une stratégie de communication, d'un agent IA ou d'une plateforme digitale premium, notre équipe est prête à vous accompagner.</p>
+            <div class="cta-actions">
+              <a href="/contact" class="btn-gold">
+                Nous contacter
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="https://wa.me/33625523859" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 1.856.001 3.598.723 4.907 2.034 1.31 1.311 2.031 3.054 2.03 4.908-.001 3.825-3.113 6.938-6.937 6.938z"/></svg>
+                WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <Footer />
+
+    <!-- WhatsApp flottant -->
+    <a href="https://wa.me/33625523859" class="whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Nous contacter sur WhatsApp">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 1.856.001 3.598.723 4.907 2.034 1.31 1.311 2.031 3.054 2.03 4.908-.001 3.825-3.113 6.938-6.937 6.938z"/>
+      </svg>
+    </a>
+  </div>
 </Layout>
 
 <style>
-	.landing {
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		background-color: var(--color-background);
-		position: fixed;
-		width: 100%;
-		z-index: 1000;
-	}
+  /* ===== SPLASH ===== */
+  .splash {
+    position: fixed;
+    inset: 0;
+    background: var(--black);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  .splash.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .splash-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .splash-logo img {
+    height: 50px;
+    width: auto;
+    opacity: 0;
+    animation: fadeIn 0.5s ease 0.2s forwards;
+  }
+  .splash-text {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+  .splash-word {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .splash-word:nth-child(1) { animation: fadeUp 0.5s ease 0.4s forwards; }
+  .splash-word:nth-child(2) { animation: fadeUp 0.5s ease 0.6s forwards; color: var(--gold); }
+  .splash-word:nth-child(3) { animation: fadeUp 0.5s ease 0.8s forwards; }
+  .splash-tagline {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--grey);
+    opacity: 0;
+    animation: fadeIn 0.5s ease 1.1s forwards;
+  }
+  .splash-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gold);
+    width: 0;
+    animation: loadBar 1.8s ease 0.3s forwards;
+  }
+  @keyframes loadBar {
+    to { width: 100%; }
+  }
 
-	.landing.fade-out {
-		opacity: 0;
-		pointer-events: none;
-	}
+  /* Site wrapper (caché pendant splash) */
+  .site-wrapper {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .site-wrapper.visible {
+    opacity: 1;
+  }
 
-	.logo-container {
-		position: relative;
-		padding: 2rem;
-		border-radius: 20px;
-		overflow: hidden;
-		transition: transform 0.5s ease;
-	}
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-video-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(10,10,10,0.88) 0%,
+      rgba(10,10,10,0.65) 50%,
+      rgba(10,10,10,0.75) 100%
+    );
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding-top: 10rem;
+    padding-bottom: 6rem;
+    max-width: 760px;
+  }
+  .hero-badge {
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.8rem;
+    color: var(--white);
+  }
+  .gold-text {
+    color: var(--gold);
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    max-width: 560px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
 
-	.logo-container::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: var(--color-accent);
-		opacity: 0;
-		transition: opacity 0.3s ease;
-		border-radius: 20px;
-	}
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1;
+    opacity: 0.5;
+    animation: fadeIn 1s ease 2.5s both;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+    animation: float 2s ease-in-out infinite;
+  }
+  .scroll-indicator span {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+    font-family: var(--font-display);
+  }
 
-	.logo-container:hover {
-		transform: translateY(-10px);
-	}
+  /* ===== STATS BAR ===== */
+  .stats-bar {
+    background: var(--anthracite);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 0;
+  }
+  .stats-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+  .stat-item {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 2rem;
+  }
+  .stat-num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--grey);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
 
-	.logo-container:hover::before {
-		opacity: 0.1;
-	}
+  /* ===== PILIERS ===== */
+  .pillars {
+    padding: var(--pad-section);
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .section-header .gold-bar {
+    margin: 0.9rem auto 1.4rem;
+  }
+  .section-header h2 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: 1.2rem;
+  }
+  .section-intro {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1rem;
+    color: var(--grey);
+    line-height: 1.8;
+  }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .pillar-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--border);
+    transition: background 0.3s ease;
+  }
+  .pillar-card:hover {
+    border-color: var(--border);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+  .pillar-card:hover::before {
+    background: var(--gold);
+  }
+  .pillar-card--featured {
+    border-color: var(--border);
+    background: linear-gradient(145deg, #1a1a1a 0%, #141414 100%);
+  }
+  .pillar-card--featured::before {
+    background: var(--gold);
+  }
+  .pillar-icon {
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .pillar-num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--grey);
+    margin-bottom: 0.8rem;
+  }
+  .pillar-card h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .pillar-card p {
+    font-size: 0.9rem;
+    color: var(--grey);
+    line-height: 1.7;
+    margin-bottom: 1.8rem;
+  }
+  .pillar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    transition: gap 0.2s ease;
+  }
+  .pillar-link:hover { gap: 0.7rem; }
+  .pillar-featured-badge {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
 
-	.logo {
-		width: 400px;
-		height: auto;
-		border-radius: 20px;
-		transition: transform 0.5s ease;
-	}
+  /* ===== SECTION AGENCE ===== */
+  .agency-section {
+    padding: var(--pad-section);
+    background: var(--anthracite);
+  }
+  .agency-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .agency-visual {
+    position: relative;
+  }
+  .agency-img-wrap {
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    position: relative;
+  }
+  .agency-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .agency-img-wrap:hover img { transform: scale(1.03); }
+  .agency-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.5) 0%, transparent 60%);
+  }
+  .agency-badge-float {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background: var(--gold);
+    color: var(--black);
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .agency-badge-float .label {
+    color: var(--black);
+    opacity: 0.7;
+    font-size: 0.6rem;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .agency-badge-float p {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1;
+  }
+  .agency-text h2 {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    margin-bottom: 1.5rem;
+  }
+  .agency-text p {
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+  }
+  .agency-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
 
-	.enter-button {
-		background: transparent;
-		border: none;
-		color: var(--color-accent);
-		padding: 1rem 2rem;
-		font-size: 1.2rem;
-		font-family: 'Montserrat', sans-serif;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-top: 2rem;
-	}
+  /* ===== PORTFOLIO APERÇU ===== */
+  .portfolio-preview {
+    padding: var(--pad-section);
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .portfolio-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .portfolio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  }
+  .portfolio-card-link {
+    display: block;
+    cursor: pointer;
+  }
+  .portfolio-img-wrap {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    position: relative;
+  }
+  .portfolio-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .portfolio-card:hover .portfolio-img-wrap img {
+    transform: scale(1.05);
+  }
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-visit {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.6rem 1.2rem;
+    border-radius: 3px;
+  }
+  .portfolio-info {
+    padding: 1.5rem;
+  }
+  .portfolio-cat {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+  .portfolio-info h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+  }
+  .portfolio-info p {
+    font-size: 0.82rem;
+    color: var(--grey);
+    line-height: 1.5;
+  }
+  .portfolio-cta {
+    text-align: center;
+  }
 
-	.enter-button:hover {
-		transform: translateX(10px);
-		color: var(--color-white);
-	}
+  /* ===== CTA FINAL ===== */
+  .cta-section {
+    padding: var(--pad-section);
+    background: var(--anthracite);
+    border-top: 1px solid var(--border);
+  }
+  .cta-inner {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .cta-inner h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    margin: 0.8rem 0 1.5rem;
+  }
+  .cta-inner p {
+    font-size: 1rem;
+    color: var(--grey);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-	.content {
-		opacity: 0;
-		transition: opacity 0.5s ease-in-out;
-	}
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .pillars-grid { grid-template-columns: 1fr 1fr; }
+    .agency-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .agency-badge-float { right: 1rem; bottom: 1rem; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+  }
 
-	.content.fade-in {
-		opacity: 1;
-	}
+  @media (max-width: 768px) {
+    .hero-title { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+    .stats-grid { flex-wrap: wrap; gap: 1rem; }
+    .stat-divider { display: none; }
+    .stat-item { flex: 1 1 40%; padding: 0.5rem 1rem; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .agency-badge-float { display: none; }
+  }
 
-	.hidden {
-		display: none;
-	}
+  @media (max-width: 480px) {
+    .hero-actions { flex-direction: column; }
+    .cta-actions { flex-direction: column; align-items: center; }
+    .agency-actions { flex-direction: column; }
+  }
 </style>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const enterButton = document.getElementById('enterButton');
-		const landing = document.querySelector('.landing');
+  // Gestion du splash screen
+  window.addEventListener('load', () => {
+    const splash = document.getElementById('splash');
+    const siteWrapper = document.getElementById('site-wrapper');
 
-		enterButton?.addEventListener('click', () => {
-			landing?.classList.add('fade-out');
-			
-			setTimeout(() => {
-				window.location.href = '/vision';
-			}, 500);
-		});
-	});
+    setTimeout(() => {
+      splash?.classList.add('hidden');
+      siteWrapper?.classList.add('visible');
+
+      // Déclencher les animations reveal
+      setTimeout(() => {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('visible');
+          });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      }, 100);
+    }, 2200);
+  });
 </script>

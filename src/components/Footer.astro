@@ -1,186 +1,255 @@
 ---
-const currentYear = new Date().getFullYear();
+interface Props {
+  lang?: string;
+}
+const { lang = 'fr' } = Astro.props;
 ---
 
-<footer class="footer">
-	<div class="container">
-		<div class="footer-content">
-			<div class="footer-left">
-				<div class="footer-logo">
-					<img src="/logoOneNation.jpg" alt="One Nation" width="80" height="auto">
-				</div>
-				<div class="copyright">
-					<p>&copy; {currentYear} One Nation</p>
-					<p>Tous droits réservés</p>
-				</div>
-			</div>
-			<div class="footer-right">
-				<nav class="footer-nav">
-					<ul>
-						<li><a href="/mentions-legales">Mentions légales</a></li>
-						<li><a href="/cgv">CGV</a></li>
-						<li><a href="/politique-confidentialite">Confidentialité</a></li>
-						<li><a href="/politique-cookies">Cookies</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-		<div class="footer-address">
-			<div class="address-block">
-				<p class="address-title">Agence France :</p>
-				<p>3 rue de Suresnes </p>
-        <p>Quartier de l'Elysée </p>
-        <p>75008 Paris</p>
-			</div>
-			<div class="address-block">
-				<p class="address-title">Agence Afrique Centrale :</p>
-				<p>BP 848 Yaoundé </p>
-        <p>Golf Ambassade des USA </p>
-        <p>Avenue Rosa Parks - Cameroun</p>
-			</div>
-			<div class="contact-info">
-				<p><a href="mailto:contact@onenationagency.com">contact@onenationagency.com</a></p>
-				<p><a href="https://www.onenationagency.com" target="_blank" rel="noopener noreferrer">www.onenationagency.com</a></p>
-			</div>
-		</div>
-	</div>
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <!-- Top row -->
+    <div class="footer-top">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <a href={lang === 'en' ? '/en' : '/'} aria-label="One Nation Agency">
+          <img src="/logoOnenation.png" alt="One Nation Agency" width="130" height="38" />
+        </a>
+        <p class="footer-tagline">
+          {lang === 'en'
+            ? 'Strategic excellence. Digital innovation.'
+            : 'Excellence stratégique. Innovation digitale.'}
+        </p>
+        <div class="footer-socials">
+          <a href="https://www.linkedin.com/company/one-nation-agency" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/onenationagency" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/onenationagency" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="footer-nav-group">
+        <h4>{lang === 'en' ? 'Navigation' : 'Navigation'}</h4>
+        <ul>
+          <li><a href={lang === 'en' ? '/en/agency' : '/vision'}>{lang === 'en' ? 'The Agency' : 'L\'Agence'}</a></li>
+          <li><a href={lang === 'en' ? '/en/services' : '/services'}>{lang === 'en' ? 'Expertise' : 'Expertises'}</a></li>
+          <li><a href={lang === 'en' ? '/en/portfolio' : '/portfolio'}>{lang === 'en' ? 'Portfolio' : 'Portfolio'}</a></li>
+          <li><a href={lang === 'en' ? '/en/ai' : '/intelligence-artificielle'}>{lang === 'en' ? 'AI Intelligence' : 'Intelligence IA'}</a></li>
+          <li><a href={lang === 'en' ? '/en/contact' : '/contact'}>{lang === 'en' ? 'Contact' : 'Contact'}</a></li>
+        </ul>
+      </div>
+
+      <!-- Expertises -->
+      <div class="footer-nav-group">
+        <h4>{lang === 'en' ? 'Expertise' : 'Expertises'}</h4>
+        <ul>
+          <li><a href={lang === 'en' ? '/en/services' : '/conseil-strategique'}>{lang === 'en' ? 'Strategic Communication' : 'Communication Stratégique'}</a></li>
+          <li><a href={lang === 'en' ? '/en/ai' : '/intelligence-artificielle'}>{lang === 'en' ? 'AI Agents' : 'Agents IA'}</a></li>
+          <li><a href={lang === 'en' ? '/en/services' : '/services'}>{lang === 'en' ? 'Premium Web' : 'Création Web Premium'}</a></li>
+          <li><a href={lang === 'en' ? '/en/services' : '/design-graphique'}>{lang === 'en' ? 'Graphic Design' : 'Design Graphique'}</a></li>
+          <li><a href={lang === 'en' ? '/en/services' : '/e-reputation'}>{lang === 'en' ? 'E-Reputation' : 'E-Réputation'}</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-nav-group">
+        <h4>{lang === 'en' ? 'Contact' : 'Contact'}</h4>
+        <ul class="footer-contact-list">
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:contact@onenationagency.com">contact@onenationagency.com</a>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 015.13 12.7 19.79 19.79 0 012.06 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <a href="tel:+33625523859">+33 6 25 52 38 59</a>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>3 rue de Suresnes, 75008 Paris</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="footer-divider"></div>
+
+    <!-- Bottom row -->
+    <div class="footer-bottom">
+      <p class="copyright">
+        © {new Date().getFullYear()} One Nation Agency.
+        {lang === 'en' ? 'All rights reserved.' : 'Tous droits réservés.'}
+      </p>
+      <div class="footer-legal">
+        <a href="/mentions-legales">{lang === 'en' ? 'Legal Notice' : 'Mentions légales'}</a>
+        <a href="/politique-confidentialite">{lang === 'en' ? 'Privacy Policy' : 'Politique de confidentialité'}</a>
+        <a href="/cgv">{lang === 'en' ? 'Terms' : 'CGV'}</a>
+        <a href="/politique-cookies">{lang === 'en' ? 'Cookies' : 'Cookies'}</a>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <style>
-	.footer {
-		background-color: #333;
-		color: var(--color-white);
-		padding: 3rem 0 2rem;
-		margin-top: 4rem;
-	}
+  .site-footer {
+    background: var(--anthracite);
+    border-top: 1px solid var(--border);
+    padding: 5rem 0 2rem;
+    margin-top: auto;
+  }
 
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 2rem;
-	}
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr 1.4fr;
+    gap: 3rem;
+    margin-bottom: 3.5rem;
+  }
 
-	.footer-content {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		flex-wrap: wrap;
-		margin-bottom: 2rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		padding-bottom: 2rem;
-	}
+  /* Brand */
+  .footer-brand img {
+    height: 34px;
+    width: auto;
+    margin-bottom: 1.2rem;
+  }
 
-	.footer-left {
-		display: flex;
-		align-items: center;
-		gap: 1.5rem;
-	}
+  .footer-tagline {
+    font-size: 0.85rem;
+    color: var(--grey);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
 
-	.footer-logo img {
-		border-radius: 8px;
-		transition: opacity 0.3s ease;
-	}
+  .footer-socials {
+    display: flex;
+    gap: 0.75rem;
+  }
 
-	.footer-logo img:hover {
-		opacity: 0.8;
-	}
+  .footer-socials a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--grey);
+    transition: all 0.2s ease;
+  }
 
-	.copyright p {
-		margin: 0;
-		font-size: 0.9rem;
-		color: var(--color-accent);
-	}
+  .footer-socials a:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
 
-	.footer-right {
-		padding-top: 0.5rem;
-	}
+  /* Nav groups */
+  .footer-nav-group h4 {
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
 
-	.footer-nav ul {
-		display: flex;
-		gap: 1.5rem;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
+  .footer-nav-group ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
 
-	.footer-nav a {
-		color: var(--color-accent);
-		text-decoration: none;
-		font-size: 0.9rem;
-		transition: all 0.3s ease;
-		position: relative;
-	}
+  .footer-nav-group a {
+    font-size: 0.88rem;
+    color: var(--grey);
+    transition: color 0.2s ease;
+  }
 
-	.footer-nav a::after {
-		content: '';
-		position: absolute;
-		width: 0;
-		height: 1px;
-		bottom: -2px;
-		left: 0;
-		background-color: var(--color-white);
-		transition: width 0.3s ease;
-	}
+  .footer-nav-group a:hover { color: var(--white); }
 
-	.footer-nav a:hover {
-		color: var(--color-white);
-	}
+  /* Contact list */
+  .footer-contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
 
-	.footer-nav a:hover::after {
-		width: 100%;
-	}
+  .footer-contact-list svg {
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
 
-	.footer-address {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 2rem;
-		font-size: 0.9rem;
-		color: var(--color-accent);
-	}
+  .footer-contact-list a,
+  .footer-contact-list span {
+    font-size: 0.85rem;
+    color: var(--grey);
+    transition: color 0.2s ease;
+    line-height: 1.5;
+  }
 
-	.address-block p {
-		margin: 0.3rem 0;
-	}
+  .footer-contact-list a:hover { color: var(--white); }
 
-	.address-title {
-		font-weight: 600;
-		color: var(--color-white);
-	}
+  /* Divider */
+  .footer-divider {
+    height: 1px;
+    background: var(--border-light);
+    margin-bottom: 2rem;
+  }
 
-	.contact-info p {
-		margin: 0.3rem 0;
-	}
+  /* Bottom */
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
 
-	.contact-info a {
-		color: var(--color-accent);
-		text-decoration: none;
-		transition: color 0.3s ease;
-	}
+  .copyright {
+    font-size: 0.78rem;
+    color: var(--grey);
+    line-height: 1;
+  }
 
-	.contact-info a:hover {
-		color: var(--color-white);
-	}
+  .footer-legal {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
 
-	@media (max-width: 768px) {
-		.footer-content {
-			flex-direction: column;
-			gap: 2rem;
-		}
+  .footer-legal a {
+    font-size: 0.75rem;
+    color: var(--grey);
+    transition: color 0.2s ease;
+  }
 
-		.footer-left {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 1rem;
-		}
+  .footer-legal a:hover { color: var(--gold); }
 
-		.footer-nav ul {
-			flex-wrap: wrap;
-			gap: 1rem 1.5rem;
-		}
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+  }
 
-		.footer-address {
-			grid-template-columns: 1fr;
-			gap: 1.5rem;
-		}
-	}
+  @media (max-width: 600px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .footer-legal { gap: 1rem; }
+  }
 </style>

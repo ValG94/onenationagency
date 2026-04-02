@@ -1,12 +1,348 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import Vision from '../components/Vision.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Vision - One Nation">
-	<Header />
-	<main>
-		<Vision />
-	</main>
+<Layout
+  title="Notre Vision — One Nation Agency"
+  description="One Nation Agency — Une vision globale, un ancrage africain. Nous sommes les architectes de votre influence institutionnelle."
+>
+  <Header />
+
+  <main id="main-content">
+
+    <!-- HERO VISION -->
+    <section class="vision-hero">
+      <div class="container">
+        <div class="vision-hero-content">
+          <span class="label reveal">L'Agence</span>
+          <div class="gold-bar reveal"></div>
+          <h1 class="reveal reveal-delay-1">
+            UNE VISION GLOBALE.<br />
+            <span class="gold-text">UN ANCRAGE AFRICAIN.</span>
+          </h1>
+          <p class="vision-lead reveal reveal-delay-2">
+            One Nation Agency n'est pas une simple agence de communication. Nous sommes les architectes de votre influence. À la croisée du conseil stratégique, des relations publiques et de l'innovation technologique, nous construisons des ponts entre les institutions, les marchés et les citoyens.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFESTE -->
+    <section class="manifesto">
+      <div class="container">
+        <div class="manifesto-grid">
+          <div class="manifesto-visual reveal">
+            <img src="/equipe_Afrique.jpg" alt="One Nation Agency — Équipe Afrique" loading="lazy" />
+          </div>
+          <div class="manifesto-text">
+            <h2 class="reveal">NOTRE MANIFESTE</h2>
+            <div class="manifesto-content reveal reveal-delay-1">
+              <p>
+                Dans un monde où la perception façonne la réalité, où chaque déclaration peut devenir virale et où l'opinion publique se construit en temps réel, <strong>la communication stratégique n'est plus une option — c'est une nécessité vitale.</strong>
+              </p>
+              <p>
+                Nous croyons que la communication institutionnelle doit être <strong>proactive, non réactive</strong>. Qu'elle doit anticiper les crises, façonner les narratifs et maîtriser les canaux d'influence avant que d'autres ne le fassent à votre place.
+              </p>
+              <p>
+                Notre compréhension fine des enjeux panafricains et internationaux nous permet de déployer des campagnes d'une <strong>précision chirurgicale</strong>, adaptées aux réalités culturelles et politiques de chaque territoire.
+              </p>
+              <p>
+                Nous ne sommes pas une agence de plus. Nous sommes <strong>vos alliés stratégiques</strong> dans la construction d'une influence durable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALEURS -->
+    <section class="values">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="label">Nos valeurs</span>
+          <div class="gold-bar"></div>
+          <h2>CE QUI NOUS GUIDE</h2>
+        </div>
+
+        <div class="values-grid">
+          <article class="value-card reveal reveal-delay-1">
+            <div class="value-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <h3>Excellence</h3>
+            <p>Nous ne livrons que ce qui mérite d'être signé. Chaque projet est traité avec le niveau d'exigence que vous attendez d'un partenaire premium.</p>
+          </article>
+
+          <article class="value-card reveal reveal-delay-2">
+            <div class="value-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <h3>Réactivité</h3>
+            <p>Les enjeux institutionnels ne peuvent pas attendre. Notre équipe est mobilisable rapidement pour répondre aux situations critiques.</p>
+          </article>
+
+          <article class="value-card reveal reveal-delay-3">
+            <div class="value-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3>Confidentialité</h3>
+            <p>Vos stratégies, vos données, vos projets : tout reste strictement confidentiel. Nous signons des NDA systématiquement.</p>
+          </article>
+
+          <article class="value-card reveal reveal-delay-4">
+            <div class="value-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+              </svg>
+            </div>
+            <h3>Innovation</h3>
+            <p>Nous intégrons l'IA, l'automatisation et les technologies de pointe pour vous donner un avantage concurrentiel décisif.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHIFFRES CLÉS -->
+    <section class="key-numbers">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="label">Chiffres clés</span>
+          <div class="gold-bar"></div>
+          <h2>L'IMPACT EN CHIFFRES</h2>
+        </div>
+
+        <div class="numbers-grid">
+          <div class="number-item reveal reveal-delay-1">
+            <span class="number-value">+50</span>
+            <span class="number-label">Projets stratégiques livrés</span>
+          </div>
+          <div class="number-item reveal reveal-delay-2">
+            <span class="number-value">12+</span>
+            <span class="number-label">Pays couverts (Afrique, Europe, Moyen-Orient)</span>
+          </div>
+          <div class="number-item reveal reveal-delay-3">
+            <span class="number-value">8</span>
+            <span class="number-label">Années d'expertise institutionnelle</span>
+          </div>
+          <div class="number-item reveal reveal-delay-4">
+            <span class="number-value">100%</span>
+            <span class="number-label">Clients satisfaits et fidélisés</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-inner reveal">
+          <span class="label">Prêt à démarrer ?</span>
+          <h2>TRAVAILLONS<br /><span class="gold-text">ENSEMBLE.</span></h2>
+          <p>Discutons de vos enjeux stratégiques et explorons comment One Nation Agency peut devenir votre partenaire d'influence.</p>
+          <div class="cta-actions">
+            <a href="/contact" class="btn-gold">
+              Nous contacter
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="https://wa.me/33625523859" target="_blank" rel="noopener noreferrer" class="btn-outline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 1.856.001 3.598.723 4.907 2.034 1.31 1.311 2.031 3.054 2.03 4.908-.001 3.825-3.113 6.938-6.937 6.938z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
 </Layout>
+
+<style>
+  /* HERO VISION */
+  .vision-hero {
+    padding: 12rem 0 6rem;
+    background: linear-gradient(135deg, var(--black) 0%, var(--anthracite) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .vision-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .vision-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    margin: 1rem 0 1.5rem;
+  }
+  .vision-lead {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.85;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* MANIFESTE */
+  .manifesto {
+    padding: var(--pad-section);
+  }
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .manifesto-visual {
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+  }
+  .manifesto-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .manifesto-visual:hover img { transform: scale(1.03); }
+  .manifesto-text h2 {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    margin-bottom: 1.8rem;
+  }
+  .manifesto-content p {
+    margin-bottom: 1.5rem;
+    font-size: 0.98rem;
+    line-height: 1.85;
+    color: var(--grey-light);
+  }
+  .manifesto-content strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* VALEURS */
+  .values {
+    padding: var(--pad-section);
+    background: var(--anthracite);
+  }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .value-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .value-card:hover {
+    border-color: var(--border);
+    transform: translateY(-4px);
+  }
+  .value-icon {
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: flex;
+    justify-content: center;
+  }
+  .value-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .value-card p {
+    font-size: 0.85rem;
+    color: var(--grey);
+    line-height: 1.7;
+  }
+
+  /* CHIFFRES CLÉS */
+  .key-numbers {
+    padding: var(--pad-section);
+  }
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  .number-item {
+    text-align: center;
+    padding: 2rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--card-bg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .number-item:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .number-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+  .number-label {
+    font-size: 0.82rem;
+    color: var(--grey);
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: var(--pad-section);
+    background: var(--anthracite);
+    border-top: 1px solid var(--border);
+  }
+  .cta-inner {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .cta-inner h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    margin: 0.8rem 0 1.5rem;
+  }
+  .cta-inner p {
+    font-size: 1rem;
+    color: var(--grey);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .manifesto-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .numbers-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .vision-hero { padding: 9rem 0 4.5rem; }
+    .values-grid { grid-template-columns: 1fr; }
+    .numbers-grid { grid-template-columns: 1fr; }
+  }
+</style>
