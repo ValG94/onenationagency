@@ -25,13 +25,26 @@ import Footer from '../components/Footer.astro';
       <div class="splash-logo-wrap">
         <img src="/ON_white.png" alt="One Nation Agency" class="splash-logo-img" />
       </div>
-      <!-- Titre monumental sur une ligne -->
-      <div class="splash-title-row" id="splashTitle">
+      <!-- Titre monumental — version DESKTOP (une ligne) -->
+      <div class="splash-title-row splash-title-desktop" id="splashTitle">
         <span class="sl" style="--i:0">O</span><span class="sl" style="--i:1">N</span><span class="sl" style="--i:2">E</span>
         <span class="sl sl-space"> </span>
         <span class="sl sl-gold" style="--i:3">N</span><span class="sl sl-gold" style="--i:4">A</span><span class="sl sl-gold" style="--i:5">T</span><span class="sl sl-gold" style="--i:6">I</span><span class="sl sl-gold" style="--i:7">O</span><span class="sl sl-gold" style="--i:8">N</span>
         <span class="sl sl-space"> </span>
         <span class="sl" style="--i:9">A</span><span class="sl" style="--i:10">G</span><span class="sl" style="--i:11">E</span><span class="sl" style="--i:12">N</span><span class="sl" style="--i:13">C</span><span class="sl" style="--i:14">Y</span>
+      </div>
+      <!-- Titre monumental — version MOBILE (deux lignes) -->
+      <div class="splash-title-mobile" aria-hidden="true">
+        <!-- Ligne 1 : ONE NATION -->
+        <div class="splash-mobile-line splash-mobile-line-1">
+          <span class="slm" style="--j:0">O</span><span class="slm" style="--j:1">N</span><span class="slm" style="--j:2">E</span>
+          <span class="slm slm-space"> </span>
+          <span class="slm slm-gold" style="--j:3">N</span><span class="slm slm-gold" style="--j:4">A</span><span class="slm slm-gold" style="--j:5">T</span><span class="slm slm-gold" style="--j:6">I</span><span class="slm slm-gold" style="--j:7">O</span><span class="slm slm-gold" style="--j:8">N</span>
+        </div>
+        <!-- Ligne 2 : AGENCY (décalage temporel) -->
+        <div class="splash-mobile-line splash-mobile-line-2">
+          <span class="slm slm-delay" style="--j:0">A</span><span class="slm slm-delay" style="--j:1">G</span><span class="slm slm-delay" style="--j:2">E</span><span class="slm slm-delay" style="--j:3">N</span><span class="slm slm-delay" style="--j:4">C</span><span class="slm slm-delay" style="--j:5">Y</span>
+        </div>
       </div>
       <!-- Ligne dorée séparatrice — apparaît après les lettres -->
       <div class="splash-line-reveal" aria-hidden="true"></div>
@@ -523,38 +536,139 @@ import Footer from '../components/Footer.astro';
     text-align: center;
   }
 
+  /* ===== VERSION MOBILE DÉDIÉE ===== */
+
+  /* Par défaut : version mobile cachée, desktop visible */
+  .splash-title-mobile { display: none; }
+  .splash-title-desktop { display: flex; }
+
+  /* Styles des lettres mobiles (slm) */
+  .slm {
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(22px);
+    animation:
+      slmIn 1s cubic-bezier(0.16,1,0.3,1) calc(0.5s + var(--j, 0) * 0.08s) forwards,
+      chromeSweep 4s ease-in-out 2.5s infinite;
+    background: linear-gradient(
+      160deg,
+      #9a9a9a 0%,
+      #d8d8d8 15%,
+      #f0f0f0 25%,
+      #b0b0b0 35%,
+      #787878 50%,
+      #c0c0c0 60%,
+      #e8e8e8 70%,
+      #a0a0a0 80%,
+      #686868 90%,
+      #b8b8b8 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7)) drop-shadow(0 1px 0 rgba(255,255,255,0.08));
+  }
+  .slm-space {
+    width: 0.3em;
+    animation: none;
+    opacity: 1;
+    transform: none;
+    background: none;
+    -webkit-text-fill-color: transparent;
+  }
+  .slm-gold {
+    background: linear-gradient(
+      160deg,
+      #8B6914 0%,
+      #C8960C 10%,
+      #E8C84A 22%,
+      #F5D978 30%,
+      #D4A820 42%,
+      #B8860B 52%,
+      #E0B830 62%,
+      #F0D060 72%,
+      #C09010 82%,
+      #8B6914 90%,
+      #D4A820 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 16px rgba(184,150,80,0.5)) drop-shadow(0 1px 0 rgba(255,220,80,0.15));
+    animation:
+      slmIn 1s cubic-bezier(0.16,1,0.3,1) calc(0.5s + var(--j, 0) * 0.08s) forwards,
+      goldSweep 3.5s ease-in-out 2.8s infinite;
+  }
+  /* AGENCY : décalage de 0.7s par rapport à ONE NATION */
+  .slm-delay {
+    animation:
+      slmIn 1s cubic-bezier(0.16,1,0.3,1) calc(1.2s + var(--j, 0) * 0.08s) forwards,
+      chromeSweep 4s ease-in-out 2.5s infinite;
+  }
+  @keyframes slmIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Structure des lignes mobiles */
+  .splash-title-mobile {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15em;
+    width: 100%;
+  }
+  .splash-mobile-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    line-height: 0.95;
+    perspective: 600px;
+  }
+
   /* ===== RESPONSIVE SPLASH MOBILE ===== */
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
+    /* Basculer vers la version 2 lignes */
+    .splash-title-desktop { display: none !important; }
+    .splash-title-mobile  { display: flex !important; }
+
     .splash-content {
-      gap: 1.2rem;
-      padding: 0 1rem;
+      gap: 1.4rem;
+      padding: 0 1.5rem;
       width: 100%;
     }
     .splash-logo-img {
-      height: 52px;
+      height: 60px;
     }
-    .splash-title-row {
-      flex-wrap: nowrap;
-      justify-content: center;
-      width: 100%;
-      overflow: hidden;
+    /* Taille des lettres mobiles */
+    .slm {
+      font-size: clamp(2.4rem, 13vw, 4.2rem);
     }
-    .sl {
-      font-size: clamp(1.6rem, 9vw, 3rem);
-      letter-spacing: 0.02em;
-    }
-    .sl-space {
-      width: 0.2em;
+    .slm-delay {
+      font-size: clamp(2.4rem, 13vw, 4.2rem);
     }
     .splash-tagline {
-      font-size: 0.55rem;
-      letter-spacing: 0.28em;
+      font-size: 0.58rem;
+      letter-spacing: 0.32em;
+      margin-top: 0.4rem;
+    }
+    .splash-line-reveal {
+      width: 80%;
+      max-width: 280px;
     }
   }
-  @media (max-width: 380px) {
-    .sl {
-      font-size: clamp(1.3rem, 8.5vw, 2.4rem);
-      letter-spacing: 0.01em;
+  @media (max-width: 400px) {
+    .slm, .slm-delay {
+      font-size: clamp(2rem, 12vw, 3.2rem);
+      letter-spacing: 0.04em;
+    }
+    .splash-tagline {
+      font-size: 0.5rem;
+      letter-spacing: 0.26em;
     }
   }
 
