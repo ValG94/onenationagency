@@ -57,7 +57,7 @@ const currentPath = Astro.url.pathname;
       </div>
 
       <!-- CTA -->
-      <a href="/contact" class="header-cta btn-gold">
+      <a href={lang === 'en' ? '/en/contact' : '/contact'} class="header-cta btn-gold">
         {lang === 'en' ? 'Get in touch' : 'Nous contacter'}
       </a>
 
@@ -87,7 +87,7 @@ const currentPath = Astro.url.pathname;
           </a>
         </li>
         <li>
-          <a href="/contact" class="btn-gold mobile-cta">
+          <a href={lang === 'en' ? '/en/contact' : '/contact'} class="btn-gold mobile-cta">
             {lang === 'en' ? 'Get in touch' : 'Nous contacter'}
           </a>
         </li>
