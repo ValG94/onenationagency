@@ -124,19 +124,19 @@ import Footer from '../components/Footer.astro';
 
         <div class="numbers-grid">
           <div class="number-item reveal reveal-delay-1">
-            <span class="number-value">+50</span>
+            <span class="number-value counter" data-target="50" data-prefix="+" data-suffix="">+50</span>
             <span class="number-label">Projets stratégiques livrés</span>
           </div>
           <div class="number-item reveal reveal-delay-2">
-            <span class="number-value">12+</span>
+            <span class="number-value counter" data-target="12" data-prefix="" data-suffix="+">12+</span>
             <span class="number-label">Pays couverts (Afrique, Europe, Moyen-Orient)</span>
           </div>
           <div class="number-item reveal reveal-delay-3">
-            <span class="number-value">8</span>
+            <span class="number-value counter" data-target="8" data-prefix="" data-suffix="">8</span>
             <span class="number-label">Années d'expertise institutionnelle</span>
           </div>
           <div class="number-item reveal reveal-delay-4">
-            <span class="number-value">100%</span>
+            <span class="number-value counter" data-target="100" data-prefix="" data-suffix="%">100%</span>
             <span class="number-label">Clients satisfaits et fidélisés</span>
           </div>
         </div>
@@ -346,3 +346,53 @@ import Footer from '../components/Footer.astro';
     .numbers-grid { grid-template-columns: 1fr; }
   }
 </style>
+
+
+<script>
+// ============================================
+// COMPTEURS DYNAMIQUES CHIFFRES CLÉS
+// ============================================
+function animateCounter(element) {
+  const target = parseInt(element.getAttribute('data-target'));
+  const prefix = element.getAttribute('data-prefix') || '';
+  const suffix = element.getAttribute('data-suffix') || '';
+  const duration = 2000; // 2 secondes
+  const frameDuration = 1000 / 60; // 60 FPS
+  const totalFrames = Math.round(duration / frameDuration);
+  let frame = 0;
+
+  const counter = setInterval(() => {
+    frame++;
+    const progress = frame / totalFrames;
+    const easeOutQuart = 1 - Math.pow(1 - progress, 4); // Easing
+    const currentValue = Math.round(easeOutQuart * target);
+    
+    element.textContent = prefix + currentValue + suffix;
+
+    if (frame === totalFrames) {
+      clearInterval(counter);
+      element.textContent = prefix + target + suffix; // Valeur finale exacte
+    }
+  }, frameDuration);
+}
+
+// Observer pour déclencher l'animation au scroll
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+      entry.target.classList.add('counted');
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+// Initialiser les compteurs
+document.addEventListener('DOMContentLoaded', () => {
+  const counters = document.querySelectorAll('.counter');
+  counters.forEach(counter => {
+    counter.textContent = counter.getAttribute('data-prefix') + '0' + counter.getAttribute('data-suffix');
+    counterObserver.observe(counter);
+  });
+});
+</script>

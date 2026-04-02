@@ -5,175 +5,168 @@ import Footer from '../components/Footer.astro';
 
 const projects = [
   {
-    id: 1,
-    title: "AFAC26 — Site trilingue, agent IA et solution de paiement pour une conférence d'envergure internationale",
+    id: "01",
+    title: "Centrachat Africa",
+    subtitle: "Première centrale d'achats panafricaine",
+    category: "Digital & Stratégie",
+    country: "CAMEROUN",
+    description: "Création de la plateforme digitale de la première centrale d'achats panafricaine basée à Yaoundé. Site bilingue, système d'adhésion en ligne, identité de marque complète.",
+    tags: ["Web Premium", "Stratégie", "Branding"],
+    image: "/homeCentrachat.webp",
+    link: "https://www.centrachat.africa",
+    featured: true
+  },
+  {
+    id: "02",
+    title: "AFAC26 Conference",
+    subtitle: "Site trilingue, agent IA et paiement international",
     category: "Intelligence Artificielle",
-    client: "AFAC26",
-    description: "Conférence internationale des agents de football africains",
+    country: "INTERNATIONAL",
+    description: "Conception et développement du site officiel de l'African Football Agents Conference 2026. Plateforme trilingue (FR/EN/PT), agent IA intégré, système de paiement international et accréditation.",
+    tags: ["Agent IA", "Web Trilingue", "Paiement"],
     image: "/Afac26_home.jpg",
-    url: "https://afac26.com",
-    tags: ["IA", "Trilingue", "E-commerce", "Événementiel"]
+    link: "https://www.afaaconference.com/en",
+    featured: false
   },
   {
-    id: 2,
-    title: "Campagne présidentielle 2026 — Alexis Mohamed (Djibouti)",
+    id: "03",
+    title: "Alexis Mohamed — Djibouti",
+    subtitle: "Campagne présidentielle 2026",
     category: "Communication 360",
-    client: "Alexis Mohamed",
-    description: "Stratégie digitale et communication institutionnelle",
+    country: "DJIBOUTI",
+    description: "Stratégie de communication complète pour la campagne présidentielle 2026 d'Alexis Mohamed. Identité visuelle, site officiel, gestion des réseaux sociaux et relations presse.",
+    tags: ["Communication Politique", "Web", "Réseaux Sociaux"],
     image: "/homeMohamed.jpg",
-    url: null,
-    tags: ["Politique", "Stratégie", "Influence", "Afrique"]
+    link: "#",
+    featured: false
   },
   {
-    id: 3,
-    title: "Campagne présidentielle 2025 — Serge Ghislain Djorie (Centrafrique)",
+    id: "04",
+    title: "Dr Serge Ghislain Djorie",
+    subtitle: "Campagne présidentielle 2025 — Centrafrique",
     category: "Communication 360",
-    client: "Dr Serge Ghislain Djorie",
-    description: "Communication institutionnelle et stratégie d'influence",
-    image: "/homeGhislain.jpg",
-    url: null,
-    tags: ["Politique", "Stratégie", "Afrique Centrale"]
+    country: "CENTRAFRIQUE",
+    description: "Direction de la communication pour la campagne présidentielle 2025 en Centrafrique. Stratégie digitale, site officiel, production de contenus et coordination médias.",
+    tags: ["Communication Politique", "Stratégie", "Médias"],
+    image: "/homeDjorie.jpg",
+    link: "#",
+    featured: false
   },
   {
-    id: 4,
-    title: "Nomadéo Africa website",
+    id: "05",
+    title: "Nomadéo Africa",
+    subtitle: "Refonte site e-commerce mobilier de bureau",
     category: "Digital",
-    client: "Nomadéo",
-    description: "Magasin de mobilier de bureau au Cameroun et en Afrique",
+    country: "CAMEROUN",
+    description: "Refonte complète du site e-commerce de Nomadéo Africa, leader du mobilier de bureau au Cameroun. UX/UI premium, catalogue produits, SEO et intégration paiement.",
+    tags: ["E-commerce", "UX/UI", "SEO"],
     image: "/nomadeo africa home.jpg",
-    url: null,
-    tags: ["E-commerce", "B2B", "Afrique"]
+    link: "#",
+    featured: false
   },
   {
-    id: 5,
-    title: "Coplacam refonte site Internet",
+    id: "06",
+    title: "Coplacam",
+    subtitle: "Refonte site institutionnel Design & Build",
     category: "Digital",
-    client: "Coplacam Design & Build",
-    description: "Refonte du site web de l'entreprise de construction",
+    country: "CAMEROUN",
+    description: "Refonte du site institutionnel de Coplacam Design & Build, acteur majeur de l'agencement sur mesure en Afrique centrale. Identité visuelle renforcée et expérience utilisateur premium.",
+    tags: ["Web Institutionnel", "Design", "Branding"],
     image: "/coplacam.jpg",
-    url: null,
-    tags: ["Corporate", "BTP", "Cameroun"]
+    link: "#",
+    featured: false
   },
   {
-    id: 6,
-    title: "Centrachat Africa — 1ère centrale d'achats panafricaine",
-    category: "Digital",
-    client: "Centrachat International",
-    description: "Plateforme B2B premium, Yaoundé, Cameroun — 500+ membres, 6 pays CEMAC, 30% d'économies",
-    image: "/centrachat_home.webp",
-    url: "https://www.centrachat.africa",
-    tags: ["B2B", "Plateforme", "Afrique", "Innovation"]
+    id: "07",
+    title: "Dr Serge Djorie 2025",
+    subtitle: "Stratégie e-réputation et influence",
+    category: "E-Réputation",
+    country: "CENTRAFRIQUE",
+    description: "Mission d'e-réputation et de gestion de l'influence digitale pour le Dr Serge Djorie. Veille stratégique, production de contenus, gestion de crise et optimisation de la présence en ligne.",
+    tags: ["E-Réputation", "Influence", "Veille"],
+    image: "/homeDjorie.jpg",
+    link: "#",
+    featured: false
   }
 ];
 ---
 
-<Layout
-  title="Portfolio — One Nation Agency"
-  description="Découvrez nos réalisations : campagnes institutionnelles, agents IA, plateformes web premium. One Nation Agency — Excellence stratégique et innovation digitale."
->
+<Layout title="Portfolio — One Nation Agency | Projets Stratégiques & Digitaux" description="Découvrez les projets stratégiques, digitaux et institutionnels réalisés par One Nation Agency en Afrique, Europe et au Moyen-Orient.">
   <Header />
 
   <main id="main-content">
 
-    <!-- HERO PORTFOLIO -->
-    <section class="portfolio-hero">
-      <div class="container">
-        <div class="portfolio-hero-content">
-          <span class="label reveal">Portfolio</span>
-          <div class="gold-bar reveal"></div>
-          <h1 class="reveal reveal-delay-1">
-            NOS RÉALISATIONS.<br />
-            <span class="gold-text">VOTRE INSPIRATION.</span>
-          </h1>
-          <p class="portfolio-lead reveal reveal-delay-2">
-            De la communication institutionnelle aux agents IA, en passant par les plateformes digitales premium, découvrez comment nous transformons les ambitions en réalisations concrètes.
-          </p>
-        </div>
+    <!-- Hero Portfolio -->
+    <section class="pf-hero">
+      <div class="pf-hero__inner">
+        <span class="pf-hero__label">Nos Réalisations</span>
+        <h1 class="pf-hero__title">Portfolio</h1>
+        <p class="pf-hero__sub">Projets stratégiques, digitaux et institutionnels à forte valeur ajoutée</p>
+      </div>
+      <div class="pf-hero__count">
+        <span class="pf-hero__total">{String(projects.length).padStart(2, '0')}</span>
+        <span class="pf-hero__total-label">Projets</span>
       </div>
     </section>
 
-    <!-- FILTRES -->
-    <section class="portfolio-filters">
-      <div class="container">
-        <div class="filters-wrap reveal">
-          <button class="filter-btn active" data-filter="all">Tous les projets</button>
-          <button class="filter-btn" data-filter="Intelligence Artificielle">Intelligence Artificielle</button>
-          <button class="filter-btn" data-filter="Communication 360">Communication 360</button>
-          <button class="filter-btn" data-filter="Digital">Digital</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- GRILLE PORTFOLIO -->
-    <section class="portfolio-grid-section">
-      <div class="container">
-        <div class="portfolio-grid">
-          {projects.map((project, idx) => (
-            <article
-              class={`portfolio-card reveal reveal-delay-${(idx % 3) + 1}`}
-              data-category={project.category}
-            >
-              {project.url ? (
-                <a href={project.url} target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
-                  <div class="portfolio-img-wrap">
-                    <img src={project.image} alt={project.title} loading="lazy" />
-                    <div class="portfolio-overlay">
-                      <span class="portfolio-visit">Voir le projet</span>
-                    </div>
-                  </div>
-                  <div class="portfolio-info">
-                    <span class="portfolio-cat">{project.category}</span>
-                    <h3>{project.title}</h3>
-                    <p class="portfolio-client">Client : {project.client}</p>
-                    <p class="portfolio-desc">{project.description}</p>
-                    <div class="portfolio-tags">
-                      {project.tags.map(tag => (
-                        <span class="tag">{tag}</span>
-                      ))}
-                    </div>
-                  </div>
-                </a>
-              ) : (
-                <div class="portfolio-card-link">
-                  <div class="portfolio-img-wrap">
-                    <img src={project.image} alt={project.title} loading="lazy" />
-                    <div class="portfolio-overlay">
-                      <span class="portfolio-visit">Voir le projet</span>
-                    </div>
-                  </div>
-                  <div class="portfolio-info">
-                    <span class="portfolio-cat">{project.category}</span>
-                    <h3>{project.title}</h3>
-                    <p class="portfolio-client">Client : {project.client}</p>
-                    <p class="portfolio-desc">{project.description}</p>
-                    <div class="portfolio-tags">
-                      {project.tags.map(tag => (
-                        <span class="tag">{tag}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section">
-      <div class="container">
-        <div class="cta-inner reveal">
-          <span class="label">Un projet en tête ?</span>
-          <h2>CRÉONS QUELQUE CHOSE<br /><span class="gold-text">D'EXCEPTIONNEL.</span></h2>
-          <p>Que vous ayez besoin d'une stratégie de communication, d'un agent IA ou d'une plateforme digitale premium, notre équipe est prête à vous accompagner.</p>
-          <div class="cta-actions">
-            <a href="/contact" class="btn-gold">
-              Discutons de votre projet
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+    <!-- Projets immersifs style Digital Present -->
+    <section class="pf-projects">
+      {projects.map((project, index) => (
+        <article class={`pf-item ${index % 2 === 0 ? 'pf-item--normal' : 'pf-item--reverse'}`} data-index={index}>
+          <!-- Visuel -->
+          <div class="pf-item__visual">
+            <div class="pf-item__img-wrap">
+              <img
+                src={project.image}
+                alt={`${project.title} — One Nation Agency`}
+                class="pf-item__img"
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+              <div class="pf-item__overlay"></div>
+            </div>
           </div>
-        </div>
+
+          <!-- Infos -->
+          <div class="pf-item__info">
+            <div class="pf-item__number">{project.id}</div>
+            <div class="pf-item__meta">
+              <span class="pf-item__country">{project.country}</span>
+              <span class="pf-item__category">{project.category}</span>
+            </div>
+            <h2 class="pf-item__title">{project.title}</h2>
+            <p class="pf-item__subtitle">{project.subtitle}</p>
+            <p class="pf-item__desc">{project.description}</p>
+            <div class="pf-item__tags">
+              {project.tags.map(tag => (
+                <span class="pf-item__tag">{tag}</span>
+              ))}
+            </div>
+            {project.link !== '#' ? (
+              <a href={project.link} target="_blank" rel="noopener noreferrer" class="pf-item__cta">
+                <span>Voir le projet</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                </svg>
+              </a>
+            ) : (
+              <span class="pf-item__cta pf-item__cta--disabled">
+                <span>Projet confidentiel</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+            )}
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <!-- CTA final -->
+    <section class="pf-cta">
+      <div class="pf-cta__inner">
+        <span class="pf-cta__label">Votre projet</span>
+        <h2 class="pf-cta__title">Construisons ensemble<br/>votre prochaine réussite</h2>
+        <a href="/contact" class="pf-cta__btn">Discutons de votre projet</a>
       </div>
     </section>
 
@@ -183,248 +176,396 @@ const projects = [
 </Layout>
 
 <style>
-  /* HERO PORTFOLIO */
-  .portfolio-hero {
-    padding: 12rem 0 5rem;
-    background: linear-gradient(135deg, var(--black) 0%, var(--anthracite) 100%);
-    border-bottom: 1px solid var(--border);
-  }
-  .portfolio-hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .portfolio-hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    margin: 1rem 0 1.5rem;
-  }
-  .portfolio-lead {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.85;
-    max-width: 680px;
-    margin: 0 auto;
-  }
+/* ============================================
+   PORTFOLIO — STYLE DIGITAL PRESENT IMMERSIF
+   ============================================ */
 
-  /* FILTRES */
-  .portfolio-filters {
-    padding: 3rem 0;
-    background: var(--anthracite);
-    border-bottom: 1px solid var(--border-light);
-  }
-  .filters-wrap {
-    display: flex;
-    gap: 0.8rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .filter-btn {
-    font-family: var(--font-display);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.65rem 1.4rem;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--grey);
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-  }
-  .filter-btn:hover {
-    color: var(--white);
-    border-color: var(--gold);
-  }
-  .filter-btn.active {
-    background: var(--gold);
-    color: var(--black);
-    border-color: var(--gold);
-  }
+/* Hero */
+.pf-hero {
+  min-height: 40vh;
+  background: var(--color-bg, #0a0a0a);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 8rem 6vw 4rem;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  position: relative;
+  overflow: hidden;
+}
 
-  /* GRILLE PORTFOLIO */
-  .portfolio-grid-section {
-    padding: var(--pad-section);
-  }
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.pf-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.05) 0%, transparent 60%);
+}
+
+.pf-hero__inner { position: relative; z-index: 1; }
+
+.pf-hero__label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold, #c9a84c);
+  margin-bottom: 1rem;
+}
+
+.pf-hero__title {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  margin: 0 0 1rem;
+}
+
+.pf-hero__sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.5);
+  max-width: 400px;
+}
+
+.pf-hero__count {
+  position: relative;
+  z-index: 1;
+  text-align: right;
+}
+
+.pf-hero__total {
+  display: block;
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(5rem, 12vw, 10rem);
+  font-weight: 700;
+  color: rgba(255,255,255,0.06);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.pf-hero__total-label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-top: 0.5rem;
+}
+
+/* Projets */
+.pf-projects {
+  background: var(--color-bg, #0a0a0a);
+}
+
+.pf-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 85vh;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.pf-item--reverse {
+  direction: rtl;
+}
+
+.pf-item--reverse > * {
+  direction: ltr;
+}
+
+/* Visuel */
+.pf-item__visual {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+
+.pf-item__img-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.pf-item__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.pf-item:hover .pf-item__img {
+  transform: scale(1.04);
+}
+
+.pf-item__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent 60%,
+    rgba(10,10,10,0.4) 100%
+  );
+}
+
+.pf-item--reverse .pf-item__overlay {
+  background: linear-gradient(
+    to left,
+    transparent 60%,
+    rgba(10,10,10,0.4) 100%
+  );
+}
+
+/* Infos */
+.pf-item__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 5vw;
+  background: var(--color-bg, #0a0a0a);
+  position: relative;
+}
+
+.pf-item__number {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(5rem, 10vw, 9rem);
+  font-weight: 700;
+  color: rgba(255,255,255,0.05);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin-bottom: -1rem;
+  user-select: none;
+}
+
+.pf-item__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pf-item__country {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold, #c9a84c);
+  font-weight: 600;
+}
+
+.pf-item__category {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  padding-left: 1rem;
+  border-left: 1px solid rgba(255,255,255,0.15);
+}
+
+.pf-item__title {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+}
+
+.pf-item__subtitle {
+  font-size: 1rem;
+  color: var(--color-gold, #c9a84c);
+  margin: 0 0 1.25rem;
+  font-style: italic;
+}
+
+.pf-item__desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.55);
+  margin: 0 0 2rem;
+  max-width: 420px;
+}
+
+.pf-item__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.pf-item__tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  transition: all 0.3s;
+}
+
+.pf-item:hover .pf-item__tag {
+  border-color: rgba(201,168,76,0.4);
+  color: var(--color-gold, #c9a84c);
+}
+
+.pf-item__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border: 1px solid rgba(201,168,76,0.5);
+  border-radius: 100px;
+  transition: all 0.3s;
+  width: fit-content;
+}
+
+.pf-item__cta:hover {
+  background: var(--color-gold, #c9a84c);
+  border-color: var(--color-gold, #c9a84c);
+  color: #000;
+}
+
+.pf-item__cta--disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* CTA final */
+.pf-cta {
+  background: var(--color-bg, #0a0a0a);
+  padding: 8rem 6vw;
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.pf-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.08) 0%, transparent 60%);
+}
+
+.pf-cta__inner { position: relative; z-index: 1; }
+
+.pf-cta__label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold, #c9a84c);
+  margin-bottom: 1.5rem;
+}
+
+.pf-cta__title {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0 0 3rem;
+}
+
+.pf-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  padding: 1.25rem 3rem;
+  background: var(--color-gold, #c9a84c);
+  border-radius: 100px;
+  transition: all 0.3s;
+}
+
+.pf-cta__btn:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(201,168,76,0.3);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .pf-hero {
+    flex-direction: column;
+    align-items: flex-start;
     gap: 2rem;
+    padding: 7rem 5vw 3rem;
   }
-  .portfolio-card {
-    background: var(--card-bg);
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--border-light);
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+
+  .pf-hero__count { text-align: left; }
+
+  .pf-item {
+    grid-template-columns: 1fr;
+    min-height: auto;
   }
-  .portfolio-card.hidden { display: none; }
-  .portfolio-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    border-color: var(--border);
-  }
-  .portfolio-card-link {
-    display: block;
-    cursor: pointer;
-  }
-  .portfolio-img-wrap {
-    aspect-ratio: 16/10;
-    overflow: hidden;
+
+  .pf-item--reverse { direction: ltr; }
+
+  .pf-item__visual {
+    height: 55vw;
+    min-height: 280px;
     position: relative;
-    background: var(--dark);
-  }
-  .portfolio-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-    transition: transform 0.5s ease;
-  }
-  .portfolio-card:hover .portfolio-img-wrap img {
-    transform: scale(1.05);
-  }
-  .portfolio-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(10,10,10,0.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .portfolio-card:hover .portfolio-overlay { opacity: 1; }
-  .portfolio-visit {
-    font-family: var(--font-display);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid var(--gold);
-    padding: 0.65rem 1.4rem;
-    border-radius: 3px;
-    transition: all 0.25s ease;
-  }
-  .portfolio-card:hover .portfolio-visit {
-    background: var(--gold);
-    color: var(--black);
   }
 
-  /* INFO CARD */
-  .portfolio-info {
-    padding: 1.8rem;
-  }
-  .portfolio-cat {
-    display: inline-block;
-    font-family: var(--font-display);
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.8rem;
-  }
-  .portfolio-info h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.4;
-    margin-bottom: 0.6rem;
-    color: var(--white);
-  }
-  .portfolio-client {
-    font-size: 0.8rem;
-    color: var(--grey);
-    margin-bottom: 0.5rem;
-    font-style: italic;
-  }
-  .portfolio-desc {
-    font-size: 0.85rem;
-    color: var(--grey-light);
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-  .portfolio-tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  .tag {
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: var(--grey);
-    background: rgba(255,255,255,0.04);
-    padding: 0.3rem 0.7rem;
-    border-radius: 3px;
-    border: 1px solid var(--border-light);
+  .pf-item__img-wrap { position: absolute; inset: 0; }
+
+  .pf-item__overlay {
+    background: linear-gradient(to bottom, transparent 60%, rgba(10,10,10,0.6) 100%);
   }
 
-  /* CTA */
-  .cta-section {
-    padding: var(--pad-section);
-    background: var(--anthracite);
-    border-top: 1px solid var(--border);
-  }
-  .cta-inner {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  .cta-inner h2 {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    margin: 0.8rem 0 1.5rem;
-  }
-  .cta-inner p {
-    font-size: 1rem;
-    color: var(--grey);
-    line-height: 1.8;
-    margin-bottom: 2.5rem;
-  }
-  .cta-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+  .pf-item__info {
+    padding: 3rem 5vw 4rem;
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 1024px) {
-    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .pf-item__number {
+    font-size: 4rem;
   }
+}
 
-  @media (max-width: 768px) {
-    .portfolio-hero { padding: 9rem 0 4rem; }
-    .portfolio-grid { grid-template-columns: 1fr; }
-    .filters-wrap { gap: 0.6rem; }
-    .filter-btn { font-size: 0.68rem; padding: 0.55rem 1rem; }
-  }
+@media (max-width: 480px) {
+  .pf-hero { padding: 6rem 5vw 2.5rem; }
+  .pf-item__info { padding: 2.5rem 5vw 3rem; }
+  .pf-cta { padding: 5rem 5vw; }
+}
 </style>
 
 <script>
-  // Système de filtrage
-  document.addEventListener('DOMContentLoaded', () => {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.portfolio-card');
+// Animation d'entrée au scroll pour chaque projet
+const items = document.querySelectorAll('.pf-item');
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
-
-        // Update active state
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // Filter cards
-        cards.forEach(card => {
-          const category = card.getAttribute('data-category');
-          if (filter === 'all' || category === filter) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
-      });
-    });
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('pf-item--visible');
+      observer.unobserve(entry.target);
+    }
   });
+}, { threshold: 0.1 });
+
+items.forEach(item => {
+  item.style.opacity = '0';
+  item.style.transform = 'translateY(40px)';
+  item.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+  observer.observe(item);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const style = document.createElement('style');
+  style.textContent = `.pf-item--visible { opacity: 1 !important; transform: translateY(0) !important; }`;
+  document.head.appendChild(style);
+});
 </script>
