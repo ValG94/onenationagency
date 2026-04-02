@@ -340,11 +340,11 @@ import Footer from '../components/Footer.astro';
     gap: 2rem;
   }
   .splash-logo img {
-    height: 56px;
+    height: 80px;
     width: auto;
     opacity: 0;
     animation: fadeIn 0.6s ease 0.1s forwards;
-    filter: drop-shadow(0 0 12px rgba(184,150,80,0.3));
+    filter: brightness(1.4) drop-shadow(0 0 18px rgba(184,150,80,0.5)) drop-shadow(0 0 6px rgba(255,255,255,0.2));
   }
   /* Titre structuré sur 3 lignes */
   .splash-title-wrap {
@@ -419,11 +419,15 @@ import Footer from '../components/Footer.astro';
   .splash-tagline {
     font-family: var(--font-display);
     font-size: 0.75rem;
-    letter-spacing: 0.45em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.45);
     opacity: 0;
     animation: fadeIn 0.8s ease 1.8s forwards;
+    /* Étirer sur toute la largeur d'AGENCY via word-spacing adaptatif */
+    width: 100%;
+    text-align: justify;
+    text-align-last: justify;
+    letter-spacing: 0.2em;
   }
   .splash-bar {
     position: absolute;
