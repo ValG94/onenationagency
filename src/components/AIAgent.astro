@@ -629,10 +629,10 @@
     }
   });
 
-  // Ouvrir automatiquement après 30s si pas encore ouvert
-  setTimeout(() => {
-    if (!isOpen && !conversationStarted) {
-      openAgent();
-    }
-  }, 30000);
+  // Ouverture automatique désactivée à la demande de l'utilisateur
+  // setTimeout(() => {
+  //   if (!isOpen && !conversationStarted) {
+  //     openAgent();
+  //   }
+  // }, 30000);
 </script>
