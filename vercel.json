@@ -1,14 +1,11 @@
 {
   "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
-  "framework": null,
+  "framework": "astro",
   "functions": {
     "api/contact.js": {
       "memory": 128,
       "maxDuration": 10
     }
-  },
-  "rewrites": [
-    { "source": "/api/contact", "destination": "/api/contact" }
-  ]
+  }
 }

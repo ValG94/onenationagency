@@ -8,7 +8,15 @@ export default async function handler(req, res) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
-    const { firstName, lastName, email, phone, company, subject, message, consent } = req.body;
+    const body = req.body;
+    const firstName = body?.firstName || '';
+    const lastName = body?.lastName || '';
+    const email = body?.email || '';
+    const phone = body?.phone || '';
+    const company = body?.company || '';
+    const subject = body?.subject || '';
+    const message = body?.message || '';
+    const consent = body?.consent;
 
     // Validation serveur
     if (!firstName || !lastName || !email || !subject || !message) {
@@ -82,6 +90,6 @@ export default async function handler(req, res) {
 
   } catch (err) {
     console.error('Resend error:', err);
-    return res.status(500).json({ error: 'Erreur lors de l\'envoi. Veuillez réessayer.' });
+    return res.status(500).json({ error: "Erreur lors de l'envoi. Veuillez réessayer." });
   }
 }
