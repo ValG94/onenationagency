@@ -97,14 +97,18 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <style>
+  /* ─── Header principal ─────────────────────────────────────── */
   .site-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    /* z-index élevé mais sans transform ni will-change qui créent un nouveau stacking context */
     z-index: 10000;
     padding: 0;
     transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+    /* IMPORTANT : pas de transform ici — un transform sur le parent
+       réinitialise le stacking context et casse le fixed des enfants */
   }
 
   .site-header.scrolled {
@@ -122,7 +126,7 @@ const currentPath = Astro.url.pathname;
     gap: 2rem;
   }
 
-  /* Logo */
+  /* ─── Logo ─────────────────────────────────────────────────── */
   .logo {
     flex-shrink: 0;
     display: flex;
@@ -136,7 +140,7 @@ const currentPath = Astro.url.pathname;
   }
   .logo:hover img { opacity: 0.85; }
 
-  /* Nav desktop */
+  /* ─── Nav desktop ───────────────────────────────────────────── */
   .nav-desktop ul {
     display: flex;
     align-items: center;
@@ -181,7 +185,7 @@ const currentPath = Astro.url.pathname;
     transform: scaleX(1);
   }
 
-  /* Actions droite */
+  /* ─── Actions droite ────────────────────────────────────────── */
   .header-actions {
     display: flex;
     align-items: center;
@@ -214,7 +218,7 @@ const currentPath = Astro.url.pathname;
     padding: 0.65rem 1.4rem;
   }
 
-  /* Burger */
+  /* ─── Burger ────────────────────────────────────────────────── */
   .burger {
     display: none;
     flex-direction: column;
@@ -223,6 +227,9 @@ const currentPath = Astro.url.pathname;
     border: none;
     cursor: pointer;
     padding: 4px;
+    /* z-index relatif au header — toujours au-dessus du menu overlay */
+    position: relative;
+    z-index: 10002;
   }
   .burger span {
     display: block;
@@ -237,7 +244,7 @@ const currentPath = Astro.url.pathname;
   .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* Menu mobile */
+  /* ─── Menu mobile ───────────────────────────────────────────── */
   .mobile-menu {
     position: fixed;
     top: 0;
@@ -249,20 +256,18 @@ const currentPath = Astro.url.pathname;
     background: rgba(8,8,8,0.99);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    /* z-index supérieur au header (10000) pour couvrir tout */
     z-index: 10001;
     padding: 5rem 1.25rem 2rem;
+    /* Scroll interne au menu uniquement */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    /* Caché par défaut via visibility + opacity (pas display:none pour l'animation) */
+    /* Caché par défaut */
     visibility: hidden;
     opacity: 0;
     transform: translateX(100%);
     transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
                 opacity 0.35s ease,
                 visibility 0s linear 0.35s;
-    /* S'assurer qu'il est toujours au-dessus de tout le contenu */
-    will-change: transform;
   }
   .mobile-menu.open {
     visibility: visible;
@@ -306,7 +311,7 @@ const currentPath = Astro.url.pathname;
     color: var(--black) !important;
   }
 
-  /* Responsive */
+  /* ─── Responsive ────────────────────────────────────────────── */
   @media (max-width: 900px) {
     .nav-desktop { display: none; }
     .header-cta { display: none; }
@@ -322,11 +327,11 @@ const currentPath = Astro.url.pathname;
 </style>
 
 <script>
-  const header = document.getElementById('site-header');
-  const burgerBtn = document.getElementById('burger-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const header = document.getElementById('site-header') as HTMLElement | null;
+  const burgerBtn = document.getElementById('burger-btn') as HTMLButtonElement | null;
+  const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
 
-  // Scroll effect
+  // ── Effet scroll sur le header ──────────────────────────────
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
       header?.classList.add('scrolled');
@@ -335,21 +340,59 @@ const currentPath = Astro.url.pathname;
     }
   }, { passive: true });
 
-  // Mobile menu toggle
+  // ── Helpers open / close ────────────────────────────────────
+  function openMenu() {
+    mobileMenu?.classList.add('open');
+    burgerBtn?.classList.add('open');
+    burgerBtn?.setAttribute('aria-expanded', 'true');
+    // NE PAS bloquer document.body.overflow — le menu a son propre scroll interne
+    // Bloquer uniquement le scroll de la page derrière le menu via pointer-events
+  }
+
+  function closeMenu() {
+    mobileMenu?.classList.remove('open');
+    burgerBtn?.classList.remove('open');
+    burgerBtn?.setAttribute('aria-expanded', 'false');
+    // S'assurer que le scroll de la page est toujours libéré
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.documentElement.style.overflow = '';
+  }
+
+  // ── Toggle burger ───────────────────────────────────────────
   burgerBtn?.addEventListener('click', () => {
-    const isOpen = mobileMenu?.classList.toggle('open');
-    burgerBtn.classList.toggle('open', isOpen);
-    burgerBtn.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    const isOpen = mobileMenu?.classList.contains('open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
 
-  // Close on link click
+  // ── Fermer sur clic de lien ─────────────────────────────────
   mobileMenu?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      burgerBtn?.classList.remove('open');
-      burgerBtn?.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      closeMenu();
     });
+  });
+
+  // ── Fermer sur Escape ───────────────────────────────────────
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu?.classList.contains('open')) {
+      closeMenu();
+    }
+  });
+
+  // ── Sécurité : nettoyer overflow au chargement de la page ───
+  // (au cas où une navigation précédente aurait laissé overflow:hidden)
+  window.addEventListener('load', () => {
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.documentElement.style.overflow = '';
+  });
+
+  // ── Sécurité : nettoyer overflow sur popstate (navigation) ──
+  window.addEventListener('popstate', () => {
+    closeMenu();
   });
 </script>
