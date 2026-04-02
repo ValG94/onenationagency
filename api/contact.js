@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     // Email de notification vers ONE NATION AGENCY
     await resend.emails.send({
-      from: 'ONE NATION AGENCY <onboarding@resend.dev>',
+      from: 'ONE NATION AGENCY <contact@onenationagency.com>',
       to: ['contact@onenationagency.com'],
       replyTo: email,
       subject: `[Contact] ${subject} — ${firstName} ${lastName}`,
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 
     // Email de confirmation automatique au client
     await resend.emails.send({
-      from: 'ONE NATION AGENCY <onboarding@resend.dev>',
+      from: 'ONE NATION AGENCY <contact@onenationagency.com>',
       to: [email],
       subject: `Votre message a bien été reçu — ONE NATION AGENCY`,
       html: `
