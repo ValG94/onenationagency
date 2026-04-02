@@ -20,8 +20,6 @@ import Footer from '../components/Footer.astro';
       <span class="particle" style="--px:90%;--py:80%;--pd:4.0s"></span>
       <span class="particle" style="--px:10%;--py:85%;--pd:3.3s"></span>
     </div>
-    <!-- Ligne dorée horizontale centrale -->
-    <div class="splash-line-reveal" aria-hidden="true"></div>
     <div class="splash-content">
       <!-- Logo -->
       <div class="splash-logo-wrap">
@@ -35,6 +33,8 @@ import Footer from '../components/Footer.astro';
         <span class="sl sl-space"> </span>
         <span class="sl" style="--i:9">A</span><span class="sl" style="--i:10">G</span><span class="sl" style="--i:11">E</span><span class="sl" style="--i:12">N</span><span class="sl" style="--i:13">C</span><span class="sl" style="--i:14">Y</span>
       </div>
+      <!-- Ligne dorée séparatrice — apparaît après les lettres -->
+      <div class="splash-line-reveal" aria-hidden="true"></div>
       <!-- Tagline -->
       <p class="splash-tagline">La communication sur mesure</p>
     </div>
@@ -368,20 +368,19 @@ import Footer from '../components/Footer.astro';
     100% { opacity: 0; transform: translateY(-20px) scale(1.5); }
   }
 
-  /* Ligne dorée centrale reveal */
+  /* Ligne dorée séparatrice — apparaît après les lettres */
   .splash-line-reveal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
     height: 1px;
     width: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(184,150,80,0.6) 30%, rgba(212,175,55,0.9) 50%, rgba(184,150,80,0.6) 70%, transparent 100%);
-    animation: lineReveal 0.8s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;
-    z-index: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(184,150,80,0.5) 20%, rgba(212,175,55,0.85) 50%, rgba(184,150,80,0.5) 80%, transparent 100%);
+    /* Délai = fin des lettres : 0.9s + 14*0.055s = ~1.67s + 0.3s marge = 2.0s */
+    animation: lineReveal 0.9s cubic-bezier(0.4,0,0.2,1) 2.0s forwards;
+    box-shadow: 0 0 6px rgba(184,150,80,0.3);
+    align-self: stretch;
   }
   @keyframes lineReveal {
-    to { width: min(90vw, 900px); }
+    to { width: 100%; }
   }
 
   /* Contenu central */
@@ -427,8 +426,8 @@ import Footer from '../components/Footer.astro';
     letter-spacing: 0.04em;
     display: inline-block;
     opacity: 0;
-    transform: translateY(60px) rotateX(40deg) scale(0.8);
-    animation: slIn 0.65s cubic-bezier(0.22,1,0.36,1) calc(0.9s + var(--i, 0) * 0.055s) forwards;
+    transform: translateY(18px);
+    animation: slIn 0.9s cubic-bezier(0.16,1,0.3,1) calc(0.6s + var(--i, 0) * 0.07s) forwards;
     /* Métal gunmetal / chrome sombre avec reflets */
     background: linear-gradient(
       160deg,
@@ -449,8 +448,8 @@ import Footer from '../components/Footer.astro';
     background-clip: text;
     text-shadow: none;
     animation:
-      slIn 0.65s cubic-bezier(0.22,1,0.36,1) calc(0.9s + var(--i, 0) * 0.055s) forwards,
-      chromeSweep 4s ease-in-out 2.5s infinite;
+      slIn 0.9s cubic-bezier(0.16,1,0.3,1) calc(0.6s + var(--i, 0) * 0.07s) forwards,
+               chromeSweep 4s ease-in-out 2.5s infinite;
     /* Ombre 3D simulée */
     filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7)) drop-shadow(0 1px 0 rgba(255,255,255,0.08));
   }
@@ -485,11 +484,11 @@ import Footer from '../components/Footer.astro';
     background-clip: text;
     filter: drop-shadow(0 4px 16px rgba(184,150,80,0.5)) drop-shadow(0 1px 0 rgba(255,220,80,0.15));
     animation:
-      slIn 0.65s cubic-bezier(0.22,1,0.36,1) calc(0.9s + var(--i, 0) * 0.055s) forwards,
-      goldSweep 3.5s ease-in-out 2.8s infinite;
+      slIn 0.9s cubic-bezier(0.16,1,0.3,1) calc(0.6s + var(--i, 0) * 0.07s) forwards,
+               goldSweep 3.5s ease-in-out 2.8s infinite;
   }
   @keyframes slIn {
-    to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
+    to { opacity: 1; transform: translateY(0); }
   }
   @keyframes chromeSweep {
     0%,100% { background-position: 0% 0%; }
@@ -508,7 +507,8 @@ import Footer from '../components/Footer.astro';
     text-transform: uppercase;
     color: rgba(255,255,255,0.38);
     opacity: 0;
-    animation: fadeIn 1s ease 2.4s forwards;
+    /* Apparaît après la ligne dorée */
+    animation: fadeIn 1s ease 3.1s forwards;
     text-align: center;
   }
 
