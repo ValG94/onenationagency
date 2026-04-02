@@ -368,19 +368,30 @@ import Footer from '../components/Footer.astro';
     100% { opacity: 0; transform: translateY(-20px) scale(1.5); }
   }
 
-  /* Ligne dorée séparatrice — apparaît après les lettres */
+  /* Ligne dorée séparatrice — effet balayage après les lettres */
   .splash-line-reveal {
     position: relative;
     height: 1px;
-    width: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(184,150,80,0.5) 20%, rgba(212,175,55,0.85) 50%, rgba(184,150,80,0.5) 80%, transparent 100%);
-    /* Délai = fin des lettres : 0.9s + 14*0.055s = ~1.67s + 0.3s marge = 2.0s */
-    animation: lineReveal 0.9s cubic-bezier(0.4,0,0.2,1) 2.0s forwards;
-    box-shadow: 0 0 6px rgba(184,150,80,0.3);
+    width: 100%;
+    overflow: hidden;
     align-self: stretch;
+    opacity: 0;
+    animation: lineAppear 0.1s ease 2.0s forwards;
   }
-  @keyframes lineReveal {
-    to { width: 100%; }
+  .splash-line-reveal::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(184,150,80,0.5) 20%, rgba(212,175,55,0.9) 50%, rgba(184,150,80,0.5) 80%, transparent 100%);
+    box-shadow: 0 0 8px rgba(184,150,80,0.4);
+    transform: translateX(-100%);
+    animation: lineSweep 1.1s cubic-bezier(0.4,0,0.2,1) 2.05s forwards;
+  }
+  @keyframes lineAppear {
+    to { opacity: 1; }
+  }
+  @keyframes lineSweep {
+    to { transform: translateX(0); }
   }
 
   /* Contenu central */
@@ -508,8 +519,43 @@ import Footer from '../components/Footer.astro';
     color: rgba(255,255,255,0.38);
     opacity: 0;
     /* Apparaît après la ligne dorée */
-    animation: fadeIn 1s ease 3.1s forwards;
+    animation: fadeIn 1s ease 3.3s forwards;
     text-align: center;
+  }
+
+  /* ===== RESPONSIVE SPLASH MOBILE ===== */
+  @media (max-width: 600px) {
+    .splash-content {
+      gap: 1.2rem;
+      padding: 0 1rem;
+      width: 100%;
+    }
+    .splash-logo-img {
+      height: 52px;
+    }
+    .splash-title-row {
+      flex-wrap: nowrap;
+      justify-content: center;
+      width: 100%;
+      overflow: hidden;
+    }
+    .sl {
+      font-size: clamp(1.6rem, 9vw, 3rem);
+      letter-spacing: 0.02em;
+    }
+    .sl-space {
+      width: 0.2em;
+    }
+    .splash-tagline {
+      font-size: 0.55rem;
+      letter-spacing: 0.28em;
+    }
+  }
+  @media (max-width: 380px) {
+    .sl {
+      font-size: clamp(1.3rem, 8.5vw, 2.4rem);
+      letter-spacing: 0.01em;
+    }
   }
 
   /* Barre de chargement dorée */
@@ -1009,7 +1055,7 @@ import Footer from '../components/Footer.astro';
     const splash = document.getElementById('splash');
     const siteWrapper = document.getElementById('site-wrapper');
 
-    // Timing : logo 0.5s + lettres 0.9s + 14*0.055s = ~2.67s + 1.2s lecture = ~4s
+    // Timing : tagline apparaît à 3.3s + 2s de lecture = 5.3s + 0.7s transition = 6s
     setTimeout(() => {
       splash?.classList.add('hidden');
       siteWrapper?.classList.add('visible');
@@ -1023,6 +1069,6 @@ import Footer from '../components/Footer.astro';
         }, { threshold: 0.08 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
       }, 100);
-    }, 4200);
+    }, 6000);
   });
 </script>

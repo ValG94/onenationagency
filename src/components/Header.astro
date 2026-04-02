@@ -239,25 +239,38 @@ const currentPath = Astro.url.pathname;
 
   /* Menu mobile */
   .mobile-menu {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(10,10,10,0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background: rgba(8,8,8,0.99);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    /* z-index supérieur au header (10000) pour couvrir tout */
+    z-index: 10001;
     padding: 5rem 1.25rem 2rem;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    /* Caché par défaut via visibility + opacity (pas display:none pour l'animation) */
+    visibility: hidden;
+    opacity: 0;
     transform: translateX(100%);
-    transition: transform 0.35s var(--ease-out);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.35s ease,
+                visibility 0s linear 0.35s;
+    /* S'assurer qu'il est toujours au-dessus de tout le contenu */
+    will-change: transform;
   }
   .mobile-menu.open {
-    display: block;
+    visibility: visible;
+    opacity: 1;
     transform: translateX(0);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.35s ease,
+                visibility 0s linear 0s;
   }
   .mobile-menu ul {
     list-style: none;
