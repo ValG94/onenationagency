@@ -10,23 +10,35 @@ import Footer from '../components/Footer.astro';
 >
   <!-- SPLASH SCREEN -->
   <div class="splash" id="splash" aria-hidden="true">
+    <!-- Particules lumineuses -->
+    <div class="splash-particles" aria-hidden="true">
+      <span class="particle" style="--px:15%;--py:20%;--pd:2.4s"></span>
+      <span class="particle" style="--px:80%;--py:15%;--pd:3.1s"></span>
+      <span class="particle" style="--px:50%;--py:75%;--pd:2.7s"></span>
+      <span class="particle" style="--px:25%;--py:65%;--pd:3.8s"></span>
+      <span class="particle" style="--px:70%;--py:55%;--pd:2.2s"></span>
+      <span class="particle" style="--px:90%;--py:80%;--pd:4.0s"></span>
+      <span class="particle" style="--px:10%;--py:85%;--pd:3.3s"></span>
+    </div>
+    <!-- Ligne dorée horizontale centrale -->
+    <div class="splash-line-reveal" aria-hidden="true"></div>
     <div class="splash-content">
-      <div class="splash-logo">
-        <img src="/ON_white.png" alt="One Nation Agency" />
+      <!-- Logo -->
+      <div class="splash-logo-wrap">
+        <img src="/ON_white.png" alt="One Nation Agency" class="splash-logo-img" />
       </div>
-      <div class="splash-title-wrap">
-        <div class="splash-line">
-          <span class="splash-letter" style="--i:0">O</span><span class="splash-letter" style="--i:1">N</span><span class="splash-letter" style="--i:2">E</span>
-        </div>
-        <div class="splash-line splash-line--gold">
-          <span class="splash-letter" style="--i:3">N</span><span class="splash-letter" style="--i:4">A</span><span class="splash-letter" style="--i:5">T</span><span class="splash-letter" style="--i:6">I</span><span class="splash-letter" style="--i:7">O</span><span class="splash-letter" style="--i:8">N</span>
-        </div>
-        <div class="splash-line">
-          <span class="splash-letter" style="--i:9">A</span><span class="splash-letter" style="--i:10">G</span><span class="splash-letter" style="--i:11">E</span><span class="splash-letter" style="--i:12">N</span><span class="splash-letter" style="--i:13">C</span><span class="splash-letter" style="--i:14">Y</span>
-        </div>
+      <!-- Titre monumental sur une ligne -->
+      <div class="splash-title-row" id="splashTitle">
+        <span class="sl" style="--i:0">O</span><span class="sl" style="--i:1">N</span><span class="sl" style="--i:2">E</span>
+        <span class="sl sl-space"> </span>
+        <span class="sl sl-gold" style="--i:3">N</span><span class="sl sl-gold" style="--i:4">A</span><span class="sl sl-gold" style="--i:5">T</span><span class="sl sl-gold" style="--i:6">I</span><span class="sl sl-gold" style="--i:7">O</span><span class="sl sl-gold" style="--i:8">N</span>
+        <span class="sl sl-space"> </span>
+        <span class="sl" style="--i:9">A</span><span class="sl" style="--i:10">G</span><span class="sl" style="--i:11">E</span><span class="sl" style="--i:12">N</span><span class="sl" style="--i:13">C</span><span class="sl" style="--i:14">Y</span>
       </div>
+      <!-- Tagline -->
       <p class="splash-tagline">La communication sur mesure</p>
     </div>
+    <!-- Barre de chargement -->
     <div class="splash-bar"></div>
   </div>
 
@@ -316,123 +328,200 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <style>
-  /* ===== SPLASH ===== */
+  /* ===== SPLASH PREMIUM ===== */
   .splash {
     position: fixed;
     inset: 0;
-    background: var(--black);
+    background: radial-gradient(ellipse at 50% 40%, #111111 0%, #050505 60%, #000000 100%);
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), visibility 0.8s ease;
+    overflow: hidden;
+    transition: opacity 1s cubic-bezier(0.4,0,0.2,1), visibility 1s ease;
   }
   .splash.hidden {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
   }
+
+  /* Particules dorées flottantes */
+  .splash-particles { position: absolute; inset: 0; pointer-events: none; }
+  .particle {
+    position: absolute;
+    left: var(--px);
+    top: var(--py);
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,150,80,0.8) 0%, transparent 70%);
+    animation: particleDrift var(--pd) ease-in-out infinite alternate;
+    opacity: 0;
+    animation-delay: calc(var(--pd) * 0.3);
+  }
+  @keyframes particleDrift {
+    0%   { opacity: 0; transform: translateY(0) scale(1); }
+    30%  { opacity: 0.6; }
+    70%  { opacity: 0.4; }
+    100% { opacity: 0; transform: translateY(-20px) scale(1.5); }
+  }
+
+  /* Ligne dorée centrale reveal */
+  .splash-line-reveal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 1px;
+    width: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(184,150,80,0.6) 30%, rgba(212,175,55,0.9) 50%, rgba(184,150,80,0.6) 70%, transparent 100%);
+    animation: lineReveal 0.8s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;
+    z-index: 0;
+  }
+  @keyframes lineReveal {
+    to { width: min(90vw, 900px); }
+  }
+
+  /* Contenu central */
   .splash-content {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1.8rem;
   }
-  .splash-logo img {
-    height: 90px;
+
+  /* Logo */
+  .splash-logo-wrap {
+    opacity: 0;
+    transform: scale(0.85);
+    animation: logoReveal 0.7s cubic-bezier(0.22,1,0.36,1) 0.5s forwards;
+    filter: drop-shadow(0 0 20px rgba(184,150,80,0.35)) drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+  }
+  .splash-logo-img {
+    height: 72px;
     width: auto;
-    opacity: 0;
-    animation: fadeIn 0.6s ease 0.1s forwards;
+    display: block;
   }
-  /* Titre structuré sur 3 lignes */
-  .splash-title-wrap {
+  @keyframes logoReveal {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Titre monumental sur une ligne */
+  .splash-title-row {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.1rem;
+    align-items: baseline;
+    gap: 0;
+    line-height: 0.9;
+    perspective: 800px;
   }
-  .splash-line {
-    display: flex;
-    gap: 0.05em;
-    line-height: 1;
-  }
+
   /* Chaque lettre */
-  .splash-letter {
+  .sl {
     font-family: var(--font-display);
-    font-size: clamp(3.5rem, 10vw, 8rem);
+    font-size: clamp(2.8rem, 8.5vw, 7.5rem);
     font-weight: 900;
-    letter-spacing: 0.12em;
-    color: var(--white);
+    letter-spacing: 0.04em;
+    display: inline-block;
     opacity: 0;
-    transform: translateY(30px) scale(0.9);
-    animation: letterIn 0.45s cubic-bezier(0.22,1,0.36,1) calc(0.3s + var(--i) * 0.06s) forwards;
-    /* Effet métallique blanc */
+    transform: translateY(60px) rotateX(40deg) scale(0.8);
+    animation: slIn 0.65s cubic-bezier(0.22,1,0.36,1) calc(0.9s + var(--i, 0) * 0.055s) forwards;
+    /* Métal gunmetal / chrome sombre avec reflets */
     background: linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #e8e8e8 30%,
-      #ffffff 50%,
-      #c8c8c8 70%,
-      #ffffff 100%
+      160deg,
+      #9a9a9a 0%,
+      #d8d8d8 15%,
+      #f0f0f0 25%,
+      #b0b0b0 35%,
+      #787878 50%,
+      #c0c0c0 60%,
+      #e8e8e8 70%,
+      #a0a0a0 80%,
+      #686868 90%,
+      #b8b8b8 100%
     );
-    background-size: 100% 200%;
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: letterIn 0.45s cubic-bezier(0.22,1,0.36,1) calc(0.3s + var(--i) * 0.06s) forwards,
-               metalSheen 3s ease-in-out 1.5s infinite;
+    text-shadow: none;
+    animation:
+      slIn 0.65s cubic-bezier(0.22,1,0.36,1) calc(0.9s + var(--i, 0) * 0.055s) forwards,
+      chromeSweep 4s ease-in-out 2.5s infinite;
+    /* Ombre 3D simulée */
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7)) drop-shadow(0 1px 0 rgba(255,255,255,0.08));
   }
-  /* Ligne NATION — effet or métallique avec reflet */
-  .splash-line--gold .splash-letter {
+  /* Espace entre mots */
+  .sl-space {
+    width: 0.35em;
+    animation: none;
+    opacity: 1;
+    transform: none;
+    background: none;
+    -webkit-text-fill-color: transparent;
+  }
+  /* Lettres NATION — or métallique noble */
+  .sl-gold {
     background: linear-gradient(
-      180deg,
-      #f5d98a 0%,
-      #c8960c 20%,
-      #f0c040 40%,
-      #b8860b 55%,
-      #e8b84b 65%,
-      #ffd700 75%,
-      #c8960c 85%,
-      #f5d98a 100%
+      160deg,
+      #8B6914 0%,
+      #C8960C 10%,
+      #E8C84A 22%,
+      #F5D978 30%,
+      #D4A820 42%,
+      #B8860B 52%,
+      #E0B830 62%,
+      #F0D060 72%,
+      #C09010 82%,
+      #8B6914 90%,
+      #D4A820 100%
     );
-    background-size: 100% 300%;
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: letterIn 0.45s cubic-bezier(0.22,1,0.36,1) calc(0.3s + var(--i) * 0.06s) forwards,
-               goldSheen 2.5s ease-in-out 1.8s infinite;
-    filter: drop-shadow(0 0 8px rgba(184,150,80,0.4));
+    filter: drop-shadow(0 4px 16px rgba(184,150,80,0.5)) drop-shadow(0 1px 0 rgba(255,220,80,0.15));
+    animation:
+      slIn 0.65s cubic-bezier(0.22,1,0.36,1) calc(0.9s + var(--i, 0) * 0.055s) forwards,
+      goldSweep 3.5s ease-in-out 2.8s infinite;
   }
-  @keyframes letterIn {
-    to { opacity: 1; transform: translateY(0) scale(1); }
+  @keyframes slIn {
+    to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); }
   }
-  @keyframes metalSheen {
-    0%, 100% { background-position: 0% 0%; }
-    50% { background-position: 0% 100%; }
+  @keyframes chromeSweep {
+    0%,100% { background-position: 0% 0%; }
+    50%     { background-position: 100% 100%; }
   }
-  @keyframes goldSheen {
-    0%, 100% { background-position: 0% 0%; }
-    50% { background-position: 0% 100%; }
+  @keyframes goldSweep {
+    0%,100% { background-position: 0% 0%; }
+    50%     { background-position: 100% 100%; }
   }
+
+  /* Tagline */
   .splash-tagline {
     font-family: var(--font-display);
-    font-size: 0.8rem;
-    letter-spacing: 0.3em;
+    font-size: 0.72rem;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.38);
     opacity: 0;
-    animation: fadeIn 0.8s ease 1.8s forwards;
+    animation: fadeIn 1s ease 2.4s forwards;
     text-align: center;
   }
+
+  /* Barre de chargement dorée */
   .splash-bar {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(184,150,80,0.4) 20%, rgba(212,175,55,1) 50%, rgba(184,150,80,0.4) 80%, transparent 100%);
     width: 0;
-    animation: loadBar 2.2s ease 0.2s forwards;
+    animation: loadBar 2.8s cubic-bezier(0.4,0,0.2,1) 0.1s forwards;
+    box-shadow: 0 0 8px rgba(184,150,80,0.4);
   }
   @keyframes loadBar {
     to { width: 100%; }
@@ -920,7 +1009,7 @@ import Footer from '../components/Footer.astro';
     const splash = document.getElementById('splash');
     const siteWrapper = document.getElementById('site-wrapper');
 
-    // Durée : 0.3s + 14 lettres * 0.06s = ~1.14s d'animation + 1.2s de lecture = ~3.2s total
+    // Timing : logo 0.5s + lettres 0.9s + 14*0.055s = ~2.67s + 1.2s lecture = ~4s
     setTimeout(() => {
       splash?.classList.add('hidden');
       siteWrapper?.classList.add('visible');
@@ -934,6 +1023,6 @@ import Footer from '../components/Footer.astro';
         }, { threshold: 0.08 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
       }, 100);
-    }, 3400);
+    }, 4200);
   });
 </script>
