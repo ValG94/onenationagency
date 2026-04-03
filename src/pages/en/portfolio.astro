@@ -6,102 +6,98 @@ import Footer from '../../components/Footer.astro';
 const projects = [
   {
     id: "01",
-    mockup: "laptop",
     title: "Centrachat Africa",
     subtitle: "First pan-African purchasing centre",
     category: "Digital & Strategy",
     country: "CAMEROON",
     description: "Creation of the digital platform for the first pan-African purchasing centre based in Yaoundé. Bilingual site, online membership system, complete brand identity.",
     tags: ["Premium Web", "Strategy", "Branding"],
-    image: "/homeCentrachat.webp",
+    image: "/centrachat_tablet.png",
     link: "https://www.centrachat.africa",
     color: "#1a3a5c"
   },
   {
     id: "02",
-    mockup: "phone",
     title: "PaieCashPlay",
     subtitle: "Digital solutions for sports associations",
     category: "Fintech & Artificial Intelligence",
     country: "FRANCE / AFRICA",
     description: "Design and development of the PaieCashPlay digital ecosystem: digital payments, e-commerce, streaming, AI agent and digitalisation of sports clubs.",
     tags: ["Fintech", "AI Agent", "Mobile App"],
-    image: "/homePaiecashplay.webp",
+    image: "/paiecashplay_phone.png",
     link: "https://www.paiecashplay.com",
     color: "#1a1a2e"
   },
   {
     id: "03",
-    mockup: "screen",
     title: "AFAC26 Conference",
     subtitle: "Trilingual site, AI agent & international payment",
     category: "Artificial Intelligence",
     country: "INTERNATIONAL",
     description: "Design and development of the official website for the African Football Agents Conference 2026. Trilingual platform (FR/EN/PT), integrated AI agent, international payment system and accreditation.",
     tags: ["AI Agent", "Trilingual Web", "Payment"],
-    image: "/Afac26_home.jpg",
+    image: "/afac26_board.png",
     link: "https://www.afaaconference.com/en",
     color: "#0d1b2a"
   },
   {
     id: "04",
-    mockup: "laptop",
     title: "Alexis Mohamed — Djibouti",
     subtitle: "2026 Presidential campaign",
     category: "360° Communication",
     country: "DJIBOUTI",
     description: "Complete communication strategy for the 2026 presidential campaign of Alexis Mohamed. Visual identity, official website, social media management and press relations.",
     tags: ["Political Communication", "Web", "Social Media"],
-    image: "/homeMohamed.jpg",
+    image: "/homeMohamed_laptop.webp",
+    imagePosition: "70% center",
     link: "https://www.alexismohamed.dj",
     color: "#1c3a5e"
   },
   {
     id: "05",
-    mockup: "screen",
     title: "Dr Serge Ghislain Djorie",
     subtitle: "2025 Presidential campaign — Central African Republic",
     category: "360° Communication",
     country: "CENTRAL AFRICAN REPUBLIC",
     description: "Communication direction for the 2025 presidential campaign in the Central African Republic. Digital strategy, official website, content production and media coordination.",
     tags: ["Political Communication", "Strategy", "Media"],
-    image: "/homeDjorie.jpg",
+    image: "/djorie_board.png",
     link: "https://www.djorie2025.cf",
     color: "#1a0a2e"
   },
   {
     id: "06",
-    mockup: "laptop",
     title: "Nomadéo Africa",
     subtitle: "E-commerce website redesign — office furniture",
     category: "Digital",
     country: "CAMEROON",
     description: "Complete redesign of the Nomadéo Africa e-commerce site, leader in office furniture in Cameroon. Premium UX/UI, product catalogue, SEO and payment integration.",
     tags: ["E-commerce", "UX/UI", "SEO"],
-    image: "/nomadeo africa home.jpg",
+    image: "/nomadeo_tablet.png",
     link: "https://www.nomadeoafrica.com",
     color: "#1a2a1a"
   },
   {
     id: "07",
-    mockup: "phone",
     title: "Coplacam",
     subtitle: "Institutional website redesign — Design & Build",
     category: "Digital",
     country: "CAMEROON",
     description: "Redesign of the institutional website for Coplacam Design & Build, a major player in bespoke interior design in Central Africa. Strengthened visual identity and premium user experience.",
     tags: ["Institutional Web", "Design", "Branding"],
-    image: "/coplacam_home.png",
+    image: "/coplacam_laptop.webp",
     link: "https://www.coplacam.com",
     color: "#2a1a0a"
   }
 ];
 ---
-
-
-<Layout title="Portfolio — One Nation Agency | Strategic & Digital Projects" description="Discover the strategic, digital and institutional projects carried out by One Nation Agency in Africa, Europe and the Middle East.">
+<Layout
+  title="Portfolio — One Nation Agency | Strategic & Digital Projects"
+  description="Discover the strategic, digital and institutional projects carried out by One Nation Agency in Africa, Europe and the Middle East."
+  lang="en"
+  canonical="/en/portfolio"
+>
   <Header lang="en" />
-
   <main id="main-content">
 
     <!-- Hero -->
@@ -132,64 +128,25 @@ const projects = [
     <section class="pf-projects">
       {projects.map((project, index) => (
         <article
-          class={`pf-item pf-item--${project.mockup} ${index % 2 !== 0 ? 'pf-item--alt' : ''}`}
+          class={`pf-item ${index % 2 !== 0 ? 'pf-item--alt' : ''}`}
           style={`--project-color: ${project.color};`}
           data-index={index}
         >
           <div class="pf-item__visual">
             <div class="pf-item__bg" style={`background: ${project.color};`}></div>
-
-            {project.mockup === 'laptop' && (
-              <div class="mockup mockup--laptop">
-                <div class="mockup__laptop-body">
-                  <div class="mockup__laptop-screen">
-                    <div class="mockup__laptop-bar">
-                      <span class="mockup__dot mockup__dot--red"></span>
-                      <span class="mockup__dot mockup__dot--yellow"></span>
-                      <span class="mockup__dot mockup__dot--green"></span>
-                    </div>
-                    <div class="mockup__screen-content">
-                      <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" />
-                    </div>
-                  </div>
-                </div>
-                <div class="mockup__laptop-base">
-                  <div class="mockup__laptop-hinge"></div>
-                </div>
-              </div>
-            )}
-
-            {project.mockup === 'phone' && (
-              <div class="mockup mockup--phone">
-                <div class="mockup__phone-body">
-                  <div class="mockup__phone-notch"></div>
-                  <div class="mockup__phone-screen">
-                    <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" />
-                  </div>
-                  <div class="mockup__phone-home"></div>
-                </div>
-              </div>
-            )}
-
-            {project.mockup === 'screen' && (
-              <div class="mockup mockup--screen">
-                <div class="mockup__screen-frame">
-                  <div class="mockup__screen-bezel">
-                    <div class="mockup__screen-content">
-                      <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" />
-                    </div>
-                  </div>
-                </div>
-                <div class="mockup__screen-stand">
-                  <div class="mockup__screen-neck"></div>
-                  <div class="mockup__screen-foot"></div>
-                </div>
-              </div>
-            )}
-
+            <div class="mockup mockup--photo">
+              <img
+                src={project.image}
+                alt={project.title}
+                class="mockup__photo-img"
+                loading="lazy"
+                style={project.imagePosition ? `object-position: ${project.imagePosition}` : 'object-position: center center'}
+              />
+            </div>
             <div class="pf-item__num-bg">{project.id}</div>
           </div>
 
+          <!-- Project info -->
           <div class="pf-item__info">
             <div class="pf-item__meta">
               <span class="pf-item__country">{project.country}</span>
@@ -226,17 +183,19 @@ const projects = [
       <div class="pf-cta__glow"></div>
       <div class="pf-cta__inner">
         <span class="pf-cta__label">Your project</span>
-        <h2 class="pf-cta__title">Let's build your next<br/>success together</h2>
-        <a href="/contact" class="pf-cta__btn">Discuss your project</a>
+        <h2 class="pf-cta__title">Let's build together<br/>your next success</h2>
+        <a href="/en/contact" class="pf-cta__btn">Discuss your project</a>
       </div>
     </section>
 
   </main>
-
   <Footer />
 </Layout>
 
 <style>
+/* ============================================
+   VARIABLES
+   ============================================ */
 :root {
   --gold: #c9a84c;
   --gold-light: #e8c96e;
@@ -246,98 +205,398 @@ const projects = [
   --grey: rgba(255,255,255,0.5);
   --border: rgba(255,255,255,0.07);
 }
-.pf-hero { position: relative; min-height: 45vh; display: flex; align-items: flex-end; justify-content: space-between; padding: 9rem 6vw 4rem; background: var(--bg); overflow: hidden; gap: 2rem; }
-.pf-hero__bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 15% 60%, rgba(201,168,76,0.07) 0%, transparent 55%), radial-gradient(ellipse at 85% 30%, rgba(201,168,76,0.04) 0%, transparent 45%); }
+
+/* ============================================
+   HERO
+   ============================================ */
+.pf-hero {
+  position: relative;
+  min-height: 45vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 9rem 6vw 4rem;
+  background: var(--bg);
+  overflow: hidden;
+  gap: 2rem;
+}
+.pf-hero__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 60%, rgba(201,168,76,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 30%, rgba(201,168,76,0.04) 0%, transparent 45%);
+}
 .pf-hero__content { position: relative; z-index: 1; }
-.pf-hero__label { display: block; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-.pf-hero__title { font-family: 'Clash Display', 'Montserrat', sans-serif; font-size: clamp(3.5rem, 9vw, 8rem); font-weight: 700; color: var(--white); line-height: 1; margin: 0 0 1rem; letter-spacing: -0.03em; }
-.pf-hero__sub { font-size: 0.95rem; color: var(--grey); max-width: 380px; line-height: 1.6; }
-.pf-hero__stats { position: relative; z-index: 1; display: flex; gap: 3rem; align-items: flex-end; flex-shrink: 0; }
+.pf-hero__label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.pf-hero__title {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.pf-hero__sub {
+  font-size: 0.9rem;
+  color: var(--grey);
+  margin: 1.25rem 0 0;
+  max-width: 380px;
+  line-height: 1.6;
+}
+.pf-hero__stats {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 3rem;
+  align-items: flex-end;
+  padding-bottom: 0.5rem;
+  flex-shrink: 0;
+}
 .pf-hero__stat { text-align: center; }
-.pf-hero__stat-num { display: block; font-family: 'Clash Display', 'Montserrat', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; color: var(--gold); line-height: 1; }
-.pf-hero__stat-label { display: block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 0.4rem; }
+.pf-hero__stat-num {
+  display: block;
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.pf-hero__stat-label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-top: 0.4rem;
+}
+
+/* ============================================
+   PROJECTS GRID
+   ============================================ */
 .pf-projects { background: var(--bg); }
-.pf-item { display: grid; grid-template-columns: 55% 45%; min-height: 90vh; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; opacity: 0; transform: translateY(50px); transition: opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
-.pf-item.visible { opacity: 1; transform: translateY(0); }
-.pf-item--alt { grid-template-columns: 45% 55%; direction: rtl; }
-.pf-item--alt > * { direction: ltr; }
-.pf-item__visual { position: relative; display: flex; align-items: center; justify-content: center; padding: 4rem 3rem; overflow: hidden; }
-.pf-item__bg { position: absolute; inset: 0; opacity: 0.15; }
-.pf-item__num-bg { position: absolute; bottom: -0.5rem; right: 1rem; font-family: 'Clash Display', 'Montserrat', sans-serif; font-size: clamp(6rem, 12vw, 14rem); font-weight: 900; color: rgba(255,255,255,0.03); line-height: 1; pointer-events: none; user-select: none; }
-.pf-item__info { display: flex; flex-direction: column; justify-content: center; padding: 4rem 4rem 4rem 3rem; }
-.pf-item--alt .pf-item__info { padding: 4rem 3rem 4rem 4rem; }
-.pf-item__meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
-.pf-item__country { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
-.pf-item__sep { color: rgba(255,255,255,0.2); font-size: 0.7rem; }
-.pf-item__category { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
-.pf-item__num { font-family: 'Clash Display', 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; color: rgba(201,168,76,0.3); letter-spacing: 0.2em; margin-bottom: 0.75rem; }
-.pf-item__title { font-family: 'Clash Display', 'Montserrat', sans-serif; font-size: clamp(1.6rem, 3vw, 2.8rem); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 0.6rem; letter-spacing: -0.02em; }
-.pf-item__subtitle { font-size: 0.9rem; color: var(--gold); font-weight: 500; margin-bottom: 1.5rem; letter-spacing: 0.02em; }
-.pf-item__desc { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 2rem; max-width: 440px; }
-.pf-item__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
-.pf-item__tag { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.12); padding: 0.3rem 0.8rem; border-radius: 20px; }
-.pf-item__cta { display: inline-flex; align-items: center; gap: 0.75rem; background: var(--gold); color: #0a0a0a; font-family: 'Clash Display', 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 1.75rem; border-radius: 4px; text-decoration: none; transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
-.pf-item__cta:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.3); }
-.pf-item__cta--locked { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.3); cursor: default; font-size: 0.75rem; gap: 0.5rem; }
-.pf-item__cta--locked:hover { background: transparent; transform: none; box-shadow: none; }
-/* MOCKUP LAPTOP */
-.mockup--laptop { width: min(420px, 80%); filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6)); }
-.mockup__laptop-body { background: #1a1a1a; border-radius: 10px 10px 0 0; padding: 8px 8px 0; border: 1px solid rgba(255,255,255,0.08); }
-.mockup__laptop-screen { background: #0a0a0a; border-radius: 6px 6px 0 0; overflow: hidden; }
-.mockup__laptop-bar { display: flex; gap: 5px; padding: 6px 10px; background: #111; }
-.mockup__dot { width: 7px; height: 7px; border-radius: 50%; }
-.mockup__dot--red { background: #ff5f57; }
-.mockup__dot--yellow { background: #febc2e; }
-.mockup__dot--green { background: #28c840; }
-.mockup__screen-content { aspect-ratio: 16/10; overflow: hidden; }
-.mockup__img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.mockup__laptop-base { background: linear-gradient(to bottom, #222, #1a1a1a); height: 14px; border-radius: 0 0 4px 4px; border: 1px solid rgba(255,255,255,0.06); border-top: none; position: relative; }
-.mockup__laptop-hinge { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 6px; background: #333; border-radius: 0 0 3px 3px; }
-/* MOCKUP PHONE */
-.mockup--phone { width: min(200px, 45%); filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6)); }
-.mockup__phone-body { background: #1a1a1a; border-radius: 28px; padding: 10px 8px; border: 1px solid rgba(255,255,255,0.1); position: relative; }
-.mockup__phone-notch { width: 60px; height: 16px; background: #0a0a0a; border-radius: 0 0 10px 10px; margin: 0 auto 6px; }
-.mockup__phone-screen { border-radius: 4px; overflow: hidden; aspect-ratio: 9/19; }
-.mockup__phone-home { width: 40px; height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; margin: 8px auto 0; }
-/* MOCKUP SCREEN */
-.mockup--screen { width: min(480px, 85%); filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6)); }
-.mockup__screen-frame { background: #1a1a1a; border-radius: 8px; padding: 8px; border: 1px solid rgba(255,255,255,0.08); }
-.mockup__screen-bezel { background: #0a0a0a; border-radius: 4px; overflow: hidden; }
-.mockup__screen-stand { display: flex; flex-direction: column; align-items: center; }
-.mockup__screen-neck { width: 40px; height: 30px; background: linear-gradient(to bottom, #1a1a1a, #222); }
-.mockup__screen-foot { width: 120px; height: 8px; background: #222; border-radius: 0 0 4px 4px; }
-/* CTA */
-.pf-cta { position: relative; padding: 8rem 6vw; background: var(--bg); text-align: center; overflow: hidden; border-top: 1px solid var(--border); }
-.pf-cta__glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%); pointer-events: none; }
+
+.pf-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 70vh;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.pf-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.pf-item--alt {
+  direction: rtl;
+}
+.pf-item--alt > * {
+  direction: ltr;
+}
+
+/* Visual side */
+.pf-item__visual {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  background: #0d0d0d;
+}
+.pf-item__bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  mix-blend-mode: multiply;
+}
+.pf-item:hover .pf-item__bg { opacity: 1; }
+
+/* Large decorative number */
+.pf-item__num-bg {
+  position: absolute;
+  bottom: -2rem;
+  right: -1rem;
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(6rem, 12vw, 14rem);
+  font-weight: 700;
+  color: rgba(255,255,255,0.18);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  user-select: none;
+  pointer-events: none;
+  z-index: 5;
+  text-shadow: 0 2px 30px rgba(201,168,76,0.6), 0 0 60px rgba(201,168,76,0.3);
+}
+
+/* ============================================
+   PHOTO MOCKUP (full-bleed realistic photo)
+   ============================================ */
+.mockup--photo {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.mockup__photo-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.pf-item:hover .mockup__photo-img { transform: scale(1.04); }
+
+/* ============================================
+   PROJECT INFO
+   ============================================ */
+.pf-item__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 5vw 4rem 4vw;
+  background: var(--bg);
+  position: relative;
+}
+.pf-item--alt .pf-item__info { padding: 4rem 4vw 4rem 5vw; }
+
+.pf-item__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+.pf-item__country {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.pf-item__sep { color: var(--border); font-size: 0.8rem; }
+.pf-item__category {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* Number (info side, decorative) */
+.pf-item__num {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 700;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin-bottom: -0.75rem;
+  user-select: none;
+}
+
+.pf-item__title {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin: 0 0 0.6rem;
+}
+.pf-item__subtitle {
+  font-size: 0.9rem;
+  color: var(--gold);
+  font-style: italic;
+  margin: 0 0 1rem;
+}
+.pf-item__desc {
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: var(--grey);
+  margin: 0 0 1.75rem;
+  max-width: 400px;
+}
+.pf-item__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+}
+.pf-item__tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  transition: all 0.3s;
+}
+.pf-item:hover .pf-item__tag {
+  border-color: rgba(201,168,76,0.4);
+  color: var(--gold);
+}
+
+.pf-item__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+  padding: 0.9rem 1.75rem;
+  border: 1px solid rgba(201,168,76,0.45);
+  border-radius: 100px;
+  transition: all 0.35s;
+  width: fit-content;
+  position: relative;
+  overflow: hidden;
+}
+.pf-item__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.pf-item__cta:hover::before { transform: translateX(0); }
+.pf-item__cta span,
+.pf-item__cta svg {
+  position: relative;
+  z-index: 1;
+}
+.pf-item__cta:hover { color: #000; border-color: var(--gold); }
+.pf-item__cta--locked {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+  font-size: 0.75rem;
+}
+
+/* ============================================
+   CTA FINAL
+   ============================================ */
+.pf-cta {
+  background: var(--bg);
+  padding: 9rem 6vw;
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.12);
+  position: relative;
+  overflow: hidden;
+}
+.pf-cta__glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse at center bottom, rgba(201,168,76,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
 .pf-cta__inner { position: relative; z-index: 1; }
-.pf-cta__label { display: block; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
-.pf-cta__title { font-family: 'Clash Display', 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; color: var(--white); line-height: 1.15; margin-bottom: 3rem; letter-spacing: -0.02em; }
-.pf-cta__btn { display: inline-flex; align-items: center; gap: 0.75rem; background: var(--gold); color: #0a0a0a; font-family: 'Clash Display', 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 1.1rem 2.5rem; border-radius: 4px; text-decoration: none; transition: background 0.3s ease, transform 0.3s ease; }
-.pf-cta__btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+.pf-cta__label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.pf-cta__title {
+  font-family: 'Clash Display', 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  margin: 0 0 3rem;
+}
+.pf-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+  padding: 1.2rem 3rem;
+  background: var(--gold);
+  border-radius: 100px;
+  transition: all 0.35s;
+}
+.pf-cta__btn:hover {
+  background: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 50px rgba(201,168,76,0.35);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 1024px) {
-  .pf-item { grid-template-columns: 1fr; min-height: auto; }
-  .pf-item--alt { grid-template-columns: 1fr; direction: ltr; }
-  .pf-item__visual { min-height: 50vh; padding: 3rem 2rem; }
-  .pf-item__info { padding: 3rem 2rem; }
-  .pf-item--alt .pf-item__info { padding: 3rem 2rem; }
-  .pf-hero { flex-direction: column; align-items: flex-start; padding: 8rem 5vw 3rem; }
+  .pf-item {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    direction: ltr !important;
+  }
+  .pf-item__visual {
+    min-height: 50vw;
+  }
+  .pf-item__info {
+    padding: 3rem 5vw !important;
+  }
 }
 @media (max-width: 768px) {
+  .pf-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.5rem;
+    padding: 7.5rem 5vw 3rem;
+  }
   .pf-hero__stats { gap: 2rem; }
-  .mockup--laptop { width: 90%; }
-  .mockup--screen { width: 95%; }
+  .pf-item__visual { min-height: 60vw; }
+  .pf-item__num { font-size: 3.5rem; }
+  .pf-cta { padding: 6rem 5vw; }
+}
+@media (max-width: 480px) {
+  .pf-hero { padding: 6.5rem 5vw 2.5rem; }
+  .pf-item__visual { min-height: 65vw; }
 }
 </style>
 
 <script>
+// Scroll reveal animation
 const items = document.querySelectorAll('.pf-item');
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, 100);
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+}, { threshold: 0.08 });
 items.forEach(item => observer.observe(item));
 </script>
