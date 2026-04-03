@@ -393,7 +393,12 @@
   const SCRIPTS = {
     fr: {
       welcome: "Bonjour ! Je suis l'assistant de <strong>One Nation Agency</strong>. Comment puis-je vous aider aujourd'hui ?",
-      suggestions: ["Communication stratégique", "Agent IA", "Création web", "Nous contacter"],
+      suggestions: [
+        { label: "Communication stratégique", text: "Communication stratégique" },
+        { label: "Agent IA", text: "Agent IA" },
+        { label: "Création web", text: "Création web" },
+        { label: "Nous contacter", url: "/contact" }
+      ],
       responses: {
         communication: {
           keywords: ["communication", "campagne", "politique", "institutionnel", "influence", "crise", "réputation", "presse", "relations", "stratégie"],
@@ -427,7 +432,12 @@
     },
     en: {
       welcome: "Hello! I'm the assistant of <strong>One Nation Agency</strong>. How can I help you today?",
-      suggestions: ["Strategic Communication", "AI Agent", "Web Creation", "Contact Us"],
+      suggestions: [
+        { label: "Strategic Communication", text: "Strategic Communication" },
+        { label: "AI Agent", text: "AI Agent" },
+        { label: "Web Creation", text: "Web Creation" },
+        { label: "Contact Us", url: "/contact" }
+      ],
       responses: {
         communication: {
           keywords: ["communication", "campaign", "political", "institutional", "influence", "crisis", "reputation", "press", "relations", "strategy"],
@@ -562,19 +572,37 @@
     });
   }
 
-  function setSuggestions(suggestions: string[]) {
+  type Suggestion = { label: string; url?: string; text?: string };
+
+  function setSuggestions(suggestions: (string | Suggestion)[]) {
     suggestionsEl!.innerHTML = '';
     suggestions.forEach(s => {
-      const btn = document.createElement('button');
-      btn.className = 'ai-suggestion-btn';
-      btn.textContent = s;
-      // FIX : stopPropagation pour éviter que le clic ferme la fenêtre
-      // via le listener "clic en dehors"
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        handleUserInput(s);
-      });
-      suggestionsEl!.appendChild(btn);
+      const item: Suggestion = typeof s === 'string' ? { label: s, text: s } : s;
+
+      if (item.url) {
+        // Lien direct vers une page du site
+        const a = document.createElement('a');
+        a.className = 'ai-suggestion-btn';
+        a.textContent = item.label;
+        a.href = item.url;
+        if (item.url.startsWith('http')) a.target = '_blank';
+        a.addEventListener('click', (e) => {
+          e.stopPropagation();
+          contactRequested = true;
+          if (notificationTimer) clearTimeout(notificationTimer);
+        });
+        suggestionsEl!.appendChild(a);
+      } else {
+        // Bouton qui déclenche une réponse de l'agent
+        const btn = document.createElement('button');
+        btn.className = 'ai-suggestion-btn';
+        btn.textContent = item.label;
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          handleUserInput(item.text || item.label);
+        });
+        suggestionsEl!.appendChild(btn);
+      }
     });
   }
 
@@ -609,25 +637,86 @@
     addMessage(reply, 'bot');
     resetNotificationTimer();
 
-    // Suggestions contextuelles après réponse
-    const followUpSuggestions: Record<string, Record<string, string[]>> = {
+    // Suggestions contextuelles après réponse — objets {label, url?, text?}
+    // url  → lien direct vers la page du site
+    // text → déclenche une nouvelle réponse de l'agent
+    type Suggestion = { label: string; url?: string; text?: string };
+    const followUpSuggestions: Record<string, Record<string, Suggestion[]>> = {
       fr: {
-        communication: ["Voir nos références", "Nous contacter", "Agent IA"],
-        ia: ["Demander une démo", "Voir nos réalisations", "Nous contacter"],
-        web: ["Voir le portfolio", "Nous contacter", "Communication"],
-        contact: ["Communication", "Agent IA", "Création web"],
-        portfolio: ["Nous contacter", "Agent IA", "Communication"],
-        demo: ["Formulaire de contact", "WhatsApp", "En savoir plus sur l'IA"],
-        default: ["Communication", "Agent IA", "Création web", "Nous contacter"]
+        communication: [
+          { label: "Voir nos réalisations", url: "/portfolio" },
+          { label: "Nous contacter", url: "/contact" },
+          { label: "Agent IA", text: "Agent IA" }
+        ],
+        ia: [
+          { label: "Demander une démo", url: "/contact" },
+          { label: "Page Intelligence IA", url: "/intelligence-artificielle" },
+          { label: "Nous contacter", url: "/contact" }
+        ],
+        web: [
+          { label: "Voir le portfolio", url: "/portfolio" },
+          { label: "Nous contacter", url: "/contact" },
+          { label: "Communication", text: "Communication stratégique" }
+        ],
+        contact: [
+          { label: "Formulaire de contact", url: "/contact" },
+          { label: "WhatsApp", url: "https://wa.me/33625523859" },
+          { label: "Voir nos expertises", url: "/expertises" }
+        ],
+        portfolio: [
+          { label: "Voir le portfolio", url: "/portfolio" },
+          { label: "Nous contacter", url: "/contact" },
+          { label: "Agent IA", text: "Agent IA" }
+        ],
+        demo: [
+          { label: "Formulaire de contact", url: "/contact" },
+          { label: "WhatsApp", url: "https://wa.me/33625523859" },
+          { label: "Page Intelligence IA", url: "/intelligence-artificielle" }
+        ],
+        default: [
+          { label: "Communication", text: "Communication stratégique" },
+          { label: "Agent IA", text: "Agent IA" },
+          { label: "Portfolio", url: "/portfolio" },
+          { label: "Nous contacter", url: "/contact" }
+        ]
       },
       en: {
-        communication: ["See our references", "Contact us", "AI Agent"],
-        ia: ["Request a demo", "See our projects", "Contact us"],
-        web: ["View portfolio", "Contact us", "Communication"],
-        contact: ["Communication", "AI Agent", "Web creation"],
-        portfolio: ["Contact us", "AI Agent", "Communication"],
-        demo: ["Contact form", "WhatsApp", "Learn more about AI"],
-        default: ["Communication", "AI Agent", "Web creation", "Contact us"]
+        communication: [
+          { label: "See our portfolio", url: "/portfolio" },
+          { label: "Contact us", url: "/contact" },
+          { label: "AI Agent", text: "AI Agent" }
+        ],
+        ia: [
+          { label: "Request a demo", url: "/contact" },
+          { label: "AI Intelligence page", url: "/intelligence-artificielle" },
+          { label: "Contact us", url: "/contact" }
+        ],
+        web: [
+          { label: "View portfolio", url: "/portfolio" },
+          { label: "Contact us", url: "/contact" },
+          { label: "Communication", text: "Strategic Communication" }
+        ],
+        contact: [
+          { label: "Contact form", url: "/contact" },
+          { label: "WhatsApp", url: "https://wa.me/33625523859" },
+          { label: "Our expertise", url: "/expertises" }
+        ],
+        portfolio: [
+          { label: "View portfolio", url: "/portfolio" },
+          { label: "Contact us", url: "/contact" },
+          { label: "AI Agent", text: "AI Agent" }
+        ],
+        demo: [
+          { label: "Contact form", url: "/contact" },
+          { label: "WhatsApp", url: "https://wa.me/33625523859" },
+          { label: "AI Intelligence page", url: "/intelligence-artificielle" }
+        ],
+        default: [
+          { label: "Communication", text: "Strategic Communication" },
+          { label: "AI Agent", text: "AI Agent" },
+          { label: "Portfolio", url: "/portfolio" },
+          { label: "Contact us", url: "/contact" }
+        ]
       }
     };
 
