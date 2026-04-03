@@ -1165,25 +1165,40 @@ import Footer from '../components/Footer.astro';
 </style>
 
 <script>
-  // Gestion du splash screen
+  // ── Helpers reveal ──────────────────────────────────────────
+  function initReveal() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+
+  // ── Gestion du splash screen ─────────────────────────────────
+  // L'animation ne se joue qu'une seule fois par session de navigation.
+  // Dès que l'utilisateur a vu l'intro, sessionStorage mémorise la visite
+  // et les retours sur la home (logo, bouton retour, lien) sautent l'animation.
   window.addEventListener('load', () => {
     const splash = document.getElementById('splash');
     const siteWrapper = document.getElementById('site-wrapper');
 
-    // Timing : tagline apparaît à 3.3s + 2s de lecture = 5.3s + 0.7s transition = 6s
-    setTimeout(() => {
-      splash?.classList.add('hidden');
-      siteWrapper?.classList.add('visible');
+    const alreadySeen = sessionStorage.getItem('ona_intro_seen');
 
-      // Déclencher les animations reveal
+    if (alreadySeen) {
+      // Retour sur la home dans la même session → pas d'animation
+      if (splash) splash.style.display = 'none';
+      siteWrapper?.classList.add('visible');
+      setTimeout(initReveal, 100);
+    } else {
+      // Première visite → animation complète (6s)
+      // Timing : tagline apparaît à 3.3s + 2s de lecture = 5.3s + 0.7s transition = 6s
       setTimeout(() => {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) e.target.classList.add('visible');
-          });
-        }, { threshold: 0.08 });
-        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-      }, 100);
-    }, 6000);
+        splash?.classList.add('hidden');
+        siteWrapper?.classList.add('visible');
+        sessionStorage.setItem('ona_intro_seen', '1');
+        setTimeout(initReveal, 100);
+      }, 6000);
+    }
   });
 </script>

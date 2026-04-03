@@ -836,27 +836,40 @@ import Footer from '../../components/Footer.astro';
 </style>
 
 <script>
-  // Splash screen
-  const splash = document.getElementById('splash');
-  const siteWrapper = document.getElementById('site-wrapper');
-  
-  if (splash && siteWrapper) {
-    setTimeout(() => {
-      splash.classList.add('hidden');
-      siteWrapper.classList.add('visible');
-    }, 2200);
+  // ── Helpers reveal ──────────────────────────────────────────
+  function initReveal() {
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => observer.observe(el));
   }
 
-  // Scroll reveal
-  const revealElements = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-  
-  revealElements.forEach(el => observer.observe(el));
+  // ── Splash screen (une seule fois par session) ───────────────────
+  const splash = document.getElementById('splash');
+  const siteWrapper = document.getElementById('site-wrapper');
+
+  const alreadySeen = sessionStorage.getItem('ona_intro_seen_en');
+
+  if (alreadySeen) {
+    // Retour sur la home EN dans la même session → pas d'animation
+    if (splash) splash.style.display = 'none';
+    if (siteWrapper) siteWrapper.classList.add('visible');
+    setTimeout(initReveal, 100);
+  } else {
+    // Première visite → animation (2.2s)
+    if (splash && siteWrapper) {
+      setTimeout(() => {
+        splash.classList.add('hidden');
+        siteWrapper.classList.add('visible');
+        sessionStorage.setItem('ona_intro_seen_en', '1');
+        setTimeout(initReveal, 100);
+      }, 2200);
+    }
+  }
 </script>
