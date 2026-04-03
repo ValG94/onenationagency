@@ -9,6 +9,23 @@ export default async function handler(req, res) {
 
   try {
     const body = req.body;
+
+    // ── Notification interne agent IA (visiteur sans demande formulée) ──
+    // Ce type de requête ne vient pas du formulaire public, pas de confirmation client.
+    if (body?._type === 'agent_notification') {
+      const subject = body?.subject || '🤖 Notification agent IA';
+      const message = body?.message || '';
+      if (!message) return res.status(400).json({ error: 'Message vide.' });
+
+      await resend.emails.send({
+        from: 'ONE NATION AGENCY <contact@onenationagency.com>',
+        to: ['contact@onenationagency.com'],
+        subject: subject,
+        html: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#0a0a0a;color:#fff;padding:32px;border-radius:8px;"><h2 style="color:#C8960C;">${subject}</h2><pre style="color:#ccc;font-size:13px;line-height:1.7;white-space:pre-wrap;">${message}</pre><hr style="border:none;border-top:1px solid #222;margin:24px 0 12px;"/><p style="color:#555;font-size:11px;text-align:center;">Envoyé automatiquement par l'agent IA — onenationagency.com</p></div>`,
+      });
+      return res.status(200).json({ success: true });
+    }
+
     const firstName = body?.firstName || '';
     const lastName = body?.lastName || '';
     const email = body?.email || '';

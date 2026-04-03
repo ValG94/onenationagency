@@ -334,18 +334,18 @@
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 8px;
-    padding: 0.65rem 0.9rem;
+    padding: 0.6rem 0.8rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
     color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.83rem;
     outline: none;
     transition: border-color 0.2s ease;
   }
   .ai-input::placeholder { color: rgba(255,255,255,0.3); }
   .ai-input:focus { border-color: rgba(201,168,76,0.4); }
   .ai-send-btn {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 8px;
     background: linear-gradient(135deg, #c9a84c, #e8c96a);
     border: none;
@@ -360,12 +360,12 @@
   .ai-send-btn:hover { transform: scale(1.05); }
   .ai-send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-  /* FOOTER NOTE */
+  /* FOOTER */
   .ai-footer-note {
     text-align: center;
     font-size: 0.65rem;
     color: rgba(255,255,255,0.25);
-    padding: 0.4rem 1rem 0.6rem;
+    padding: 0 1rem 0.7rem;
     flex-shrink: 0;
   }
   .ai-footer-note a {
@@ -374,10 +374,14 @@
   }
   .ai-footer-note a:hover { color: #c9a84c; }
 
-  /* MOBILE */
+  /* RESPONSIVE */
   @media (max-width: 480px) {
     .ai-agent { bottom: 1rem; left: 1rem; }
-    .ai-window { width: calc(100vw - 2rem); max-height: 70vh; }
+    .ai-window {
+      width: calc(100vw - 2rem);
+      max-height: 70vh;
+      bottom: 68px;
+    }
   }
 </style>
 
@@ -411,6 +415,10 @@
           keywords: ["portfolio", "réalisation", "projet", "exemple", "référence", "client", "travail", "afac", "centrachat", "djorie", "mohamed", "nomadeo"],
           reply: "Notre portfolio inclut des campagnes présidentielles en Afrique, des plateformes B2B innovantes comme <strong>Centrachat Africa</strong>, des conférences internationales comme <strong>AFAC26</strong> et des sites corporate premium. <br/><br/>Découvrez toutes nos <a href='/portfolio'>réalisations</a>."
         },
+        demo: {
+          keywords: ["démo", "demo", "démonstration", "essai", "tester", "voir", "présentation", "montrer"],
+          reply: "Parfait ! Pour organiser une démonstration de nos agents IA, vous pouvez :<br/><br/>📋 <a href='/contact'>Remplir notre formulaire</a> (réponse sous 24h)<br/>💬 <a href='https://wa.me/33625523859' target='_blank'>Nous écrire sur WhatsApp</a> pour un échange rapide<br/><br/>Précisez votre secteur d'activité et vos besoins, nous vous proposerons la solution la plus adaptée."
+        },
         default: "Je ne suis pas sûr de comprendre votre demande. Pouvez-vous préciser ? Nos domaines d'expertise sont : <strong>communication stratégique</strong>, <strong>agents IA</strong> et <strong>création web premium</strong>. <br/><br/>Vous pouvez aussi nous contacter directement : <a href='/contact'>formulaire</a> ou <a href='https://wa.me/33625523859' target='_blank'>WhatsApp</a>."
       },
       inputPlaceholder: "Posez votre question...",
@@ -441,6 +449,10 @@
           keywords: ["portfolio", "project", "example", "reference", "client", "work", "afac", "centrachat"],
           reply: "Our portfolio includes presidential campaigns in Africa, innovative B2B platforms like <strong>Centrachat Africa</strong>, international conferences like <strong>AFAC26</strong> and premium corporate websites. <br/><br/>Discover all our <a href='/portfolio'>projects</a>."
         },
+        demo: {
+          keywords: ["demo", "demonstration", "trial", "test", "show", "presentation"],
+          reply: "Great! To schedule an AI agent demonstration, you can:<br/><br/>📋 <a href='/en/contact'>Fill out our form</a> (response within 24h)<br/>💬 <a href='https://wa.me/33625523859' target='_blank'>Message us on WhatsApp</a> for a quick exchange<br/><br/>Please share your industry and needs, and we'll propose the most suitable solution."
+        },
         default: "I'm not sure I understand your request. Can you clarify? Our areas of expertise are: <strong>strategic communication</strong>, <strong>AI agents</strong> and <strong>premium web creation</strong>. <br/><br/>You can also contact us directly: <a href='/contact'>form</a> or <a href='https://wa.me/33625523859' target='_blank'>WhatsApp</a>."
       },
       inputPlaceholder: "Ask your question...",
@@ -454,6 +466,12 @@
   let isTyping = false;
   let conversationStarted = false;
 
+  // Suivi de la conversation pour la notification
+  let conversationLog: { role: string; text: string }[] = [];
+  let contactRequested = false; // true si l'utilisateur a cliqué sur contact/WhatsApp
+  let notificationSent = false;
+  let notificationTimer: ReturnType<typeof setTimeout> | null = null;
+
   const trigger = document.getElementById('ai-agent-trigger');
   const window_ = document.getElementById('ai-agent-window');
   const messagesEl = document.getElementById('ai-messages');
@@ -466,6 +484,43 @@
   const iconOpen = document.querySelector('.ai-trigger-icon--open') as HTMLElement;
   const statusEl = document.querySelector('.ai-agent-status') as HTMLElement;
 
+  // ── Notification silencieuse à l'équipe One Nation ──────────
+  // Envoyée quand un visiteur a échangé avec l'agent mais n'a pas
+  // formulé de demande de contact (pas de clic sur formulaire/WhatsApp).
+  // Déclenché 90s après la dernière interaction, ou à la fermeture.
+  async function sendVisitorNotification() {
+    if (notificationSent || conversationLog.length === 0 || contactRequested) return;
+    notificationSent = true;
+
+    const summary = conversationLog
+      .map(m => `[${m.role === 'user' ? 'Visiteur' : 'Agent'}] ${m.text}`)
+      .join('\n');
+
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Agent IA — Visiteur anonyme',
+          email: 'noreply@onenationagency.com',
+          subject: '🤖 Visiteur sans demande formulée — conversation agent IA',
+          message: `Un visiteur a échangé avec l'agent IA sur le site sans formuler de demande de contact.\n\nPage visitée : ${window.location.href}\nDate : ${new Date().toLocaleString('fr-FR')}\n\n--- Conversation ---\n${summary}`,
+          rgpd: true,
+          _type: 'agent_notification' // flag interne pour ne pas envoyer de confirmation au visiteur
+        })
+      });
+    } catch (_) {
+      // Silencieux — ne pas perturber l'expérience utilisateur
+    }
+  }
+
+  function resetNotificationTimer() {
+    if (notificationTimer) clearTimeout(notificationTimer);
+    // Si pas de demande formulée après 90s d'inactivité → notifier
+    notificationTimer = setTimeout(sendVisitorNotification, 90_000);
+  }
+
+  // ── Helpers messages ─────────────────────────────────────────
   function addMessage(text: string, role: 'bot' | 'user') {
     const msg = document.createElement('div');
     msg.className = `ai-msg ai-msg--${role}`;
@@ -475,6 +530,21 @@
     msg.appendChild(bubble);
     messagesEl!.appendChild(msg);
     messagesEl!.scrollTop = messagesEl!.scrollHeight;
+
+    // Enregistrer dans le log (texte brut, sans HTML)
+    const plainText = text.replace(/<[^>]+>/g, '').trim();
+    if (plainText) conversationLog.push({ role, text: plainText });
+
+    // Détecter si l'utilisateur a cliqué sur un lien contact
+    bubble.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        const href = a.getAttribute('href') || '';
+        if (href.includes('contact') || href.includes('wa.me') || href.includes('mailto')) {
+          contactRequested = true;
+          if (notificationTimer) clearTimeout(notificationTimer);
+        }
+      });
+    });
   }
 
   function showTyping(): Promise<void> {
@@ -498,7 +568,12 @@
       const btn = document.createElement('button');
       btn.className = 'ai-suggestion-btn';
       btn.textContent = s;
-      btn.addEventListener('click', () => handleUserInput(s));
+      // FIX : stopPropagation pour éviter que le clic ferme la fenêtre
+      // via le listener "clic en dehors"
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        handleUserInput(s);
+      });
       suggestionsEl!.appendChild(btn);
     });
   }
@@ -522,6 +597,7 @@
     suggestionsEl!.innerHTML = '';
 
     addMessage(text, 'user');
+    resetNotificationTimer();
 
     await showTyping();
 
@@ -531,15 +607,17 @@
     const reply = typeof response === 'string' ? response : (response as { reply: string }).reply;
 
     addMessage(reply, 'bot');
+    resetNotificationTimer();
 
     // Suggestions contextuelles après réponse
-    const followUpSuggestions: Record<string, string[]> = {
+    const followUpSuggestions: Record<string, Record<string, string[]>> = {
       fr: {
         communication: ["Voir nos références", "Nous contacter", "Agent IA"],
         ia: ["Demander une démo", "Voir nos réalisations", "Nous contacter"],
         web: ["Voir le portfolio", "Nous contacter", "Communication"],
         contact: ["Communication", "Agent IA", "Création web"],
         portfolio: ["Nous contacter", "Agent IA", "Communication"],
+        demo: ["Formulaire de contact", "WhatsApp", "En savoir plus sur l'IA"],
         default: ["Communication", "Agent IA", "Création web", "Nous contacter"]
       },
       en: {
@@ -548,6 +626,7 @@
         web: ["View portfolio", "Contact us", "Communication"],
         contact: ["Communication", "AI Agent", "Web creation"],
         portfolio: ["Contact us", "AI Agent", "Communication"],
+        demo: ["Contact form", "WhatsApp", "Learn more about AI"],
         default: ["Communication", "AI Agent", "Web creation", "Contact us"]
       }
     };
@@ -583,6 +662,11 @@
     trigger!.setAttribute('aria-expanded', 'false');
     iconClosed.style.display = 'flex';
     iconOpen.style.display = 'none';
+
+    // Si conversation sans demande formulée → notifier immédiatement
+    if (conversationLog.length > 0 && !contactRequested && !notificationSent) {
+      sendVisitorNotification();
+    }
   }
 
   function toggleLang() {
@@ -596,6 +680,9 @@
     messagesEl!.innerHTML = '';
     suggestionsEl!.innerHTML = '';
     conversationStarted = false;
+    conversationLog = [];
+    contactRequested = false;
+    notificationSent = false;
     if (isOpen) {
       setTimeout(() => {
         addMessage(script.welcome, 'bot');
@@ -605,12 +692,29 @@
     }
   }
 
-  // EVENT LISTENERS
-  trigger!.addEventListener('click', () => isOpen ? closeAgent() : openAgent());
-  closeBtn!.addEventListener('click', closeAgent);
-  langToggle!.addEventListener('click', toggleLang);
+  // ── EVENT LISTENERS ──────────────────────────────────────────
 
-  sendBtn!.addEventListener('click', () => {
+  // Bouton trigger : ouvre/ferme
+  trigger!.addEventListener('click', (e) => {
+    e.stopPropagation();
+    isOpen ? closeAgent() : openAgent();
+  });
+
+  // Bouton fermer (×) dans le header
+  closeBtn!.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeAgent();
+  });
+
+  // Toggle langue
+  langToggle!.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleLang();
+  });
+
+  // Envoi message
+  sendBtn!.addEventListener('click', (e) => {
+    e.stopPropagation();
     if (inputEl.value.trim()) handleUserInput(inputEl.value.trim());
   });
 
@@ -621,7 +725,8 @@
     }
   });
 
-  // Fermer en cliquant en dehors
+  // Fermer en cliquant EN DEHORS de la fenêtre
+  // (stopPropagation sur les boutons internes évite les faux positifs)
   document.addEventListener('click', (e) => {
     const agent = document.getElementById('ai-agent');
     if (isOpen && agent && !agent.contains(e.target as Node)) {
@@ -629,10 +734,19 @@
     }
   });
 
-  // Ouverture automatique désactivée à la demande de l'utilisateur
-  // setTimeout(() => {
-  //   if (!isOpen && !conversationStarted) {
-  //     openAgent();
-  //   }
-  // }, 30000);
+  // Notifier à la fermeture de la page si conversation sans demande
+  window.addEventListener('beforeunload', () => {
+    if (conversationLog.length > 0 && !contactRequested && !notificationSent) {
+      // sendBeacon pour garantir l'envoi même si la page se ferme
+      const payload = JSON.stringify({
+        name: 'Agent IA — Visiteur anonyme',
+        email: 'noreply@onenationagency.com',
+        subject: '🤖 Visiteur sans demande formulée — conversation agent IA',
+        message: `Visiteur parti sans formuler de demande.\n\nPage : ${window.location.href}\nDate : ${new Date().toLocaleString('fr-FR')}\n\n--- Conversation ---\n${conversationLog.map(m => `[${m.role === 'user' ? 'Visiteur' : 'Agent'}] ${m.text}`).join('\n')}`,
+        rgpd: true,
+        _type: 'agent_notification'
+      });
+      navigator.sendBeacon('/api/contact', new Blob([payload], { type: 'application/json' }));
+    }
+  });
 </script>
