@@ -54,6 +54,7 @@ const projects = [
     description: "Stratégie de communication complète pour la campagne présidentielle 2026 d'Alexis Mohamed. Identité visuelle, site officiel, gestion des réseaux sociaux et relations presse.",
     tags: ["Communication Politique", "Web", "Réseaux Sociaux"],
     image: "/homeMohamed_laptop.webp",
+    imagePosition: "70% center",
     link: "https://www.alexismohamed.dj",
     color: "#1c3a5e"
   },
@@ -203,7 +204,7 @@ const projects = [
 
             {project.mockup === 'photo' && (
               <div class="mockup mockup--photo">
-                <img src={project.image} alt={project.title} class="mockup__photo-img" loading="lazy" />
+                <img src={project.image} alt={project.title} class="mockup__photo-img" loading="lazy" style={project.imagePosition ? `object-position: ${project.imagePosition}` : 'center center'} />
               </div>
             )}
 
@@ -406,12 +407,13 @@ const projects = [
   font-family: 'Clash Display', 'Montserrat', sans-serif;
   font-size: clamp(6rem, 12vw, 14rem);
   font-weight: 700;
-  color: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.18);
   line-height: 1;
   letter-spacing: -0.05em;
   user-select: none;
   pointer-events: none;
   z-index: 5;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
 }
 
 /* ============================================
@@ -623,7 +625,7 @@ const projects = [
   transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 
-.pf-item:hover .mockup--tablet { transform: translateY(-8px) scale(1.02); }
+.pf-item:hover .mockup--tablet { transform: translateY(-8px) scale(1.04); }
 
 .mockup__tablet-img {
   width: 100%;
@@ -631,6 +633,7 @@ const projects = [
   display: block;
   border-radius: 8px;
   object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 
 /* --- PHOTO RÉALISTE (laptop/téléphone en condition réelle) --- */
@@ -664,7 +667,7 @@ const projects = [
   transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 
-.pf-item:hover .mockup--board { transform: translateY(-6px) scale(1.02); }
+.pf-item:hover .mockup--board { transform: translateY(-6px) scale(1.04); }
 
 .mockup__board-img {
   width: 100%;
@@ -672,6 +675,7 @@ const projects = [
   display: block;
   border-radius: 6px;
   object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 
 /* ============================================
