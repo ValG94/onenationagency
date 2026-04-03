@@ -7,14 +7,14 @@ import Footer from '../components/Footer.astro';
 const projects = [
   {
     id: "01",
-    mockup: "laptop",
+    mockup: "tablet",
     title: "Centrachat Africa",
     subtitle: "Première centrale d'achats panafricaine",
     category: "Digital & Stratégie",
     country: "CAMEROUN",
     description: "Création de la plateforme digitale de la première centrale d'achats panafricaine basée à Yaoundé. Site bilingue, système d'adhésion en ligne, identité de marque complète.",
     tags: ["Web Premium", "Stratégie", "Branding"],
-    image: "/homeCentrachat.webp",
+    image: "/centrachat_tablet.png",
     link: "https://www.centrachat.africa",
     color: "#1a3a5c"
   },
@@ -27,73 +27,72 @@ const projects = [
     country: "FRANCE / AFRIQUE",
     description: "Conception et développement de l'écosystème digital PaieCashPlay : paiements digitaux, e-commerce, streaming, agent IA et digitalisation des clubs sportifs.",
     tags: ["Fintech", "Agent IA", "App Mobile"],
-    image: "/homePaiecashplay.webp",
+    image: "/paiecashplay_mobile.jpg",
     link: "https://www.paiecashplay.com",
     color: "#1a1a2e"
   },
   {
     id: "03",
-    mockup: "screen",
+    mockup: "board",
     title: "AFAC26 Conference",
     subtitle: "Site trilingue, agent IA et paiement international",
     category: "Intelligence Artificielle",
     country: "INTERNATIONAL",
     description: "Conception et développement du site officiel de l'African Football Agents Conference 2026. Plateforme trilingue (FR/EN/PT), agent IA intégré, système de paiement international et accréditation.",
     tags: ["Agent IA", "Web Trilingue", "Paiement"],
-    image: "/Afac26_home.jpg",
+    image: "/afac26_board.png",
     link: "https://www.afaaconference.com/en",
     color: "#0d1b2a"
   },
   {
     id: "04",
-    mockup: "laptop",
+     mockup: "laptop",
     title: "Alexis Mohamed — Djibouti",
     subtitle: "Campagne présidentielle 2026",
     category: "Communication 360",
     country: "DJIBOUTI",
     description: "Stratégie de communication complète pour la campagne présidentielle 2026 d'Alexis Mohamed. Identité visuelle, site officiel, gestion des réseaux sociaux et relations presse.",
     tags: ["Communication Politique", "Web", "Réseaux Sociaux"],
-    image: "/homeMohamed.jpg",
-    imagePosition: "top",
+    image: "/homeMohamed_laptop.png",
     link: "https://www.alexismohamed.dj",
     color: "#1c3a5e"
   },
   {
     id: "05",
-    mockup: "screen",
+    mockup: "board",
     title: "Dr Serge Ghislain Djorie",
     subtitle: "Campagne présidentielle 2025 — Centrafrique",
     category: "Communication 360",
     country: "CENTRAFRIQUE",
     description: "Direction de la communication pour la campagne présidentielle 2025 en Centrafrique. Stratégie digitale, site officiel, production de contenus et coordination médias.",
     tags: ["Communication Politique", "Stratégie", "Médias"],
-    image: "/homeDjorie.jpg",
+    image: "/djorie_board.png",
     link: "https://www.djorie2025.cf",
     color: "#1a0a2e"
   },
   {
     id: "06",
-    mockup: "laptop",
+    mockup: "tablet",
     title: "Nomadéo Africa",
     subtitle: "Refonte site e-commerce mobilier de bureau",
     category: "Digital",
     country: "CAMEROUN",
     description: "Refonte complète du site e-commerce de Nomadéo Africa, leader du mobilier de bureau au Cameroun. UX/UI premium, catalogue produits, SEO et intégration paiement.",
     tags: ["E-commerce", "UX/UI", "SEO"],
-    image: "/nomadeo africa home.jpg",
+    image: "/nomadeo_tablet.png",
     link: "https://www.nomadeoafrica.com",
     color: "#1a2a1a"
   },
   {
     id: "07",
-    mockup: "phone",
+    mockup: "laptop",
     title: "Coplacam",
     subtitle: "Refonte site institutionnel Design & Build",
     category: "Digital",
     country: "CAMEROUN",
     description: "Refonte du site institutionnel de Coplacam Design & Build, acteur majeur de l'agencement sur mesure en Afrique centrale. Identité visuelle renforcée et expérience utilisateur premium.",
     tags: ["Web Institutionnel", "Design", "Branding"],
-    image: "/coplacam_home.png",
+    image: "/coplacam_laptop.png",
     link: "https://www.coplacam.com",
     color: "#2a1a0a"
   }
@@ -187,6 +186,18 @@ const projects = [
                   <div class="mockup__screen-neck"></div>
                   <div class="mockup__screen-foot"></div>
                 </div>
+              </div>
+            )}
+
+            {project.mockup === 'tablet' && (
+              <div class="mockup mockup--tablet">
+                <img src={project.image} alt={project.title} class="mockup__img mockup__tablet-img" loading="lazy" />
+              </div>
+            )}
+
+            {project.mockup === 'board' && (
+              <div class="mockup mockup--board">
+                <img src={project.image} alt={project.title} class="mockup__img mockup__board-img" loading="lazy" />
               </div>
             )}
 
@@ -404,7 +415,7 @@ const projects = [
 .mockup--laptop {
   position: relative;
   z-index: 2;
-  width: min(480px, 85%);
+  width: min(560px, 92%);
   filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
   transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
 }
@@ -484,7 +495,7 @@ const projects = [
 .mockup--phone {
   position: relative;
   z-index: 2;
-  width: min(200px, 45%);
+  width: min(240px, 52%);
   filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7));
   transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
 }
@@ -539,7 +550,7 @@ const projects = [
 .mockup--screen {
   position: relative;
   z-index: 2;
-  width: min(500px, 88%);
+  width: min(560px, 92%);
   filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
   transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
 }
@@ -594,6 +605,44 @@ const projects = [
   background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
   border-radius: 4px;
   border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* --- TABLET (écran portable) --- */
+.mockup--tablet {
+  position: relative;
+  z-index: 2;
+  width: min(580px, 94%);
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7));
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.pf-item:hover .mockup--tablet { transform: translateY(-8px) scale(1.02); }
+
+.mockup__tablet-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* --- TABLEAU INTERACTIF --- */
+.mockup--board {
+  position: relative;
+  z-index: 2;
+  width: min(600px, 96%);
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7));
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.pf-item:hover .mockup--board { transform: translateY(-6px) scale(1.02); }
+
+.mockup__board-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  object-fit: contain;
 }
 
 /* ============================================
