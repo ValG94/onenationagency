@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getLatestRealisations } from '../data/realisations';
+
+const latestRealisations = getLatestRealisations(3);
 ---
 
 
@@ -249,53 +252,49 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <div class="portfolio-grid">
-            <article class="portfolio-card reveal reveal-delay-1">
-              <a href="https://afac26.com" target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
-                <div class="portfolio-img-wrap">
-                  <img src="/Afac26_home.jpg" alt="AFAC26 — Site trilingue et agent IA" loading="lazy" />
-                  <div class="portfolio-overlay">
-                    <span class="portfolio-visit">Voir le projet</span>
+            {latestRealisations.map((r, i) => (
+              <article class={`portfolio-card reveal reveal-delay-${i + 1}`}>
+                {r.url ? (
+                  <a href={r.url} target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
+                    <div class="portfolio-img-wrap">
+                      <img
+                        src={r.image}
+                        alt={r.imageAlt}
+                        loading="lazy"
+                        style={r.imagePosition && r.imagePosition !== 'center' ? `object-position: ${r.imagePosition}` : ''}
+                      />
+                      <div class="portfolio-overlay">
+                        <span class="portfolio-visit">Voir le projet</span>
+                      </div>
+                    </div>
+                    <div class="portfolio-info">
+                      <span class="portfolio-cat">{r.category}</span>
+                      <h3>{r.title}</h3>
+                      <p>{r.description}</p>
+                    </div>
+                  </a>
+                ) : (
+                  <div class="portfolio-card-link">
+                    <div class="portfolio-img-wrap">
+                      <img
+                        src={r.image}
+                        alt={r.imageAlt}
+                        loading="lazy"
+                        style={r.imagePosition && r.imagePosition !== 'center' ? `object-position: ${r.imagePosition}` : ''}
+                      />
+                      <div class="portfolio-overlay">
+                        <span class="portfolio-visit">Voir le projet</span>
+                      </div>
+                    </div>
+                    <div class="portfolio-info">
+                      <span class="portfolio-cat">{r.category}</span>
+                      <h3>{r.title}</h3>
+                      <p>{r.description}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="portfolio-info">
-                  <span class="portfolio-cat">Intelligence Artificielle</span>
-                  <h3>AFAC26 — Site trilingue, agent IA et solution de paiement</h3>
-                  <p>Conférence internationale des agents de football africains</p>
-                </div>
-              </a>
-            </article>
-
-            <article class="portfolio-card reveal reveal-delay-2">
-              <div class="portfolio-card-link">
-                <div class="portfolio-img-wrap">
-                  <img src="/homeMohamed.jpg" alt="Campagne présidentielle Alexis Mohamed" loading="lazy" />
-                  <div class="portfolio-overlay">
-                    <span class="portfolio-visit">Voir le projet</span>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <span class="portfolio-cat">Communication 360</span>
-                  <h3>Campagne présidentielle 2026 — Alexis Mohamed (Djibouti)</h3>
-                  <p>Stratégie digitale et communication institutionnelle</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="portfolio-card reveal reveal-delay-3">
-              <a href="https://www.centrachat.africa" target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
-                <div class="portfolio-img-wrap">
-                  <img src="/centrachat_home.webp" alt="Centrachat Africa — Centrale d'achats panafricaine" loading="lazy" />
-                  <div class="portfolio-overlay">
-                    <span class="portfolio-visit">Voir le projet</span>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <span class="portfolio-cat">Digital</span>
-                  <h3>Centrachat Africa — 1ère centrale d'achats panafricaine</h3>
-                  <p>Plateforme B2B premium, Yaoundé, Cameroun</p>
-                </div>
-              </a>
-            </article>
+                )}
+              </article>
+            ))}
           </div>
 
           <div class="portfolio-cta reveal">

@@ -54,6 +54,7 @@ const projects = [
     description: "Stratégie de communication complète pour la campagne présidentielle 2026 d'Alexis Mohamed. Identité visuelle, site officiel, gestion des réseaux sociaux et relations presse.",
     tags: ["Communication Politique", "Web", "Réseaux Sociaux"],
     image: "/homeMohamed.jpg",
+    imagePosition: "top",
     link: "https://www.alexismohamed.dj",
     color: "#1c3a5e"
   },
@@ -151,7 +152,7 @@ const projects = [
                       <span class="mockup__dot mockup__dot--green"></span>
                     </div>
                     <div class="mockup__screen-content">
-                      <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" />
+                      <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" style={project.imagePosition ? `object-position: ${project.imagePosition}` : ''} />
                     </div>
                   </div>
                 </div>
@@ -166,7 +167,7 @@ const projects = [
                 <div class="mockup__phone-body">
                   <div class="mockup__phone-notch"></div>
                   <div class="mockup__phone-screen">
-                    <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" />
+                    <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" style={project.imagePosition ? `object-position: ${project.imagePosition}` : ''} />
                   </div>
                   <div class="mockup__phone-home"></div>
                 </div>
@@ -175,11 +176,11 @@ const projects = [
 
             {project.mockup === 'screen' && (
               <div class="mockup mockup--screen">
-                <div class="mockup__screen-frame">
-                  <div class="mockup__screen-bezel">
-                    <div class="mockup__screen-content">
-                      <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" />
-                    </div>
+                  <div class="mockup__screen-frame">
+                    <div class="mockup__screen-bezel">
+                      <div class="mockup__screen-content">
+                        <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" style={project.imagePosition ? `object-position: ${project.imagePosition}` : ''} />
+                      </div>
                   </div>
                 </div>
                 <div class="mockup__screen-stand">
