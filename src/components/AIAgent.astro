@@ -431,6 +431,18 @@
           keywords: ["démo", "demo", "démonstration", "essai", "tester", "voir", "présentation", "montrer"],
           reply: "Parfait ! Pour organiser une démonstration de nos agents IA, vous pouvez :<br/><br/>📋 <a href='/contact'>Remplir notre formulaire</a> (réponse sous 24h)<br/>💬 <a href='https://wa.me/33625523859' target='_blank'>Nous écrire sur WhatsApp</a> pour un échange rapide<br/><br/>Précisez votre secteur d'activité et vos besoins, nous vous proposerons la solution la plus adaptée."
         },
+        salutation: {
+          keywords: ["bonjour", "bonsoir", "salut", "coucou", "hello", "hi", "hey", "bonne journée", "bonne soirée", "bonne nuit", "ça va", "comment allez", "comment vas", "comment ça va", "yo", "wesh"],
+          reply: "Bonjour ! Ravi de vous accueillir. 😊<br/><br/>Je suis l'assistant de <strong>One Nation Agency</strong>. Comment puis-je vous aider aujourd'hui ? Que ce soit pour un projet de <strong>communication stratégique</strong>, un <strong>agent IA</strong> ou une <strong>création web</strong>, je suis là pour vous guider."
+        },
+        merci: {
+          keywords: ["merci", "merci beaucoup", "super merci", "grand merci", "je vous remercie", "thanks", "thank you", "thx", "ty", "parfait merci", "ok merci", "c'est parfait", "très bien merci", "nickel", "excellent merci"],
+          reply: "Avec plaisir ! 🙏 C'est toujours un plaisir d'aider.<br/><br/>Si vous avez d'autres questions ou souhaitez en savoir plus sur nos services, n'hésitez pas. Nous sommes disponibles via notre <a href='/contact'>formulaire de contact</a> ou sur <a href='https://wa.me/33625523859' target='_blank'>WhatsApp</a>."
+        },
+        aurevoir: {
+          keywords: ["au revoir", "aurevoir", "à bientôt", "bonne continuation", "bye", "goodbye", "ciao", "à plus", "a plus", "à plus tard", "adieu", "bonne journée", "bonne soirée", "bonne nuit", "à très bientôt"],
+          reply: "Au revoir et à très bientôt ! 👋<br/><br/>N'hésitez pas à revenir si vous avez des questions. L'équipe <strong>One Nation Agency</strong> reste disponible via notre <a href='/contact'>formulaire</a> ou sur <a href='https://wa.me/33625523859' target='_blank'>WhatsApp</a>."
+        },
         default: "Je ne suis pas sûr de comprendre votre demande. Pouvez-vous préciser ? Nos domaines d'expertise sont : <strong>communication stratégique</strong>, <strong>agents IA</strong> et <strong>création web premium</strong>. <br/><br/>Vous pouvez aussi nous contacter directement : <a href='/contact'>formulaire</a> ou <a href='https://wa.me/33625523859' target='_blank'>WhatsApp</a>."
       },
       inputPlaceholder: "Posez votre question...",
@@ -469,6 +481,18 @@
         demo: {
           keywords: ["demo", "demonstration", "trial", "test", "show", "presentation"],
           reply: "Great! To schedule an AI agent demonstration, you can:<br/><br/>📋 <a href='/en/contact'>Fill out our form</a> (response within 24h)<br/>💬 <a href='https://wa.me/33625523859' target='_blank'>Message us on WhatsApp</a> for a quick exchange<br/><br/>Please share your industry and needs, and we'll propose the most suitable solution."
+        },
+        salutation: {
+          keywords: ["hello", "hi", "hey", "good morning", "good afternoon", "good evening", "good night", "howdy", "greetings", "how are you", "how do you do", "what's up", "sup", "yo", "hiya"],
+          reply: "Hello! Great to have you here. 😊<br/><br/>I'm the assistant of <strong>One Nation Agency</strong>. How can I help you today? Whether it's a <strong>strategic communication</strong> project, an <strong>AI agent</strong> or a <strong>web creation</strong>, I'm here to guide you."
+        },
+        merci: {
+          keywords: ["thank you", "thanks", "thank you very much", "many thanks", "thx", "ty", "cheers", "appreciate it", "great thanks", "perfect thanks", "thanks a lot", "much appreciated", "awesome thanks"],
+          reply: "You're welcome! 🙏 Always a pleasure to help.<br/><br/>If you have any other questions or would like to know more about our services, feel free to ask. We're available via our <a href='/en/contact'>contact form</a> or on <a href='https://wa.me/33625523859' target='_blank'>WhatsApp</a>."
+        },
+        aurevoir: {
+          keywords: ["goodbye", "bye", "bye bye", "see you", "see you later", "farewell", "take care", "ciao", "have a good day", "have a nice day", "good day", "all the best", "until next time", "later"],
+          reply: "Goodbye and see you soon! 👋<br/><br/>Don't hesitate to come back if you have any questions. The <strong>One Nation Agency</strong> team remains available via our <a href='/en/contact'>contact form</a> or on <a href='https://wa.me/33625523859' target='_blank'>WhatsApp</a>."
         },
         default: "I'm not sure I understand your request. Can you clarify? Our areas of expertise are: <strong>strategic communication</strong>, <strong>AI agents</strong> and <strong>premium web creation</strong>. <br/><br/>You can also contact us directly: <a href='/contact'>form</a> or <a href='https://wa.me/33625523859' target='_blank'>WhatsApp</a>."
       },
@@ -680,6 +704,21 @@
           { label: "WhatsApp", url: "https://wa.me/33625523859" },
           { label: "Page Intelligence IA", url: "/intelligence-artificielle" }
         ],
+        salutation: [
+          { label: "Communication stratégique", text: "Communication stratégique" },
+          { label: "Agent IA", text: "Agent IA" },
+          { label: "Création web", text: "Création web" },
+          { label: "Nous contacter", url: "/contact" }
+        ],
+        merci: [
+          { label: "Voir le portfolio", url: "/portfolio" },
+          { label: "Nous contacter", url: "/contact" },
+          { label: "WhatsApp", url: "https://wa.me/33625523859" }
+        ],
+        aurevoir: [
+          { label: "Nous contacter", url: "/contact" },
+          { label: "Voir le portfolio", url: "/portfolio" }
+        ],
         default: [
           { label: "Communication", text: "Communication stratégique" },
           { label: "Agent IA", text: "Agent IA" },
@@ -717,6 +756,21 @@
           { label: "Contact form", url: "/contact" },
           { label: "WhatsApp", url: "https://wa.me/33625523859" },
           { label: "AI Intelligence page", url: "/intelligence-artificielle" }
+        ],
+        salutation: [
+          { label: "Strategic Communication", text: "Strategic Communication" },
+          { label: "AI Agent", text: "AI Agent" },
+          { label: "Web Creation", text: "Web Creation" },
+          { label: "Contact us", url: "/en/contact" }
+        ],
+        merci: [
+          { label: "View portfolio", url: "/portfolio" },
+          { label: "Contact us", url: "/en/contact" },
+          { label: "WhatsApp", url: "https://wa.me/33625523859" }
+        ],
+        aurevoir: [
+          { label: "Contact us", url: "/en/contact" },
+          { label: "View portfolio", url: "/portfolio" }
         ],
         default: [
           { label: "Communication", text: "Strategic Communication" },
