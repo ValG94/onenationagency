@@ -7,15 +7,19 @@ interface Props {
   lang?: string;
   ogImage?: string;
   canonical?: string;
+  keywords?: string;
 }
 
 const {
   title,
-  description = "One Nation Agency — Communication stratégique institutionnelle, agents IA sur mesure et création web premium.",
+  description = "One Nation Agency — Communication stratégique institutionnelle, agents IA sur mesure et création web premium pour la France et l'Afrique.",
   lang = "fr",
-  ogImage = "/logoOnenation.png",
-  canonical = Astro.url.pathname
+  ogImage = "/og-image.jpg",
+  canonical = Astro.url.pathname,
+  keywords = "agence communication, agent IA, création web, communication institutionnelle, Afrique, France, intelligence artificielle, stratégie digitale"
 } = Astro.props;
+
+const fullOgImageUrl = ogImage.startsWith('http') ? ogImage : `https://www.onenationagency.com${ogImage}`;
 
 const fullCanonicalUrl = `https://www.onenationagency.com${canonical}`;
 const isHomePage = Astro.url.pathname === '/';
@@ -27,15 +31,26 @@ const isHomePage = Astro.url.pathname === '/';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
-  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content={keywords} />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="One Nation Agency" />
+  <meta name="geo.region" content="FR-75" />
+  <meta name="geo.placename" content="Paris" />
   <link rel="canonical" href={fullCanonicalUrl} />
+  {lang === 'fr' && <link rel="alternate" hreflang="fr" href={fullCanonicalUrl} />}
+  {lang === 'fr' && <link rel="alternate" hreflang="en" href={`https://www.onenationagency.com/en${canonical === '/' ? '' : canonical}`} />}
+  {lang === 'en' && <link rel="alternate" hreflang="en" href={fullCanonicalUrl} />}
+  {lang === 'en' && <link rel="alternate" hreflang="fr" href={`https://www.onenationagency.com${canonical.replace('/en', '') || '/'}`} />}
+  <link rel="alternate" hreflang="x-default" href="https://www.onenationagency.com/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={ogImage} />
+  <meta property="og:image" content={fullOgImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={`${title} — One Nation Agency`} />
   <meta property="og:url" content={fullCanonicalUrl} />
   <meta property="og:site_name" content="One Nation Agency" />
   <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
@@ -44,15 +59,21 @@ const isHomePage = Astro.url.pathname === '/';
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:image" content={fullOgImageUrl} />
+  <meta name="twitter:site" content="@onenationagency" />
+  <meta name="twitter:creator" content="@onenationagency" />
 
   <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  <meta name="theme-color" content="#0A0A0A" />
+  <meta name="theme-color" content="#C9A84C" />
+  <meta name="msapplication-TileColor" content="#0A0A0A" />
+  <meta name="msapplication-TileImage" content="/web-app-manifest-192x192.png" />
 
   <!-- Google Fonts Premium -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -65,11 +86,17 @@ const isHomePage = Astro.url.pathname === '/';
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
+      "@type": ["ProfessionalService", "LocalBusiness"],
       "name": "One Nation Agency",
       "url": "https://www.onenationagency.com",
-      "logo": "https://www.onenationagency.com/logoOnenation.png",
-      "description": "Agence premium spécialisée en communication stratégique institutionnelle, création d'agents IA et création web haut de gamme.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.onenationagency.com/logoOnenation.png",
+        "width": 200,
+        "height": 60
+      },
+      "image": "https://www.onenationagency.com/og-image.jpg",
+      "description": "One Nation Agency est une agence premium spécialisée en communication stratégique institutionnelle, création d'agents IA sur mesure et création web haut de gamme pour la France et l'Afrique.",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "3 rue de Suresnes",
@@ -79,7 +106,15 @@ const isHomePage = Astro.url.pathname === '/';
       },
       "telephone": "+33625523859",
       "email": "contact@onenationagency.com",
-      "priceRange": "€€€"
+      "priceRange": "€€€",
+      "areaServed": ["FR", "CM", "CI", "SN", "GA", "CD", "CF"],
+      "serviceType": ["Communication stratégique", "Agent IA", "Création web", "Design graphique", "Référencement SEO"],
+      "foundingDate": "2020",
+      "knowsLanguage": ["fr", "en"],
+      "sameAs": [
+        "https://www.linkedin.com/company/one-nation-agency",
+        "https://www.instagram.com/onenationagency"
+      ]
     }
   </script>
 </head>
