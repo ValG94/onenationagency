@@ -8,8 +8,8 @@ const texts = {
     policyLink: "Politique de confidentialité →",
     policyUrl: "/politique-confidentialite",
     detailsToggle: "Voir le détail des cookies",
-    detailsHide: "Masquer le détail",
-    detailsContent: [
+    detailsHide: "Masquer le détail des cookies",
+    cookies: [
       { name: "Cookies nécessaires", desc: "Session, sécurité, préférences de langue. Toujours actifs.", always: true },
       { name: "Cookies analytiques", desc: "Mesure d'audience anonymisée (pages vues, durée de session). Désactivables.", always: false },
     ],
@@ -24,8 +24,8 @@ const texts = {
     policyLink: "Privacy policy →",
     policyUrl: "/politique-confidentialite",
     detailsToggle: "View cookie details",
-    detailsHide: "Hide details",
-    detailsContent: [
+    detailsHide: "Hide cookie details",
+    cookies: [
       { name: "Necessary cookies", desc: "Session, security, language preferences. Always active.", always: true },
       { name: "Analytics cookies", desc: "Anonymised audience measurement (page views, session duration). Can be disabled.", always: false },
     ],
@@ -37,12 +37,11 @@ const texts = {
 };
 
 const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
+const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
 ---
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- COOKIE BANNER — One Nation Agency                       -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-label={t.title} style="display:none">
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-label={t.title}>
+
   <div class="cookie-inner">
 
     <!-- Header -->
@@ -67,39 +66,40 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
       </button>
     </div>
 
-    <!-- Body -->
+    <!-- Body (texte + lien politique) -->
     <div class="cookie-body">
       <p class="cookie-text" set:html={t.body} />
       <a href={t.policyUrl} class="cookie-policy-link">{t.policyLink}</a>
-
-      <!-- Détail toggle -->
-      <button class="cookie-details-toggle" id="cookie-details-toggle" aria-expanded="false">
-        <svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M6 9l6 6 6-6"/>
-        </svg>
-        <span id="cookie-details-label">{t.detailsToggle}</span>
-      </button>
-
-      <div class="cookie-details" id="cookie-details" hidden>
-        {t.detailsContent.map(item => (
-          <div class="cookie-detail-row">
-            <div class="cookie-detail-info">
-              <span class="cookie-detail-name">{item.name}</span>
-              <span class="cookie-detail-desc">{item.desc}</span>
-            </div>
-            {item.always
-              ? <span class="cookie-badge-always">Toujours actif</span>
-              : <label class="cookie-toggle-switch" aria-label={item.name}>
-                  <input type="checkbox" class="cookie-analytics-checkbox" checked />
-                  <span class="cookie-toggle-track"></span>
-                </label>
-            }
-          </div>
-        ))}
-      </div>
     </div>
 
-    <!-- Actions -->
+    <!-- Toggle "Voir le détail" -->
+    <button class="cookie-details-toggle" id="cookie-details-toggle" aria-expanded="false" aria-controls="cookie-details">
+      <svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+      <span id="cookie-details-label">{t.detailsToggle}</span>
+    </button>
+
+    <!-- Panneau détail (masqué par défaut) -->
+    <div class="cookie-details" id="cookie-details" aria-hidden="true">
+      {t.cookies.map(item => (
+        <div class="cookie-detail-row">
+          <div class="cookie-detail-info">
+            <span class="cookie-detail-name">{item.name}</span>
+            <span class="cookie-detail-desc">{item.desc}</span>
+          </div>
+          {item.always
+            ? <span class="cookie-badge-always">Toujours actif</span>
+            : <label class="cookie-toggle-switch" aria-label={item.name}>
+                <input type="checkbox" class="cookie-analytics-checkbox" checked />
+                <span class="cookie-toggle-track"></span>
+              </label>
+          }
+        </div>
+      ))}
+    </div>
+
+    <!-- Boutons d'action -->
     <div class="cookie-actions">
       <button class="cookie-btn-refuse" id="cookie-refuse-btn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -120,11 +120,12 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
 </div>
 
 <style>
+  /* ── Bannière cachée par défaut, affichée via JS ── */
   .cookie-banner {
     position: fixed;
     bottom: 1.5rem;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(20px);
     width: min(760px, calc(100vw - 2rem));
     background: rgba(10, 10, 10, 0.97);
     border: 1px solid rgba(201, 168, 76, 0.25);
@@ -134,19 +135,27 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     font-family: 'Inter', 'Montserrat', sans-serif;
     color: rgba(255,255,255,0.9);
     backdrop-filter: blur(12px);
-    animation: cookieSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1);
   }
 
-  @keyframes cookieSlideUp {
-    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .cookie-banner.visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .cookie-banner.hiding {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
   }
 
   .cookie-inner {
     padding: 1.4rem 1.6rem 1.2rem;
   }
 
-  /* Header */
+  /* ── Header ── */
   .cookie-header {
     display: flex;
     align-items: flex-start;
@@ -194,8 +203,10 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
   }
   .cookie-close:hover { color: #fff; background: rgba(255,255,255,0.08); }
 
-  /* Body */
-  .cookie-body { margin-bottom: 1rem; }
+  /* ── Body ── */
+  .cookie-body {
+    margin-bottom: 0.6rem;
+  }
 
   .cookie-text {
     font-size: 0.875rem;
@@ -218,7 +229,7 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
   }
   .cookie-policy-link:hover { opacity: 0.8; text-decoration: underline; }
 
-  /* Details toggle */
+  /* ── Toggle détail ── */
   .cookie-details-toggle {
     display: flex;
     align-items: center;
@@ -228,26 +239,34 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     color: rgba(255,255,255,0.55);
     font-size: 0.82rem;
     cursor: pointer;
-    padding: 0.5rem 0 0;
+    padding: 0.5rem 0;
     transition: color 0.2s;
+    width: 100%;
+    text-align: left;
   }
   .cookie-details-toggle:hover { color: rgba(255,255,255,0.85); }
 
   .toggle-chevron {
     transition: transform 0.25s ease;
+    flex-shrink: 0;
   }
   .cookie-details-toggle[aria-expanded="true"] .toggle-chevron {
     transform: rotate(180deg);
   }
 
-  /* Details panel */
+  /* ── Panneau détail ── */
   .cookie-details {
-    margin-top: 0.75rem;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding-top: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, margin 0.3s ease;
+    margin-top: 0;
+  }
+
+  .cookie-details.open {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 0.5rem;
   }
 
   .cookie-detail-row {
@@ -255,10 +274,11 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 0.5rem 0.75rem;
+    padding: 0.6rem 0.75rem;
     background: rgba(255,255,255,0.04);
     border-radius: 8px;
     border: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 0.4rem;
   }
 
   .cookie-detail-info {
@@ -269,7 +289,7 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
 
   .cookie-detail-name {
     font-size: 0.82rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #fff;
   }
 
@@ -283,19 +303,19 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     font-weight: 600;
     color: #C9A84C;
     background: rgba(201,168,76,0.12);
-    border: 1px solid rgba(201,168,76,0.25);
+    border: 1px solid rgba(201,168,76,0.3);
     border-radius: 20px;
-    padding: 0.2rem 0.6rem;
+    padding: 0.2rem 0.7rem;
     white-space: nowrap;
     flex-shrink: 0;
   }
 
-  /* Toggle switch */
+  /* ── Toggle switch ── */
   .cookie-toggle-switch {
     position: relative;
     display: inline-block;
-    width: 40px;
-    height: 22px;
+    width: 42px;
+    height: 24px;
     flex-shrink: 0;
     cursor: pointer;
   }
@@ -311,7 +331,7 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     position: absolute;
     inset: 0;
     background: rgba(255,255,255,0.15);
-    border-radius: 22px;
+    border-radius: 24px;
     transition: background 0.25s;
   }
 
@@ -320,8 +340,8 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     position: absolute;
     left: 3px;
     top: 3px;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     background: #fff;
     border-radius: 50%;
     transition: transform 0.25s;
@@ -335,7 +355,7 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     transform: translateX(18px);
   }
 
-  /* Actions */
+  /* ── Actions ── */
   .cookie-actions {
     display: flex;
     align-items: center;
@@ -343,6 +363,7 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     flex-wrap: wrap;
     border-top: 1px solid rgba(255,255,255,0.08);
     padding-top: 1rem;
+    margin-top: 0.75rem;
     margin-bottom: 0.85rem;
   }
 
@@ -355,7 +376,7 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     color: rgba(255,255,255,0.75);
     font-size: 0.82rem;
     font-weight: 600;
-    padding: 0.55rem 1.1rem;
+    padding: 0.6rem 1.1rem;
     border-radius: 8px;
     cursor: pointer;
     transition: border-color 0.2s, color 0.2s, background 0.2s;
@@ -376,7 +397,7 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     color: #0A0A0A;
     font-size: 0.82rem;
     font-weight: 700;
-    padding: 0.55rem 1.3rem;
+    padding: 0.6rem 1.3rem;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.2s, transform 0.15s;
@@ -388,7 +409,7 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
     transform: translateY(-1px);
   }
 
-  /* Legal footer */
+  /* ── Footer légal ── */
   .cookie-legal {
     font-size: 0.72rem;
     color: rgba(255,255,255,0.35);
@@ -405,20 +426,23 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
   }
   .cookie-legal-link:hover { color: #C9A84C; }
 
-  /* Mobile */
+  /* ── Mobile ── */
   @media (max-width: 600px) {
     .cookie-banner {
       bottom: 0;
       left: 0;
       right: 0;
-      transform: none;
+      transform: translateY(20px);
       width: 100%;
       border-radius: 12px 12px 0 0;
     }
 
-    @keyframes cookieSlideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .cookie-banner.visible {
+      transform: translateY(0);
+    }
+
+    .cookie-banner.hiding {
+      transform: translateY(10px);
     }
 
     .cookie-actions {
@@ -437,52 +461,66 @@ const t = texts[lang as 'fr' | 'en'] ?? texts.fr;
 <script>
   (function() {
     const CONSENT_KEY = 'ona_cookie_consent';
-    const banner = document.getElementById('cookie-banner');
-    const acceptBtn = document.getElementById('cookie-accept-btn');
-    const refuseBtn = document.getElementById('cookie-refuse-btn');
-    const closeBtn = document.getElementById('cookie-close-btn');
-    const detailsToggle = document.getElementById('cookie-details-toggle');
-    const detailsPanel = document.getElementById('cookie-details');
-    const detailsLabel = document.getElementById('cookie-details-label');
 
-    // Textes toggle selon la langue du document
+    // Ne rien faire si déjà consenti
+    if (localStorage.getItem(CONSENT_KEY)) return;
+
+    const banner       = document.getElementById('cookie-banner') as HTMLElement | null;
+    const acceptBtn    = document.getElementById('cookie-accept-btn');
+    const refuseBtn    = document.getElementById('cookie-refuse-btn');
+    const closeBtn     = document.getElementById('cookie-close-btn');
+    const detailToggle = document.getElementById('cookie-details-toggle');
+    const detailPanel  = document.getElementById('cookie-details') as HTMLElement | null;
+    const detailLabel  = document.getElementById('cookie-details-label');
+
+    if (!banner) return;
+
+    // ── Textes selon la langue ──
     const isEn = document.documentElement.lang === 'en';
-    const labelShow = isEn ? 'View cookie details' : 'Voir le détail des cookies';
-    const labelHide = isEn ? 'Hide details' : 'Masquer le détail';
+    const labelShow = isEn ? 'View cookie details'   : 'Voir le détail des cookies';
+    const labelHide = isEn ? 'Hide cookie details'   : 'Masquer le détail des cookies';
 
-    // Afficher la bannière si pas encore de consentement
-    if (!localStorage.getItem(CONSENT_KEY)) {
-      // Délai léger pour ne pas bloquer le rendu initial
-      setTimeout(() => {
-        if (banner) banner.style.display = 'block';
-      }, 800);
-    }
+    // ── Délai d'affichage ──
+    // Sur la home FR : splash dure 6s → on attend 7s
+    // Sur les autres pages : 2s suffisent
+    const isHomeFR = window.location.pathname === '/' || window.location.pathname === '';
+    const delay = isHomeFR ? 7200 : 2000;
 
+    setTimeout(() => {
+      banner.classList.add('visible');
+    }, delay);
+
+    // ── Dismiss ──
     function dismiss(choice: string) {
       localStorage.setItem(CONSENT_KEY, choice);
-      if (banner) {
-        banner.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        banner.style.opacity = '0';
-        banner.style.transform = 'translateX(-50%) translateY(10px)';
-        setTimeout(() => { if (banner) banner.style.display = 'none'; }, 320);
-      }
+      banner!.classList.add('hiding');
+      banner!.classList.remove('visible');
+      setTimeout(() => {
+        banner!.style.display = 'none';
+      }, 420);
     }
 
     if (acceptBtn) acceptBtn.addEventListener('click', () => dismiss('all'));
     if (refuseBtn) refuseBtn.addEventListener('click', () => dismiss('necessary'));
     if (closeBtn)  closeBtn.addEventListener('click',  () => dismiss('necessary'));
 
-    // Toggle détails
-    if (detailsToggle && detailsPanel && detailsLabel) {
-      detailsToggle.addEventListener('click', () => {
-        const expanded = detailsToggle.getAttribute('aria-expanded') === 'true';
-        detailsToggle.setAttribute('aria-expanded', String(!expanded));
-        if (expanded) {
-          detailsPanel.setAttribute('hidden', '');
-          detailsLabel.textContent = labelShow;
+    // ── Toggle détail ──
+    if (detailToggle && detailPanel && detailLabel) {
+      detailToggle.addEventListener('click', () => {
+        const isOpen = detailPanel.classList.contains('open');
+
+        if (isOpen) {
+          // Replier
+          detailPanel.classList.remove('open');
+          detailPanel.setAttribute('aria-hidden', 'true');
+          detailToggle.setAttribute('aria-expanded', 'false');
+          detailLabel.textContent = labelShow;
         } else {
-          detailsPanel.removeAttribute('hidden');
-          detailsLabel.textContent = labelHide;
+          // Déplier
+          detailPanel.classList.add('open');
+          detailPanel.setAttribute('aria-hidden', 'false');
+          detailToggle.setAttribute('aria-expanded', 'true');
+          detailLabel.textContent = labelHide;
         }
       });
     }
