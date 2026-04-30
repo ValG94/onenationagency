@@ -2,174 +2,218 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Pages principales FR -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGES PRINCIPALES FR                                    -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
   <url>
     <loc>https://www.onenationagency.com/</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.onenationagency.com/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en"/>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
   <url>
     <loc>https://www.onenationagency.com/vision</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/vision"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/vision"/>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://www.onenationagency.com/services</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/services"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/services"/>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
     <loc>https://www.onenationagency.com/portfolio</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/portfolio"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/portfolio"/>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
   <url>
     <loc>https://www.onenationagency.com/intelligence-artificielle</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/intelligence-artificielle"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/artificial-intelligence"/>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  <url>
-    <loc>https://www.onenationagency.com/afrique</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+
   <url>
     <loc>https://www.onenationagency.com/contact</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/contact"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/contact"/>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://www.onenationagency.com/temoignages</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Services FR -->
   <url>
-    <loc>https://www.onenationagency.com/design-graphique</loc>
-    <lastmod>2026-04-03</lastmod>
+    <loc>https://www.onenationagency.com/afrique</loc>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://www.onenationagency.com/conseil-strategique</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.onenationagency.com/referencement</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.onenationagency.com/webmarketing</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SERVICES FR                                             -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
   <url>
     <loc>https://www.onenationagency.com/e-reputation</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.onenationagency.com/reseaux-sociaux</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.onenationagency.com/relations-presse</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Pages EN -->
+  <url>
+    <loc>https://www.onenationagency.com/design-graphique</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.onenationagency.com/conseil-strategique</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.onenationagency.com/referencement</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.onenationagency.com/webmarketing</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.onenationagency.com/reseaux-sociaux</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.onenationagency.com/relations-presse</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGES EN                                                -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
   <url>
     <loc>https://www.onenationagency.com/en</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/"/>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  <url>
-    <loc>https://www.onenationagency.com/en/services</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.onenationagency.com/en/portfolio</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.onenationagency.com/en/artificial-intelligence</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+
   <url>
     <loc>https://www.onenationagency.com/en/vision</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.onenationagency.com/en/contact</loc>
-    <lastmod>2026-04-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/vision"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/vision"/>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Pages légales -->
+  <url>
+    <loc>https://www.onenationagency.com/en/services</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/services"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/services"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.onenationagency.com/en/portfolio</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/portfolio"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/portfolio"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.onenationagency.com/en/artificial-intelligence</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/artificial-intelligence"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/intelligence-artificielle"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.onenationagency.com/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.onenationagency.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.onenationagency.com/contact"/>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGES LÉGALES                                           -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
   <url>
     <loc>https://www.onenationagency.com/mentions-legales</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
   <url>
     <loc>https://www.onenationagency.com/cgv</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
   <url>
     <loc>https://www.onenationagency.com/politique-confidentialite</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
   <url>
     <loc>https://www.onenationagency.com/politique-cookies</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
