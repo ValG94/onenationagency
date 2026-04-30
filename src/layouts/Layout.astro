@@ -1,5 +1,6 @@
 ---
 import AIAgent from '../components/AIAgent.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title: string;
@@ -123,6 +124,7 @@ const isHomePage = Astro.url.pathname === '/';
   <slot />
 
   <AIAgent />
+  <CookieBanner lang={lang} />
 
   {!isHomePage && (
     <a
