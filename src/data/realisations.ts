@@ -54,6 +54,7 @@ export const realisations: Realisation[] = [
     image: "/homeMohamed.jpg",
     imageAlt: "Campagne présidentielle Alexis Mohamed — Djibouti",
     imagePosition: "top",
+    url: "https://www.alexis-mohamed.com",
     tags: ["communication", "politique", "digital"],
     year: 2026,
   },
