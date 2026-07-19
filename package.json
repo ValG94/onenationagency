@@ -8,8 +8,10 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "postbuild": "node scripts/project-status.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fiche": "node scripts/project-status.mjs"
   },
   "dependencies": {
     "astro": "^5.4.1",
