@@ -130,7 +130,9 @@ const alternateUrl = alternatePath
   </script>
 </head>
 <body>
-  <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
+  <a href="#main-content" class="skip-to-content">
+    {lang === 'en' ? 'Skip to main content' : 'Aller au contenu principal'}
+  </a>
   <slot />
 
   <AIAgent />

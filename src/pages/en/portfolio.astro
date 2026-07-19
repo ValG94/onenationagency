@@ -117,7 +117,14 @@ const projects = getProjects('en');
 /* ============================================
    VARIABLES
    ============================================ */
-:root {
+/* Variables locales aux sections portfolio.
+   Auparavant declarees sur :root, elles fuyaient hors de la page et
+   ecrasaient --gold-light et --grey du design system pour le header,
+   le footer, l agent IA et la banniere cookies. Astro scope ces
+   selecteurs de classe a la page ; les descendants heritent. */
+.pf-hero,
+.pf-projects,
+.pf-cta {
   --gold: #c9a84c;
   --gold-light: #e8c96e;
   --bg: #0a0a0a;

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
 
 // Les avatars vivent dans src/assets/ : Astro les redimensionne à la taille
@@ -46,28 +47,13 @@ const testimonials = [
 		image: 'cetot.jpg',
 		link: "https://www.linkedin.com/in/constantin-etot/?originalSubdomain=fr"
 	},
-
-	// {
-	// 	quote: "La créativité et le professionnalisme de One Nation ont fait toute la différence dans notre stratégie de communication. Nous avons vu une augmentation significative de notre engagement sur les réseaux sociaux.",
-	// 	author: "Thomas Mbarga",
-	// 	position: "Fondateur, StartUp Innovante",
-	// 	image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format",
-	// 	link: "https://www.linkedin.com/in/thomas-mbarga/"
-	// },
-	// {
-	// 	quote: "One Nation nous a aidés à naviguer efficacement dans un environnement médiatique complexe. Leur expertise en relations presse a été déterminante pour le succès de notre lancement.",
-	// 	author: "Isabelle Ngo",
-	// 	position: "Directrice Générale, Association Internationale",
-	// 	image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&auto=format",
-	// 	link: "https://www.linkedin.com/in/isabelle-ngo/"
-	// }
 ];
 ---
 
 
 <Layout title="Témoignages - One Nation">
 	<Header />
-	<main>
+	<main id="main-content">
 		<section class="testimonials">
 			<div class="container">
 				<h1>Témoignages</h1>
@@ -138,6 +124,7 @@ const testimonials = [
 			</div>
 		</section>
 	</main>
+	<Footer />
 </Layout>
 
 <style>
