@@ -1,0 +1,824 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+
+const metaDescription = "Grow your online presence with One Nation's digital marketing strategies. Personalised solutions in digital marketing, online advertising, social media and content marketing for institutions and businesses.";
+import { Image } from 'astro:assets';
+import imgSocialMedia from '../../assets/socialMedia.jpg';
+import imgPaiecashplayLandingPage from '../../assets/paiecashplay-landing-page.jpg';
+import imgCampagneDigitale from '../../assets/campagneDigitale.jpg';
+---
+
+
+<Layout
+	title="Digital Marketing and Digital Strategies | One Nation"
+	description={metaDescription}
+	ogImage="/images/webmarketing-banner.jpg"
+	lang="en"
+	canonical="/en/digital-marketing"
+>
+	<Header lang="en" />
+	<main id="main-content">
+		<section class="hero">
+			<div class="hero-content">
+				<h1>Tailor-made digital marketing strategies</h1>
+				<p>Transform your digital presence and maximise your impact online</p>
+				<a href="/en/contact" class="cta-button">Discuss your project</a>
+			</div>
+		</section>
+
+		<Section id="webmarketing-approach" title="Our approach to digital marketing">
+			<div class="approach-content">
+				<div class="approach-text">
+					<p class="intro-text">At One Nation, we develop integrated digital marketing strategies that combine creativity, data and technology to meet your commercial and institutional objectives.</p>
+
+					<div class="approach-pillars">
+						<div class="pillar">
+							<div class="pillar-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+									<circle cx="9" cy="7" r="4"></circle>
+									<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+									<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+								</svg>
+							</div>
+							<h3>Audience-centred</h3>
+							<p>We begin with a deep understanding of your target audience — their needs, behaviours and buying journeys — in order to build strategies that resonate.</p>
+						</div>
+
+						<div class="pillar">
+							<div class="pillar-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+								</svg>
+							</div>
+							<h3>Data-driven</h3>
+							<p>We use data analysis to inform every decision, measure performance and continuously optimise your campaigns.</p>
+						</div>
+
+						<div class="pillar">
+							<div class="pillar-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+									<circle cx="8.5" cy="8.5" r="1.5"></circle>
+									<polyline points="21 15 16 10 5 21"></polyline>
+								</svg>
+							</div>
+							<h3>Strategic creativity</h3>
+							<p>We combine creativity and strategy to develop content and campaigns that capture attention and generate engagement.</p>
+						</div>
+
+						<div class="pillar">
+							<div class="pillar-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M12 20h9"></path>
+									<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+								</svg>
+							</div>
+							<h3>Personalisation</h3>
+							<p>We create personalised marketing experiences that speak directly to each segment of your audience, increasing the effectiveness of your campaigns.</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="approach-image">
+					<Image src={imgSocialMedia} alt="Digital marketing strategy" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+				</div>
+			</div>
+		</Section>
+
+		<section class="services">
+			<div class="container">
+				<h2>Our digital marketing services</h2>
+				<div class="services-grid">
+					<div class="service-card">
+						<div class="service-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<circle cx="12" cy="12" r="10"></circle>
+								<circle cx="12" cy="12" r="6"></circle>
+								<circle cx="12" cy="12" r="2"></circle>
+							</svg>
+						</div>
+						<h3>Digital strategy</h3>
+						<p>Development of comprehensive digital strategies aligned with your commercial objectives and institutional positioning.</p>
+					</div>
+
+					<div class="service-card">
+						<div class="service-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"></path>
+								<line x1="12" y1="12" x2="12" y2="12"></line>
+								<line x1="12" y1="16" x2="12" y2="16"></line>
+								<line x1="12" y1="8" x2="12" y2="8"></line>
+							</svg>
+						</div>
+						<h3>Online advertising</h3>
+						<p>Management of advertising campaigns on Google Ads, social media and specialist platforms to maximise your ROI.</p>
+					</div>
+
+					<div class="service-card">
+						<div class="service-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+								<path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+								<line x1="6" y1="1" x2="6" y2="4"></line>
+								<line x1="10" y1="1" x2="10" y2="4"></line>
+								<line x1="14" y1="1" x2="14" y2="4"></line>
+							</svg>
+						</div>
+						<h3>Content marketing</h3>
+						<p>Creation and distribution of valuable content that attracts, engages and converts your target audience.</p>
+					</div>
+
+					<div class="service-card">
+						<div class="service-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+								<polyline points="22,6 12,13 2,6"></polyline>
+							</svg>
+						</div>
+						<h3>Email marketing</h3>
+						<p>Design and delivery of personalised email marketing campaigns that nurture relationships with your prospects and clients.</p>
+					</div>
+
+					<div class="service-card">
+						<div class="service-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+							</svg>
+						</div>
+						<h3>Social media marketing</h3>
+						<p>Strategic management of your social media channels to strengthen your presence, engage your community and amplify your message.</p>
+					</div>
+
+					<div class="service-card">
+						<div class="service-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+								<path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+							</svg>
+						</div>
+						<h3>Analysis & optimisation</h3>
+						<p>Monitoring and analysis of your campaign performance, with detailed reporting and optimisation recommendations.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="case-studies">
+			<div class="container">
+				<h2>Our digital marketing successes</h2>
+				<div class="case-studies-grid">
+					<div class="case-study">
+						<Image src={imgPaiecashplayLandingPage} alt="PaieCashPlay Landing Page" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+						<div class="case-study-content">
+							<h3>PaieCashPlay</h3>
+							<p>Development of a conversion-optimised landing page for a fundraising round, supported by a targeted traffic strategy.</p>
+							<div class="case-results">
+								<div class="result">
+									<span class="result-number">+320%</span>
+									<span class="result-label">Conversion rate</span>
+								</div>
+								<div class="result">
+									<span class="result-number">+150%</span>
+									<span class="result-label">Qualified leads</span>
+								</div>
+							</div>
+							<a href="https://invest.paiecashplay.com/" target="_blank" rel="noopener noreferrer" class="read-more">View the project</a>
+						</div>
+					</div>
+
+					<div class="case-study">
+						<Image src={imgCampagneDigitale} alt="Digital campaign" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+						<div class="case-study-content">
+							<h3>Integrated digital campaign</h3>
+							<p>Design and rollout of a multi-channel campaign for a financial institution, combining content, advertising and social media.</p>
+							<div class="case-results">
+								<div class="result">
+									<span class="result-number">+215%</span>
+									<span class="result-label">Engagement</span>
+								</div>
+								<div class="result">
+									<span class="result-number">+180%</span>
+									<span class="result-label">ROI</span>
+								</div>
+							</div>
+							<a href="/en/portfolio" class="read-more">View the project</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="process">
+			<div class="container">
+				<h2>Our process</h2>
+				<div class="process-steps">
+					<div class="process-step">
+						<div class="step-number">01</div>
+						<div class="step-content">
+							<h3>Analysis & discovery</h3>
+							<p>We begin by understanding your organisation, your objectives, your audience and your market in order to establish a solid foundation.</p>
+						</div>
+					</div>
+
+					<div class="process-step">
+						<div class="step-number">02</div>
+						<div class="step-content">
+							<h3>Strategy & planning</h3>
+							<p>We develop a bespoke digital strategy with a detailed action plan, clear KPIs and a rollout schedule.</p>
+						</div>
+					</div>
+
+					<div class="process-step">
+						<div class="step-number">03</div>
+						<div class="step-content">
+							<h3>Creation & production</h3>
+							<p>Our team creates the content, designs the visuals and develops the assets your campaigns require.</p>
+						</div>
+					</div>
+
+					<div class="process-step">
+						<div class="step-number">04</div>
+						<div class="step-content">
+							<h3>Deployment & management</h3>
+							<p>We launch your campaigns and manage them actively, adjusting the settings to optimise performance.</p>
+						</div>
+					</div>
+
+					<div class="process-step">
+						<div class="step-number">05</div>
+						<div class="step-content">
+							<h3>Analysis & optimisation</h3>
+							<p>We continuously analyse results and optimise your campaigns to maximise ROI and meet your objectives.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tools">
+			<div class="container">
+				<h2>Our tools & technologies</h2>
+				<p class="tools-intro">We use the most advanced platforms and tools to maximise the effectiveness of your digital marketing campaigns.</p>
+
+				<div class="tools-grid">
+					<div class="tool-category">
+						<h3>Advertising</h3>
+						<ul>
+							<li>Google Ads</li>
+							<li>Facebook Ads</li>
+							<li>LinkedIn Ads</li>
+							<li>Twitter Ads</li>
+							<li>Programmatic Advertising</li>
+						</ul>
+					</div>
+
+					<div class="tool-category">
+						<h3>Analytics</h3>
+						<ul>
+							<li>Google Analytics</li>
+							<li>Hotjar</li>
+							<li>SEMrush</li>
+							<li>Ahrefs</li>
+							<li>Tableau</li>
+						</ul>
+					</div>
+
+					<div class="tool-category">
+						<h3>Marketing Automation</h3>
+						<ul>
+							<li>HubSpot</li>
+							<li>Mailchimp</li>
+							<li>ActiveCampaign</li>
+							<li>Zapier</li>
+							<li>Buffer</li>
+						</ul>
+					</div>
+
+					<div class="tool-category">
+						<h3>CRM</h3>
+						<ul>
+							<li>Salesforce</li>
+							<li>HubSpot CRM</li>
+							<li>Zoho CRM</li>
+							<li>Pipedrive</li>
+							<li>Microsoft Dynamics</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="faq">
+			<div class="container">
+				<h2>Frequently asked questions about digital marketing</h2>
+				<div class="faq-list">
+					<details class="faq-item">
+						<summary>How do you measure the ROI of our digital marketing campaigns?</summary>
+						<div class="faq-answer">
+							<p>We define clear KPIs at the outset of every campaign, aligned with your commercial objectives. We use advanced analytics tools to track conversions, cost per acquisition, conversion rate and other relevant metrics. Our regular reports show precisely how your investment translates into tangible results, whether in leads, sales or engagement.</p>
+						</div>
+					</details>
+
+					<details class="faq-item">
+						<summary>Which digital marketing channels are most effective for institutions?</summary>
+						<div class="faq-answer">
+							<p>For institutions, the most effective channels depend on your specific objectives and your audience. Generally, a combination of LinkedIn for B2B, quality content for SEO, email marketing for nurturing and targeted advertising delivers the best results. We carry out an in-depth analysis of your situation to determine the optimal mix for your particular case.</p>
+						</div>
+					</details>
+
+					<details class="faq-item">
+						<summary>How do you adapt digital marketing strategies to different markets?</summary>
+						<div class="faq-answer">
+							<p>Our approach is always tailored to the specific characteristics of each market. We take cultural, linguistic, regulatory and behavioural differences into account. Our multicultural team and international network allow us to develop strategies that resonate locally while maintaining global consistency. We adapt the messages, the channels and even the KPIs to the realities of each market.</p>
+						</div>
+					</details>
+
+					<details class="faq-item">
+						<summary>What is the minimum recommended duration for a digital marketing campaign?</summary>
+						<div class="faq-answer">
+							<p>To achieve meaningful results, we generally recommend a minimum commitment of three to six months. The first weeks are devoted to laying the groundwork, testing and making adjustments. It is usually after two to three months that clear trends emerge and effective optimisation becomes possible. For content and SEO strategies, a horizon of six to twelve months is more realistic if substantial results are to be observed.</p>
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+
+		<section class="cta-section">
+			<div class="container">
+				<h2>Ready to transform your digital presence?</h2>
+				<p>Get in touch today to discuss your digital marketing objectives and discover how we can help you achieve them.</p>
+				<div class="cta-buttons">
+					<a href="/en/contact" class="primary-button">Request a quote</a>
+					<a href="/en/services" class="secondary-button">Explore our services</a>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer lang="en" />
+</Layout>
+
+<style>
+	.hero {
+		height: 80vh;
+		min-height: 600px;
+		background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/approcheSeo.jpg') center/cover no-repeat;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		margin-top: 72px;
+	}
+
+	.hero-content {
+		max-width: 800px;
+		padding: 0 2rem;
+	}
+
+	.hero h1 {
+		font-size: 3.5rem;
+		margin-bottom: 1.5rem;
+		line-height: 1.2;
+	}
+
+	.hero p {
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		opacity: 0.9;
+	}
+
+	.cta-button {
+		display: inline-block;
+		background: var(--color-accent);
+		color: var(--color-background);
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.approach-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: center;
+	}
+
+	.intro-text {
+		font-size: 1.2rem;
+		line-height: 1.8;
+		margin-bottom: 3rem;
+	}
+
+	.approach-pillars {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+	}
+
+	.pillar {
+		text-align: center;
+		padding: 2rem;
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 12px;
+		transition: transform 0.3s ease;
+	}
+
+	.pillar:hover {
+		transform: translateY(-10px);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.pillar-icon {
+		color: var(--color-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.pillar h3 {
+		font-size: 1.3rem;
+		margin-bottom: 1rem;
+	}
+
+	.approach-image img {
+		width: 100%;
+		border-radius: 12px;
+		box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+	}
+
+	.services {
+		padding: 8rem 0;
+		background: linear-gradient(to right, rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/marketing.jpg') center/cover no-repeat;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.services h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.service-card {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 2.5rem 2rem;
+		border-radius: 12px;
+		transition: transform 0.3s ease;
+		text-align: center;
+	}
+
+	.service-card:hover {
+		transform: translateY(-10px);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.service-icon {
+		color: var(--color-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.service-card h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.case-studies {
+		padding: 8rem 0;
+	}
+
+	.case-studies h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.case-studies-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: 3rem;
+	}
+
+	.case-study {
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 12px;
+		overflow: hidden;
+		transition: transform 0.3s ease;
+	}
+
+	.case-study:hover {
+		transform: translateY(-10px);
+	}
+
+	.case-study img {
+		width: 100%;
+		height: 250px;
+		object-fit: cover;
+	}
+
+	.case-study-content {
+		padding: 2rem;
+	}
+
+	.case-study h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.case-results {
+		display: flex;
+		justify-content: space-around;
+		margin: 1.5rem 0;
+	}
+
+	.result {
+		text-align: center;
+	}
+
+	.result-number {
+		display: block;
+		font-size: 1.8rem;
+		font-weight: 700;
+		color: var(--color-accent);
+	}
+
+	.result-label {
+		font-size: 0.9rem;
+		opacity: 0.8;
+	}
+
+	.read-more {
+		display: inline-block;
+		margin-top: 1rem;
+		color: var(--color-accent);
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.3s ease;
+	}
+
+	.read-more:hover {
+		color: var(--color-white);
+	}
+
+	.process {
+		padding: 8rem 0;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.process h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.process-steps {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.process-step {
+		display: flex;
+		gap: 2rem;
+		margin-bottom: 3rem;
+		position: relative;
+	}
+
+	.process-step:not(:last-child)::after {
+		content: '';
+		position: absolute;
+		top: 3rem;
+		left: 1.5rem;
+		width: 2px;
+		height: calc(100% + 3rem);
+		background: rgba(255, 255, 255, 0.1);
+		z-index: -1;
+	}
+
+	.step-number {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--color-accent);
+		flex-shrink: 0;
+		width: 3rem;
+		text-align: center;
+	}
+
+	.step-content h3 {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.tools {
+		padding: 8rem 0;
+	}
+
+	.tools h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 1.5rem;
+	}
+
+	.tools-intro {
+		text-align: center;
+		max-width: 800px;
+		margin: 0 auto 4rem;
+		font-size: 1.2rem;
+		opacity: 0.9;
+	}
+
+	.tools-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 3rem;
+	}
+
+	.tool-category {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 2rem;
+		border-radius: 12px;
+	}
+
+	.tool-category h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1.5rem;
+		color: var(--color-accent);
+		text-align: center;
+	}
+
+	.tool-category ul {
+		list-style: none;
+		padding: 0;
+	}
+
+	.tool-category li {
+		padding: 0.8rem 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		text-align: center;
+	}
+
+	.tool-category li:last-child {
+		border-bottom: none;
+	}
+
+	.faq {
+		padding: 8rem 0;
+		background: linear-gradient(rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/marketingMeeting.jpg') center/cover no-repeat;
+	}
+
+	.faq h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.faq-list {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.faq-item {
+		margin-bottom: 1.5rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.faq-item summary {
+		padding: 1.5rem 0;
+		font-size: 1.2rem;
+		font-weight: 500;
+		cursor: pointer;
+		position: relative;
+		list-style: none;
+	}
+
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item summary::after {
+		content: '+';
+		position: absolute;
+		right: 0;
+		font-size: 1.5rem;
+		transition: transform 0.3s ease;
+	}
+
+	.faq-item[open] summary::after {
+		transform: rotate(45deg);
+	}
+
+	.faq-answer {
+		padding: 0 0 1.5rem;
+	}
+
+	.cta-section {
+		padding: 6rem 0;
+		text-align: center;
+	}
+
+	.cta-section h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-section p {
+		font-size: 1.2rem;
+		max-width: 800px;
+		margin: 0 auto 2.5rem;
+		opacity: 0.9;
+	}
+
+	.cta-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.primary-button, .secondary-button {
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.primary-button {
+		background: var(--color-accent);
+		color: var(--color-background);
+	}
+
+	.secondary-button {
+		background: transparent;
+		color: var(--color-white);
+		border: 2px solid var(--color-accent);
+	}
+
+	.primary-button:hover, .secondary-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 992px) {
+		.approach-content {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+		}
+
+		.approach-image {
+			order: -1;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			height: 70vh;
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+
+		.hero p {
+			font-size: 1.2rem;
+		}
+
+		.approach-pillars {
+			grid-template-columns: 1fr;
+		}
+
+		.services-grid, .case-studies-grid, .tools-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.process-step {
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		.process-step:not(:last-child)::after {
+			display: none;
+		}
+
+		.cta-buttons {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+</style>

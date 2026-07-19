@@ -1,0 +1,305 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+
+// Les avatars vivent dans src/assets/ : Astro les redimensionne à la taille
+// réellement affichée (l'un d'eux pesait 2,8 Mo pour un rendu de 150 px).
+const avatars = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/*.{jpg,jpeg,png,webp}',
+  { eager: true }
+);
+
+function avatar(file: string): ImageMetadata {
+  const mod = avatars[`../../assets/${file}`];
+  if (!mod) throw new Error(`Avatar introuvable dans src/assets/ : ${file}`);
+  return mod.default;
+}
+
+const testimonials = [
+
+	{
+		quote: "Thank you to One Nation for this outstanding and professional work. Kind regards.",
+		author: "Alexis Mohamed",
+		position: "Politician",
+		image: 'alexis-assis.jpg',
+		link: "https://www.linkedin.com/in/alexis-mohamed-875b08179/?originalSubdomain=dj"
+	},
+	{
+		quote: "The One Nation team listened closely to my expectations and needs, and carried out the assignment entrusted to them impeccably. Their expertise and creativity gave our brand image a new dimension.",
+		author: "Christelle Keutcha",
+		position: "CEO, Studio C",
+		image: 'christelleK.jpg',
+		link: "https://www.linkedin.com/in/christelle-keutcha-98742310b/overlay/photo/"
+	},
+	{
+		quote: "The One Nation team fully grasped the specifics of the Cameroonian market and adapted its strategy accordingly. Their approach considerably strengthened our visibility and our credibility.",
+		author: "William Fotchine",
+		position: "CEO, Nomadéo Africa",
+		image: 'wfotchine.jpg',
+		link: "https://www.linkedin.com/in/william-fotchine/"
+	},
+	{
+		quote: "One Nation guided us through our digital transformation with remarkable expertise. Their team showed great attentiveness and exemplary responsiveness.",
+		author: "Constantin Etot",
+		position: "CEO, PaieCash",
+		image: 'cetot.jpg',
+		link: "https://www.linkedin.com/in/constantin-etot/?originalSubdomain=fr"
+	},
+];
+---
+
+
+<Layout
+	title="Testimonials - One Nation"
+	description="Discover what our clients say about working with One Nation and the results achieved through our bespoke communication services."
+	lang="en"
+	canonical="/en/testimonials"
+>
+	<Header lang="en" />
+	<main id="main-content">
+		<section class="testimonials">
+			<div class="container">
+				<h1>Testimonials</h1>
+				<p class="intro-text">Discover what our clients say about working with us and the results achieved through our bespoke communication services.</p>
+
+				<div class="testimonials-grid">
+					{testimonials.map((testimonial) => (
+						<div class="testimonial-card">
+							<div class="rating">
+								<span class="star">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+										<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+									</svg>
+								</span>
+								<span class="star">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+										<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+									</svg>
+								</span>
+								<span class="star">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+										<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+									</svg>
+								</span>
+								<span class="star">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+										<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+									</svg>
+								</span>
+								<span class="star">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+										<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+									</svg>
+								</span>
+							</div>
+							<p class="quote">"{testimonial.quote}"</p>
+							<div class="author-info">
+								<div class="author-image">
+									<Image
+										src={avatar(testimonial.image)}
+										alt={`Portrait of ${testimonial.author}`}
+										widths={[150, 300]}
+										sizes="150px"
+										loading="lazy"
+										decoding="async"
+									/>
+								</div>
+								<div class="author-details">
+									<strong>{testimonial.author}</strong>
+									<span>{testimonial.position}</span>
+									<a href={testimonial.link} target="_blank" rel="noopener noreferrer" class="linkedin-link">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+											<path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+										</svg>
+										LinkedIn profile
+									</a>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+
+				<div class="cta-section">
+					<h2>Join our satisfied clients</h2>
+					<p>Ready to transform your communication and achieve exceptional results? Get in touch today to discuss your project.</p>
+					<a href="/en/contact" class="cta-button">Request a quote</a>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer lang="en" />
+</Layout>
+
+<style>
+	.testimonials {
+		padding: 8rem 0;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	h1 {
+		font-size: 3rem;
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+
+	.intro-text {
+		text-align: center;
+		max-width: 800px;
+		margin: 0 auto 4rem;
+		font-size: 1.2rem;
+		line-height: 1.8;
+		color: var(--color-accent);
+	}
+
+	.testimonials-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: 2rem;
+		margin-bottom: 6rem;
+	}
+
+	.testimonial-card {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 2.5rem;
+		border-radius: 12px;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.testimonial-card:hover {
+		transform: translateY(-10px);
+		background: rgba(175, 175, 174, 0.1);
+		box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+	}
+
+	.rating {
+		display: flex;
+		gap: 0.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.star {
+		width: 24px;
+		height: 24px;
+		color: #FFD700;
+	}
+
+	.quote {
+		font-size: 1.1rem;
+		line-height: 1.6;
+		margin-bottom: 2rem;
+		font-style: italic;
+		color: var(--color-white);
+		flex-grow: 1;
+	}
+
+	.author-info {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-top: auto;
+	}
+
+	.author-image {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		overflow: hidden;
+		border: 2px solid var(--color-accent);
+	}
+
+	.author-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.author-details {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
+
+	.author-details strong {
+		font-size: 1.1rem;
+		color: var(--color-white);
+	}
+
+	.author-details span {
+		font-size: 0.9rem;
+		color: var(--color-accent);
+	}
+
+	.linkedin-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--color-accent);
+		text-decoration: none;
+		font-size: 0.9rem;
+		transition: color 0.3s;
+	}
+
+	.linkedin-link:hover {
+		color: var(--color-white);
+	}
+
+	.cta-section {
+		text-align: center;
+		padding: 4rem;
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 12px;
+	}
+
+	.cta-section h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1.5rem;
+		color: var(--color-white);
+	}
+
+	.cta-section p {
+		font-size: 1.2rem;
+		max-width: 800px;
+		margin: 0 auto 2.5rem;
+		color: var(--color-accent);
+	}
+
+	.cta-button {
+		display: inline-block;
+		background: var(--color-accent);
+		color: var(--color-background);
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 768px) {
+		.testimonials-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.cta-section {
+			padding: 3rem 1.5rem;
+		}
+
+		.cta-section h2 {
+			font-size: 2rem;
+		}
+	}
+</style>

@@ -5,6 +5,12 @@ interface Props {
 const { lang = 'fr' } = Astro.props;
 import { Image } from 'astro:assets';
 import imgLogoOnenation from '../assets/logoOnenation.jpg';
+import { localised } from '../data/routes';
+
+// Tous les liens du footer sont dérivés de la table de routes : quand une
+// page est traduite, il suffit de l'y déclarer pour que le footer suive.
+const url = (frPath: string) => localised(frPath, lang);
+const en = lang === 'en';
 ---
 
 <footer class="site-footer">
@@ -50,11 +56,11 @@ import imgLogoOnenation from '../assets/logoOnenation.jpg';
       <div class="footer-nav-group">
         <h4>{lang === 'en' ? 'Expertise' : 'Expertises'}</h4>
         <ul>
-          <li><a href={lang === 'en' ? '/en/services' : '/conseil-strategique'}>{lang === 'en' ? 'Strategic Communication' : 'Communication Stratégique'}</a></li>
-          <li><a href={lang === 'en' ? '/en/artificial-intelligence' : '/intelligence-artificielle'}>{lang === 'en' ? 'AI Agents' : 'Agents IA'}</a></li>
-          <li><a href={lang === 'en' ? '/en/services' : '/services'}>{lang === 'en' ? 'Premium Web' : 'Création Web Premium'}</a></li>
-          <li><a href={lang === 'en' ? '/en/services' : '/design-graphique'}>{lang === 'en' ? 'Graphic Design' : 'Design Graphique'}</a></li>
-          <li><a href={lang === 'en' ? '/en/services' : '/e-reputation'}>{lang === 'en' ? 'E-Reputation' : 'E-Réputation'}</a></li>
+          <li><a href={url('/conseil-strategique')}>{en ? 'Strategic Communication' : 'Communication Stratégique'}</a></li>
+          <li><a href={url('/intelligence-artificielle')}>{en ? 'AI Agents' : 'Agents IA'}</a></li>
+          <li><a href={url('/services')}>{en ? 'Premium Web' : 'Création Web Premium'}</a></li>
+          <li><a href={url('/design-graphique')}>{en ? 'Graphic Design' : 'Design Graphique'}</a></li>
+          <li><a href={url('/e-reputation')}>{en ? 'E-Reputation' : 'E-Réputation'}</a></li>
         </ul>
       </div>
 
@@ -88,10 +94,10 @@ import imgLogoOnenation from '../assets/logoOnenation.jpg';
         {lang === 'en' ? 'All rights reserved.' : 'Tous droits réservés.'}
       </p>
       <div class="footer-legal">
-        <a href="/mentions-legales">{lang === 'en' ? 'Legal Notice' : 'Mentions légales'}</a>
-        <a href="/politique-confidentialite">{lang === 'en' ? 'Privacy Policy' : 'Politique de confidentialité'}</a>
-        <a href="/cgv">{lang === 'en' ? 'Terms' : 'CGV'}</a>
-        <a href="/politique-cookies">{lang === 'en' ? 'Cookies' : 'Cookies'}</a>
+        <a href={url('/mentions-legales')}>{en ? 'Legal Notice' : 'Mentions légales'}</a>
+        <a href={url('/politique-confidentialite')}>{en ? 'Privacy Policy' : 'Politique de confidentialité'}</a>
+        <a href={url('/cgv')}>{en ? 'Terms' : 'CGV'}</a>
+        <a href={url('/politique-cookies')}>{en ? 'Cookies' : 'Cookies'}</a>
       </div>
     </div>
   </div>

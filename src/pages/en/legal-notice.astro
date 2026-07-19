@@ -1,0 +1,113 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+
+<Layout
+	title="Legal Notice - One Nation"
+	description="Legal notice for the One Nation Agency website: publisher, hosting, intellectual property and personal data."
+	lang="en"
+	canonical="/en/legal-notice"
+>
+	<Header lang="en" />
+	<main id="main-content">
+		<section class="legal">
+			<div class="container">
+				<h1>Legal Notice</h1>
+
+				<div class="legal-content">
+					<h2>Site publisher</h2>
+					<p>The One Nation website is published by:</p>
+					<p>One Nation Agency<br>
+					3 rue de Suresnes<br>
+					75008 Paris, France</p>
+					<p>SIRET: 51821216200029<br>
+					Share capital: €1,000</p>
+					<p>Publication director: Valéry Garrec</p>
+
+					<h2>Hosting</h2>
+					<p>The site is hosted by:</p>
+					<p>IONOS Sarl<br>
+					7, place de la Gare<br>
+					BP 70109<br>
+					57201 Sarreguemines Cedex, France</p>
+
+					<h2>Intellectual property</h2>
+					<p>All content on this site (text, images, videos, etc.) is the exclusive property of One Nation Agency or its partners. Any reproduction, representation, modification, publication or adaptation of all or part of the site's elements, by whatever means or process, is prohibited without the prior written consent of One Nation Agency.</p>
+
+					<h2>Personal data</h2>
+					<p>The information collected on this site is processed electronically by One Nation Agency for customer management and commercial prospecting purposes.</p>
+					<p>In accordance with the French Data Protection Act of 6 January 1978 as amended and with European Regulation 2016/679 of 27 April 2016, you have the right to access, rectify, port and erase your data, as well as to restrict its processing. You may also object, on legitimate grounds, to the processing of data concerning you.</p>
+					<p>To exercise these rights or for any question regarding the processing of your data, you may contact One Nation Agency at: contact@onenationagency.com</p>
+
+					<h2>Cookies</h2>
+					<p>The One Nation website may use cookies to improve the user experience. You can disable the use of cookies by selecting the appropriate settings in your browser. However, doing so may prevent you from using certain features of this site.</p>
+
+					<h2>Hyperlinks</h2>
+					<p>The One Nation website may contain hyperlinks to other sites. One Nation Agency has no means of checking the content of the sites visited in this way, and therefore accepts no liability in this respect.</p>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer lang="en" />
+</Layout>
+
+<style>
+	.legal {
+		padding: 8rem 0;
+	}
+
+	.container {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	h1 {
+		font-size: 3rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.legal-content {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 3rem;
+		border-radius: 12px;
+	}
+
+	h2 {
+		font-size: 1.8rem;
+		color: var(--color-accent);
+		margin: 2.5rem 0 1rem;
+	}
+
+	h2:first-child {
+		margin-top: 0;
+	}
+
+	p {
+		margin: 0.8rem 0;
+		line-height: 1.6;
+	}
+
+	@media (max-width: 768px) {
+		.legal {
+			padding: 6rem 0;
+		}
+
+		h1 {
+			font-size: 2.5rem;
+			margin-bottom: 3rem;
+		}
+
+		.legal-content {
+			padding: 2rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+		}
+	}
+</style>

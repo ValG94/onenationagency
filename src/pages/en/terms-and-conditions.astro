@@ -1,0 +1,117 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+
+<Layout
+	title="Terms and Conditions of Sale - One Nation"
+	description="Terms and conditions of sale governing the services provided by One Nation Agency: orders, pricing, payment, intellectual property and applicable law."
+	lang="en"
+	canonical="/en/terms-and-conditions"
+>
+	<Header lang="en" />
+	<main id="main-content">
+		<section class="cgv">
+			<div class="container">
+				<h1>Terms and Conditions of Sale</h1>
+
+				<div class="cgv-content">
+					<h2>Article 1 - Purpose and scope</h2>
+					<p>These terms and conditions of sale (the "Terms") form the basis of the commercial negotiation and are systematically sent or given to each client to enable them to place an order.</p>
+					<p>The Terms apply to all sales of services by One Nation Agency to professional clients, irrespective of any clauses that may appear in the client's documents, and in particular its general conditions of purchase.</p>
+
+					<h2>Article 2 - Orders and performance</h2>
+					<p>An order means any instruction relating to the services of One Nation Agency and accepted by the latter. Every order is firm and final as soon as the quotation is signed by the client.</p>
+					<p>One Nation Agency undertakes to deploy all the means necessary to carry out the services ordered.</p>
+
+					<h2>Article 3 - Prices</h2>
+					<p>Services are provided at the prices in force on the day the order is placed, in accordance with the quotation previously drawn up by One Nation Agency and accepted by the client.</p>
+					<p>Prices are net and exclusive of VAT. An invoice is issued by One Nation Agency and given to the client each time services are provided.</p>
+
+					<h2>Article 4 - Payment terms</h2>
+					<p>A deposit of 30% of the total price of the services ordered is required when the order is placed. The balance of the price is payable in cash on the day the services are provided.</p>
+					<p>No discount will be granted by One Nation Agency for payment before the date shown on the invoice or within a period shorter than that stated in these Terms.</p>
+
+					<h2>Article 5 - Late payment</h2>
+					<p>In the event of late payment, One Nation Agency may suspend all orders in progress, without prejudice to any other course of action.</p>
+					<p>Any sum unpaid on the due date shown on the invoice shall give rise to the application of penalties equal to three times the statutory interest rate.</p>
+
+					<h2>Article 6 - Intellectual property</h2>
+					<p>One Nation Agency retains ownership of all intellectual property rights in the studies, drawings, models, prototypes, etc., produced (even at the client's request) with a view to providing the services to the client.</p>
+					<p>The client therefore undertakes not to reproduce or exploit the said studies, drawings, models and prototypes, etc., without the express, written and prior authorisation of One Nation Agency, which may make such authorisation subject to financial consideration.</p>
+
+					<h2>Article 7 - Liability</h2>
+					<p>The liability of One Nation Agency may only be engaged in the event of fault proven by the client and is limited to direct loss, to the exclusion of any indirect loss of whatever nature.</p>
+
+					<h2>Article 8 - Force majeure</h2>
+					<p>The liability of One Nation Agency may not be engaged if the non-performance or delay in the performance of one of its obligations described in these Terms results from an event of force majeure.</p>
+
+					<h2>Article 9 - Applicable law and jurisdiction</h2>
+					<p>These Terms and the transactions arising from them are governed by French law.</p>
+					<p>Any dispute concerning the application of these Terms and their interpretation and performance, and the sales contracts concluded by One Nation Agency, or the payment of the price, shall be brought before the Paris Commercial Court, irrespective of the place of order, delivery and payment and the method of payment, and even in the event of a warranty claim or multiple defendants.</p>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer lang="en" />
+</Layout>
+
+<style>
+	.cgv {
+		padding: 8rem 0;
+	}
+
+	.container {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	h1 {
+		font-size: 3rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.cgv-content {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 3rem;
+		border-radius: 12px;
+	}
+
+	h2 {
+		font-size: 1.8rem;
+		color: var(--color-accent);
+		margin: 2.5rem 0 1rem;
+	}
+
+	h2:first-child {
+		margin-top: 0;
+	}
+
+	p {
+		margin: 0.8rem 0;
+		line-height: 1.6;
+	}
+
+	@media (max-width: 768px) {
+		.cgv {
+			padding: 6rem 0;
+		}
+
+		h1 {
+			font-size: 2.5rem;
+			margin-bottom: 3rem;
+		}
+
+		.cgv-content {
+			padding: 2rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+		}
+	}
+</style>

@@ -1,0 +1,587 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+
+const metaDescription = "Discover our professional graphic design services: visual identity creation, communication material design, web design and user interface design to strengthen your brand image.";
+import { Image } from 'astro:assets';
+import imgDesignGraphique from '../../assets/design_graphique.jpg';
+import imgBrochure from '../../assets/brochure.jpg';
+import imgDesignUxUi from '../../assets/designUxUi.jpg';
+import imgAnnualReportConception from '../../assets/annualReportConception.jpg';
+---
+
+
+<Layout
+	title="Graphic Design and Visual Identity | One Nation"
+	description={metaDescription}
+	lang="en"
+	canonical="/en/graphic-design"
+	ogImage="/images/design-graphique-banner.jpg"
+>
+	<Header lang="en" />
+	<main id="main-content">
+		<section class="hero">
+			<div class="hero-content">
+				<h1>Graphic Design & Visual Identity</h1>
+				<p>Bring your brand to life with striking, memorable visual work</p>
+				<a href="/en/contact" class="cta-button">Discuss your project</a>
+			</div>
+		</section>
+
+		<Section id="design-services" title="Our Graphic Design services">
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+							<line x1="16" y1="8" x2="2" y2="22"></line>
+							<line x1="17.5" y1="15" x2="9" y2="15"></line>
+						</svg>
+					</div>
+					<h3>Visual identity</h3>
+					<p>Creation of logos, complete brand guidelines and visual identity systems that reflect the essence of your brand and strengthen its recognition.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+							<circle cx="8.5" cy="8.5" r="1.5"></circle>
+							<polyline points="21 15 16 10 5 21"></polyline>
+						</svg>
+					</div>
+					<h3>Communication materials</h3>
+					<p>Design of brochures, leaflets, annual reports, posters and other printed materials that communicate your message effectively.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+							<line x1="8" y1="21" x2="16" y2="21"></line>
+							<line x1="12" y1="17" x2="12" y2="21"></line>
+						</svg>
+					</div>
+					<h3>Web design</h3>
+					<p>Creation of attractive, functional web interfaces that deliver an optimal user experience while reflecting your brand identity.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+						</svg>
+					</div>
+					<h3>Illustration & Infographics</h3>
+					<p>Creation of bespoke illustrations and infographics that simplify complex information and enrich your visual communication.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+							<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+							<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+						</svg>
+					</div>
+					<h3>Social media design</h3>
+					<p>Design of visuals optimised for the different social platforms, ensuring a consistent and engaging presence online.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+							<path d="M18 14h-8"></path>
+							<path d="M15 18h-5"></path>
+							<path d="M10 6h8v4h-8z"></path>
+						</svg>
+					</div>
+					<h3>Publishing & Layout</h3>
+					<p>Professional layout of magazines, books, catalogues and other publications that showcase your content and capture attention.</p>
+				</div>
+			</div>
+		</Section>
+
+		<section class="process">
+			<div class="container">
+				<h2>Our creative process</h2>
+				<div class="process-steps">
+					<div class="process-step">
+						<div class="step-number">01</div>
+						<div class="step-content">
+							<h3>Discovery & Briefing</h3>
+							<p>We begin by understanding your brand, your objectives, your target audience and your specific needs in order to establish a solid creative brief.</p>
+						</div>
+					</div>
+
+					<div class="process-step">
+						<div class="step-number">02</div>
+						<div class="step-content">
+							<h3>Research & Concept</h3>
+							<p>We explore different creative directions and analyse trends and competitors to develop distinctive, relevant concepts.</p>
+						</div>
+					</div>
+
+					<div class="process-step">
+						<div class="step-number">03</div>
+						<div class="step-content">
+							<h3>Design & Creation</h3>
+							<p>We turn concepts into concrete designs, working on detail, typography, colour and composition to create striking visuals.</p>
+						</div>
+					</div>
+
+					<div class="process-step">
+						<div class="step-number">04</div>
+						<div class="step-content">
+							<h3>Revisions & Finalisation</h3>
+							<p>We refine the designs in line with your feedback, making sure every element meets your expectations and objectives precisely.</p>
+						</div>
+					</div>
+
+					<div class="process-step">
+						<div class="step-number">05</div>
+						<div class="step-content">
+							<h3>Delivery & Support</h3>
+							<p>We deliver the final files in every format required and provide support for their implementation and optimal use.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="portfolio">
+			<div class="container">
+				<h2>Selected work</h2>
+				<div class="portfolio-grid">
+					<div class="portfolio-item">
+						<Image src={imgDesignGraphique} alt="Visual identity" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+						<div class="portfolio-overlay">
+							<div class="portfolio-content">
+								<h3>Visual identity redesign</h3>
+								<p>Creation of a new identity for a financial institution</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="portfolio-item">
+						<Image src={imgBrochure} alt="Institutional brochure" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+						<div class="portfolio-overlay">
+							<div class="portfolio-content">
+								<h3>Institutional Brochure</h3>
+								<p>Design of a premium brochure for an international organisation</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="portfolio-item">
+						<Image src={imgDesignUxUi} alt="Interface design" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+						<div class="portfolio-overlay">
+							<div class="portfolio-content">
+								<h3>UX/UI Design</h3>
+								<p>Creation of an intuitive user interface for a mobile application</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="portfolio-item">
+						<Image src={imgAnnualReportConception} alt="Annual report" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+						<div class="portfolio-overlay">
+							<div class="portfolio-content">
+								<h3>Annual report</h3>
+								<p>Layout and design of an annual report for a CAC 40 company</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="portfolio-cta">
+					<a href="/en/portfolio" class="secondary-button">See more of our work</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="faq">
+			<div class="container">
+				<h2>Frequently asked questions</h2>
+				<div class="faq-list">
+					<details class="faq-item">
+						<summary>How does a logo design project work?</summary>
+						<div class="faq-answer">
+							<p>A logo design project begins with a discovery phase in which we explore your brand, your values and your positioning. We then develop several creative concepts and present them to you. Once a direction has been selected, we refine the design in line with your feedback until the final logo is agreed. We then deliver the files in various formats along with usage guidelines to ensure consistent application.</p>
+						</div>
+					</details>
+
+					<details class="faq-item">
+						<summary>Which files will I receive at the end of a design project?</summary>
+						<div class="faq-answer">
+							<p>At the end of a project, you receive every file needed to make optimal use of your designs. This generally includes editable source files (AI, PSD, INDD), ready-to-use files (PDF, JPG, PNG) and, in the case of a visual identity, a usage guide. For web projects, we also supply web-optimised assets and technical specifications for developers.</p>
+						</div>
+					</details>
+
+					<details class="faq-item">
+						<summary>How do you guarantee that the designs created are unique?</summary>
+						<div class="faq-answer">
+							<p>We create every design in a personalised, bespoke way, based on your specific brief. Our creative process includes an in-depth research phase to ensure the concepts developed are unique. We also carry out similarity checks on logos to avoid any problematic resemblance to existing brands. All our designs are original and created specifically to meet your needs.</p>
+						</div>
+					</details>
+
+					<details class="faq-item">
+						<summary>How long does a graphic design project take?</summary>
+						<div class="faq-answer">
+							<p>The duration of a project varies according to its complexity and scale. A logo project can take from 2 to 4 weeks, while a complete visual identity may require 4 to 8 weeks. Publishing projects such as annual reports or magazines can extend over 3 to 6 weeks. We always draw up a detailed timetable at the start of the project and keep you informed of progress at every stage.</p>
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+
+		<section class="cta-section">
+			<div class="container">
+				<h2>Ready to bring your vision to life?</h2>
+				<p>Get in touch today to discuss your graphic design project and find out how we can create visuals that make a difference.</p>
+				<div class="cta-buttons">
+					<a href="/en/contact" class="primary-button">Request a quote</a>
+					<a href="/en/portfolio" class="secondary-button">View our portfolio</a>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer lang="en" />
+</Layout>
+
+<style>
+	.hero {
+		height: 80vh;
+		min-height: 600px;
+		background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/design_graphique.jpg') center/cover no-repeat;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		margin-top: 72px;
+	}
+
+	.hero-content {
+		max-width: 800px;
+		padding: 0 2rem;
+	}
+
+	.hero h1 {
+		font-size: 3.5rem;
+		margin-bottom: 1.5rem;
+		line-height: 1.2;
+	}
+
+	.hero p {
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		opacity: 0.9;
+	}
+
+	.cta-button {
+		display: inline-block;
+		background: var(--color-accent);
+		color: var(--color-background);
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.service-card {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 2.5rem 2rem;
+		border-radius: 12px;
+		transition: transform 0.3s ease;
+		text-align: center;
+		height: 100%;
+	}
+
+	.service-card:hover {
+		transform: translateY(-10px);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.service-icon {
+		color: var(--color-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.service-card h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.process {
+		padding: 8rem 0;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.process h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.process-steps {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.process-step {
+		display: flex;
+		gap: 2rem;
+		margin-bottom: 3rem;
+		position: relative;
+	}
+
+	.process-step:not(:last-child)::after {
+		content: '';
+		position: absolute;
+		top: 3rem;
+		left: 1.5rem;
+		width: 2px;
+		height: calc(100% + 3rem);
+		background: rgba(255, 255, 255, 0.1);
+		z-index: -1;
+	}
+
+	.step-number {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--color-accent);
+		flex-shrink: 0;
+		width: 3rem;
+		text-align: center;
+	}
+
+	.step-content h3 {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.portfolio {
+		padding: 8rem 0;
+	}
+
+	.portfolio h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.portfolio-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.portfolio-item {
+		position: relative;
+		border-radius: 12px;
+		overflow: hidden;
+		aspect-ratio: 1 / 1;
+	}
+
+	.portfolio-item img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.portfolio-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(72, 71, 68, 0.8);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.portfolio-content {
+		text-align: center;
+		padding: 2rem;
+	}
+
+	.portfolio-content h3 {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+		color: var(--color-white);
+	}
+
+	.portfolio-content p {
+		color: var(--color-accent);
+	}
+
+	.portfolio-item:hover img {
+		transform: scale(1.1);
+	}
+
+	.portfolio-item:hover .portfolio-overlay {
+		opacity: 1;
+	}
+
+	.portfolio-cta {
+		text-align: center;
+		margin-top: 3rem;
+	}
+
+	.faq {
+		padding: 8rem 0;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.faq h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.faq-list {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.faq-item {
+		margin-bottom: 1.5rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.faq-item summary {
+		padding: 1.5rem 0;
+		font-size: 1.2rem;
+		font-weight: 500;
+		cursor: pointer;
+		position: relative;
+		list-style: none;
+	}
+
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item summary::after {
+		content: '+';
+		position: absolute;
+		right: 0;
+		font-size: 1.5rem;
+		transition: transform 0.3s ease;
+	}
+
+	.faq-item[open] summary::after {
+		transform: rotate(45deg);
+	}
+
+	.faq-answer {
+		padding: 0 0 1.5rem;
+	}
+
+	.cta-section {
+		padding: 6rem 0;
+		text-align: center;
+		background: linear-gradient(rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/designUxUi.jpg') center/cover no-repeat;
+	}
+
+	.cta-section h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-section p {
+		font-size: 1.2rem;
+		max-width: 800px;
+		margin: 0 auto 2.5rem;
+		opacity: 0.9;
+	}
+
+	.cta-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.primary-button, .secondary-button {
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.primary-button {
+		background: var(--color-accent);
+		color: var(--color-background);
+	}
+
+	.secondary-button {
+		background: transparent;
+		color: var(--color-white);
+		border: 2px solid var(--color-accent);
+	}
+
+	.primary-button:hover, .secondary-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 992px) {
+		.process-step {
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		.process-step:not(:last-child)::after {
+			display: none;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			height: 70vh;
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+
+		.hero p {
+			font-size: 1.2rem;
+		}
+
+		.services-grid, .portfolio-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.cta-buttons {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+</style>

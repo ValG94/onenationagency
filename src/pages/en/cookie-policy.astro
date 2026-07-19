@@ -1,0 +1,162 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+
+<Layout
+	title="Cookie Policy - One Nation"
+	description="How One Nation Agency uses cookies on its website, and how you can control or withdraw your consent at any time."
+	lang="en"
+	canonical="/en/cookie-policy"
+>
+	<Header lang="en" />
+	<main id="main-content">
+		<section class="cookies">
+			<div class="container">
+				<h1>Cookie Policy</h1>
+
+				<div class="cookies-content">
+					<h2>What is a cookie?</h2>
+					<p>A cookie is a small text file that is stored on your computer or mobile device when you visit a website. Cookies are widely used by website owners to make their sites work, or to make them work more efficiently, as well as to provide reporting information.</p>
+
+					<h2>How do we use cookies?</h2>
+					<p>One Nation Agency uses cookies for the following purposes:</p>
+					<ul>
+						<li><strong>Strictly necessary cookies</strong>: These cookies are essential to enable you to browse the site and use its features.</li>
+						<li><strong>Performance cookies</strong>: These cookies collect information about how visitors use a website, for example which pages visitors view most often, and whether they receive error messages from web pages.</li>
+						<li><strong>Functionality cookies</strong>: These cookies allow the website to remember the choices you make (such as your user name, your language or the region you are in) and provide enhanced, more personalised features.</li>
+						<li><strong>Targeting or advertising cookies</strong>: These cookies are used to deliver advertising that is more relevant to you and your interests.</li>
+					</ul>
+
+					<h2>Third-party cookies</h2>
+					<p>In addition to our own cookies, we may also use various third-party cookies to report site usage statistics, deliver advertising on and through the site, and so on.</p>
+
+					<h2>How to control cookies</h2>
+					<p>You can control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed. If you do so, however, you may have to manually adjust some preferences every time you visit a site, and some services and features may not work.</p>
+
+					<h2>Change your consent</h2>
+					<p>The GDPR provides that it must be as easy to withdraw your consent as it is to give it. This button reopens the banner and clears your previous choice:</p>
+					<p><button type="button" class="cookie-settings-btn" data-cookie-settings>Change my cookie preferences</button></p>
+
+
+					<h2>Further information</h2>
+					<p>For more information about cookies and how to manage them, visit <a href="https://www.allaboutcookies.org/" target="_blank" rel="noopener noreferrer">www.allaboutcookies.org</a>.</p>
+
+					<h2>Changes to our cookie policy</h2>
+					<p>Any change we may make to our cookie policy in the future will be published on this page.</p>
+
+					<h2>Contact us</h2>
+					<p>If you have any questions regarding this cookie policy, you may contact us at the following address:</p>
+					<p>One Nation Agency<br>
+					3 rue de Suresnes<br>
+					75008 Paris, France<br>
+					Email: contact@onenationagency.com</p>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer lang="en" />
+</Layout>
+
+<style>
+	/* Bouton de retrait du consentement — géré par CookieBanner.astro */
+	.cookie-settings-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: none;
+		border: 1px solid rgba(201, 168, 76, 0.5);
+		color: #C9A84C;
+		font-family: inherit;
+		font-size: 0.85rem;
+		font-weight: 600;
+		padding: 0.7rem 1.4rem;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: background 0.2s, border-color 0.2s, color 0.2s;
+	}
+
+	.cookie-settings-btn:hover {
+		background: #C9A84C;
+		border-color: #C9A84C;
+		color: #0A0A0A;
+	}
+
+	.cookies {
+		padding: 8rem 0;
+	}
+
+	.container {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	h1 {
+		font-size: 3rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.cookies-content {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 3rem;
+		border-radius: 12px;
+	}
+
+	h2 {
+		font-size: 1.8rem;
+		color: var(--color-accent);
+		margin: 2.5rem 0 1rem;
+	}
+
+	h2:first-child {
+		margin-top: 0;
+	}
+
+	p {
+		margin: 0.8rem 0;
+		line-height: 1.6;
+	}
+
+	ul {
+		margin: 1rem 0;
+		padding-left: 2rem;
+	}
+
+	li {
+		margin-bottom: 0.5rem;
+		line-height: 1.6;
+	}
+
+	a {
+		color: var(--color-accent);
+		text-decoration: underline;
+		transition: color 0.3s;
+	}
+
+	a:hover {
+		color: var(--color-white);
+	}
+
+	@media (max-width: 768px) {
+		.cookies {
+			padding: 6rem 0;
+		}
+
+		h1 {
+			font-size: 2.5rem;
+			margin-bottom: 3rem;
+		}
+
+		.cookies-content {
+			padding: 2rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+		}
+	}
+</style>

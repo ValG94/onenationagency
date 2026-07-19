@@ -23,12 +23,30 @@ export interface LocalePair {
 }
 
 export const localePairs: LocalePair[] = [
+  // Pages principales
   { fr: '/', en: '/en' },
   { fr: '/vision', en: '/en/vision' },
   { fr: '/services', en: '/en/services' },
   { fr: '/portfolio', en: '/en/portfolio' },
   { fr: '/intelligence-artificielle', en: '/en/artificial-intelligence' },
   { fr: '/contact', en: '/en/contact' },
+  { fr: '/temoignages', en: '/en/testimonials' },
+  { fr: '/afrique', en: '/en/africa' },
+
+  // Pages expertise
+  { fr: '/conseil-strategique', en: '/en/strategic-consulting' },
+  { fr: '/design-graphique', en: '/en/graphic-design' },
+  { fr: '/e-reputation', en: '/en/e-reputation' },
+  { fr: '/referencement', en: '/en/seo' },
+  { fr: '/relations-presse', en: '/en/press-relations' },
+  { fr: '/reseaux-sociaux', en: '/en/social-media' },
+  { fr: '/webmarketing', en: '/en/digital-marketing' },
+
+  // Pages légales
+  { fr: '/cgv', en: '/en/terms-and-conditions' },
+  { fr: '/mentions-legales', en: '/en/legal-notice' },
+  { fr: '/politique-confidentialite', en: '/en/privacy-policy' },
+  { fr: '/politique-cookies', en: '/en/cookie-policy' },
 ];
 
 /** Retire le slash final ajouté par Astro ("/services/" -> "/services"). */
@@ -48,6 +66,16 @@ export function counterpart(path: string, targetLang: 'fr' | 'en'): string | nul
   const source = targetLang === 'en' ? 'fr' : 'en';
   const pair = localePairs.find((p) => normalisePath(p[source]) === current);
   return pair ? pair[targetLang] : null;
+}
+
+/**
+ * Chemin d'une page dans la langue demandée, à partir de son chemin FR.
+ * Retombe sur le chemin FR si la page n'est pas traduite — utile pour les
+ * liens de navigation, qui doivent toujours mener quelque part.
+ */
+export function localised(frPath: string, lang: string): string {
+  if (lang !== 'en') return frPath;
+  return counterpart(frPath, 'en') ?? frPath;
 }
 
 /** Vrai si la page existe dans les deux langues. */

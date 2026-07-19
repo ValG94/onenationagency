@@ -1,0 +1,695 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+
+const metaDescription = "Draw on our strategic consulting expertise to define and implement your communication strategy. Personalised support for institutions and businesses.";
+import { Image } from 'astro:assets';
+import imgConseils from '../../assets/conseils.jpg';
+import imgRepositionnement from '../../assets/repositionnement.jpg';
+import imgStrategieCom from '../../assets/strategie_com.jpg';
+---
+
+
+<Layout
+	title="Strategic Communication Consulting | One Nation"
+	description={metaDescription}
+	lang="en"
+	canonical="/en/strategic-consulting"
+	ogImage="/images/conseil-strategique-banner.jpg"
+>
+	<Header lang="en" />
+	<main id="main-content">
+		<section class="hero">
+			<div class="hero-content">
+				<h1>Strategic Communication Consulting</h1>
+				<p>Define and implement an effective communication strategy aligned with your objectives</p>
+				<a href="/en/contact" class="cta-button">Discuss your project</a>
+			</div>
+		</section>
+
+		<Section id="strategic-services" title="Our strategic consulting services">
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="12" cy="12" r="3"></circle>
+							<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+						</svg>
+					</div>
+					<h3>Audit & Diagnosis</h3>
+					<p>In-depth analysis of your current communication, identifying strengths, weaknesses and opportunities for improvement.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+							<polyline points="22 4 12 14.01 9 11.01"></polyline>
+						</svg>
+					</div>
+					<h3>Communication strategy</h3>
+					<p>Development of a bespoke strategy aligned with your commercial objectives and your institutional positioning.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+							<circle cx="9" cy="7" r="4"></circle>
+							<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+							<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+						</svg>
+					</div>
+					<h3>Brand positioning</h3>
+					<p>Defining or redefining your positioning to differentiate you effectively from the competition and resonate with your audience.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M12 20h9"></path>
+							<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+						</svg>
+					</div>
+					<h3>Strategic planning</h3>
+					<p>Drawing up detailed action plans with timelines, KPIs and resource allocation for effective implementation.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+						</svg>
+					</div>
+					<h3>Reputation management</h3>
+					<p>Developing strategies to build, maintain and protect your reputation among your key stakeholders.</p>
+				</div>
+
+				<div class="service-card">
+					<div class="service-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+							<path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+						</svg>
+					</div>
+					<h3>Measurement & Optimisation</h3>
+					<p>Implementing tracking and analysis systems to measure the effectiveness of your communication and optimise it continuously.</p>
+				</div>
+			</div>
+		</Section>
+
+		<section class="approach">
+			<div class="container">
+				<h2>Our approach to strategic consulting</h2>
+				<div class="approach-content">
+					<div class="approach-text">
+						<p class="intro-text">At One Nation, we take a collaborative, bespoke approach to strategic consulting, adapting to your specific needs and your context.</p>
+
+						<div class="approach-pillars">
+							<div class="pillar">
+								<div class="pillar-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+										<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+									</svg>
+								</div>
+								<h3>Data-driven</h3>
+								<p>We base our recommendations on in-depth analysis of the data and insights relevant to your sector and your audience.</p>
+							</div>
+
+							<div class="pillar">
+								<div class="pillar-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<circle cx="12" cy="12" r="10"></circle>
+										<line x1="2" y1="12" x2="22" y2="12"></line>
+										<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+									</svg>
+								</div>
+								<h3>Global perspective</h3>
+								<p>Our international experience allows us to bring a global vision while taking account of the local specificities of your markets.</p>
+							</div>
+
+							<div class="pillar">
+								<div class="pillar-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+										<polyline points="14 2 14 8 20 8"></polyline>
+										<line x1="16" y1="13" x2="8" y2="13"></line>
+										<line x1="16" y1="17" x2="8" y2="17"></line>
+										<polyline points="10 9 9 9 8 9"></polyline>
+									</svg>
+								</div>
+								<h3>Results-oriented</h3>
+								<p>We focus on strategies that deliver measurable results and a tangible return on investment.</p>
+							</div>
+
+							<div class="pillar">
+								<div class="pillar-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+										<circle cx="9" cy="7" r="4"></circle>
+										<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+										<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+									</svg>
+								</div>
+								<h3>Collaborative</h3>
+								<p>We work closely with your teams, sharing our expertise while drawing on your in-house knowledge.</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="approach-image">
+						<Image src={imgConseils} alt="Strategic consulting" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="case-studies">
+			<div class="container">
+				<h2>A case in point</h2>
+				<div class="case-studies-grid">
+					<div class="case-study">
+						<Image src={imgRepositionnement} alt="Brand repositioning" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+						<div class="case-study-content">
+							<h3>Repositioning a financial institution</h3>
+							<p>Supporting a bank through its digital transformation and its repositioning in a changing market.</p>
+							<div class="case-results">
+								<div class="result">
+									<span class="result-number">+45%</span>
+									<span class="result-label">Positive Perception</span>
+								</div>
+								<div class="result">
+									<span class="result-number">+30%</span>
+									<span class="result-label">Client Acquisition</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="case-study">
+						<Image src={imgStrategieCom} alt="Communication strategy" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
+						<div class="case-study-content">
+							<h3>International communication strategy</h3>
+							<p>Developing a global communication strategy for an organisation present in 15 countries, adapted to local specificities.</p>
+							<div class="case-results">
+								<div class="result">
+									<span class="result-number">+120%</span>
+									<span class="result-label">Media coverage</span>
+								</div>
+								<div class="result">
+									<span class="result-number">+65%</span>
+									<span class="result-label">Engagement</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="benefits">
+			<div class="container">
+				<h2>The benefits of our strategic consulting</h2>
+				<div class="benefits-grid">
+					<div class="benefit-card">
+						<div class="benefit-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+								<polyline points="22 4 12 14.01 9 11.01"></polyline>
+							</svg>
+						</div>
+						<h3>Cross-sector expertise</h3>
+						<p>Benefit from our varied experience gained alongside institutions and businesses across a wide range of sectors.</p>
+					</div>
+
+					<div class="benefit-card">
+						<div class="benefit-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<circle cx="12" cy="12" r="10"></circle>
+								<polyline points="12 6 12 12 16 14"></polyline>
+							</svg>
+						</div>
+						<h3>Time saved</h3>
+						<p>Accelerate your development with proven strategies and avoid costly mistakes.</p>
+					</div>
+
+					<div class="benefit-card">
+						<div class="benefit-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<line x1="12" y1="1" x2="12" y2="23"></line>
+								<path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+							</svg>
+						</div>
+						<h3>Optimised resources</h3>
+						<p>Maximise the impact of your communication investments through targeted, efficient strategies.</p>
+					</div>
+
+					<div class="benefit-card">
+						<div class="benefit-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+								<polyline points="14 2 14 8 20 8"></polyline>
+								<line x1="16" y1="13" x2="8" y2="13"></line>
+								<line x1="16" y1="17" x2="8" y2="17"></line>
+								<polyline points="10 9 9 9 8 9"></polyline>
+							</svg>
+						</div>
+						<h3>An outside perspective</h3>
+						<p>Gain a fresh, objective view of your communication, free from internal bias and established habits.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="faq">
+			<div class="container">
+				<h2>Frequently asked questions</h2>
+				<div class="faq-list">
+					<details class="faq-item">
+						<summary>How does a strategic consulting engagement unfold?</summary>
+						<div class="faq-answer">
+							<p>A strategic consulting engagement generally begins with a discovery and audit phase, followed by in-depth analysis and the drafting of recommendations. We then present our conclusions and proposals, before supporting the implementation and follow-up of the resulting actions. The duration and intensity of each phase vary according to the complexity of your situation and your specific needs.</p>
+						</div>
+					</details>
+
+					<details class="faq-item">
+						<summary>How long does a typical consulting engagement last?</summary>
+						<div class="faq-answer">
+							<p>The duration varies according to the scale of the project and your needs. A communication audit can take from 2 to 4 weeks, while developing a complete strategy can extend over 1 to 3 months. Implementation support may then continue over several months, or even years for major transformation projects. We always adapt our involvement to your timetable and constraints.</p>
+						</div>
+					</details>
+
+					<details class="faq-item">
+						<summary>How do you measure the success of your work?</summary>
+						<div class="faq-answer">
+							<p>From the outset of the engagement, we define clear, measurable performance indicators aligned with your commercial and communication objectives. These KPIs may include improved awareness, increased engagement, lead generation, enhanced brand perception, or the return on investment of communication activities. We put tracking tools in place and carry out regular assessments to measure progress and adjust the strategy where necessary.</p>
+						</div>
+					</details>
+
+					<details class="faq-item">
+						<summary>Do you work with organisations of every size?</summary>
+						<div class="faq-answer">
+							<p>Yes, we support organisations of every size, from start-ups to large corporations, as well as SMEs and public institutions. Our approach is always adapted to the size, resources and specific needs of each client. Whether you need one-off advice or long-term support, we can put together a bespoke proposal that meets your constraints and objectives.</p>
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+
+		<section class="cta-section">
+			<div class="container">
+				<h2>Ready to transform your communication?</h2>
+				<p>Get in touch today to discuss your strategic consulting needs and find out how we can help you reach your objectives.</p>
+				<div class="cta-buttons">
+					<a href="/en/contact" class="primary-button">Request a quote</a>
+					<a href="/en/services" class="secondary-button">Explore our services</a>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer lang="en" />
+</Layout>
+
+<style>
+	.hero {
+		height: 80vh;
+		min-height: 600px;
+		background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/conseils.jpg') center/cover no-repeat;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		margin-top: 72px;
+	}
+
+	.hero-content {
+		max-width: 800px;
+		padding: 0 2rem;
+	}
+
+	.hero h1 {
+		font-size: 3.5rem;
+		margin-bottom: 1.5rem;
+		line-height: 1.2;
+	}
+
+	.hero p {
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		opacity: 0.9;
+	}
+
+	.cta-button {
+		display: inline-block;
+		background: var(--color-accent);
+		color: var(--color-background);
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.service-card {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 2.5rem 2rem;
+		border-radius: 12px;
+		transition: transform 0.3s ease;
+		text-align: center;
+		height: 100%;
+	}
+
+	.service-card:hover {
+		transform: translateY(-10px);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.service-icon {
+		color: var(--color-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.service-card h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.approach {
+		padding: 8rem 0;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.approach h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.approach-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: center;
+	}
+
+	.intro-text {
+		font-size: 1.2rem;
+		line-height: 1.8;
+		margin-bottom: 3rem;
+	}
+
+	.approach-pillars {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+	}
+
+	.pillar {
+		text-align: center;
+		padding: 2rem;
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 12px;
+		transition: transform 0.3s ease;
+	}
+
+	.pillar:hover {
+		transform: translateY(-10px);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.pillar-icon {
+		color: var(--color-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.pillar h3 {
+		font-size: 1.3rem;
+		margin-bottom: 1rem;
+	}
+
+	.approach-image img {
+		width: 100%;
+		border-radius: 12px;
+		box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+	}
+
+	.case-studies {
+		padding: 8rem 0;
+	}
+
+	.case-studies h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.case-studies-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+		gap: 3rem;
+	}
+
+	.case-study {
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 12px;
+		overflow: hidden;
+		transition: transform 0.3s ease;
+	}
+
+	.case-study:hover {
+		transform: translateY(-10px);
+	}
+
+	.case-study img {
+		width: 100%;
+		height: 250px;
+		object-fit: cover;
+	}
+
+	.case-study-content {
+		padding: 2rem;
+	}
+
+	.case-study h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.case-results {
+		display: flex;
+		justify-content: space-around;
+		margin: 1.5rem 0;
+	}
+
+	.result {
+		text-align: center;
+	}
+
+	.result-number {
+		display: block;
+		font-size: 1.8rem;
+		font-weight: 700;
+		color: var(--color-accent);
+	}
+
+	.result-label {
+		font-size: 0.9rem;
+		opacity: 0.8;
+	}
+
+	.benefits {
+		padding: 8rem 0;
+		background: linear-gradient(to right, rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/benefit.jpg') center/cover no-repeat;
+	}
+
+	.benefits h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.benefits-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 3rem;
+	}
+
+	.benefit-card {
+		text-align: center;
+		padding: 2rem;
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 12px;
+		transition: transform 0.3s ease;
+	}
+
+	.benefit-card:hover {
+		transform: translateY(-10px);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.benefit-icon {
+		color: var(--color-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.benefit-card h3 {
+		font-size: 1.3rem;
+		margin-bottom: 1rem;
+	}
+
+	.faq {
+		padding: 8rem 0;
+	}
+
+	.faq h2 {
+		font-size: 2.5rem;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.faq-list {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.faq-item {
+		margin-bottom: 1.5rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.faq-item summary {
+		padding: 1.5rem 0;
+		font-size: 1.2rem;
+		font-weight: 500;
+		cursor: pointer;
+		position: relative;
+		list-style: none;
+	}
+
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item summary::after {
+		content: '+';
+		position: absolute;
+		right: 0;
+		font-size: 1.5rem;
+		transition: transform 0.3s ease;
+	}
+
+	.faq-item[open] summary::after {
+		transform: rotate(45deg);
+	}
+
+	.faq-answer {
+		padding: 0 0 1.5rem;
+	}
+
+	.cta-section {
+		padding: 6rem 0;
+		text-align: center;
+		background: linear-gradient(rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&auto=format') center/cover no-repeat;
+	}
+
+	.cta-section h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-section p {
+		font-size: 1.2rem;
+		max-width: 800px;
+		margin: 0 auto 2.5rem;
+		opacity: 0.9;
+	}
+
+	.cta-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.primary-button, .secondary-button {
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.primary-button {
+		background: var(--color-accent);
+		color: var(--color-background);
+	}
+
+	.secondary-button {
+		background: transparent;
+		color: var(--color-white);
+		border: 2px solid var(--color-accent);
+	}
+
+	.primary-button:hover, .secondary-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	@media (max-width: 992px) {
+		.approach-content {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+		}
+
+		.approach-image {
+			order: -1;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			height: 70vh;
+		}
+
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+
+		.hero p {
+			font-size: 1.2rem;
+		}
+
+		.approach-pillars {
+			grid-template-columns: 1fr;
+		}
+
+		.services-grid, .case-studies-grid, .benefits-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.cta-buttons {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+</style>
