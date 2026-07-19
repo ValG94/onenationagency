@@ -23,3 +23,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# originaux haute resolution des images (archives, non deployes)
+originals/

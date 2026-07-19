@@ -3,6 +3,8 @@ interface Props {
   lang?: string;
 }
 const { lang = 'fr' } = Astro.props;
+import { Image } from 'astro:assets';
+import imgLogoOnenation from '../assets/logoOnenation.jpg';
 ---
 
 <footer class="site-footer">
@@ -12,7 +14,7 @@ const { lang = 'fr' } = Astro.props;
       <!-- Brand -->
       <div class="footer-brand">
         <a href={lang === 'en' ? '/en' : '/'} aria-label="One Nation Agency">
-          <img src="/logoOnenation.png" alt="One Nation Agency" width="130" height="38" />
+          <Image src={imgLogoOnenation} alt="One Nation Agency" width="130" height="38" decoding="async" />
         </a>
         <p class="footer-tagline">
           {lang === 'en'
@@ -36,10 +38,10 @@ const { lang = 'fr' } = Astro.props;
       <div class="footer-nav-group">
         <h4>{lang === 'en' ? 'Navigation' : 'Navigation'}</h4>
         <ul>
-          <li><a href={lang === 'en' ? '/en/agency' : '/vision'}>{lang === 'en' ? 'The Agency' : 'L\'Agence'}</a></li>
+          <li><a href={lang === 'en' ? '/en/vision' : '/vision'}>{lang === 'en' ? 'The Agency' : 'L\'Agence'}</a></li>
           <li><a href={lang === 'en' ? '/en/services' : '/services'}>{lang === 'en' ? 'Expertise' : 'Expertises'}</a></li>
           <li><a href={lang === 'en' ? '/en/portfolio' : '/portfolio'}>{lang === 'en' ? 'Portfolio' : 'Portfolio'}</a></li>
-          <li><a href={lang === 'en' ? '/en/ai' : '/intelligence-artificielle'}>{lang === 'en' ? 'AI Intelligence' : 'Intelligence IA'}</a></li>
+          <li><a href={lang === 'en' ? '/en/artificial-intelligence' : '/intelligence-artificielle'}>{lang === 'en' ? 'AI Intelligence' : 'Intelligence IA'}</a></li>
           <li><a href={lang === 'en' ? '/en/contact' : '/contact'}>{lang === 'en' ? 'Contact' : 'Contact'}</a></li>
         </ul>
       </div>
@@ -49,7 +51,7 @@ const { lang = 'fr' } = Astro.props;
         <h4>{lang === 'en' ? 'Expertise' : 'Expertises'}</h4>
         <ul>
           <li><a href={lang === 'en' ? '/en/services' : '/conseil-strategique'}>{lang === 'en' ? 'Strategic Communication' : 'Communication Stratégique'}</a></li>
-          <li><a href={lang === 'en' ? '/en/ai' : '/intelligence-artificielle'}>{lang === 'en' ? 'AI Agents' : 'Agents IA'}</a></li>
+          <li><a href={lang === 'en' ? '/en/artificial-intelligence' : '/intelligence-artificielle'}>{lang === 'en' ? 'AI Agents' : 'Agents IA'}</a></li>
           <li><a href={lang === 'en' ? '/en/services' : '/services'}>{lang === 'en' ? 'Premium Web' : 'Création Web Premium'}</a></li>
           <li><a href={lang === 'en' ? '/en/services' : '/design-graphique'}>{lang === 'en' ? 'Graphic Design' : 'Design Graphique'}</a></li>
           <li><a href={lang === 'en' ? '/en/services' : '/e-reputation'}>{lang === 'en' ? 'E-Reputation' : 'E-Réputation'}</a></li>

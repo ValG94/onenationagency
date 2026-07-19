@@ -4,6 +4,9 @@ import Header from '../components/Header.astro';
 import Section from '../components/Section.astro';
 
 const metaDescription = "Optimisez votre visibilité en ligne avec les services de référencement (SEO) de One Nation. Stratégies sur mesure, optimisation technique et contenus de qualité pour améliorer votre positionnement sur les moteurs de recherche.";
+import { Image } from 'astro:assets';
+import imgApprocheSeo from '../assets/approcheSeo.jpg';
+import imgSeo from '../assets/seo.jpg';
 ---
 
 
@@ -71,7 +74,7 @@ const metaDescription = "Optimisez votre visibilité en ligne avec les services 
 				</div>
 				
 				<div class="approach-image">
-					<img src="/approcheSeo.jpg" alt="Stratégie SEO" loading="lazy">
+					<Image src={imgApprocheSeo} alt="Stratégie SEO" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 				</div>
 			</div>
 		</Section>
@@ -235,7 +238,7 @@ const metaDescription = "Optimisez votre visibilité en ligne avec les services 
 					</div>
 					
 					<div class="case-study-image">
-						<img src="/seo.jpg" alt="SEO Google" loading="lazy">
+						<Image src={imgSeo} alt="SEO Google" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 					</div>
 				</div>
 			</div>

@@ -2,9 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { getLatestRealisations } from '../data/realisations';
+import HeroVideoLoader from '../components/HeroVideoLoader.astro';
+import { getLatestProjects } from '../data/projects';
+import ProjectCard from '../components/ProjectCard.astro';
 
-const latestRealisations = getLatestRealisations(3);
+// Même source que la page portfolio : les 3 projets les plus récents.
+const latestRealisations = getLatestProjects(3, 'fr');
+import { Image } from 'astro:assets';
+import imgONWhite from '../assets/ON_white.png';
+import heroPoster from '../assets/hero-poster.jpg';
+import imgAgencyAfricaV1 from '../assets/agency_africa_v1.jpg';
+import { getKeyFigures } from '../data/stats';
+const figures = getKeyFigures('fr');
 ---
 
 
@@ -27,7 +36,7 @@ const latestRealisations = getLatestRealisations(3);
     <div class="splash-content">
       <!-- Logo -->
       <div class="splash-logo-wrap">
-        <img src="/ON_white.png" alt="One Nation Agency" class="splash-logo-img" />
+        <Image src={imgONWhite} alt="One Nation Agency" class="splash-logo-img" decoding="async" />
       </div>
       <!-- Titre monumental — version DESKTOP (une ligne) -->
       <div class="splash-title-row splash-title-desktop" id="splashTitle">
@@ -68,16 +77,22 @@ const latestRealisations = getLatestRealisations(3);
       <!-- ===== HERO ===== -->
       <section class="hero" id="hero">
         <div class="hero-video-wrap">
+          <!-- Vidéo décorative : le poster s'affiche immédiatement, la vidéo
+               n'est téléchargée qu'après le chargement de la page (voir le
+               script en bas de fichier). Ignorée si l'utilisateur a demandé
+               moins d'animations ou active l'économiseur de données. -->
           <video
             class="hero-video"
-            autoplay
             muted
             loop
             playsinline
-            preload="auto"
+            preload="none"
+            poster={heroPoster.src}
             aria-hidden="true"
+            data-hero-video
           >
-            <source src="/presentationOneNation-compressed.mp4" type="video/mp4" />
+            <source data-src="/hero-presentation.webm" type="video/webm" />
+            <source data-src="/hero-presentation.mp4" type="video/mp4" />
           </video>
           <div class="hero-overlay"></div>
         </div>
@@ -115,25 +130,15 @@ const latestRealisations = getLatestRealisations(3);
       <section class="stats-bar">
         <div class="container">
           <div class="stats-grid">
-            <div class="stat-item reveal">
-              <span class="stat-num">+50</span>
-              <span class="stat-label">Projets livrés</span>
-            </div>
-            <div class="stat-divider" aria-hidden="true"></div>
-            <div class="stat-item reveal reveal-delay-1">
-              <span class="stat-num">12+</span>
-              <span class="stat-label">Pays couverts</span>
-            </div>
-            <div class="stat-divider" aria-hidden="true"></div>
-            <div class="stat-item reveal reveal-delay-2">
-              <span class="stat-num">8</span>
-              <span class="stat-label">Années d'expertise</span>
-            </div>
-            <div class="stat-divider" aria-hidden="true"></div>
-            <div class="stat-item reveal reveal-delay-3">
-              <span class="stat-num">100%</span>
-              <span class="stat-label">Clients satisfaits</span>
-            </div>
+            {figures.map((figure, i) => (
+              <>
+                {i > 0 && <div class="stat-divider" aria-hidden="true"></div>}
+                <div class={i === 0 ? 'stat-item reveal' : `stat-item reveal reveal-delay-${i}`}>
+                  <span class="stat-num">{figure.text}</span>
+                  <span class="stat-label">{figure.shortLabel}</span>
+                </div>
+              </>
+            ))}
           </div>
         </div>
       </section>
@@ -212,7 +217,7 @@ const latestRealisations = getLatestRealisations(3);
           <div class="agency-grid">
             <div class="agency-visual reveal">
               <div class="agency-img-wrap">
-                <img src="/agency_africa_v1.jpg" alt="One Nation Agency — Vision globale, ancrage africain" loading="lazy" />
+                <Image src={imgAgencyAfricaV1} alt="One Nation Agency — Vision globale, ancrage africain" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
                 <div class="agency-img-overlay"></div>
               </div>
               <div class="agency-badge-float">
@@ -252,48 +257,8 @@ const latestRealisations = getLatestRealisations(3);
           </div>
 
           <div class="portfolio-grid">
-            {latestRealisations.map((r, i) => (
-              <article class={`portfolio-card reveal reveal-delay-${i + 1}`}>
-                {r.url ? (
-                  <a href={r.url} target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
-                    <div class="portfolio-img-wrap">
-                      <img
-                        src={r.image}
-                        alt={r.imageAlt}
-                        loading="lazy"
-                        style={r.imagePosition && r.imagePosition !== 'center' ? `object-position: ${r.imagePosition}` : ''}
-                      />
-                      <div class="portfolio-overlay">
-                        <span class="portfolio-visit">Voir le projet</span>
-                      </div>
-                    </div>
-                    <div class="portfolio-info">
-                      <span class="portfolio-cat">{r.category}</span>
-                      <h3>{r.title}</h3>
-                      <p>{r.description}</p>
-                    </div>
-                  </a>
-                ) : (
-                  <div class="portfolio-card-link">
-                    <div class="portfolio-img-wrap">
-                      <img
-                        src={r.image}
-                        alt={r.imageAlt}
-                        loading="lazy"
-                        style={r.imagePosition && r.imagePosition !== 'center' ? `object-position: ${r.imagePosition}` : ''}
-                      />
-                      <div class="portfolio-overlay">
-                        <span class="portfolio-visit">Voir le projet</span>
-                      </div>
-                    </div>
-                    <div class="portfolio-info">
-                      <span class="portfolio-cat">{r.category}</span>
-                      <h3>{r.title}</h3>
-                      <p>{r.description}</p>
-                    </div>
-                  </div>
-                )}
-              </article>
+            {latestRealisations.map((project, i) => (
+              <ProjectCard project={project} index={i} visitLabel="Voir le projet" />
             ))}
           </div>
 
@@ -338,6 +303,7 @@ const latestRealisations = getLatestRealisations(3);
       </svg>
     </a>
   </div>
+  <HeroVideoLoader />
 </Layout>
 
 <style>

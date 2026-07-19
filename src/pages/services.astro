@@ -2,6 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import imgServiceCommunication from '../assets/service_communication.jpg';
+import imgServiceIa45 from '../assets/service_ia_45.webp';
+import imgServiceWeb from '../assets/service_web.jpg';
 ---
 
 
@@ -103,7 +107,7 @@ import Footer from '../components/Footer.astro';
 
           <div class="service-visual reveal">
             <div class="service-img-wrap">
-              <img src="/service_communication.jpg" alt="Communication stratégique — One Nation Agency" loading="lazy" />
+              <Image src={imgServiceCommunication} alt="Communication stratégique — One Nation Agency" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
             </div>
           </div>
         </div>
@@ -119,7 +123,7 @@ import Footer from '../components/Footer.astro';
         <div class="service-grid">
           <div class="service-visual reveal">
             <div class="service-img-wrap">
-              <img src="/service_ia_45.webp" alt="Intelligence Artificielle — One Nation Agency" loading="lazy" />
+              <Image src={imgServiceIa45} alt="Intelligence Artificielle — One Nation Agency" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
             </div>
           </div>
 
@@ -245,7 +249,7 @@ import Footer from '../components/Footer.astro';
 
           <div class="service-visual reveal">
             <div class="service-img-wrap">
-              <img src="/service_web.jpg" alt="Création web premium — One Nation Agency" loading="lazy" />
+              <Image src={imgServiceWeb} alt="Création web premium — One Nation Agency" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
             </div>
           </div>
         </div>

@@ -1,6 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import { Image } from 'astro:assets';
+
+// Les avatars vivent dans src/assets/ : Astro les redimensionne à la taille
+// réellement affichée (l'un d'eux pesait 2,8 Mo pour un rendu de 150 px).
+const avatars = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/*.{jpg,jpeg,png,webp}',
+  { eager: true }
+);
+
+function avatar(file: string): ImageMetadata {
+  const mod = avatars[`../assets/${file}`];
+  if (!mod) throw new Error(`Avatar introuvable dans src/assets/ : ${file}`);
+  return mod.default;
+}
 
 const testimonials = [
 	
@@ -8,28 +22,28 @@ const testimonials = [
 		quote: "Merci à One Nation pour ce travail formidable et professionnel. Bien cordialement.",
 		author: "Alexis Mohamed",
 		position: "Homme politique",
-		image: "/alexis assis.jpeg",
+		image: 'alexis-assis.jpg',
 		link: "https://www.linkedin.com/in/alexis-mohamed-875b08179/?originalSubdomain=dj"
 	},
 	{
 		quote: "L'équipe de One Nation a été à l'écoute de mes attentes et besoins et a partaitement menée la mission qui lui a été confiée. Son expertise et sa créativité ont permis de donner une nouvelle dimension à notre image de marque.",
 		author: "Christelle Keutcha",
 		position: "CEO, Studio C",
-		image: "/christelleK.jpeg",
+		image: 'christelleK.jpg',
 		link: "https://www.linkedin.com/in/christelle-keutcha-98742310b/overlay/photo/"
 	},
 	{
 		quote: "L'équipe de One Nation a parfaitement compris les spécificités du marché camerounais et a su adapter sa stratégie en conséquence. Leur approche a considérablement renforcé notre visibilité et notre crédibilité.",
 		author: "William Fotchine",
 		position: "CEO, Nomadéo Africa",
-		image: "/wfotchine.jpeg",
+		image: 'wfotchine.jpg',
 		link: "https://www.linkedin.com/in/william-fotchine/"
 	},
 	{
 		quote: "One Nation a su nous accompagner dans notre transformation digitale avec une expertise remarquable. Leur équipe a fait preuve d'une grande écoute et d'une réactivité exemplaire.",
 		author: "Constantin Etot",
 		position: "CEO, PaieCash",
-		image: "/cetot.jpg",
+		image: 'cetot.jpg',
 		link: "https://www.linkedin.com/in/constantin-etot/?originalSubdomain=fr"
 	},
 
@@ -92,7 +106,14 @@ const testimonials = [
 							<p class="quote">"{testimonial.quote}"</p>
 							<div class="author-info">
 								<div class="author-image">
-									<img src={testimonial.image} alt={testimonial.author} loading="lazy" />
+									<Image
+										src={avatar(testimonial.image)}
+										alt={`Portrait de ${testimonial.author}`}
+										widths={[150, 300]}
+										sizes="150px"
+										loading="lazy"
+										decoding="async"
+									/>
 								</div>
 								<div class="author-details">
 									<strong>{testimonial.author}</strong>

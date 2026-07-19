@@ -4,6 +4,10 @@ import Header from '../components/Header.astro';
 import Section from '../components/Section.astro';
 
 const metaDescription = "Bénéficiez de notre expertise en conseil stratégique pour définir et mettre en œuvre votre stratégie de communication. Accompagnement personnalisé pour institutions et entreprises.";
+import { Image } from 'astro:assets';
+import imgConseils from '../assets/conseils.jpg';
+import imgRepositionnement from '../assets/repositionnement.jpg';
+import imgStrategieCom from '../assets/strategie_com.jpg';
 ---
 
 
@@ -154,7 +158,7 @@ const metaDescription = "Bénéficiez de notre expertise en conseil stratégique
 					</div>
 					
 					<div class="approach-image">
-						<img src="/conseils.jpg" alt="Conseil stratégique" loading="lazy">
+						<Image src={imgConseils} alt="Conseil stratégique" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 					</div>
 				</div>
 			</div>
@@ -165,7 +169,7 @@ const metaDescription = "Bénéficiez de notre expertise en conseil stratégique
 				<h2>Exemple d'un cas</h2>
 				<div class="case-studies-grid">
 					<div class="case-study">
-						<img src="/repositionnement.jpg" alt="Repositionnement de marque" loading="lazy">
+						<Image src={imgRepositionnement} alt="Repositionnement de marque" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 						<div class="case-study-content">
 							<h3>Repositionnement d'une institution financière</h3>
 							<p>Accompagnement d'une banque dans sa transformation digitale et son repositionnement sur un marché en évolution.</p>
@@ -183,7 +187,7 @@ const metaDescription = "Bénéficiez de notre expertise en conseil stratégique
 					</div>
 					
 					<div class="case-study">
-						<img src="/strategie_com.jpg" alt="Stratégie de communication" loading="lazy">
+						<Image src={imgStrategieCom} alt="Stratégie de communication" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 						<div class="case-study-content">
 							<h3>Stratégie de communication internationale</h3>
 							<p>Développement d'une stratégie de communication globale pour une organisation présente dans 15 pays, avec adaptation aux spécificités locales.</p>

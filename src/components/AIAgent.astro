@@ -397,6 +397,8 @@
   // AGENT IA ONE NATION AGENCY — Script conversationnel FR/EN
   // ============================================================
 
+  import { hasAnalyticsConsent } from '../scripts/consent';
+
   const SCRIPTS = {
     fr: {
       welcome: "Bonjour ! Je suis l'assistant de <strong>One Nation Agency</strong>. Comment puis-je vous aider aujourd'hui ?",
@@ -529,25 +531,41 @@
   // Envoyée quand un visiteur a échangé avec l'agent mais n'a pas
   // formulé de demande de contact (pas de clic sur formulaire/WhatsApp).
   // Déclenché 90s après la dernière interaction, ou à la fermeture.
-  async function sendVisitorNotification() {
-    if (notificationSent || conversationLog.length === 0 || contactRequested) return;
-    notificationSent = true;
-
+  //
+  // RGPD : la conversation contient des propos librement saisis par le
+  // visiteur. Elle n'est transmise QUE s'il a accepté explicitement via
+  // la bannière. Sans choix, ou en cas de refus, rien ne sort du
+  // navigateur. (Auparavant un `rgpd: true` était codé en dur ici, alors
+  // que le visiteur n'avait rien accepté.)
+  function buildConversationReport(intro: string): string {
     const summary = conversationLog
       .map(m => `[${m.role === 'user' ? 'Visiteur' : 'Agent'}] ${m.text}`)
       .join('\n');
+    return `${intro}\n\nPage visitée : ${window.location.href}\nDate : ${new Date().toLocaleString('fr-FR')}\n\n--- Conversation ---\n${summary}`;
+  }
+
+  function canReportConversation(): boolean {
+    return (
+      hasAnalyticsConsent() &&
+      !notificationSent &&
+      conversationLog.length > 0 &&
+      !contactRequested
+    );
+  }
+
+  async function sendVisitorNotification() {
+    if (!canReportConversation()) return;
+    notificationSent = true;
 
     try {
       await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: 'Agent IA — Visiteur anonyme',
-          email: 'noreply@onenationagency.com',
-          subject: '🤖 Visiteur sans demande formulée — conversation agent IA',
-          message: `Un visiteur a échangé avec l'agent IA sur le site sans formuler de demande de contact.\n\nPage visitée : ${window.location.href}\nDate : ${new Date().toLocaleString('fr-FR')}\n\n--- Conversation ---\n${summary}`,
-          rgpd: true,
-          _type: 'agent_notification' // flag interne pour ne pas envoyer de confirmation au visiteur
+          message: buildConversationReport(
+            "Un visiteur a échangé avec l'agent IA sur le site sans formuler de demande de contact."
+          ),
+          _type: 'agent_notification' // pas de mail de confirmation au visiteur
         })
       });
     } catch (_) {
@@ -884,19 +902,16 @@
     }
   });
 
-  // Notifier à la fermeture de la page si conversation sans demande
+  // Notifier à la fermeture de la page si conversation sans demande.
+  // Même règle de consentement que sendVisitorNotification().
   window.addEventListener('beforeunload', () => {
-    if (conversationLog.length > 0 && !contactRequested && !notificationSent) {
-      // sendBeacon pour garantir l'envoi même si la page se ferme
-      const payload = JSON.stringify({
-        name: 'Agent IA — Visiteur anonyme',
-        email: 'noreply@onenationagency.com',
-        subject: '🤖 Visiteur sans demande formulée — conversation agent IA',
-        message: `Visiteur parti sans formuler de demande.\n\nPage : ${window.location.href}\nDate : ${new Date().toLocaleString('fr-FR')}\n\n--- Conversation ---\n${conversationLog.map(m => `[${m.role === 'user' ? 'Visiteur' : 'Agent'}] ${m.text}`).join('\n')}`,
-        rgpd: true,
-        _type: 'agent_notification'
-      });
-      navigator.sendBeacon('/api/contact', new Blob([payload], { type: 'application/json' }));
-    }
+    if (!canReportConversation()) return;
+    notificationSent = true;
+    // sendBeacon pour garantir l'envoi même si la page se ferme
+    const payload = JSON.stringify({
+      message: buildConversationReport('Visiteur parti sans formuler de demande.'),
+      _type: 'agent_notification'
+    });
+    navigator.sendBeacon('/api/contact', new Blob([payload], { type: 'application/json' }));
   });
 </script>

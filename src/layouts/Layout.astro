@@ -1,6 +1,7 @@
 ---
 import AIAgent from '../components/AIAgent.astro';
 import CookieBanner from '../components/CookieBanner.astro';
+import { counterpart } from '../data/routes';
 
 interface Props {
   title: string;
@@ -24,6 +25,17 @@ const fullOgImageUrl = ogImage.startsWith('http') ? ogImage : `https://www.onena
 
 const fullCanonicalUrl = `https://www.onenationagency.com${canonical}`;
 const isHomePage = Astro.url.pathname === '/';
+
+// hreflang : on ne déclare une alternative que si la page existe vraiment
+// dans l'autre langue. Auparavant l'URL était déduite mécaniquement
+// (/en + slug FR), ce qui pointait vers des 404 sur les 13 pages non
+// traduites — et /en/artificial-intelligence renvoyait vers un slug FR
+// inexistant.
+const otherLang = lang === 'en' ? 'fr' : 'en';
+const alternatePath = counterpart(canonical, otherLang);
+const alternateUrl = alternatePath
+  ? `https://www.onenationagency.com${alternatePath}`
+  : null;
 ---
 
 <!DOCTYPE html>
@@ -38,11 +50,9 @@ const isHomePage = Astro.url.pathname === '/';
   <meta name="geo.region" content="FR-75" />
   <meta name="geo.placename" content="Paris" />
   <link rel="canonical" href={fullCanonicalUrl} />
-  {lang === 'fr' && <link rel="alternate" hreflang="fr" href={fullCanonicalUrl} />}
-  {lang === 'fr' && <link rel="alternate" hreflang="en" href={`https://www.onenationagency.com/en${canonical === '/' ? '' : canonical}`} />}
-  {lang === 'en' && <link rel="alternate" hreflang="en" href={fullCanonicalUrl} />}
-  {lang === 'en' && <link rel="alternate" hreflang="fr" href={`https://www.onenationagency.com${canonical.replace('/en', '') || '/'}`} />}
-  <link rel="alternate" hreflang="x-default" href="https://www.onenationagency.com/" />
+  {alternateUrl && <link rel="alternate" hreflang={lang} href={fullCanonicalUrl} />}
+  {alternateUrl && <link rel="alternate" hreflang={otherLang} href={alternateUrl} />}
+  {alternateUrl && <link rel="alternate" hreflang="x-default" href="https://www.onenationagency.com/" />}
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />

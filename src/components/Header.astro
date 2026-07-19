@@ -22,13 +22,22 @@ const navEN = [
 
 const nav = lang === 'en' ? navEN : navFR;
 const currentPath = Astro.url.pathname;
+import { Image } from 'astro:assets';
+import imgLogoOnenation from '../assets/logoOnenation.jpg';
+import { counterpart } from '../data/routes';
+
+// Le sélecteur de langue amène sur la page équivalente quand elle existe,
+// et sur l'accueil de l'autre langue sinon (au lieu de produire un 404).
+const targetLang = lang === 'en' ? 'fr' : 'en';
+const langHref = counterpart(currentPath, targetLang) ?? (targetLang === 'en' ? '/en' : '/');
+const langLabel = targetLang.toUpperCase();
 ---
 
 <header class="site-header" id="site-header">
   <div class="header-inner container">
     <!-- Logo -->
     <a href={lang === 'en' ? '/en' : '/'} class="logo" aria-label="One Nation Agency — Accueil">
-      <img src="/logoOnenation.png" alt="One Nation Agency" width="140" height="40" />
+      <Image src={imgLogoOnenation} alt="One Nation Agency" width="140" height="40" decoding="async" />
     </a>
 
     <!-- Navigation desktop -->
@@ -51,8 +60,8 @@ const currentPath = Astro.url.pathname;
     <div class="header-actions">
       <!-- Sélecteur de langue -->
       <div class="lang-switcher" aria-label="Changer de langue">
-        <a href={lang === 'en' ? currentPath.replace('/en', '') || '/' : '/en'} class="lang-btn">
-          {lang === 'en' ? 'FR' : 'EN'}
+        <a href={langHref} class="lang-btn" hreflang={targetLang}>
+          {langLabel}
         </a>
       </div>
 
@@ -82,7 +91,7 @@ const currentPath = Astro.url.pathname;
           </li>
         ))}
         <li class="mobile-lang">
-          <a href={lang === 'en' ? currentPath.replace('/en', '') || '/' : '/en'}>
+          <a href={langHref} hreflang={targetLang}>
             {lang === 'en' ? '🇫🇷 Français' : '🇬🇧 English'}
           </a>
         </li>

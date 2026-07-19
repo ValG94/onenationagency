@@ -4,6 +4,12 @@ import Header from '../components/Header.astro';
 import Section from '../components/Section.astro';
 
 const metaDescription = "Découvrez notre expertise en communication pour le marché africain. Solutions sur mesure, connaissance locale et réseau panafricain pour renforcer votre présence en Afrique.";
+import { Image } from 'astro:assets';
+import imgKilimandjaro from '../assets/kilimandjaro.jpg';
+import imgNomadeoAfricaHome from '../assets/nomadeo-africa-home.jpg';
+import imgCampagneInstitutionnelleAfrique from '../assets/campagne-institutionnelle-afrique.jpg';
+import imgEquipeAfrique from '../assets/equipe_Afrique.jpg';
+import imgWfotchine from '../assets/wfotchine.jpg';
 ---
 
 
@@ -73,7 +79,7 @@ const metaDescription = "Découvrez notre expertise en communication pour le mar
 				</div>
 				
 				<div class="expertise-map">
-					<img src="/kilimandjaro.jpg" alt="Kilimandjaro" loading="lazy">
+					<Image src={imgKilimandjaro} alt="Kilimandjaro" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 				</div>
 			</div>
 		</Section>
@@ -140,7 +146,7 @@ const metaDescription = "Découvrez notre expertise en communication pour le mar
 				<h2>Nos réalisations en Afrique</h2>
 				<div class="case-studies-grid">
 					<div class="case-study">
-						<img src="/nomadeo africa home.jpg" alt="Nomadéo Africa" loading="lazy">
+						<Image src={imgNomadeoAfricaHome} alt="Nomadéo Africa" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 						<div class="case-study-content">
 							<h3>Nomadéo Africa</h3>
 							<p>Développement de la stratégie digitale et création du site web pour ce spécialiste du mobilier de bureau implanté au Cameroun.</p>
@@ -149,7 +155,7 @@ const metaDescription = "Découvrez notre expertise en communication pour le mar
 					</div>
 					
 					<div class="case-study">
-						<img src="/campagne institutionnelle afrique.jpg" alt="Campagne institutionnelle" loading="lazy">
+						<Image src={imgCampagneInstitutionnelleAfrique} alt="Campagne institutionnelle" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 						<div class="case-study-content">
 							<h3>Campagne institutionnelle panafricaine</h3>
 							<p>Conception et déploiement d'une campagne de communication pour une organisation internationale opérant dans plusieurs pays africains.</p>
@@ -186,7 +192,7 @@ const metaDescription = "Découvrez notre expertise en communication pour le mar
 					</div>
 					
 					<div class="approach-image">
-						<img src="/equipe_Afrique.jpg" alt="Équipe travaillant en Afrique" loading="lazy">
+						<Image src={imgEquipeAfrique} alt="Équipe travaillant en Afrique" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 					</div>
 				</div>
 			</div>
@@ -200,7 +206,7 @@ const metaDescription = "Découvrez notre expertise en communication pour le mar
 						<div class="testimonial-content">
 							<p>"One Nation a parfaitement compris les spécificités du marché camerounais et a su adapter sa stratégie en conséquence. Leur approche a considérablement renforcé notre visibilité et notre crédibilité."</p>
 							<div class="testimonial-author">
-								<img src="/wfotchine.jpg" alt="William Fotchine" loading="lazy">
+								<Image src={imgWfotchine} alt="William Fotchine" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 								<div class="author-info">
 									<h4>William Fotchine</h4>
 									<p>CEO, Nomadéo Africa</p>

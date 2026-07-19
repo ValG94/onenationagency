@@ -2,6 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import imgTeamVision from '../assets/team_vision.jpg';
+import { getKeyFigures } from '../data/stats';
+const figures = getKeyFigures('fr');
 ---
 
 
@@ -35,7 +39,7 @@ import Footer from '../components/Footer.astro';
       <div class="container">
         <div class="manifesto-grid">
           <div class="manifesto-visual reveal">
-            <img src="/team_vision.jpg" alt="One Nation Agency — Équipe Afrique" loading="lazy" />
+            <Image src={imgTeamVision} alt="One Nation Agency — Équipe Afrique" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
           </div>
           <div class="manifesto-text">
             <h2 class="reveal">NOTRE MANIFESTE</h2>
@@ -124,22 +128,17 @@ import Footer from '../components/Footer.astro';
         </div>
 
         <div class="numbers-grid">
-          <div class="number-item reveal reveal-delay-1">
-            <span class="number-value counter" data-target="50" data-prefix="+" data-suffix="">+50</span>
-            <span class="number-label">Projets livrés</span>
-          </div>
-          <div class="number-item reveal reveal-delay-2">
-            <span class="number-value counter" data-target="12" data-prefix="" data-suffix="+">12+</span>
-            <span class="number-label">Zones géographiques couvertes (Afrique, Europe, Moyen-Orient)</span>
-          </div>
-          <div class="number-item reveal reveal-delay-3">
-            <span class="number-value counter" data-target="8" data-prefix="" data-suffix="">5</span>
-            <span class="number-label">Années d'expertise institutionnelle</span>
-          </div>
-          <div class="number-item reveal reveal-delay-4">
-            <span class="number-value counter" data-target="100" data-prefix="" data-suffix="%">100%</span>
-            <span class="number-label">Clients satisfaits et fidélisés</span>
-          </div>
+          {figures.map((figure, i) => (
+            <div class={`number-item reveal reveal-delay-${i + 1}`}>
+              <span
+                class="number-value counter"
+                data-target={figure.value}
+                data-prefix={figure.prefix}
+                data-suffix={figure.suffix}
+              >{figure.text}</span>
+              <span class="number-label">{figure.label}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

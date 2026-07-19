@@ -1,0 +1,51 @@
+---
+// Carte projet de la home. Utilisée par index.astro ET en/index.astro :
+// les deux langues restent ainsi structurellement identiques.
+import { Image } from 'astro:assets';
+import type { LocalizedProject } from '../data/projects';
+
+interface Props {
+  project: LocalizedProject;
+  /** Position dans la grille — pilote le délai d'animation */
+  index?: number;
+  /** Libellé du survol ("Voir le projet" / "View project") */
+  visitLabel: string;
+}
+
+const { project, index = 0, visitLabel } = Astro.props;
+
+const objectPosition =
+  project.homeImagePosition && project.homeImagePosition !== 'center'
+    ? `object-position: ${project.homeImagePosition}`
+    : undefined;
+
+// Un projet sans lien public reste affiché, mais sans ancre cliquable.
+const Wrapper = project.link ? 'a' : 'div';
+const wrapperProps = project.link
+  ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' }
+  : {};
+---
+
+<article class={`portfolio-card reveal reveal-delay-${index + 1}`}>
+  <Wrapper class="portfolio-card-link" {...wrapperProps}>
+    <div class="portfolio-img-wrap">
+      <Image
+        src={project.homeImage}
+        alt={`Aperçu du projet ${project.title}`}
+        widths={[400, 800, 1200]}
+        sizes="(max-width: 768px) 100vw, 33vw"
+        loading="lazy"
+        decoding="async"
+        style={objectPosition}
+      />
+      <div class="portfolio-overlay">
+        <span class="portfolio-visit">{visitLabel}</span>
+      </div>
+    </div>
+    <div class="portfolio-info">
+      <span class="portfolio-cat">{project.category}</span>
+      <h3>{project.title}</h3>
+      <p>{project.subtitle}</p>
+    </div>
+  </Wrapper>
+</article>
