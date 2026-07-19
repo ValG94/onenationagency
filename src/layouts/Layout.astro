@@ -1,7 +1,7 @@
 ---
 import AIAgent from '../components/AIAgent.astro';
 import CookieBanner from '../components/CookieBanner.astro';
-import { counterpart } from '../data/routes';
+import { counterpart, normalisePath } from '../data/routes';
 
 interface Props {
   title: string;
@@ -24,7 +24,11 @@ const {
 const fullOgImageUrl = ogImage.startsWith('http') ? ogImage : `https://www.onenationagency.com${ogImage}`;
 
 const fullCanonicalUrl = `https://www.onenationagency.com${canonical}`;
-const isHomePage = Astro.url.pathname === '/';
+// Les deux accueils affichent déjà leur propre bouton WhatsApp. La
+// condition ne reconnaissait que « / », si bien que /en en recevait un
+// second, décalé de 8 px derrière le premier.
+const homePath = normalisePath(Astro.url.pathname);
+const isHomePage = homePath === '/' || homePath === '/en';
 
 // hreflang : on ne déclare une alternative que si la page existe vraiment
 // dans l'autre langue. Auparavant l'URL était déduite mécaniquement
