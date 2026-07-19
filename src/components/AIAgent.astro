@@ -1,9 +1,41 @@
-<!-- Agent IA conversationnel One Nation Agency — FR/EN -->
-<!-- Composant flottant, intégré dans le Layout -->
+---
+// Agent IA conversationnel One Nation Agency — FR/EN
+// Composant flottant, intégré dans le Layout.
+//
+// Le contenu conversationnel vit dans SCRIPTS (bas de fichier) et était
+// déjà bilingue ; seuls le markup statique et la langue de départ
+// restaient figés en français, y compris sur les pages /en/.
+import { localised } from '../data/routes';
 
-<div id="ai-agent" class="ai-agent" aria-label="Assistant One Nation Agency" role="complementary">
+interface Props {
+  lang?: string;
+}
+const { lang = 'fr' } = Astro.props;
+const en = lang === 'en';
+
+const t = {
+  agentLabel: en ? 'One Nation Agency assistant' : 'Assistant One Nation Agency',
+  open: en ? 'Open the AI assistant' : "Ouvrir l'assistant IA",
+  close: en ? 'Close the assistant' : "Fermer l'assistant",
+  name: en ? 'One Nation Assistant' : 'Assistant One Nation',
+  online: en ? 'Online' : 'En ligne',
+  switchLang: en ? 'Changer de langue' : 'Switch language',
+  switchTitle: en ? 'Passer en français' : 'Switch to English',
+  langToggle: en ? 'FR' : 'EN',
+  conversation: en ? 'Conversation' : 'Conversation',
+  quickSuggestions: en ? 'Quick suggestions' : 'Suggestions rapides',
+  placeholder: en ? 'Ask your question...' : 'Posez votre question...',
+  yourMessage: en ? 'Your message' : 'Votre message',
+  send: en ? 'Send' : 'Envoyer',
+  contact: en ? 'Contact' : 'Contact',
+};
+
+const contactHref = localised('/contact', lang);
+---
+
+<div id="ai-agent" class="ai-agent" aria-label={t.agentLabel} role="complementary">
   <!-- BOUTON FLOTTANT -->
-  <button id="ai-agent-trigger" class="ai-trigger" aria-label="Ouvrir l'assistant IA" aria-expanded="false">
+  <button id="ai-agent-trigger" class="ai-trigger" aria-label={t.open} aria-expanded="false">
     <div class="ai-trigger-icon ai-trigger-icon--closed">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
@@ -20,7 +52,7 @@
   </button>
 
   <!-- FENÊTRE DU CHAT -->
-  <div id="ai-agent-window" class="ai-window" role="dialog" aria-modal="true" aria-label="Assistant One Nation Agency" hidden>
+  <div id="ai-agent-window" class="ai-window" role="dialog" aria-modal="true" aria-label={t.agentLabel} hidden>
     <!-- HEADER -->
     <div class="ai-window-header">
       <div class="ai-agent-avatar">
@@ -31,15 +63,15 @@
         </svg>
       </div>
       <div class="ai-agent-info">
-        <span class="ai-agent-name">Assistant One Nation</span>
+        <span class="ai-agent-name">{t.name}</span>
         <span class="ai-agent-status">
           <span class="ai-status-dot" aria-hidden="true"></span>
-          En ligne
+          <span class="ai-status-text">{t.online}</span>
         </span>
       </div>
       <div class="ai-header-actions">
-        <button id="ai-lang-toggle" class="ai-lang-btn" aria-label="Changer de langue" title="Switch to English">EN</button>
-        <button id="ai-close-btn" class="ai-close-btn" aria-label="Fermer l'assistant">
+        <button id="ai-lang-toggle" class="ai-lang-btn" aria-label={t.switchLang} title={t.switchTitle}>{t.langToggle}</button>
+        <button id="ai-close-btn" class="ai-close-btn" aria-label={t.close}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>
@@ -48,11 +80,11 @@
     </div>
 
     <!-- MESSAGES -->
-    <div id="ai-messages" class="ai-messages" role="log" aria-live="polite" aria-label="Conversation">
+    <div id="ai-messages" class="ai-messages" role="log" aria-live="polite" aria-label={t.conversation}>
     </div>
 
     <!-- SUGGESTIONS RAPIDES -->
-    <div id="ai-suggestions" class="ai-suggestions" role="group" aria-label="Suggestions rapides">
+    <div id="ai-suggestions" class="ai-suggestions" role="group" aria-label={t.quickSuggestions}>
     </div>
 
     <!-- INPUT -->
@@ -61,18 +93,18 @@
         type="text"
         id="ai-input"
         class="ai-input"
-        placeholder="Posez votre question..."
-        aria-label="Votre message"
+        placeholder={t.placeholder}
+        aria-label={t.yourMessage}
         autocomplete="off"
         maxlength="500"
       />
-      <button id="ai-send" class="ai-send-btn" aria-label="Envoyer">
+      <button id="ai-send" class="ai-send-btn" aria-label={t.send}>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </button>
     </div>
-    <p class="ai-footer-note">One Nation Agency · <a href="/contact">Contact</a> · <a href="https://wa.me/33625523859" target="_blank">WhatsApp</a></p>
+    <p class="ai-footer-note">One Nation Agency · <a href={contactHref}>{t.contact}</a> · <a href="https://wa.me/33625523859" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
   </div>
 </div>
 
@@ -504,7 +536,11 @@
     }
   };
 
-  let currentLang = 'fr';
+  // Langue de départ = celle de la page (Layout pose <html lang="…">).
+  // Elle était figée à 'fr', si bien que l'agent accueillait en français
+  // les visiteurs des pages /en/. Le bouton de bascule reste disponible.
+  let currentLang: 'fr' | 'en' =
+    document.documentElement.lang === 'en' ? 'en' : 'fr';
   let isOpen = false;
   let isTyping = false;
   let conversationStarted = false;
@@ -841,8 +877,11 @@
     currentLang = currentLang === 'fr' ? 'en' : 'fr';
     const script = SCRIPTS[currentLang as keyof typeof SCRIPTS];
     langToggle!.textContent = script.langToggle;
+    langToggle!.title = currentLang === 'en' ? 'Passer en français' : 'Switch to English';
     inputEl.placeholder = script.inputPlaceholder;
-    statusEl.querySelector('span:last-child')!.textContent = script.statusOnline;
+    // Cible le texte, pas la pastille d'état : `span:last-child` visait
+    // le point de 6 px et y écrivait le libellé.
+    statusEl.querySelector('.ai-status-text')!.textContent = script.statusOnline;
 
     // Reset conversation in new language
     messagesEl!.innerHTML = '';
