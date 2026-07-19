@@ -151,7 +151,7 @@ export const projects: Project[] = [
   },
   {
     id: 'alexis-mohamed',
-    title: 'Alexis Mohamed — Djibouti',
+    title: 'Alexis Mohamed - Djibouti',
     subtitle: {
       fr: 'Campagne présidentielle 2026',
       en: '2026 Presidential campaign',
@@ -205,8 +205,8 @@ export const projects: Project[] = [
     id: 'djorie',
     title: 'Dr Serge Ghislain Djorie',
     subtitle: {
-      fr: 'Campagne présidentielle 2025 — Centrafrique',
-      en: '2025 Presidential campaign — Central African Republic',
+      fr: 'Campagne présidentielle 2025 Centrafrique',
+      en: '2025 Presidential campaign Central African Republic',
     },
     category: { fr: 'Communication 360', en: '360° Communication' },
     countryLabel: { fr: 'CENTRAFRIQUE', en: 'CENTRAL AFRICAN REPUBLIC' },
@@ -231,7 +231,7 @@ export const projects: Project[] = [
     title: 'Nomadéo Africa',
     subtitle: {
       fr: 'Refonte site e-commerce mobilier de bureau',
-      en: 'E-commerce website redesign — office furniture',
+      en: 'E-commerce website redesign office furniture',
     },
     category: { fr: 'Digital', en: 'Digital' },
     countryLabel: { fr: 'CAMEROUN', en: 'CAMEROON' },
@@ -255,7 +255,7 @@ export const projects: Project[] = [
     title: 'Coplacam',
     subtitle: {
       fr: 'Refonte site institutionnel Design & Build',
-      en: 'Institutional website redesign — Design & Build',
+      en: 'Institutional website redesign Design & Build',
     },
     category: { fr: 'Digital', en: 'Digital' },
     countryLabel: { fr: 'CAMEROUN', en: 'CAMEROON' },
