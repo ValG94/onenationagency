@@ -664,77 +664,7 @@ const figures = getKeyFigures('en');
     gap: 2rem;
     margin-bottom: 3rem;
   }
-  .portfolio-card {
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    transition: border-color 0.3s ease, transform 0.3s ease;
-  }
-  .portfolio-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-4px);
-  }
-  .portfolio-card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-  .portfolio-img-wrap {
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    position: relative;
-  }
-  .portfolio-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-  }
-  .portfolio-card:hover .portfolio-img-wrap img { transform: scale(1.05); }
-  .portfolio-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(10,10,10,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .portfolio-card:hover .portfolio-overlay { opacity: 1; }
-  .portfolio-visit {
-    color: var(--gold);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: 1px solid var(--gold);
-    padding: 0.5rem 1.25rem;
-    border-radius: 4px;
-  }
-  .portfolio-info {
-    padding: 1.5rem;
-  }
-  .portfolio-cat {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .portfolio-info h3 {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.3;
-    margin-bottom: 0.4rem;
-  }
-  .portfolio-info p {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
+  /* Les styles de carte projet vivent dans ProjectCard.astro. */
   .portfolio-cta {
     text-align: center;
   }

@@ -60,9 +60,11 @@ export const keyFigures: KeyFigure[] = [
     prefix: '',
     // Pas de « + » : la liste de pays est exhaustive (voir projects.ts).
     suffix: '',
+    // Le chiffre compte des pays : l'énumération de continents qui suivait
+    // annonçait autre chose que ce qui était mesuré.
     label: {
-      fr: 'Pays couverts (Afrique, Europe, Caraïbes, Moyen-Orient)',
-      en: 'Countries covered (Africa, Europe, Caribbean, Middle East)',
+      fr: 'Pays couverts',
+      en: 'Countries covered',
     },
     shortLabel: { fr: 'Pays couverts', en: 'Countries covered' },
   },
