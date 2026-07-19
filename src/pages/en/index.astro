@@ -2,6 +2,18 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import HeroVideoLoader from '../../components/HeroVideoLoader.astro';
+import { Image } from 'astro:assets';
+import { getLatestProjects } from '../../data/projects';
+import ProjectCard from '../../components/ProjectCard.astro';
+import imgLogoOnenation from '../../assets/logoOnenation.jpg';
+import imgTeamVision from '../../assets/team_vision.jpg';
+import heroPoster from '../../assets/hero-poster.jpg';
+
+// Même source que la home FR et la page portfolio.
+const latestProjects = getLatestProjects(3, 'en');
+import { getKeyFigures } from '../../data/stats';
+const figures = getKeyFigures('en');
 ---
 
 
@@ -15,7 +27,7 @@ import Footer from '../../components/Footer.astro';
   <div class="splash" id="splash" aria-hidden="true">
     <div class="splash-content">
       <div class="splash-logo">
-        <img src="/logoOnenation.png" alt="One Nation Agency" />
+        <Image src={imgLogoOnenation} alt="One Nation Agency" width={280} height={280} decoding="async" />
       </div>
       <div class="splash-text">
         <span class="splash-word" data-word="ONE">ONE</span>
@@ -36,16 +48,22 @@ import Footer from '../../components/Footer.astro';
       <!-- ===== HERO ===== -->
       <section class="hero" id="hero">
         <div class="hero-video-wrap">
+          <!-- Decorative video: the poster paints immediately, the video is
+               only downloaded once the page has loaded (see script at the
+               bottom). Skipped when the visitor asks for reduced motion or
+               has data saver enabled. -->
           <video
             class="hero-video"
-            autoplay
             muted
             loop
             playsinline
-            preload="auto"
+            preload="none"
+            poster={heroPoster.src}
             aria-hidden="true"
+            data-hero-video
           >
-            <source src="/presentationOneNation-compressed.mp4" type="video/mp4" />
+            <source data-src="/hero-presentation.webm" type="video/webm" />
+            <source data-src="/hero-presentation.mp4" type="video/mp4" />
           </video>
           <div class="hero-overlay"></div>
         </div>
@@ -83,25 +101,15 @@ import Footer from '../../components/Footer.astro';
       <section class="stats-bar">
         <div class="container">
           <div class="stats-grid">
-            <div class="stat-item reveal">
-              <span class="stat-num">+50</span>
-              <span class="stat-label">Projects delivered</span>
-            </div>
-            <div class="stat-divider" aria-hidden="true"></div>
-            <div class="stat-item reveal reveal-delay-1">
-              <span class="stat-num">12+</span>
-              <span class="stat-label">Countries covered</span>
-            </div>
-            <div class="stat-divider" aria-hidden="true"></div>
-            <div class="stat-item reveal reveal-delay-2">
-              <span class="stat-num">8</span>
-              <span class="stat-label">Years of expertise</span>
-            </div>
-            <div class="stat-divider" aria-hidden="true"></div>
-            <div class="stat-item reveal reveal-delay-3">
-              <span class="stat-num">100%</span>
-              <span class="stat-label">Satisfied clients</span>
-            </div>
+            {figures.map((figure, i) => (
+              <>
+                {i > 0 && <div class="stat-divider" aria-hidden="true"></div>}
+                <div class={i === 0 ? 'stat-item reveal' : `stat-item reveal reveal-delay-${i}`}>
+                  <span class="stat-num">{figure.text}</span>
+                  <span class="stat-label">{figure.shortLabel}</span>
+                </div>
+              </>
+            ))}
           </div>
         </div>
       </section>
@@ -180,7 +188,14 @@ import Footer from '../../components/Footer.astro';
           <div class="agency-grid">
             <div class="agency-visual reveal">
               <div class="agency-img-wrap">
-                <img src="/team_vision.jpg" alt="One Nation Agency — African Team" loading="lazy" />
+                <Image
+                  src={imgTeamVision}
+                  alt="One Nation Agency — African Team"
+                  widths={[480, 800, 1200]}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div class="agency-img-overlay"></div>
               </div>
               <div class="agency-badge-float">
@@ -220,53 +235,9 @@ import Footer from '../../components/Footer.astro';
           </div>
 
           <div class="portfolio-grid">
-            <article class="portfolio-card reveal reveal-delay-1">
-              <a href="https://afac26.com" target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
-                <div class="portfolio-img-wrap">
-                  <img src="/Afac26_home.jpg" alt="AFAC26 — Trilingual site and AI agent" loading="lazy" />
-                  <div class="portfolio-overlay">
-                    <span class="portfolio-visit">View project</span>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <span class="portfolio-cat">Artificial Intelligence</span>
-                  <h3>AFAC26 — Trilingual site, AI agent & payment solution</h3>
-                  <p>International conference of African football agents</p>
-                </div>
-              </a>
-            </article>
-
-            <article class="portfolio-card reveal reveal-delay-2">
-              <a href="https://www.alexis-mohamed.com" target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
-                <div class="portfolio-img-wrap">
-                  <img src="/homeMohamed.jpg" alt="Presidential campaign Alexis Mohamed" loading="lazy" />
-                  <div class="portfolio-overlay">
-                    <span class="portfolio-visit">View project</span>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <span class="portfolio-cat">360° Communication</span>
-                  <h3>2026 Presidential Campaign — Alexis Mohamed (Djibouti)</h3>
-                  <p>Digital strategy and institutional communication</p>
-                </div>
-              </a>
-            </article>
-
-            <article class="portfolio-card reveal reveal-delay-3">
-              <a href="https://www.centrachat.africa" target="_blank" rel="noopener noreferrer" class="portfolio-card-link">
-                <div class="portfolio-img-wrap">
-                  <img src="/centrachat_home.webp" alt="Centrachat Africa — Pan-African purchasing center" loading="lazy" />
-                  <div class="portfolio-overlay">
-                    <span class="portfolio-visit">View project</span>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <span class="portfolio-cat">Digital</span>
-                  <h3>Centrachat Africa — 1st pan-African purchasing center</h3>
-                  <p>Premium B2B platform, Yaoundé, Cameroon</p>
-                </div>
-              </a>
-            </article>
+            {latestProjects.map((project, i) => (
+              <ProjectCard project={project} index={i} visitLabel="View project" />
+            ))}
           </div>
 
           <div class="portfolio-cta reveal">
@@ -310,6 +281,7 @@ import Footer from '../../components/Footer.astro';
       </svg>
     </a>
   </div>
+  <HeroVideoLoader />
 </Layout>
 
 <style>
@@ -692,77 +664,7 @@ import Footer from '../../components/Footer.astro';
     gap: 2rem;
     margin-bottom: 3rem;
   }
-  .portfolio-card {
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    transition: border-color 0.3s ease, transform 0.3s ease;
-  }
-  .portfolio-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-4px);
-  }
-  .portfolio-card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-  .portfolio-img-wrap {
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    position: relative;
-  }
-  .portfolio-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-  }
-  .portfolio-card:hover .portfolio-img-wrap img { transform: scale(1.05); }
-  .portfolio-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(10,10,10,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .portfolio-card:hover .portfolio-overlay { opacity: 1; }
-  .portfolio-visit {
-    color: var(--gold);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: 1px solid var(--gold);
-    padding: 0.5rem 1.25rem;
-    border-radius: 4px;
-  }
-  .portfolio-info {
-    padding: 1.5rem;
-  }
-  .portfolio-cat {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .portfolio-info h3 {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.3;
-    margin-bottom: 0.4rem;
-  }
-  .portfolio-info p {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
+  /* Les styles de carte projet vivent dans ProjectCard.astro. */
   .portfolio-cta {
     text-align: center;
   }

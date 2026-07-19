@@ -1,0 +1,136 @@
+---
+// Carte projet de la home. Utilisée par index.astro ET en/index.astro :
+// les deux langues restent ainsi structurellement identiques.
+import { Image } from 'astro:assets';
+import type { LocalizedProject } from '../data/projects';
+
+interface Props {
+  project: LocalizedProject;
+  /** Position dans la grille — pilote le délai d'animation */
+  index?: number;
+  /** Libellé du survol ("Voir le projet" / "View project") */
+  visitLabel: string;
+}
+
+const { project, index = 0, visitLabel } = Astro.props;
+
+const objectPosition =
+  project.homeImagePosition && project.homeImagePosition !== 'center'
+    ? `object-position: ${project.homeImagePosition}`
+    : undefined;
+
+// Un projet sans lien public reste affiché, mais sans ancre cliquable.
+const Wrapper = project.link ? 'a' : 'div';
+const wrapperProps = project.link
+  ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' }
+  : {};
+---
+
+<article class={`portfolio-card reveal reveal-delay-${index + 1}`}>
+  <Wrapper class="portfolio-card-link" {...wrapperProps}>
+    <div class="portfolio-img-wrap">
+      <Image
+        src={project.homeImage}
+        alt={`Aperçu du projet ${project.title}`}
+        widths={[400, 800, 1200]}
+        sizes="(max-width: 768px) 100vw, 33vw"
+        loading="lazy"
+        decoding="async"
+        style={objectPosition}
+      />
+      <div class="portfolio-overlay">
+        <span class="portfolio-visit">{visitLabel}</span>
+      </div>
+    </div>
+    <div class="portfolio-info">
+      <span class="portfolio-cat">{project.category}</span>
+      <h3>{project.title}</h3>
+      <p>{project.subtitle}</p>
+    </div>
+  </Wrapper>
+</article>
+
+<style>
+  /* Ces règles vivaient dans le <style> de index.astro. Astro scope les
+     styles à la page, ils ne traversaient donc pas la frontière du
+     composant : la carte s'affichait sans mise en page (overlay en flux,
+     image non recadrée). Elles appartiennent au composant. */
+  .portfolio-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .portfolio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  }
+  .portfolio-card-link {
+    display: block;
+    cursor: pointer;
+  }
+  .portfolio-img-wrap {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    position: relative;
+  }
+  .portfolio-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .portfolio-card:hover .portfolio-img-wrap img {
+    transform: scale(1.05);
+  }
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .portfolio-card:hover .portfolio-overlay {
+    opacity: 1;
+  }
+  .portfolio-visit {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.6rem 1.2rem;
+    border-radius: 3px;
+  }
+  .portfolio-info {
+    padding: 1.5rem;
+  }
+  .portfolio-cat {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+  .portfolio-info h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+  }
+  .portfolio-info p {
+    font-size: 0.82rem;
+    color: var(--grey);
+    line-height: 1.5;
+  }
+</style>

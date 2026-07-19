@@ -459,12 +459,9 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
 </style>
 
 <script>
+  import { getConsent, setConsent, resetConsent, CONSENT_EVENT } from '../scripts/consent';
+
   (function() {
-    const CONSENT_KEY = 'ona_cookie_consent';
-
-    // Ne rien faire si déjà consenti
-    if (localStorage.getItem(CONSENT_KEY)) return;
-
     const banner       = document.getElementById('cookie-banner') as HTMLElement | null;
     const acceptBtn    = document.getElementById('cookie-accept-btn');
     const refuseBtn    = document.getElementById('cookie-refuse-btn');
@@ -472,6 +469,7 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
     const detailToggle = document.getElementById('cookie-details-toggle');
     const detailPanel  = document.getElementById('cookie-details') as HTMLElement | null;
     const detailLabel  = document.getElementById('cookie-details-label');
+    const analyticsBox = document.querySelector<HTMLInputElement>('.cookie-analytics-checkbox');
 
     if (!banner) return;
 
@@ -486,13 +484,25 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
     const isHomeFR = window.location.pathname === '/' || window.location.pathname === '';
     const delay = isHomeFR ? 7200 : 2000;
 
-    setTimeout(() => {
-      banner.classList.add('visible');
-    }, delay);
+    function show() {
+      banner!.style.display = '';
+      // laisse le navigateur appliquer display avant la transition
+      requestAnimationFrame(() => {
+        banner!.classList.remove('hiding');
+        banner!.classList.add('visible');
+      });
+    }
 
-    // ── Dismiss ──
-    function dismiss(choice: string) {
-      localStorage.setItem(CONSENT_KEY, choice);
+    // Affichée uniquement si le visiteur ne s'est jamais prononcé.
+    if (getConsent() === null) {
+      setTimeout(show, delay);
+    } else {
+      banner.style.display = 'none';
+    }
+
+    // ── Enregistrement du choix ──
+    function dismiss(choice: 'all' | 'necessary') {
+      setConsent(choice);
       banner!.classList.add('hiding');
       banner!.classList.remove('visible');
       setTimeout(() => {
@@ -500,9 +510,36 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
       }, 420);
     }
 
-    if (acceptBtn) acceptBtn.addEventListener('click', () => dismiss('all'));
+    // « Accepter » respecte l'interrupteur analytique : s'il a été
+    // décoché, le bouton n'accorde que le strict nécessaire.
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () =>
+        dismiss(analyticsBox && !analyticsBox.checked ? 'necessary' : 'all')
+      );
+    }
+    // Fermer sans choisir = refus (aucun consentement implicite).
     if (refuseBtn) refuseBtn.addEventListener('click', () => dismiss('necessary'));
     if (closeBtn)  closeBtn.addEventListener('click',  () => dismiss('necessary'));
+
+    // ── Retrait du consentement ──
+    // Le RGPD impose qu'il soit aussi simple de retirer son consentement
+    // que de le donner : ce bouton est posé sur les pages légales.
+    document.querySelectorAll('[data-cookie-settings]').forEach((el) => {
+      el.addEventListener('click', (event) => {
+        event.preventDefault();
+        resetConsent();
+        if (analyticsBox) analyticsBox.checked = false;
+        show();
+      });
+    });
+
+    // Synchronise les autres onglets ouverts.
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'ona_cookie_consent' && event.newValue) {
+        banner!.classList.remove('visible');
+        banner!.style.display = 'none';
+      }
+    });
 
     // ── Toggle détail ──
     if (detailToggle && detailPanel && detailLabel) {

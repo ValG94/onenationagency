@@ -80,8 +80,14 @@ import Footer from '../components/Footer.astro';
               <div class="form-group form-group--check">
                 <label class="checkbox-label">
                   <input type="checkbox" name="consent" required />
-                  <span>J'accepte que mes données soient utilisées pour traiter ma demande. <a href="/politique-de-confidentialite">Politique de confidentialité</a></span>
+                  <span>J'accepte que mes données soient utilisées pour traiter ma demande. <a href="/politique-confidentialite">Politique de confidentialité</a></span>
                 </label>
+              </div>
+              <!-- Honeypot anti-bot : invisible et ignoré par les lecteurs d'écran.
+                   Un formulaire où ce champ est rempli est rejeté silencieusement. -->
+              <div class="form-honeypot" aria-hidden="true">
+                <label for="website">Ne pas remplir</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
               </div>
               <button type="submit" class="btn-gold btn-submit">
                 <span class="btn-text">Envoyer le message</span>
@@ -285,6 +291,15 @@ import Footer from '../components/Footer.astro';
   }
   .form-group textarea { resize: vertical; min-height: 120px; }
 
+  /* Honeypot : hors écran plutôt que display:none, que certains bots détectent. */
+  .form-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
   .form-group--check { flex-direction: row; align-items: flex-start; }
   .checkbox-label {
     display: flex;
@@ -477,10 +492,11 @@ import Footer from '../components/Footer.astro';
         lastName: formData.get('lastName'),
         email: formData.get('email'),
         phone: formData.get('phone'),
-        company: formData.get('company'),
+        company: formData.get('organization'),
         subject: formData.get('subject'),
         message: formData.get('message'),
         consent: consentCheckbox.checked,
+        website: formData.get('website'), // honeypot
       };
 
       try {

@@ -1,9 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import Section from '../components/Section.astro';
 
 const metaDescription = "Protégez et améliorez votre réputation en ligne avec nos services de gestion d'e-réputation. Surveillance, gestion de crise et stratégies proactives pour renforcer votre image digitale.";
+import { Image } from 'astro:assets';
+import imgEReputation from '../assets/e-reputation.jpg';
 ---
 
 
@@ -227,7 +230,7 @@ const metaDescription = "Protégez et améliorez votre réputation en ligne avec
 					</div>
 					
 					<div class="case-study-image">
-						<img src="/e-reputation.jpg" alt="Gestion de réputation" loading="lazy">
+						<Image src={imgEReputation} alt="Gestion de réputation" loading="lazy" widths={[480, 800, 1200]} sizes="(max-width: 768px) 100vw, 50vw" decoding="async" />
 					</div>
 				</div>
 			</div>
@@ -279,6 +282,7 @@ const metaDescription = "Protégez et améliorez votre réputation en ligne avec
 			</div>
 		</section>
 	</main>
+	<Footer />
 </Layout>
 
 <style>

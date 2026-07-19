@@ -2,115 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
 
-// Mockup types: 'laptop' | 'phone' | 'screen'
-const projects = [
-  {
-    id: "08",
-    mockup: "photo",
-    title: "Island Living SXM",
-    subtitle: "Expérience digitale premium et réservation directe à Sint Maarten",
-    category: "Digital & E-commerce",
-    country: "Sint Maarten",
-    description: "Création d’une plateforme bilingue de réservation directe pour deux villas de luxe à Sint Maarten. Le projet associe une expérience UX/UI premium, un moteur de réservation, la synchronisation des calendriers, un guide digital interactif, un back-office complet et l’intégration de Fygaro pour sécuriser les paiements dans un contexte bancaire caribéen complexe.",
-    tags: ["Web Institutionnel", "Design", "Branding"],
-    image: "/islandlivingsxm-tablet.png",
-    link: "https://www.islandlivingsxm.com/en",
-    color: "#0D1B2A"
-  },
-  {
-    id: "07",
-    mockup: "photo",
-    title: "Centrachat Africa",
-    subtitle: "Première centrale d'achats panafricaine",
-    category: "Digital & Stratégie",
-    country: "CAMEROUN",
-    description: "Création de la plateforme digitale de la première centrale d'achats panafricaine basée à Yaoundé. Site bilingue, système d'adhésion en ligne, identité de marque complète.",
-    tags: ["Web Premium", "Stratégie", "Branding"],
-    image: "/centrachat_tablet.png",
-    link: "https://www.centrachat.africa",
-    color: "#1a3a5c"
-  },
-  {
-    id: "06",
-    mockup: "photo",
-    title: "AFAC26 Conference",
-    subtitle: "Site trilingue, agent IA et paiement international",
-    category: "Intelligence Artificielle",
-    country: "INTERNATIONAL",
-    description: "Conception et développement du site officiel de l'African Football Agents Conference 2026. Plateforme trilingue (FR/EN/PT), agent IA intégré, système de paiement international et accréditation.",
-    tags: ["Agent IA", "Web Trilingue", "Paiement"],
-    image: "/afac26_board.png",
-    link: "https://www.afaaconference.com/en",
-    color: "#0d1b2a"
-  },
-  {
-    id: "05",
-     mockup: "photo",
-    title: "Alexis Mohamed — Djibouti",
-    subtitle: "Campagne présidentielle 2026",
-    category: "Communication 360",
-    country: "DJIBOUTI",
-    description: "Stratégie de communication complète pour la campagne présidentielle 2026 d'Alexis Mohamed. Identité visuelle, site officiel, gestion des réseaux sociaux et relations presse.",
-    tags: ["Communication Politique", "Web", "Réseaux Sociaux"],
-    image: "/homeMohamed_laptop.webp",
-    imagePosition: "70% center",
-    link: "https://www.alexis-mohamed.com",
-    color: "#1c3a5e"
-  },
-  {
-    id: "04",
-    mockup: "photo",
-    title: "PaieCashPlay",
-    subtitle: "Solutions digitales pour les associations sportives",
-    category: "Fintech & Intelligence Artificielle",
-    country: "FRANCE / AFRIQUE",
-    description: "Conception et développement de l'écosystème digital PaieCashPlay : paiements digitaux, e-commerce, streaming, agent IA et digitalisation des clubs sportifs.",
-    tags: ["Fintech", "Agent IA", "App Mobile"],
-    image: "/paiecashplay_phone.png",
-    link: "https://www.paiecashplay.com",
-    color: "#1a1a2e"
-  },
-  {
-    id: "03",
-    mockup: "photo",
-    title: "Dr Serge Ghislain Djorie",
-    subtitle: "Campagne présidentielle 2025 — Centrafrique",
-    category: "Communication 360",
-    country: "CENTRAFRIQUE",
-    description: "Direction de la communication pour la campagne présidentielle 2025 en Centrafrique. Stratégie digitale, site officiel, production de contenus et coordination médias.",
-    tags: ["Communication Politique", "Stratégie", "Médias"],
-    image: "/djorie_board.png",
-    link: "https://www.djorie2025.cf",
-    color: "#1a0a2e"
-  },
-  {
-    id: "02",
-    mockup: "photo",
-    title: "Nomadéo Africa",
-    subtitle: "Refonte site e-commerce mobilier de bureau",
-    category: "Digital",
-    country: "CAMEROUN",
-    description: "Refonte complète du site e-commerce de Nomadéo Africa, leader du mobilier de bureau au Cameroun. UX/UI premium, catalogue produits, SEO et intégration paiement.",
-    tags: ["E-commerce", "UX/UI", "SEO"],
-    image: "/nomadeo_tablet.png",
-    link: "https://nomadeo.africa/",
-    color: "#1a2a1a"
-  },
-  {
-    id: "01",
-    mockup: "photo",
-    title: "Coplacam",
-    subtitle: "Refonte site institutionnel Design & Build",
-    category: "Digital",
-    country: "CAMEROUN",
-    description: "Refonte du site institutionnel de Coplacam Design & Build, acteur majeur de l'agencement sur mesure en Afrique centrale. Identité visuelle renforcée et expérience utilisateur premium.",
-    tags: ["Web Institutionnel", "Design", "Branding"],
-    image: "/coplacam_laptop.webp",
-    link: "https://www.coplacam.com",
-    color: "#2a1a0a"
-  },
-];
+import { getProjects, portfolioStats, pad2 } from '../data/projects';
+
+// Source de verite unique : src/data/projects.ts
+// Numeros (08, 07...) et chiffres du hero calcules automatiquement.
+const projects = getProjects('fr');
 ---
 
 
@@ -129,15 +27,15 @@ const projects = [
       </div>
       <div class="pf-hero__stats">
         <div class="pf-hero__stat">
-          <span class="pf-hero__stat-num">07</span>
+          <span class="pf-hero__stat-num">{pad2(portfolioStats.projects)}</span>
           <span class="pf-hero__stat-label">Projets</span>
         </div>
         <div class="pf-hero__stat">
-          <span class="pf-hero__stat-num">12+</span>
+          <span class="pf-hero__stat-num">{portfolioStats.countries}</span>
           <span class="pf-hero__stat-label">Pays</span>
         </div>
         <div class="pf-hero__stat">
-          <span class="pf-hero__stat-num">3</span>
+          <span class="pf-hero__stat-num">{portfolioStats.expertises}</span>
           <span class="pf-hero__stat-label">Expertises</span>
         </div>
       </div>
@@ -147,7 +45,7 @@ const projects = [
     <section class="pf-projects">
       {projects.map((project, index) => (
         <article
-          class={`pf-item pf-item--${project.mockup} ${index % 2 !== 0 ? 'pf-item--alt' : ''}`}
+          class={`pf-item pf-item--photo ${index % 2 !== 0 ? 'pf-item--alt' : ''}`}
           style={`--project-color: ${project.color};`}
           data-index={index}
         >
@@ -155,73 +53,20 @@ const projects = [
           <div class="pf-item__visual">
             <div class="pf-item__bg" style={`background: ${project.color};`}></div>
 
-            {project.mockup === 'laptop' && (
-              <div class="mockup mockup--laptop">
-                <div class="mockup__laptop-body">
-                  <div class="mockup__laptop-screen">
-                    <div class="mockup__laptop-bar">
-                      <span class="mockup__dot mockup__dot--red"></span>
-                      <span class="mockup__dot mockup__dot--yellow"></span>
-                      <span class="mockup__dot mockup__dot--green"></span>
-                    </div>
-                    <div class="mockup__screen-content">
-                      <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" style={project.imagePosition ? `object-position: ${project.imagePosition}` : ''} />
-                    </div>
-                  </div>
-                </div>
-                <div class="mockup__laptop-base">
-                  <div class="mockup__laptop-hinge"></div>
-                </div>
-              </div>
-            )}
+            <div class="mockup mockup--photo">
+              <Image
+                src={project.image}
+                alt={`Aperçu du projet ${project.title}`}
+                widths={[480, 900, 1400]}
+                sizes="(max-width: 1024px) 100vw, 55vw"
+                class="mockup__photo-img"
+                loading="lazy"
+                decoding="async"
+                style={project.imagePosition ? `object-position: ${project.imagePosition}` : 'object-position: center center'}
+              />
+            </div>
 
-            {project.mockup === 'phone' && (
-              <div class="mockup mockup--phone">
-                <div class="mockup__phone-body">
-                  <div class="mockup__phone-notch"></div>
-                  <div class="mockup__phone-screen">
-                    <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" style={project.imagePosition ? `object-position: ${project.imagePosition}` : ''} />
-                  </div>
-                  <div class="mockup__phone-home"></div>
-                </div>
-              </div>
-            )}
-
-            {project.mockup === 'screen' && (
-              <div class="mockup mockup--screen">
-                  <div class="mockup__screen-frame">
-                    <div class="mockup__screen-bezel">
-                      <div class="mockup__screen-content">
-                        <img src={project.image} alt={project.title} class="mockup__img" loading="lazy" style={project.imagePosition ? `object-position: ${project.imagePosition}` : ''} />
-                      </div>
-                  </div>
-                </div>
-                <div class="mockup__screen-stand">
-                  <div class="mockup__screen-neck"></div>
-                  <div class="mockup__screen-foot"></div>
-                </div>
-              </div>
-            )}
-
-            {project.mockup === 'tablet' && (
-              <div class="mockup mockup--tablet">
-                <img src={project.image} alt={project.title} class="mockup__img mockup__tablet-img" loading="lazy" />
-              </div>
-            )}
-
-            {project.mockup === 'board' && (
-              <div class="mockup mockup--board">
-                <img src={project.image} alt={project.title} class="mockup__img mockup__board-img" loading="lazy" />
-              </div>
-            )}
-
-            {project.mockup === 'photo' && (
-              <div class="mockup mockup--photo">
-                <img src={project.image} alt={project.title} class="mockup__photo-img" loading="lazy" style={project.imagePosition ? `object-position: ${project.imagePosition}` : 'center center'} />
-              </div>
-            )}
-
-            <div class="pf-item__num-bg">{project.id}</div>
+            <div class="pf-item__num-bg">{project.number}</div>
           </div>
 
           <!-- Infos -->
@@ -231,7 +76,7 @@ const projects = [
               <span class="pf-item__sep">|</span>
               <span class="pf-item__category">{project.category}</span>
             </div>
-            <div class="pf-item__num">{project.id}</div>
+            <div class="pf-item__num">{project.number}</div>
             <h2 class="pf-item__title">{project.title}</h2>
             <p class="pf-item__subtitle">{project.subtitle}</p>
             <p class="pf-item__desc">{project.description}</p>
@@ -240,7 +85,7 @@ const projects = [
                 <span class="pf-item__tag">{tag}</span>
               ))}
             </div>
-            {project.link !== '#' ? (
+            {project.link ? (
               <a href={project.link} target="_blank" rel="noopener noreferrer" class="pf-item__cta">
                 <span>Voir le projet</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
@@ -275,7 +120,14 @@ const projects = [
 /* ============================================
    VARIABLES
    ============================================ */
-:root {
+/* Variables locales aux sections portfolio.
+   Auparavant declarees sur :root, elles fuyaient hors de la page et
+   ecrasaient --gold-light et --grey du design system pour le header,
+   le footer, l agent IA et la banniere cookies. Astro scope ces
+   selecteurs de classe a la page ; les descendants heritent. */
+.pf-hero,
+.pf-projects,
+.pf-cta {
   --gold: #c9a84c;
   --gold-light: #e8c96e;
   --bg: #0a0a0a;

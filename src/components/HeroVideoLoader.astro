@@ -1,0 +1,36 @@
+---
+// Active la vidéo de fond du hero seulement quand c'est pertinent.
+// Sans ce script, `autoplay` + `preload="auto"` faisaient télécharger
+// 14 Mo avant même que la page soit utilisable.
+---
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+
+  if (video) {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    // Économiseur de données (Chrome/Edge/Opera) : on garde le poster.
+    const connection = (navigator as any).connection;
+    const saveData = Boolean(connection?.saveData);
+    const slowNetwork = /(^|-)2g$/.test(connection?.effectiveType ?? '');
+
+    if (!prefersReducedMotion && !saveData && !slowNetwork) {
+      const start = () => {
+        // Transfère data-src -> src puis déclenche le chargement.
+        for (const source of video.querySelectorAll('source[data-src]')) {
+          const url = source.getAttribute('data-src');
+          if (url) source.setAttribute('src', url);
+        }
+        video.load();
+        // play() peut être refusé (politique navigateur) : le poster reste.
+        video.play().catch(() => {});
+      };
+
+      if (document.readyState === 'complete') start();
+      else window.addEventListener('load', start, { once: true });
+    }
+  }
+</script>

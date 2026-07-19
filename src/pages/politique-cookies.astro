@@ -1,12 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 
 <Layout title="Politique de cookies - One Nation">
 	<Header />
-	<main>
+	<main id="main-content">
 		<section class="cookies">
 			<div class="container">
 				<h1>Politique de cookies</h1>
@@ -29,7 +30,12 @@ import Header from '../components/Header.astro';
 					
 					<h2>Comment contrôler les cookies</h2>
 					<p>Vous pouvez contrôler et/ou supprimer les cookies comme vous le souhaitez. Vous pouvez supprimer tous les cookies qui sont déjà sur votre ordinateur et vous pouvez configurer la plupart des navigateurs pour les empêcher d'être placés. Si vous le faites, toutefois, vous devrez peut-être ajuster manuellement certaines préférences chaque fois que vous visitez un site, et certains services et fonctionnalités peuvent ne pas fonctionner.</p>
-					
+
+					<h2>Modifier votre consentement</h2>
+					<p>Le RGPD prévoit qu'il doit être aussi simple de retirer son consentement que de le donner. Ce bouton rouvre la bannière et efface votre choix précédent :</p>
+					<p><button type="button" class="cookie-settings-btn" data-cookie-settings>Modifier mes préférences de cookies</button></p>
+
+
 					<h2>Plus d'informations</h2>
 					<p>Pour plus d'informations sur les cookies et comment les gérer, visitez <a href="https://www.allaboutcookies.org/" target="_blank" rel="noopener noreferrer">www.allaboutcookies.org</a>.</p>
 					
@@ -46,9 +52,33 @@ import Header from '../components/Header.astro';
 			</div>
 		</section>
 	</main>
+	<Footer />
 </Layout>
 
 <style>
+	/* Bouton de retrait du consentement — géré par CookieBanner.astro */
+	.cookie-settings-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: none;
+		border: 1px solid rgba(201, 168, 76, 0.5);
+		color: #C9A84C;
+		font-family: inherit;
+		font-size: 0.85rem;
+		font-weight: 600;
+		padding: 0.7rem 1.4rem;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: background 0.2s, border-color 0.2s, color 0.2s;
+	}
+
+	.cookie-settings-btn:hover {
+		background: #C9A84C;
+		border-color: #C9A84C;
+		color: #0A0A0A;
+	}
+
 	.cookies {
 		padding: 8rem 0;
 	}
