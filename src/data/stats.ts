@@ -18,17 +18,21 @@ import type { Lang } from './projects';
 /** Année de création de l'agence — les années d'expertise s'en déduisent. */
 export const FOUNDED_YEAR = 2024;
 
-/** Nombre de projets livrés (au-delà des seuls projets publiés au portfolio). */
-export const PROJECTS_DELIVERED = 50;
-
 /** Taux de satisfaction affiché. */
 export const SATISFACTION_RATE = 100;
 
 /**
- * Années d'expertise, recalculées à chaque build.
- * Plus besoin d'y penser au changement d'année.
+ * Années d'activité, recalculées à chaque build.
+ * Décompte inclusif : 2024, 2025 et 2026 comptent pour 3 années.
+ * Le compteur passera donc à 4 en janvier 2027, sans intervention.
  */
-export const yearsOfExperience = new Date().getFullYear() - FOUNDED_YEAR;
+export const yearsOfExperience = new Date().getFullYear() - FOUNDED_YEAR + 1;
+
+/**
+ * Projets livrés = nombre de projets du portfolio.
+ * Ajouter un projet dans projects.ts incrémente ce compteur tout seul.
+ */
+export const PROJECTS_DELIVERED = portfolioStats.projects;
 
 export interface KeyFigure {
   /** Valeur numérique animée par le compteur */
@@ -43,7 +47,8 @@ export interface KeyFigure {
 export const keyFigures: KeyFigure[] = [
   {
     value: PROJECTS_DELIVERED,
-    prefix: '+',
+    // Pas de « + » : le chiffre correspond exactement au portfolio.
+    prefix: '',
     suffix: '',
     label: { fr: 'Projets livrés', en: 'Strategic projects delivered' },
     shortLabel: { fr: 'Projets livrés', en: 'Projects delivered' },
