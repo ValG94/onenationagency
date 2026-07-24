@@ -223,7 +223,7 @@ export const projects: Project[] = [
     image: 'djorie_board.jpg',
     homeImage: 'homeDjorie.jpg',
     homeImagePosition: 'top',
-    link: 'https://www.djorie2025.cf',
+    link: 'https://www.sergedjorie.com/',
     color: '#1a0a2e',
   },
   {
