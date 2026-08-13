@@ -4,19 +4,35 @@ interface Props {
 }
 const { lang = 'fr' } = Astro.props;
 
-const navFR = [
+import { civicHref, getCivicCopy } from '../data/civic';
+
+// One Nation Civic n'a pas de page dédiée : le lien pointe vers la
+// section de l'accueil. Écrit en chemin absolu (« /#... ») pour rester
+// valide depuis les 38 pages, pas seulement depuis la home.
+interface NavItem {
+  label: string;
+  href: string;
+  /** Différenciation dorée discrète, réservée à la solution propriétaire. */
+  highlight?: boolean;
+}
+
+const civic: NavItem = { label: getCivicCopy(lang).navLabel, href: civicHref(lang), highlight: true };
+
+const navFR: NavItem[] = [
   { label: 'L\'Agence', href: '/vision' },
   { label: 'Expertises', href: '/services' },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Intelligence IA', href: '/intelligence-artificielle' },
+  civic,
   { label: 'Contact', href: '/contact' },
 ];
 
-const navEN = [
+const navEN: NavItem[] = [
   { label: 'Agency', href: '/en/vision' },
   { label: 'Expertise', href: '/en/services' },
   { label: 'Portfolio', href: '/en/portfolio' },
   { label: 'AI Intelligence', href: '/en/artificial-intelligence' },
+  civic,
   { label: 'Contact', href: '/en/contact' },
 ];
 
@@ -47,7 +63,10 @@ const langLabel = targetLang.toUpperCase();
           <li>
             <a
               href={item.href}
-              class={currentPath === item.href || currentPath.startsWith(item.href + '/') ? 'active' : ''}
+              class:list={[
+                { active: currentPath === item.href || currentPath.startsWith(item.href + '/') },
+                { 'nav-civic': item.highlight },
+              ]}
             >
               {item.label}
             </a>
@@ -85,7 +104,13 @@ const langLabel = targetLang.toUpperCase();
       <ul>
         {nav.map(item => (
           <li>
-            <a href={item.href} class={currentPath === item.href ? 'active' : ''}>
+            <a
+              href={item.href}
+              class:list={[
+                { active: currentPath === item.href },
+                { 'nav-civic': item.highlight },
+              ]}
+            >
               {item.label}
             </a>
           </li>
@@ -169,6 +194,9 @@ const langLabel = targetLang.toUpperCase();
     border-radius: 3px;
     transition: color 0.2s ease;
     position: relative;
+    /* Sans cela, « Intelligence IA » et « One Nation Civic » se cassent
+       sur deux ou trois lignes quand la nav se resserre. */
+    white-space: nowrap;
   }
 
   .nav-desktop a::after {
@@ -192,6 +220,16 @@ const langLabel = targetLang.toUpperCase();
   .nav-desktop a:hover::after,
   .nav-desktop a.active::after {
     transform: scaleX(1);
+  }
+
+  /* Lien One Nation Civic : doré en permanence, sans autre effet que
+     celui des voisins. Signale la solution propriétaire sans crier. */
+  .nav-desktop a.nav-civic {
+    color: var(--gold);
+  }
+  .nav-desktop a.nav-civic:hover,
+  .nav-desktop a.nav-civic.active {
+    color: var(--gold-light);
   }
 
   /* ─── Actions droite ────────────────────────────────────────── */
@@ -305,6 +343,7 @@ const langLabel = targetLang.toUpperCase();
   }
   .mobile-menu a:hover,
   .mobile-menu a.active { color: var(--gold); }
+  .mobile-menu a.nav-civic { color: var(--gold); }
   .mobile-menu .mobile-lang a {
     color: var(--grey);
     font-size: 0.95rem;
@@ -321,7 +360,18 @@ const langLabel = targetLang.toUpperCase();
   }
 
   /* ─── Responsive ────────────────────────────────────────────── */
-  @media (max-width: 900px) {
+  /* Six entrées au lieu de cinq : on resserre la nav sur les écrans
+     intermédiaires plutôt que de la laisser toucher le CTA. */
+  @media (max-width: 1200px) {
+    .header-inner { gap: 1rem; }
+    .nav-desktop a { padding: 0.5rem 0.6rem; font-size: 0.72rem; letter-spacing: 0.04em; }
+    .nav-desktop a::after { left: 0.6rem; right: 0.6rem; }
+    .header-cta { padding: 0.6rem 1.1rem; }
+  }
+
+  /* Bascule burger remontée de 900 à 1024 px : à six entrées, la nav
+     desktop devenait illisible entre les deux. */
+  @media (max-width: 1024px) {
     .nav-desktop { display: none; }
     .header-cta { display: none; }
     .burger { display: flex; }

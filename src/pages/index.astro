@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro';
 import HeroVideoLoader from '../components/HeroVideoLoader.astro';
 import { getLatestProjects } from '../data/projects';
 import ProjectCard from '../components/ProjectCard.astro';
+import CivicSection from '../components/CivicSection.astro';
+import { civicHref } from '../data/civic';
 
 // Même source que la page portfolio : les 3 projets les plus récents.
 const latestRealisations = getLatestProjects(3, 'fr');
@@ -19,7 +21,8 @@ const figures = getKeyFigures('fr');
 
 <Layout
   title="One Nation Agency - Communication Stratégique, Agents IA & Web Premium"
-  description="One Nation Agency - Agence premium spécialisée en communication stratégique institutionnelle, création d'agents IA sur mesure et développement web haut de gamme."
+  description="One Nation Agency - Agence premium spécialisée en communication stratégique institutionnelle, création d'agents IA sur mesure et développement web haut de gamme. Éditrice de One Nation Civic, plateforme d'agents IA pour les institutions et services publics."
+  keywords="agence communication, agent IA, création web, communication institutionnelle, Afrique, France, intelligence artificielle, stratégie digitale, One Nation Civic, agent IA institutionnel, automatisation service public, intelligence artificielle pour institutions, accueil numérique institutionnel"
 >
   <!-- SPLASH SCREEN -->
   <div class="splash" id="splash" aria-hidden="true">
@@ -188,6 +191,12 @@ const figures = getKeyFigures('fr');
                 Explorer
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
+              <!-- Rattache la solution propriétaire à son expertise, sans
+                   dupliquer le contenu de la section ONC plus bas. -->
+              <a href={civicHref('fr')} class="pillar-civic">
+                <span>Notre solution propriétaire</span>
+                <strong>One Nation Civic</strong>
+              </a>
               <div class="pillar-featured-badge">Premium</div>
             </article>
 
@@ -270,6 +279,9 @@ const figures = getKeyFigures('fr');
           </div>
         </div>
       </section>
+
+      <!-- ===== ONE NATION CIVIC ===== -->
+      <CivicSection lang="fr" />
 
       <!-- ===== CTA FINAL ===== -->
       <section class="cta-section">
@@ -900,6 +912,33 @@ const figures = getKeyFigures('fr');
     transition: gap 0.2s ease;
   }
   .pillar-link:hover { gap: 0.7rem; }
+  /* Renvoi vers la section One Nation Civic, en pied de carte. */
+  .pillar-civic {
+    display: block;
+    margin-top: 1.6rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border-light);
+  }
+  .pillar-civic span {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  .pillar-civic strong {
+    display: block;
+    margin-top: 0.3rem;
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    transition: color 0.2s ease;
+  }
+  .pillar-civic:hover strong { color: var(--gold-light); }
   .pillar-featured-badge {
     position: absolute;
     top: 1.2rem;
@@ -1065,6 +1104,21 @@ const figures = getKeyFigures('fr');
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   }
 
+  // ── Arrivée sur une ancre (ex. le lien One Nation Civic du menu) ──
+  // Le visiteur vient chercher une section précise : on saute l'intro et
+  // on l'y amène une fois la page visible, sinon il attend 6s devant un
+  // splash puis atterrit en haut de page.
+  function scrollToHash() {
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    const target = document.querySelector(hash);
+    if (!target) return;
+    // rAF : on attend que le wrapper soit peint avant de mesurer.
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+  }
+
   // ── Gestion du splash screen ─────────────────────────────────
   // L'animation ne se joue qu'une seule fois par session de navigation.
   // Dès que l'utilisateur a vu l'intro, sessionStorage mémorise la visite
@@ -1073,13 +1127,15 @@ const figures = getKeyFigures('fr');
     const splash = document.getElementById('splash');
     const siteWrapper = document.getElementById('site-wrapper');
 
-    const alreadySeen = sessionStorage.getItem('ona_intro_seen');
+    const hasHash = window.location.hash.length > 1;
+    const alreadySeen = sessionStorage.getItem('ona_intro_seen') || hasHash;
 
     if (alreadySeen) {
       // Retour sur la home dans la même session → pas d'animation
       if (splash) splash.style.display = 'none';
       siteWrapper?.classList.add('visible');
       setTimeout(initReveal, 100);
+      scrollToHash();
     } else {
       // Première visite → animation complète (6s)
       // Timing : tagline apparaît à 3.3s + 2s de lecture = 5.3s + 0.7s transition = 6s

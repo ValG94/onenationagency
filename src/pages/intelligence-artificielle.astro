@@ -2,12 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CivicSection from '../components/CivicSection.astro';
 ---
 
 
 <Layout
   title="Intelligence Artificielle & Agents IA - One Nation Agency"
-  description="One Nation Agency crée des agents IA sur mesure pour qualifier vos prospects, automatiser vos processus et servir vos audiences 24h/24. Innovation au service de votre croissance."
+  description="One Nation Agency crée des agents IA sur mesure pour qualifier vos prospects, automatiser vos processus et servir vos audiences 24h/24, et édite One Nation Civic pour les institutions et services publics."
+  keywords="agent IA, intelligence artificielle, automatisation, assistant virtuel, One Nation Civic, agent IA institutionnel, automatisation service public, intelligence artificielle pour institutions, assistant IA ambassade, accueil numérique institutionnel"
 >
   <Header />
 
@@ -160,6 +162,10 @@ import Footer from '../components/Footer.astro';
         </div>
       </div>
     </section>
+
+    <!-- ONE NATION CIVIC — variante compacte : la présentation complète
+         reste sur l'accueil, ici on signale seulement la solution. -->
+    <CivicSection lang="fr" variant="compact" id="civic-ia" />
 
     <!-- PROCESSUS -->
     <section class="ai-process">

@@ -2,12 +2,14 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import CivicSection from '../../components/CivicSection.astro';
 ---
 
 
 <Layout
   title="Artificial Intelligence & AI Agents - One Nation Agency"
-  description="One Nation Agency creates custom AI agents to qualify your prospects, automate your processes and serve your audiences 24/7. Innovation at the service of your growth."
+  description="One Nation Agency creates custom AI agents to qualify your prospects, automate your processes and serve your audiences 24/7, and publishes One Nation Civic for public institutions and services."
+  keywords="AI agent, artificial intelligence, automation, virtual assistant, One Nation Civic, AI agent for public institutions, public service automation, AI assistant for embassies, digital public service, institutional AI assistant"
   lang="en"
   canonical="/en/artificial-intelligence"
 >
@@ -162,6 +164,10 @@ import Footer from '../../components/Footer.astro';
         </div>
       </div>
     </section>
+
+    <!-- ONE NATION CIVIC — variante compacte : la présentation complète
+         reste sur l'accueil, ici on signale seulement la solution. -->
+    <CivicSection lang="en" variant="compact" id="civic-ia" />
 
     <!-- PROCESS -->
     <section class="ai-process">

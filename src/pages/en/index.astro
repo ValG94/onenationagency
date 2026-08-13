@@ -6,6 +6,8 @@ import HeroVideoLoader from '../../components/HeroVideoLoader.astro';
 import { Image } from 'astro:assets';
 import { getLatestProjects } from '../../data/projects';
 import ProjectCard from '../../components/ProjectCard.astro';
+import CivicSection from '../../components/CivicSection.astro';
+import { civicHref } from '../../data/civic';
 import imgLogoOnenation from '../../assets/logoOnenation.jpg';
 import imgTeamVision from '../../assets/team_vision.jpg';
 import heroPoster from '../../assets/hero-poster.jpg';
@@ -19,7 +21,8 @@ const figures = getKeyFigures('en');
 
 <Layout
   title="One Nation Agency - Strategic Communication, AI Agents & Premium Web"
-  description="One Nation Agency - Premium agency specializing in institutional strategic communication, custom AI agents and high-end web development."
+  description="One Nation Agency - Premium agency specializing in institutional strategic communication, custom AI agents and high-end web development. Publisher of One Nation Civic, the AI agent platform for public institutions and services."
+  keywords="communication agency, AI agent, web design, institutional communication, Africa, France, artificial intelligence, digital strategy, One Nation Civic, AI agent for public institutions, public service automation, digital public service, institutional AI assistant"
   lang="en"
   canonical="/en"
 >
@@ -138,7 +141,7 @@ const figures = getKeyFigures('en');
               <span class="pillar-num">01</span>
               <h3>Institutional<br />Communication</h3>
               <p>Shape opinion. Protect your reputation. We design tailored influence strategies for leading public and private actors.</p>
-              <a href="/services" class="pillar-link">
+              <a href="/en/services" class="pillar-link">
                 Explore
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
@@ -155,9 +158,15 @@ const figures = getKeyFigures('en');
               <span class="pillar-num">02</span>
               <h3>AI Agents &<br />Automation</h3>
               <p>Artificial intelligence at the service of your growth. Custom virtual assistants to qualify, convert and serve your audiences 24/7.</p>
-              <a href="/intelligence-artificielle" class="pillar-link">
+              <a href="/en/artificial-intelligence" class="pillar-link">
                 Explore
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <!-- Rattache la solution propriétaire à son expertise, sans
+                   dupliquer le contenu de la section ONC plus bas. -->
+              <a href={civicHref('en')} class="pillar-civic">
+                <span>Our proprietary solution</span>
+                <strong>One Nation Civic</strong>
               </a>
               <div class="pillar-featured-badge">Premium</div>
             </article>
@@ -173,7 +182,7 @@ const figures = getKeyFigures('en');
               <span class="pillar-num">03</span>
               <h3>Premium Web<br />Creation</h3>
               <p>Immersive, high-performance and memorable digital platforms. The technological setting your ambition deserves.</p>
-              <a href="/services" class="pillar-link">
+              <a href="/en/services" class="pillar-link">
                 Explore
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
@@ -214,11 +223,11 @@ const figures = getKeyFigures('en');
                 Our deep understanding of pan-African and international issues allows us to deploy campaigns with surgical precision, adapted to the cultural and political realities of each territory.
               </p>
               <div class="agency-actions reveal reveal-delay-3">
-                <a href="/vision" class="btn-gold">
+                <a href="/en/vision" class="btn-gold">
                   Our vision
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-                <a href="/portfolio" class="btn-outline">Our work</a>
+                <a href="/en/portfolio" class="btn-outline">Our work</a>
               </div>
             </div>
           </div>
@@ -241,13 +250,16 @@ const figures = getKeyFigures('en');
           </div>
 
           <div class="portfolio-cta reveal">
-            <a href="/portfolio" class="btn-outline">
+            <a href="/en/portfolio" class="btn-outline">
               View all our projects
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
       </section>
+
+      <!-- ===== ONE NATION CIVIC ===== -->
+      <CivicSection lang="en" />
 
       <!-- ===== FINAL CTA ===== -->
       <section class="cta-section">
@@ -257,7 +269,7 @@ const figures = getKeyFigures('en');
             <h2>LET'S TALK ABOUT<br /><span class="gold-text">YOUR PROJECT.</span></h2>
             <p>Whether you need a communication strategy, an AI agent or a premium digital platform, our team is ready to support you.</p>
             <div class="cta-actions">
-              <a href="/contact" class="btn-gold">
+              <a href="/en/contact" class="btn-gold">
                 Contact us
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
@@ -570,6 +582,33 @@ const figures = getKeyFigures('en');
     transition: gap 0.3s ease;
   }
   .pillar-link:hover { gap: 0.75rem; }
+  /* Renvoi vers la section One Nation Civic, en pied de carte. */
+  .pillar-civic {
+    display: block;
+    margin-top: 1.6rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border-light);
+  }
+  .pillar-civic span {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  .pillar-civic strong {
+    display: block;
+    margin-top: 0.3rem;
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    transition: color 0.2s ease;
+  }
+  .pillar-civic:hover strong { color: var(--gold-light); }
   .pillar-featured-badge {
     position: absolute;
     top: 1.5rem;
@@ -754,17 +793,32 @@ const figures = getKeyFigures('en');
     revealElements.forEach(el => observer.observe(el));
   }
 
+  // ── Arrivée sur une ancre (ex. le lien One Nation Civic du menu) ──
+  // Le visiteur vient chercher une section précise : on saute l'intro et
+  // on l'y amène une fois la page visible, sinon il atterrit en haut.
+  function scrollToHash() {
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    const target = document.querySelector(hash);
+    if (!target) return;
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+  }
+
   // ── Splash screen (une seule fois par session) ───────────────────
   const splash = document.getElementById('splash');
   const siteWrapper = document.getElementById('site-wrapper');
 
-  const alreadySeen = sessionStorage.getItem('ona_intro_seen_en');
+  const hasHash = window.location.hash.length > 1;
+  const alreadySeen = sessionStorage.getItem('ona_intro_seen_en') || hasHash;
 
   if (alreadySeen) {
     // Retour sur la home EN dans la même session → pas d'animation
     if (splash) splash.style.display = 'none';
     if (siteWrapper) siteWrapper.classList.add('visible');
     setTimeout(initReveal, 100);
+    scrollToHash();
   } else {
     // Première visite → animation (2.2s)
     if (splash && siteWrapper) {

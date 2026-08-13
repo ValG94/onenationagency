@@ -27,13 +27,14 @@ pnpm run build        # construire + régénérer la section 3 de ce fichier
 
 ## 2. Architecture — où se trouve quoi
 
-Cinq sources de vérité uniques. **Ne jamais dupliquer ces données dans une page.**
+Six sources de vérité uniques. **Ne jamais dupliquer ces données dans une page.**
 
 | Fichier | Rôle |
 |---|---|
 | `src/data/projects.ts` | Les projets du portfolio, bilingues. Numéros et compteurs calculés. |
 | `src/data/routes.ts` | Correspondance FR↔EN. Pilote le sélecteur de langue, le footer et les hreflang. |
 | `src/data/stats.ts` | Chiffres clés. Projets et années dérivés, pas saisis. |
+| `src/data/civic.ts` | Contenu One Nation Civic, FR et EN, plus l'URL et l'ancre. Alimente `CivicSection.astro` et le lien du menu. |
 | `src/scripts/consent.ts` | Consentement cookies, partagé bannière ↔ agent IA. |
 | `src/pages/sitemap.xml.ts` | Sitemap généré au build depuis les routes. |
 
@@ -51,7 +52,7 @@ Cinq sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-07-19 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-08-13 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -62,14 +63,14 @@ _Dernière vérification : 2026-07-19 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 18.27 Mo (dont 8.08 Mo de vidéo) |
-| Variantes d'images générées | 136 |
+| Poids total `dist` | 18.67 Mo (dont 8.08 Mo de vidéo) |
+| Variantes d'images générées | 144 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
 
 **Chiffres affichés sur le site** — 8 Projets livrés · 7 Pays couverts · 3 Années d'expertise · 100% Clients satisfaits
 
-**Pages les plus lourdes au premier rendu** — `/en/portfolio` 865 Ko · `/portfolio` 865 Ko · `/` 500 Ko
+**Pages les plus lourdes au premier rendu** — `/en/portfolio` 865 Ko · `/portfolio` 865 Ko · `/` 677 Ko
 
 <!-- AUTO:FIN -->
 
@@ -105,6 +106,24 @@ Audit complet mené le 19/07/2026, puis 10 commits. Repères pour ne pas rouvrir
 - **13 pages traduites en anglais** : parité 19/19.
 - Agent IA aligné sur la langue de la page (`currentLang` était figé à `'fr'`).
 
+### Adresse légale — 04/08/2026
+Statut auto-entrepreneur : l'adresse est désormais celle du domicile du dirigeant, **6 rue Jean Colly, 94140 Alfortville**. L'ancienne (3 rue de Suresnes, 75008 Paris) ne subsiste nulle part dans `dist/`.
+- Modifiée dans : `Footer.astro`, `mentions-legales`, `politique-confidentialite`, `politique-cookies` et leurs 3 équivalents EN.
+- `Layout.astro` : JSON-LD `PostalAddress` et balises `geo.region` (`FR-75` → `FR-94`) / `geo.placename`. Ces trois valeurs se propagent aux 38 pages — les toucher ensemble, sinon Google voit une adresse contradictoire entre le texte et les données structurées.
+- Mentions légales FR et EN : ligne « Capital social : 1 000 € » supprimée (une entreprise individuelle n'en a pas), mention « Valéry Garrec, entrepreneur individuel (EI) » ajoutée sous la dénomination.
+- CGV FR et EN, article 9 : juridiction compétente passée du tribunal de commerce de Paris à celui de **Créteil**, dont dépend le Val-de-Marne.
+
+### One Nation Civic — 13/08/2026
+Intégration d'ONC comme **solution propriétaire de l'agence**, sans refonte : ONA reste la marque principale.
+- `src/data/civic.ts` + `CivicSection.astro` : une seule source, deux variantes (`full` sur les deux accueils, `compact` sur les deux pages IA). Modifier le texte ONC = éditer `civic.ts`, rien d'autre.
+- Aperçu : **deux captures réelles d'ONC** (`src/assets/onc-home.jpg`, `onc-phone.png`), l'accueil et l'assistant mobile, en surimpression. Retouches faites à l'import, à ne pas refaire : 5 px de barre violette retirés en haut de l'accueil (couleur étrangère à la charte), et recadrage serré du mockup sur l'appareil pour réduire l'aplat bleu nuit. Les originaux sont dans `originals/onc/`, hors dépôt. Habillage (barre de navigateur, bordures, ombres) en CSS avec les tokens ONA.
+- `/` passe de 500 à 677 Ko « au premier rendu » dans le tableau ci-dessus, mais les deux images sont en `loading="lazy"` et très bas de page : le script de mesure les compte, pas le navigateur.
+- Menu : 6e entrée, dorée, pointant vers `/#one-nation-civic` (chemin absolu, donc valide depuis les 38 pages). **La bascule burger est passée de 900 à 1024 px** : à six entrées la nav desktop se cassait sur trois lignes vers 900 px.
+- Les deux accueils sautent le splash quand l'URL porte une ancre, sinon le visiteur attendait 6 s puis atterrissait en haut de page.
+- JSON-LD : ONC déclaré en `owns` → `SoftwareApplication` sur les 38 pages.
+- Piège à ne pas réintroduire : `.civic-visual` doit rester en `flex-direction: column`. En ligne, un élément posé à côté de la capture s'étirait sur toute sa hauteur, élargissait la colonne de la grille et poussait le texte hors de l'écran sur tablette et mobile.
+- 7 liens de `en/index.astro` pointaient vers les pages FR (`/services`, `/vision`, `/portfolio`, `/contact`, `/intelligence-artificielle`) : corrigés vers `/en/…`.
+
 ### Divers
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
 - `:root` des pages portfolio écrasait le design system globalement → variables scopées.
@@ -121,6 +140,9 @@ Audit complet mené le 19/07/2026, puis 10 commits. Repères pour ne pas rouvrir
 | Priorité | Sujet | Détail |
 |---|---|---|
 | À valider | **Slugs anglais** | `/en/seo`, `/en/digital-marketing`, `/en/terms-and-conditions`… choisis par défaut. Les changer coûte une ligne dans `routes.ts` + un renommage, tant que Google ne les a pas indexés. |
+| Tranché | **« Paris » comme positionnement** | `contact.astro`, `en/contact.astro` et `en/index.astro` affichent « Paris, France » et « Paris · Africa · International ». Volontairement conservé : c'est du discours commercial, pas l'adresse légale. Ne pas « corriger » au motif que cela diffère du footer. |
+| À valider | **Franchise de TVA** | `cgv.astro` et `en/terms-and-conditions.astro` annoncent des tarifs « nets et HT ». En micro-entreprise sous franchise, la formule attendue est « TVA non applicable, article 293 B du CGI ». Dépend du régime réel, non modifié. |
+| À valider | **Page dédiée One Nation Civic** | ONC vit dans une section d'accueil et un bandeau sur les pages IA. Une page `/one-nation-civic` + `/en/one-nation-civic` serait le prochain palier SEO : il suffirait d'y poser `<CivicSection />`, d'ajouter la paire dans `routes.ts` et de rebasculer le lien du menu. Non fait : hors demande. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
