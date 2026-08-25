@@ -28,7 +28,7 @@ import imgOncPhone from '../assets/onc-phone.png';
 
 interface Props {
   lang?: string;
-  variant?: 'full' | 'compact';
+  variant?: 'full' | 'compact' | 'feature';
   id?: string;
 }
 
@@ -51,7 +51,36 @@ const icons = [
 ];
 ---
 
-{variant === 'compact' ? (
+{variant === 'feature' ? (
+  <section class="civic-feature" id={id} aria-labelledby={`${id}-title`}>
+    <div class="civic-glow" aria-hidden="true"></div>
+    <div class="container">
+      <div class="civic-feature-inner reveal">
+        <span class="label">{t.featureEyebrow}</span>
+        <div class="gold-bar"></div>
+        <h2 id={`${id}-title`}>{t.subtitle}</h2>
+        <p class="civic-feature-text">{t.featureText}</p>
+
+        <ul class="civic-feature-list">
+          {t.featureIndices.map(i => (
+            <li>
+              <span class="civic-feature-icon" aria-hidden="true">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={icons[i]} />
+              </span>
+              {t.features[i]}
+            </li>
+          ))}
+        </ul>
+
+        <a href={CIVIC_URL} class="btn-gold" target="_blank" rel="noopener noreferrer">
+          {t.ctaPrimary}
+          <span class="civic-sr">{t.newTab}</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+) : variant === 'compact' ? (
   <section class="civic-compact" id={id} aria-labelledby={`${id}-title`}>
     <div class="container">
       <div class="civic-compact-inner reveal">
@@ -361,6 +390,57 @@ const icons = [
     color: var(--gold);
   }
 
+  /* ═══ VARIANTE « FEATURE » (page Offres) ═════════════════════ */
+  /* Traitement institutionnel : centré, plus dense que la section
+     d'accueil, sans capture. Le bloc doit trancher avec les cartes
+     commerciales qui le précèdent, sans quitter la charte. */
+  .civic-feature {
+    position: relative;
+    padding: var(--pad-section);
+    background: linear-gradient(180deg, var(--black) 0%, var(--anthracite) 50%, var(--black) 100%);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    overflow: hidden;
+  }
+  .civic-feature .container { position: relative; }
+  .civic-feature-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .civic-feature-inner .gold-bar { margin: 0.9rem auto 1.5rem; }
+  .civic-feature-inner h2 {
+    font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+  }
+  .civic-feature-text {
+    margin: 1.5rem auto 0;
+    max-width: 640px;
+    line-height: 1.8;
+    color: var(--grey-light);
+  }
+  .civic-feature-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 2.2rem;
+    /* Bridé pour casser en 2 + 2 plutôt qu'en 3 + 1, qui laissait le
+       dernier bénéfice orphelin sur sa ligne. */
+    max-width: 660px;
+    margin: 2.4rem auto;
+  }
+  .civic-feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--grey-light);
+  }
+  .civic-feature-list .civic-feature-icon {
+    width: 30px;
+    height: 30px;
+  }
+
   /* ═══ VARIANTE COMPACTE ══════════════════════════════════════ */
   .civic-compact {
     padding: var(--pad-section);
@@ -399,6 +479,17 @@ const icons = [
     .civic-features { grid-template-columns: 1fr; gap: 0.8rem; }
     .civic-compact-inner { flex-direction: column; align-items: flex-start; padding: 2rem 1.6rem; }
     .civic-compact-text p { max-width: none; }
+    /* Les 4 bénéfices passent en colonne, alignés à gauche : centrés
+       sur une seule colonne, ils devenaient illisibles. */
+    .civic-feature-inner { text-align: left; }
+    .civic-feature-inner .gold-bar { margin-left: 0; }
+    .civic-feature-text { margin-left: 0; }
+    .civic-feature-list {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+    .civic-feature-inner .btn-gold { width: 100%; justify-content: center; }
   }
 
   /* Sous 600 px, la surimpression rendrait le téléphone illisible :

@@ -5,25 +5,37 @@ interface Props {
 const { lang = 'fr' } = Astro.props;
 
 import { civicHref, getCivicCopy } from '../data/civic';
+import { getPackagesCopy, packagesHref } from '../data/packages';
 
-// One Nation Civic n'a pas de page dédiée : le lien pointe vers la
-// section de l'accueil. Écrit en chemin absolu (« /#... ») pour rester
-// valide depuis les 38 pages, pas seulement depuis la home.
 interface NavItem {
   label: string;
+  /** Libellé abrégé pour la nav desktop, où la place est comptée.
+      Le menu mobile affiche toujours `label` en entier. */
+  shortLabel?: string;
   href: string;
   /** Différenciation dorée discrète, réservée à la solution propriétaire. */
   highlight?: boolean;
 }
 
-const civic: NavItem = { label: getCivicCopy(lang).navLabel, href: civicHref(lang), highlight: true };
+// One Nation Civic n'a pas de page dédiée : le lien pointe vers la
+// section de l'accueil. Écrit en chemin absolu (« /#... ») pour rester
+// valide depuis toutes les pages, pas seulement depuis la home.
+const civic: NavItem = {
+  label: getCivicCopy(lang).navLabel,
+  shortLabel: 'ONC',
+  href: civicHref(lang),
+  highlight: true,
+};
+
+const offres: NavItem = { label: getPackagesCopy(lang).navLabel, href: packagesHref(lang) };
 
 const navFR: NavItem[] = [
   { label: 'L\'Agence', href: '/vision' },
   { label: 'Expertises', href: '/services' },
   { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Intelligence IA', href: '/intelligence-artificielle' },
+  { label: 'Intelligence IA', shortLabel: 'IA', href: '/intelligence-artificielle' },
   civic,
+  offres,
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -31,8 +43,9 @@ const navEN: NavItem[] = [
   { label: 'Agency', href: '/en/vision' },
   { label: 'Expertise', href: '/en/services' },
   { label: 'Portfolio', href: '/en/portfolio' },
-  { label: 'AI Intelligence', href: '/en/artificial-intelligence' },
+  { label: 'AI Intelligence', shortLabel: 'AI', href: '/en/artificial-intelligence' },
   civic,
+  offres,
   { label: 'Contact', href: '/en/contact' },
 ];
 
@@ -63,12 +76,13 @@ const langLabel = targetLang.toUpperCase();
           <li>
             <a
               href={item.href}
+              aria-label={item.shortLabel ? item.label : undefined}
               class:list={[
                 { active: currentPath === item.href || currentPath.startsWith(item.href + '/') },
                 { 'nav-civic': item.highlight },
               ]}
             >
-              {item.label}
+              {item.shortLabel ?? item.label}
             </a>
           </li>
         ))}

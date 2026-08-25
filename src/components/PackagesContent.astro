@@ -1,0 +1,787 @@
+---
+// ============================================================
+// PAGE OFFRES — CORPS DE PAGE, PILOTÉ PAR LA LANGUE
+// ============================================================
+// Rendu unique pour /offres et /en/packages : un seul markup, donc
+// aucune dérive possible entre les deux versions. Toute la copie
+// vient de `src/data/packages.ts`, le case study de `projects.ts`
+// et le bloc institutionnel de `CivicSection`.
+// ============================================================
+
+import { Image } from 'astro:assets';
+import { getPackagesCopy, packageContactHref } from '../data/packages';
+import { getProjects } from '../data/projects';
+import CivicSection from './CivicSection.astro';
+
+interface Props {
+  lang?: string;
+}
+const { lang = 'fr' } = Astro.props;
+const en = lang === 'en';
+const t = getPackagesCopy(lang);
+
+const contactHref = en ? '/en/contact#contactForm' : '/contact#contactForm';
+const portfolioHref = en ? '/en/portfolio' : '/portfolio';
+
+// Le case study réutilise la fiche existante du projet : visuel, titre
+// et pays viennent de `projects.ts`, déjà localisés et déjà résolus en
+// ImageMetadata. Seul l'angle commercial est propre à cette page.
+const island = getProjects(en ? 'en' : 'fr').find(p => p.id === 'island-living-sxm');
+
+// Coche unique, réutilisée par les listes d'offres et de maintenance.
+const CHECK = '<path d="M20 6L9 17l-5-5"/>';
+---
+
+<!-- ═══ HERO ═══════════════════════════════════════════════ -->
+<section class="pk-hero">
+  <div class="pk-hero-glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="pk-hero-inner">
+      <span class="label reveal">{t.hero.eyebrow}</span>
+      <div class="gold-bar reveal"></div>
+      <h1 class="reveal">
+        {t.hero.titleLine1}<br />{t.hero.titleLine2}
+      </h1>
+      <p class="pk-hero-desc reveal reveal-delay-1">{t.hero.description}</p>
+      <p class="pk-hero-statement reveal reveal-delay-2">{t.hero.statement}</p>
+
+      <div class="pk-hero-actions reveal reveal-delay-3">
+        <a href="#offres" class="btn-gold">
+          {t.hero.ctaPrimary}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+        <a href={contactHref} class="btn-outline">{t.hero.ctaSecondary}</a>
+      </div>
+
+      <ul class="pk-hero-benefits reveal reveal-delay-4">
+        {t.hero.benefits.map(benefit => (
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={CHECK} />
+            {benefit}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LES TROIS OFFRES ═══════════════════════════════════ -->
+<section class="pk-offers" id="offres" aria-labelledby="offres-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">{en ? 'The packages' : 'Les offres'}</span>
+      <div class="gold-bar"></div>
+      <h2 id="offres-title" set:html={t.packagesTitle} />
+    </div>
+
+    <div class="pk-grid">
+      {t.offers.map((offer, i) => (
+        <article
+          class:list={['pk-card', { 'pk-card--featured': offer.badge }, 'reveal', `reveal-delay-${i + 1}`]}
+          aria-labelledby={`offer-${offer.id}`}
+        >
+          {offer.badge && <div class="pk-badge">{offer.badge}</div>}
+
+          <header class="pk-card-head">
+            <h3 id={`offer-${offer.id}`}>{offer.name}</h3>
+            <p class="pk-tagline">{offer.tagline}</p>
+            <p class:list={['pk-price', { 'pk-price--quote': offer.priceSub }]}>
+              {offer.priceLabel && <span class="pk-price-label">{offer.priceLabel}</span>}
+              <strong>{offer.price}</strong>
+              {offer.priceSub && <span class="pk-price-sub">{offer.priceSub}</span>}
+              {offer.priceFrom && <span class="pk-price-from">{offer.priceFrom}</span>}
+            </p>
+          </header>
+
+          <p class="pk-desc">{offer.description}</p>
+
+          {offer.featuresIntro && <p class="pk-features-intro">{offer.featuresIntro}</p>}
+
+          <ul class="pk-features">
+            {offer.features.map(feature => (
+              <li>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={CHECK} />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="pk-card-foot">
+            <p class="pk-delay">
+              <span>{offer.delayLabel}</span>
+              <strong>{offer.delayValue}</strong>
+            </p>
+            {offer.option && <p class="pk-note pk-option">{offer.option}</p>}
+            <!-- Le bouton ferme toujours la carte : c'est ce qui aligne
+                 les trois CTA malgré les mentions de longueur inégale. -->
+            <a
+              href={packageContactHref(lang, offer.id)}
+              class:list={[offer.badge ? 'btn-gold' : 'btn-outline', 'pk-cta']}
+            >
+              {offer.cta}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SUR MESURE ═════════════════════════════════════════ -->
+<section class="pk-bespoke" aria-labelledby="bespoke-title">
+  <div class="container">
+    <div class="pk-bespoke-inner reveal">
+      <div class="pk-bespoke-text">
+        <span class="label">{t.bespoke.eyebrow}</span>
+        <h2 id="bespoke-title">{t.bespoke.title}</h2>
+        <p>{t.bespoke.text}</p>
+      </div>
+      <a href={contactHref} class="btn-outline pk-bespoke-cta">
+        {t.bespoke.cta}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CASE STUDY ═════════════════════════════════════════ -->
+<section class="pk-case" aria-labelledby="case-title">
+  <div class="container">
+    <div class="pk-case-grid">
+      <div class="pk-case-text">
+        <span class="label reveal">{t.caseStudy.eyebrow}</span>
+        <div class="gold-bar reveal"></div>
+        <h2 id="case-title" class="reveal" set:html={t.caseStudy.title} />
+        <p class="pk-case-sub reveal reveal-delay-1">{t.caseStudy.subtitle}</p>
+
+        <dl class="pk-case-blocks reveal reveal-delay-2">
+          {t.caseStudy.blocks.map(block => (
+            <div class="pk-case-block">
+              <dt>{block.label}</dt>
+              <dd>{block.text}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <a href={portfolioHref} class="btn-outline reveal reveal-delay-3">
+          {t.caseStudy.cta}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      {island && (
+        <figure class="pk-case-visual reveal reveal-delay-2">
+          <Image
+            src={island.image}
+            alt={island.subtitle}
+            loading="lazy"
+            decoding="async"
+            widths={[420, 700, 1000]}
+            sizes="(max-width: 1024px) 90vw, 42vw"
+          />
+          <figcaption>
+            <span class="label">{island.country}</span>
+            <p>{island.title}</p>
+          </figcaption>
+        </figure>
+      )}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAINTENANCE & HÉBERGEMENT ══════════════════════════ -->
+<section class="pk-care" aria-labelledby="care-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">{t.care.eyebrow}</span>
+      <div class="gold-bar"></div>
+      <h2 id="care-title" set:html={t.care.title} />
+      <p class="section-intro">{t.care.subtitle}</p>
+    </div>
+
+    <div class="pk-care-grid">
+      {t.care.plans.map((plan, i) => (
+        <article class:list={['pk-care-card', 'reveal', `reveal-delay-${i + 1}`]}>
+          <h3>{plan.name}</h3>
+          <p class="pk-care-price">
+            <strong>{plan.price}</strong>
+            <span>{plan.period}</span>
+          </p>
+          {plan.intro && <p class="pk-care-intro">{plan.intro}</p>}
+          <ul>
+            {plan.features.map(feature => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={CHECK} />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <p class="pk-care-disclaimer reveal">{t.care.disclaimer}</p>
+  </div>
+</section>
+
+<!-- ═══ ONE NATION CIVIC ═══════════════════════════════════ -->
+<CivicSection lang={lang} variant="feature" id="civic-offres" />
+
+<!-- ═══ CTA FINAL ══════════════════════════════════════════ -->
+<section class="pk-final" aria-labelledby="final-title">
+  <div class="container">
+    <div class="pk-final-inner reveal">
+      <span class="label">{t.finalCta.eyebrow}</span>
+      <h2 id="final-title">
+        {t.finalCta.titleLine1}<br />
+        <span class="gold-text">{t.finalCta.titleLine2}</span>
+      </h2>
+      <p>{t.finalCta.text}</p>
+      <div class="pk-final-actions">
+        <a href={contactHref} class="btn-gold">
+          {t.finalCta.ctaPrimary}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href={en ? '/en/contact' : '/contact'} class="btn-outline">{t.finalCta.ctaSecondary}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ═══ HERO ═══════════════════════════════════════════════ */
+  .pk-hero {
+    position: relative;
+    padding: 11rem 0 5rem;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .pk-hero-glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60rem;
+    height: 40rem;
+    max-width: 120vw;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.10) 0%, rgba(201,168,76,0) 68%);
+    pointer-events: none;
+  }
+  .pk-hero .container { position: relative; }
+  .pk-hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .pk-hero-inner .gold-bar { margin: 0.9rem auto 1.6rem; }
+  .pk-hero h1 {
+    /* Calibré pour que chaque phrase tienne sur une ligne en desktop :
+       le titre se lit en deux temps, comme prévu par la maquette. */
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    line-height: 1.1;
+  }
+  .pk-hero-desc {
+    max-width: 640px;
+    margin: 1.8rem auto 0;
+    font-size: 1.02rem;
+    line-height: 1.8;
+    color: var(--grey-light);
+  }
+  .pk-hero-statement {
+    margin-top: 1.4rem;
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 1.5vw, 1.12rem);
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.01em;
+  }
+  .pk-hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2.4rem;
+  }
+
+  .pk-hero-benefits {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+  }
+  .pk-hero-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey-light);
+  }
+  .pk-hero-benefits svg { color: var(--gold); flex-shrink: 0; }
+
+  /* ═══ EN-TÊTES DE SECTION (repris de l'accueil) ══════════ */
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .section-header .gold-bar { margin: 0.9rem auto 1.4rem; }
+  .section-header h2 {
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  }
+  .section-intro {
+    max-width: 620px;
+    margin: 1.4rem auto 0;
+    color: var(--grey);
+    line-height: 1.8;
+  }
+
+  /* ═══ LES TROIS OFFRES ═══════════════════════════════════ */
+  .pk-offers { padding: var(--pad-section); }
+
+  .pk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    /* Étirement volontaire : combiné au « margin-top: auto » du pied de
+       carte, il aligne les trois boutons malgré des listes inégales. */
+    align-items: stretch;
+  }
+
+  .pk-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 2.6rem 2rem 2.2rem;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .pk-card:hover {
+    border-color: var(--border);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.42);
+  }
+
+  /* Mise en avant sobre : filet doré, fond légèrement relevé,
+     légère élévation. Pas de couleur d'accent supplémentaire. */
+  .pk-card--featured {
+    border-color: var(--gold);
+    background: linear-gradient(160deg, #1b1b1b 0%, #141414 100%);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .pk-card--featured:hover { box-shadow: 0 26px 60px rgba(0,0,0,0.55); }
+
+  .pk-badge {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .pk-card-head {
+    text-align: center;
+    padding-bottom: 1.6rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .pk-card h3 {
+    font-size: 1.35rem;
+    letter-spacing: 0.04em;
+  }
+  .pk-tagline {
+    margin-top: 0.6rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--grey-light);
+  }
+  .pk-price {
+    margin-top: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .pk-price-label {
+    font-family: var(--font-display);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  .pk-price strong {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--gold);
+  }
+
+  /* Offre sur devis : « Sur devis » remplace le montant, en capitales et
+     un cran plus petit (une suite de lettres occupe plus de place qu'un
+     nombre). Le plancher reste visible, en retrait. */
+  .pk-price--quote strong {
+    font-size: clamp(1.5rem, 2.4vw, 1.85rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .pk-price-sub {
+    margin-top: 0.45rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--grey-light);
+  }
+  .pk-price-from {
+    margin-top: 0.3rem;
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--grey);
+  }
+
+  .pk-desc {
+    margin-top: 1.6rem;
+    font-size: 0.86rem;
+    line-height: 1.7;
+    color: var(--grey);
+  }
+
+  .pk-features-intro {
+    margin-top: 1.6rem;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .pk-features {
+    list-style: none;
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .pk-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.87rem;
+    line-height: 1.5;
+    color: var(--grey-light);
+  }
+  .pk-features svg {
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+
+  /* Pied de carte poussé en bas : les 3 boutons s'alignent
+     même si les listes n'ont pas le même nombre de lignes. */
+  .pk-card-foot { margin-top: auto; padding-top: 1.8rem; }
+  .pk-delay {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--border-light);
+    margin-bottom: 1.4rem;
+  }
+  .pk-delay span {
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  .pk-delay strong {
+    font-family: var(--font-display);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--off-white);
+  }
+  .pk-note {
+    font-size: 0.76rem;
+    line-height: 1.55;
+    color: var(--grey);
+    margin-bottom: 1.2rem;
+  }
+  .pk-cta {
+    width: 100%;
+    justify-content: center;
+  }
+  /* Même traitement que la mention de cadrage budgétaire : les deux
+     occupent la même place, juste au-dessus du bouton. */
+  .pk-option strong,
+  .pk-option { color: var(--grey-light); }
+
+  /* ═══ SUR MESURE ═════════════════════════════════════════ */
+  .pk-bespoke {
+    padding: 0 0 var(--pad-section);
+  }
+  .pk-bespoke-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+    padding: 2.6rem 2.8rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--anthracite);
+  }
+  .pk-bespoke-text h2 {
+    font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+    margin: 0.7rem 0 0.8rem;
+  }
+  .pk-bespoke-text p {
+    max-width: 62ch;
+    font-size: 0.92rem;
+    color: var(--grey-light);
+  }
+  .pk-bespoke-cta { flex-shrink: 0; }
+
+  /* ═══ CASE STUDY ═════════════════════════════════════════ */
+  .pk-case {
+    padding: var(--pad-section);
+    background: var(--anthracite);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .pk-case-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .pk-case-text, .pk-case-visual { min-width: 0; }
+  .pk-case-text h2 { font-size: clamp(1.8rem, 3.2vw, 2.6rem); }
+  .pk-case-sub {
+    margin: 1.2rem 0 2.2rem;
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--off-white);
+  }
+
+  .pk-case-blocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem 2rem;
+    margin-bottom: 2.4rem;
+  }
+  .pk-case-block dt {
+    font-family: var(--font-display);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .pk-case-block dd {
+    margin: 0;
+    font-size: 0.86rem;
+    line-height: 1.65;
+    color: var(--grey-light);
+  }
+
+  .pk-case-visual {
+    position: relative;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 26px 64px rgba(0,0,0,0.5);
+  }
+  .pk-case-visual img { width: 100%; height: auto; display: block; }
+  .pk-case-visual figcaption {
+    padding: 1rem 1.2rem;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-light);
+  }
+  .pk-case-visual figcaption p {
+    margin-top: 0.2rem;
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  /* ═══ MAINTENANCE ════════════════════════════════════════ */
+  .pk-care { padding: var(--pad-section); }
+  .pk-care-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    /* Cartes de hauteur égale : leurs bas s'alignent malgré des listes
+       de 4 et de 6 lignes. */
+    align-items: stretch;
+  }
+  .pk-care-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 2rem 1.8rem;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .pk-care-card:hover {
+    border-color: var(--border);
+    transform: translateY(-3px);
+  }
+  .pk-care-card h3 {
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+  }
+  .pk-care-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin: 0.7rem 0 1.4rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .pk-care-price strong {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold);
+  }
+  .pk-care-price span {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    color: var(--grey);
+  }
+  .pk-care-intro {
+    font-family: var(--font-display);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 0.8rem;
+  }
+  .pk-care-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .pk-care-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--grey-light);
+  }
+  .pk-care-card svg {
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  /* Mention lisible et non décorative : elle engage commercialement,
+     elle doit se lire sans effort. */
+  .pk-care-disclaimer {
+    max-width: 720px;
+    margin: 2.6rem auto 0;
+    text-align: center;
+    font-size: 0.925rem;
+    line-height: 1.7;
+    color: var(--grey-light);
+  }
+
+  /* ═══ CTA FINAL ══════════════════════════════════════════ */
+  .pk-final {
+    padding: var(--pad-section);
+    background: var(--anthracite);
+    border-top: 1px solid var(--border);
+  }
+  .pk-final-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .pk-final-inner h2 {
+    font-size: clamp(1.9rem, 3.8vw, 3.1rem);
+    margin: 0.8rem 0 1.5rem;
+  }
+  .gold-text { color: var(--gold); }
+  .pk-final-inner p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--grey);
+    margin-bottom: 2.4rem;
+  }
+  .pk-final-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ═══ RESPONSIVE ═════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .pk-hero { padding: 9rem 0 4rem; }
+    .pk-case-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .pk-case-visual { max-width: 620px; }
+  }
+
+  /* Sous 900 px, trois colonnes deviennent trop étroites. On passe à une
+     offre par ligne plutôt qu'à deux colonnes : à trois cartes, une grille
+     paire laisse une case vide béante à côté de la première. */
+  @media (max-width: 900px) {
+    .pk-grid,
+    .pk-care-grid {
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .pk-care-grid { gap: 1.5rem; }
+  }
+
+  @media (max-width: 768px) {
+    .pk-hero { padding: 8rem 0 3.5rem; }
+    .pk-hero-benefits { gap: 0.7rem 1.4rem; }
+    .pk-bespoke-inner { flex-direction: column; align-items: flex-start; padding: 2rem 1.6rem; }
+    .pk-bespoke-text p { max-width: none; }
+    .pk-bespoke-cta { width: 100%; justify-content: center; }
+    .pk-case-blocks { grid-template-columns: 1fr; gap: 1.3rem; }
+  }
+
+  @media (max-width: 640px) {
+    .pk-card { padding: 2.4rem 1.5rem 2rem; }
+  }
+
+  @media (max-width: 480px) {
+    .pk-hero-actions { flex-direction: column; }
+    .pk-hero-actions a { justify-content: center; }
+    .pk-hero-benefits {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+    .pk-final-actions { flex-direction: column; }
+    .pk-final-actions a { justify-content: center; }
+  }
+</style>

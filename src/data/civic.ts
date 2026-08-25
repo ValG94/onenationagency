@@ -14,8 +14,12 @@
 // répercute partout, et la parité FR/EN reste garantie par le type.
 // ============================================================
 
-/** Site public de la plateforme. Ouvert dans un nouvel onglet. */
-export const CIVIC_URL = 'https://onenationcivic.onrender.com/';
+/**
+ * Site public de la plateforme. Ouvert dans un nouvel onglet.
+ * Domaine propre depuis le 25/08/2026 : l'ancienne adresse
+ * onenationcivic.onrender.com répond encore mais n'est plus référencée.
+ */
+export const CIVIC_URL = 'https://onenationcivic.com/';
 
 /** Ancre de la section ONC sur les deux accueils. */
 export const CIVIC_ANCHOR = 'one-nation-civic';
@@ -39,6 +43,11 @@ export interface CivicCopy {
   /** Textes alternatifs des deux captures de la plateforme. */
   shotDesktopAlt: string;
   shotPhoneAlt: string;
+  /** Variante « feature » : bloc institutionnel de la page Offres. */
+  featureEyebrow: string;
+  featureText: string;
+  /** Indices de `features` retenus pour cette variante, plus courte. */
+  featureIndices: number[];
   /** Variante compacte, affichée sur les pages expertise. */
   compactLead: string;
   compactCta: string;
@@ -66,6 +75,11 @@ const fr: CivicCopy = {
   newTab: '(nouvel onglet)',
   shotDesktopAlt: "Page d'accueil de One Nation Civic : l'accueil consulaire numérique pour les ambassades et les consulats.",
   shotPhoneAlt: "L'assistant One Nation Civic sur mobile, répondant à un usager sur les démarches de visa.",
+  featureEyebrow: 'Institutions et services publics',
+  featureText:
+    "Découvrez One Nation Civic, notre plateforme propriétaire d'agents IA multilingues conçue pour moderniser l'accueil numérique des institutions tout en maintenant l'humain au cœur du service.",
+  // Information 24/7, prise de rendez-vous, multilingue, escalade humaine.
+  featureIndices: [0, 1, 3, 4],
   compactLead: "Notre solution propriétaire d'agents IA pour les institutions et les services publics.",
   compactCta: 'Découvrir ONC',
 };
@@ -90,6 +104,10 @@ const en: CivicCopy = {
   newTab: '(opens in a new tab)',
   shotDesktopAlt: 'The One Nation Civic homepage: digital consular reception for embassies and consulates.',
   shotPhoneAlt: 'The One Nation Civic assistant on mobile, answering a user about visa procedures.',
+  featureEyebrow: 'Institutions and public services',
+  featureText:
+    'Discover One Nation Civic, our proprietary multilingual AI agent platform designed to modernize digital public services while keeping people at the heart of the experience.',
+  featureIndices: [0, 1, 3, 4],
   compactLead: 'Our proprietary AI agent solution for public institutions and services.',
   compactCta: 'Discover ONC',
 };

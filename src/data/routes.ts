@@ -27,6 +27,7 @@ export const localePairs: LocalePair[] = [
   { fr: '/', en: '/en' },
   { fr: '/vision', en: '/en/vision' },
   { fr: '/services', en: '/en/services' },
+  { fr: '/offres', en: '/en/packages' },
   { fr: '/portfolio', en: '/en/portfolio' },
   { fr: '/intelligence-artificielle', en: '/en/artificial-intelligence' },
   { fr: '/contact', en: '/en/contact' },

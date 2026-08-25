@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PackagesContent from '../../components/PackagesContent.astro';
+import { getPackagesCopy } from '../../data/packages';
+import { CIVIC_URL } from '../../data/civic';
+
+// Corps de page partagé avec /offres : voir `PackagesContent.astro`.
+const t = getPackagesCopy('en');
+
+const offersJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Website and digital platform design',
+  provider: {
+    '@type': 'Organization',
+    name: 'One Nation Agency',
+    url: 'https://www.onenationagency.com',
+  },
+  areaServed: ['FR', 'CM', 'CI', 'SN', 'GA', 'CD', 'CF'],
+  url: 'https://www.onenationagency.com/en/packages',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'One Nation Agency packages',
+    itemListElement: [
+      ...t.offers.map((offer) => ({
+        '@type': 'Offer',
+        name: offer.name,
+        description: offer.tagline,
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'EUR',
+          minPrice: offer.id === 'essentiel' ? 1490 : offer.id === 'business' ? 2490 : 3900,
+          valueAddedTaxIncluded: false,
+        },
+      })),
+      {
+        '@type': 'Offer',
+        name: 'One Nation Civic',
+        description: t.metaDescription,
+        url: CIVIC_URL,
+      },
+    ],
+  },
+};
+---
+
+<Layout
+  title={t.metaTitle}
+  description={t.metaDescription}
+  lang="en"
+  canonical="/en/packages"
+  keywords="website packages, website pricing, custom business platform, booking website, online payments, automation, hosting and maintenance, One Nation Agency"
+>
+  <Header lang="en" />
+
+  <main id="main-content">
+    <PackagesContent lang="en" />
+  </main>
+
+  <Footer lang="en" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(offersJsonLd)} is:inline />
+</Layout>

@@ -537,4 +537,28 @@ import Footer from '../components/Footer.astro';
       }
     });
   }
+
+  // ── Préremplissage depuis la page Offres ────────────────────
+  // Les CTA de /offres arrivent avec ?offre=essentiel|business|signature.
+  // On positionne le sujet sur « Création web » et on amorce le message :
+  // le visiteur n'a plus qu'à décrire son projet. Sans JS, le formulaire
+  // reste utilisable tel quel.
+  const OFFRES: Record<string, string> = {
+    essentiel: 'ESSENTIEL',
+    business: 'BUSINESS',
+    signature: 'SIGNATURE',
+  };
+
+  const offre = new URLSearchParams(window.location.search).get('offre');
+  const nomOffre = offre ? OFFRES[offre] : null;
+
+  if (nomOffre) {
+    const subject = document.getElementById('subject') as HTMLSelectElement | null;
+    const message = document.getElementById('message') as HTMLTextAreaElement | null;
+
+    if (subject) subject.value = 'web';
+    if (message && !message.value) {
+      message.value = `Bonjour, je souhaite échanger au sujet de l'offre ${nomOffre}.\n\nMon projet : `;
+    }
+  }
 </script>

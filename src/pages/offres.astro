@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PackagesContent from '../components/PackagesContent.astro';
+import { getPackagesCopy } from '../data/packages';
+import { CIVIC_URL } from '../data/civic';
+
+// Le corps de page est partagé avec /en/packages : cette page ne porte
+// que les métadonnées et l'ossature commune du site.
+const t = getPackagesCopy('fr');
+
+// Données structurées propres à cette page : trois offres de service.
+// `minPrice` et non `price` — les tarifs sont annoncés « à partir de ».
+const offersJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Création de sites et de plateformes digitales',
+  provider: {
+    '@type': 'Organization',
+    name: 'One Nation Agency',
+    url: 'https://www.onenationagency.com',
+  },
+  areaServed: ['FR', 'CM', 'CI', 'SN', 'GA', 'CD', 'CF'],
+  url: 'https://www.onenationagency.com/offres',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Offres One Nation Agency',
+    itemListElement: [
+      ...t.offers.map((offer) => ({
+        '@type': 'Offer',
+        name: offer.name,
+        description: offer.tagline,
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'EUR',
+          minPrice: offer.id === 'essentiel' ? 1490 : offer.id === 'business' ? 2490 : 3900,
+          valueAddedTaxIncluded: false,
+        },
+      })),
+      {
+        '@type': 'Offer',
+        name: 'One Nation Civic',
+        description: t.metaDescription,
+        url: CIVIC_URL,
+      },
+    ],
+  },
+};
+---
+
+<Layout
+  title={t.metaTitle}
+  description={t.metaDescription}
+  canonical="/offres"
+  keywords="offres création site web, tarifs site internet, plateforme métier sur mesure, site de réservation, paiement en ligne, automatisation, maintenance et hébergement, One Nation Agency"
+>
+  <Header />
+
+  <main id="main-content">
+    <PackagesContent lang="fr" />
+  </main>
+
+  <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify(offersJsonLd)} is:inline />
+</Layout>
