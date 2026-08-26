@@ -158,6 +158,19 @@ Le honeypot et le contrôle d'origine ne filtrent que les robots naïfs : celui-
 
 **Défaut trouvé en testant** : `resend.emails.send()` ne lève pas d'exception, il résout avec `{ data, error }`. Le `try/catch` ne se déclenchait jamais et un envoi échoué renvoyait « ✓ Message envoyé » au visiteur, message perdu sans trace. Les trois appels vérifient désormais `.error` — 502 si la notification échoue, log seul si c'est l'accusé de réception, la demande étant déjà arrivée.
 
+### Formulaire de contact, lisibilité des erreurs — 26/08/2026
+Turnstile activé en production, un envoi renvoyait 400 sans que le visiteur comprenne pourquoi. Deux causes, aucune liée à l'anti-spam :
+- Le formulaire est en `novalidate` : un champ obligatoire vide partait jusqu'au serveur et revenait avec « Champs obligatoires manquants » glissé dans le **libellé du bouton**, sans dire lequel. Validation client ajoutée : champ fautif mis en rouge, focus, défilement, et message dans une zone `.form-error` dédiée.
+- Le lien « Politique de confidentialité » est **à l'intérieur du `<label>`** de la case à cocher. Le cliquer quittait la page et vidait la saisie, ce qui se vit facilement comme « la case ne se coche plus ». Il s'ouvre désormais dans un nouvel onglet.
+
+**La case elle-même n'a jamais été en cause** — vérifié au clic en navigateur : elle bascule normalement. Ne pas rouvrir cette piste.
+
+Défaut préexistant corrigé au passage : la garde du formulaire **EN** ne stylait que `.checkbox-box`, un élément absent de ce markup. Cliquer sur « Send message » sans cocher ne produisait donc **aucun retour visuel**, le formulaire semblait mort.
+
+Case à cocher redessinée (`appearance: none` + coche en `clip-path`). **Ne pas revenir à `accent-color`** : le navigateur choisit alors seul la couleur de la coche et, sur un fond doré clair, Chrome la rend noire, donc invisible sur la charte. La coche est désormais dorée sur fond sombre, comme tous les ✓ du site.
+
+`data-refresh-expired="auto"` posé sur le widget : un jeton Turnstile vaut environ 5 minutes, un visiteur lent se voyait sinon refuser à l'envoi.
+
 ### Divers
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
 - `:root` des pages portfolio écrasait le design system globalement → variables scopées.

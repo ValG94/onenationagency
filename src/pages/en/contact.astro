@@ -86,7 +86,7 @@ const TURNSTILE_LANG = 'en';
               <div class="form-group form-group--check">
                 <label class="checkbox-label">
                   <input type="checkbox" name="consent" required />
-                  <span>I agree that my data will be used to process my request. <a href="/en/privacy-policy">Privacy policy</a></span>
+                  <span>I agree that my data will be used to process my request. <a href="/en/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
                 </label>
               </div>
               <!-- Anti-bot honeypot: off-screen, hidden from screen readers. -->
@@ -103,10 +103,12 @@ const TURNSTILE_LANG = 'en';
                     class="cf-turnstile"
                     data-sitekey={turnstileSiteKey}
                     data-theme="dark"
+                    data-refresh-expired="auto"
                     data-language={TURNSTILE_LANG}
                   ></div>
                 </div>
               )}
+              <p class="form-error" role="alert" hidden></p>
               <button type="submit" class="btn-gold btn-submit">
                 <span class="btn-text">Send message</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -253,7 +255,49 @@ const TURNSTILE_LANG = 'en';
 
   .form-group--check { flex-direction: row; align-items: flex-start; }
   .checkbox-label { display: flex; gap: 0.8rem; align-items: flex-start; font-size: 0.82rem; color: var(--grey); line-height: 1.5; cursor: pointer; text-transform: none; letter-spacing: 0; font-family: var(--font-body); font-weight: 400; }
-  .checkbox-label input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--gold); cursor: pointer; }
+  /* Case à cocher dessinée. `accent-color` laissait le navigateur choisir
+     la couleur de la coche : sur un fond doré clair, Chrome la rendait
+     noire, donc invisible sur la charte. Ici la coche est dorée sur fond
+     sombre, comme tous les ✓ du site. */
+  .checkbox-label input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin: 1px 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .checkbox-label input[type="checkbox"]:hover {
+    border-color: var(--gold);
+  }
+  .checkbox-label input[type="checkbox"]::before {
+    content: '';
+    width: 11px;
+    height: 11px;
+    background: var(--gold);
+    /* Coche tracée en CSS : pas d'image, pas de police à charger. */
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%);
+    transform: scale(0);
+    transition: transform 0.15s var(--ease-out);
+  }
+  .checkbox-label input[type="checkbox"]:checked {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.12);
+  }
+  .checkbox-label input[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+  .checkbox-label input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
   .checkbox-label a { color: var(--gold); }
   .btn-submit { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 1rem; font-size: 0.82rem; }
   .form-note { text-align: center; font-size: 0.78rem; color: var(--grey); margin-top: -0.5rem; }
@@ -289,6 +333,21 @@ const TURNSTILE_LANG = 'en';
     justify-content: center;
     margin-bottom: 1.25rem;
   }
+
+  /* Message d'erreur du formulaire : lisible, à côté du bouton, plutôt
+     que noyé dans le libellé du bouton comme auparavant. */
+  .form-error {
+    margin-bottom: 1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(231, 76, 60, 0.55);
+    border-left-width: 3px;
+    border-radius: 4px;
+    background: rgba(231, 76, 60, 0.08);
+    color: #ff9a8d;
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+  .form-error[hidden] { display: none; }
 </style>
 
 <script>
@@ -310,12 +369,61 @@ const TURNSTILE_LANG = 'en';
         btn.style.background = '';
       }, delay);
 
-      // GDPR consent — block submission if unchecked
+      // ── Validation before sending ────────────────────────────
+      // The form is `novalidate`: without this, an empty field went all
+      // the way to the server and came back with a generic message
+      // tucked inside the button label, where nobody notices it.
+      // The previous guard only styled `.checkbox-box`, an element this
+      // markup never had: unchecked consent gave no feedback at all.
+      const erreurEl = form.querySelector('.form-error') as HTMLElement | null;
+
+      const effacerErreur = () => {
+        if (erreurEl) { erreurEl.hidden = true; erreurEl.textContent = ''; }
+      };
+
+      const signaler = (message: string, champ?: HTMLElement | null) => {
+        if (erreurEl) { erreurEl.textContent = message; erreurEl.hidden = false; }
+        if (champ) {
+          champ.style.borderColor = '#e74c3c';
+          champ.addEventListener('input', () => { champ.style.borderColor = ''; }, { once: true });
+          champ.addEventListener('change', () => { champ.style.borderColor = ''; }, { once: true });
+          champ.focus({ preventScroll: true });
+          champ.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+      };
+
+      effacerErreur();
+
+      const REQUIS: [string, string][] = [
+        ['firstName', 'Please enter your first name.'],
+        ['lastName', 'Please enter your last name.'],
+        ['email', 'Please enter your professional email.'],
+        ['subject', 'Please select a subject.'],
+        ['message', 'Please describe your request.'],
+      ];
+
+      for (const [nom, message] of REQUIS) {
+        const champ = form.querySelector(`[name="${nom}"]`) as HTMLInputElement | null;
+        if (!champ || !champ.value.trim()) {
+          signaler(message, champ);
+          return;
+        }
+      }
+
+      const champEmail = form.querySelector('[name="email"]') as HTMLInputElement;
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(champEmail.value.trim())) {
+        signaler('This email address does not look valid.', champEmail);
+        return;
+      }
+
+      // GDPR consent
       if (!consentCheckbox || !consentCheckbox.checked) {
-        const checkboxBox = form.querySelector('.checkbox-box') as HTMLElement;
-        if (checkboxBox) {
-          checkboxBox.style.borderColor = '#e74c3c';
-          setTimeout(() => { checkboxBox.style.borderColor = ''; }, 3000);
+        signaler('Please accept the privacy policy to continue.');
+        const consentLabel = form.querySelector('.checkbox-label') as HTMLElement;
+        if (consentLabel) {
+          consentLabel.style.color = '#e74c3c';
+          consentLabel.style.transition = 'color 0.3s';
+          setTimeout(() => { consentLabel.style.color = ''; }, 3000);
         }
         return;
       }
@@ -362,6 +470,7 @@ const TURNSTILE_LANG = 'en';
           }, 4000);
         } else {
           btnText.textContent = result.error || 'Error please retry';
+          signaler(result.error || 'Error please retry');
           btn.style.background = '#e74c3c';
           btn.disabled = false;
           resetBtn();
