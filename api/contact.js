@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { scoreSpam, SPAM_THRESHOLD, verifieTurnstile } from './_antispam.js';
 
 // ============================================================
 // ENDPOINT CONTACT — durci
@@ -13,6 +14,9 @@ import { Resend } from 'resend';
 //   6. Échappement HTML de TOUTES les données visiteur
 //   7. Le mail de confirmation n'écho plus le message du visiteur
 //      (empêchait d'utiliser le domaine comme relais de phishing)
+//   8. Cloudflare Turnstile, si TURNSTILE_SECRET_KEY est définie
+//   9. Analyse du contenu (voir _antispam.js) : les robots qui
+//      exécutent du JS passent les points 2 et 4, mais pas le 9
 // ============================================================
 
 const AGENCY_EMAIL = 'contact@onenationagency.com';
@@ -158,12 +162,14 @@ export default async function handler(req, res) {
       const message = field(body, 'message', LIMITS.agentMessage);
       if (!message) return res.status(400).json({ error: 'Message vide.' });
 
-      await resend.emails.send({
+      const rapport = await resend.emails.send({
         from: FROM,
         to: [AGENCY_EMAIL],
         subject: '🤖 Visiteur sans demande formulée — conversation agent IA',
         html: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#0a0a0a;color:#fff;padding:32px;border-radius:8px;"><h2 style="color:#C8960C;">Conversation agent IA</h2><pre style="color:#ccc;font-size:13px;line-height:1.7;white-space:pre-wrap;">${esc(message)}</pre><hr style="border:none;border-top:1px solid #222;margin:24px 0 12px;"/><p style="color:#555;font-size:11px;text-align:center;">Envoyé automatiquement par l'agent IA — onenationagency.com</p></div>`,
       });
+
+      if (rapport.error) console.error('Resend (agent IA) :', rapport.error.message);
 
       return res.status(200).json({ success: true });
     }
@@ -202,8 +208,29 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Vous devez accepter la politique de confidentialité.' });
     }
 
+    // ── Anti-robot ───────────────────────────────────────────
+    // Turnstile d'abord : si le jeton est refusé, on le dit, un
+    // visiteur légitime dont le défi a expiré peut réessayer.
+    const turnstile = await verifieTurnstile(body.turnstileToken, ip);
+    if (turnstile.actif && !turnstile.valide) {
+      console.warn('Turnstile refusé :', turnstile.raison || 'sans raison');
+      return res.status(400).json({ error: 'Vérification anti-robot échouée. Veuillez réessayer.' });
+    }
+
+    // Analyse du contenu. On répond 200 sans rien envoyer : signaler
+    // la détection apprendrait au robot comment la contourner.
+    const elapsedMs = Number.isFinite(body.elapsedMs) ? Number(body.elapsedMs) : undefined;
+    const spam = scoreSpam({ firstName, lastName, message, elapsedMs });
+    if (spam.score >= SPAM_THRESHOLD) {
+      console.warn(`Spam bloqué (score ${spam.score}) : ${spam.motifs.join(' ; ')}`);
+      return res.status(200).json({ success: true });
+    }
+
     // Email de notification vers ONE NATION AGENCY
-    await resend.emails.send({
+    // Resend ne lève pas d'exception : il résout avec { data, error }.
+    // Sans ce contrôle, un envoi échoué renvoyait « succès » au visiteur
+    // et le message était perdu sans que personne ne le sache.
+    const notification = await resend.emails.send({
       from: FROM,
       to: [AGENCY_EMAIL],
       replyTo: email,
@@ -233,11 +260,16 @@ export default async function handler(req, res) {
       `,
     });
 
+    if (notification.error) {
+      console.error('Resend (notification) :', notification.error.message);
+      return res.status(502).json({ error: "Erreur lors de l'envoi. Veuillez réessayer." });
+    }
+
     // Email de confirmation automatique au client.
     // Le message du visiteur n'est volontairement PAS réaffiché ici :
     // cet email part vers une adresse arbitraire fournie par le
     // client, il ne doit donc jamais transporter de texte libre.
-    await resend.emails.send({
+    const confirmation = await resend.emails.send({
       from: FROM,
       to: [email],
       subject: 'Votre message a bien été reçu — ONE NATION AGENCY',
@@ -259,6 +291,12 @@ export default async function handler(req, res) {
         </div>
       `,
     });
+
+    // L'accusé de réception est secondaire : la demande est déjà arrivée
+    // chez l'agence, on ne fait pas échouer la soumission pour autant.
+    if (confirmation.error) {
+      console.error('Resend (confirmation visiteur) :', confirmation.error.message);
+    }
 
     return res.status(200).json({ success: true });
   } catch (err) {

@@ -21,7 +21,13 @@ pnpm run dev          # développer
 pnpm run build        # construire + régénérer la section 3 de ce fichier
 ```
 
-`RESEND_API_KEY` doit être définie sur Vercel pour que le formulaire fonctionne.
+**Variables d'environnement sur Vercel**
+
+| Variable | Rôle |
+|---|---|
+| `RESEND_API_KEY` | Obligatoire. Sans elle le formulaire ne part pas. |
+| `TURNSTILE_SECRET_KEY` | Vérification anti-robot côté serveur. Absente = vérification ignorée, le formulaire continue de marcher. |
+| `PUBLIC_TURNSTILE_SITE_KEY` | Clé publique du widget, lue **au build**. Absente = widget non rendu. La changer impose un redéploiement. |
 
 ---
 
@@ -53,7 +59,7 @@ Sept sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-08-25 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-08-26 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -141,6 +147,17 @@ Page commerciale `/offres` et `/en/packages` : 3 packs, maintenance, case study,
 `CIVIC_URL` passe de `onenationcivic.onrender.com` à **`onenationcivic.com`**. L'ancienne adresse répond encore mais n'est plus référencée nulle part.
 - Le JSON-LD de `Layout.astro` portait l'URL **en dur** et échappait donc à `civic.ts` : le bloc entier est désormais construit dans le frontmatter (`orgJsonLd`) et rendu via `set:html`. Une seule source, plus de divergence possible entre le texte et les données structurées.
 
+### Spam du formulaire — 26/08/2026
+Des robots remplissaient le formulaire public : noms et messages en chaînes aléatoires. **Ni l'agent IA ni Google n'y étaient pour quoi que ce soit** — l'agent produit un mail au gabarit distinct (objet « 🤖 Visiteur sans demande formulée »), et Googlebot ne soumet pas de formulaire. Ne pas rouvrir cette piste.
+
+Le honeypot et le contrôle d'origine ne filtrent que les robots naïfs : celui-ci exécutait du JS, posait un `Referer` valide, cochait le consentement et laissait le champ piège vide. Deux couches ajoutées :
+- `api/_antispam.js` : **score sur le contenu**, pas de règle unique, seuil à 4. Chiffre dans un nom (+2 chacun), message d'un seul bloc sans espace (+3), pauvre en voyelles (+2), 3 liens ou plus (+2), soumission en moins de 3 s (+1). Le spam observé marque 10. Le préfixe `_` empêche Vercel d'exposer le fichier comme endpoint.
+- **Cloudflare Turnstile**, sans cookie donc sans bandeau supplémentaire. Le code est en place mais **inerte tant que les deux variables ne sont pas posées** : c'est voulu, le formulaire ne devait pas casser en attendant.
+- Un spam détecté reçoit **200 sans envoi** : lui signaler la détection lui apprendrait à la contourner.
+- Effet de bord réglé : chaque spam déclenchait un accusé de réception vers l'adresse usurpée. Le domaine écrivait donc à des inconnus, ce qui abîme sa réputation d'envoi.
+
+**Défaut trouvé en testant** : `resend.emails.send()` ne lève pas d'exception, il résout avec `{ data, error }`. Le `try/catch` ne se déclenchait jamais et un envoi échoué renvoyait « ✓ Message envoyé » au visiteur, message perdu sans trace. Les trois appels vérifient désormais `.error` — 502 si la notification échoue, log seul si c'est l'accusé de réception, la demande étant déjà arrivée.
+
 ### Divers
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
 - `:root` des pages portfolio écrasait le design system globalement → variables scopées.
@@ -163,6 +180,7 @@ Page commerciale `/offres` et `/en/packages` : 3 packs, maintenance, case study,
 | À valider | **Bannière og:image de `/offres`** | Les deux pages retombent sur `og-image-v2.jpg`, la bannière générique. Une bannière dédiée servirait mieux le partage d'une page commerciale. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
+| Moyen | **Activer Turnstile** | Le code est prêt. Créer un site sur dash.cloudflare.com/turnstile, puis poser `PUBLIC_TURNSTILE_SITE_KEY` et `TURNSTILE_SECRET_KEY` sur Vercel et redéployer. Tant que c'est absent, seuls les filtres de contenu protègent. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
 | Moyen | **Google Fonts bloquant** | 2 familles × 9 graisses en `<link rel="stylesheet">` sans `preload`. Auto-hébergement à envisager. |
 | Faible | **JSON-LD identique sur les 38 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |

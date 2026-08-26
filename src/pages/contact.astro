@@ -2,6 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+// Clé publique Turnstile, injectée au build. Absente = widget non rendu.
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const TURNSTILE_LANG = 'fr';
 ---
 
 
@@ -89,6 +93,19 @@ import Footer from '../components/Footer.astro';
                 <label for="website">Ne pas remplir</label>
                 <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
               </div>
+              <!-- Cloudflare Turnstile. Rendu seulement si la clé publique
+                   est définie : sans elle, le formulaire reste fonctionnel
+                   et la protection s'active le jour où la clé est posée. -->
+              {turnstileSiteKey && (
+                <div class="form-turnstile">
+                  <div
+                    class="cf-turnstile"
+                    data-sitekey={turnstileSiteKey}
+                    data-theme="dark"
+                    data-language={TURNSTILE_LANG}
+                  ></div>
+                </div>
+              )}
               <button type="submit" class="btn-gold btn-submit">
                 <span class="btn-text">Envoyer le message</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -196,6 +213,14 @@ import Footer from '../components/Footer.astro';
   </main>
 
   <Footer />
+  {turnstileSiteKey && (
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+      is:inline
+    />
+  )}
 </Layout>
 
 <style>
@@ -456,9 +481,20 @@ import Footer from '../components/Footer.astro';
     .contact-hero { padding: 9rem 0 4rem; }
     .form-row { grid-template-columns: 1fr; }
   }
+
+  /* Widget anti-robot : centré, respirant, sans habillage propre. */
+  .form-turnstile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
 </style>
 
 <script>
+  // Instant d'affichage du formulaire. La durée de remplissage part
+  // avec la requête : un robot soumet en quelques millisecondes.
+  const formOpenedAt = performance.now();
+
   const form = document.getElementById('contactForm') as HTMLFormElement;
   if (form) {
     form.addEventListener('submit', async (e) => {
@@ -497,6 +533,9 @@ import Footer from '../components/Footer.astro';
         message: formData.get('message'),
         consent: consentCheckbox.checked,
         website: formData.get('website'), // honeypot
+        elapsedMs: Math.round(performance.now() - formOpenedAt),
+        // Injecté par le widget Turnstile, absent s'il n'est pas configuré.
+        turnstileToken: formData.get('cf-turnstile-response'),
       };
 
       try {
@@ -507,6 +546,10 @@ import Footer from '../components/Footer.astro';
         });
 
         const result = await res.json();
+
+        // Un jeton Turnstile ne sert qu'une fois : sans reset, une
+        // seconde tentative échouerait quoi que fasse le visiteur.
+        if (!res.ok) (window as any).turnstile?.reset();
 
         if (res.ok && result.success) {
           btnText.textContent = '✓ Message envoyé !';
