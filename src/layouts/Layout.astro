@@ -461,5 +461,31 @@ const orgJsonLd = {
       document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     });
   </script>
+
+  <!-- ===== TEMPORAIRE — À RETIRER APRÈS LE TEST =====================
+       Widget d'agent One Nation Civic destiné aux sites clients, poussé
+       en production le 30/08/2026 pour vérifier son comportement en
+       conditions réelles. Test mené de nuit, hors trafic.
+
+       CE BLOC N'A RIEN À FAIRE SUR LE SITE DE L'AGENCE À DEMEURE :
+       l'instance « tanzanie » est celle d'un client, et le site a déjà
+       son propre agent IA. Le supprimer dès le test terminé.
+
+       `is:inline` : sans lui Astro traiterait le script et perdrait
+       `defer` et les attributs `data-*`, dont il a besoin (il se relit
+       lui-même via `document.currentScript`).
+
+       `data-position="left"` évite le coin bas-droit, occupé par l'agent
+       IA du site et le bouton WhatsApp.
+  ================================================================= -->
+  <script
+    src="https://onenationcivic.com/embed.js"
+    data-inst="tanzanie"
+    data-vertical="ambassade"
+    data-position="left"
+    defer
+    is:inline
+  />
+
 </body>
 </html>

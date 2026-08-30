@@ -59,7 +59,7 @@ Sept sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-08-26 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-08-30 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -70,7 +70,7 @@ _Dernière vérification : 2026-08-26 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 40/40 |
 | URLs dans le sitemap | 40 |
-| Poids total `dist` | 18.90 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 18.94 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
