@@ -462,5 +462,24 @@ const orgJsonLd = {
     });
   </script>
 
+  <!-- ===== TEMPORAIRE — À RETIRER APRÈS LE TEST =====================
+       Widget d'agent One Nation Civic, remis en ligne le 30/08/2026 pour
+       valider le correctif d'en-têtes côté ONC. À supprimer dès que le
+       test est concluant : l'instance « tanzanie » appartient à un
+       client, et le site de l'agence a déjà son propre agent IA.
+
+       `is:inline` : sans lui Astro traiterait le script et perdrait
+       `defer` et les attributs `data-*`, dont il a besoin (il se relit
+       via `document.currentScript`).
+  ================================================================= -->
+  <script
+    src="https://onenationcivic.com/embed.js"
+    data-inst="tanzanie"
+    data-vertical="ambassade"
+    data-position="left"
+    defer
+    is:inline
+  />
+
 </body>
 </html>
