@@ -462,24 +462,44 @@ const orgJsonLd = {
     });
   </script>
 
-  <!-- ===== TEMPORAIRE — À RETIRER APRÈS LE TEST =====================
-       Widget d'agent One Nation Civic, remis en ligne le 30/08/2026 pour
-       valider le correctif d'en-têtes côté ONC. À supprimer dès que le
-       test est concluant : l'instance « tanzanie » appartient à un
-       client, et le site de l'agence a déjà son propre agent IA.
+  <!-- ===== BANC D'ESSAI ONE NATION CIVIC — DÉVELOPPEMENT UNIQUEMENT =====
+       Widget d'agent ONC destiné aux sites clients, conservé ici pour
+       pouvoir le retester sans le réécrire. `import.meta.env.DEV` le
+       limite à `pnpm run dev` : il disparaît du build, donc il ne peut
+       pas atteindre la production.
+
+       IL NE DOIT PAS Y ARRIVER : l'instance « tanzanie » appartient à un
+       client, et afficher son agent sur le site de l'agence poserait un
+       problème déontologique. Le site a d'ailleurs son propre agent IA.
+
+       Pour tester : `pnpm run dev`, le widget apparaît en bas à gauche.
+       Changer d'instance = modifier `data-inst` et `data-vertical`.
+
+       Prérequis côté ONC, appris à la mise au point du 30/08/2026 : le
+       domaine testé doit être déclaré dans les domaines autorisés de
+       l'instance. Sans cela `/embed/widget` renvoie
+       `X-Frame-Options: SAMEORIGIN` et le navigateur refuse l'iframe.
+       Vérification en une commande :
+         curl -sI "https://onenationcivic.com/embed/widget?inst=<inst>" | grep -i x-frame
+       Une réponse vide signifie que l'embarquement tiers est autorisé.
 
        `is:inline` : sans lui Astro traiterait le script et perdrait
        `defer` et les attributs `data-*`, dont il a besoin (il se relit
        via `document.currentScript`).
+
+       `data-position="left"` évite le coin bas-droit, occupé par l'agent
+       IA du site et le bouton WhatsApp.
   ================================================================= -->
-  <script
-    src="https://onenationcivic.com/embed.js"
-    data-inst="tanzanie"
-    data-vertical="ambassade"
-    data-position="left"
-    defer
-    is:inline
-  />
+  {import.meta.env.DEV && (
+    <script
+      src="https://onenationcivic.com/embed.js"
+      data-inst="tanzanie"
+      data-vertical="ambassade"
+      data-position="left"
+      defer
+      is:inline
+    />
+  )}
 
 </body>
 </html>

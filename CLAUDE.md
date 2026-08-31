@@ -59,7 +59,7 @@ Sept sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-08-30 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-08-31 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -70,7 +70,7 @@ _Dernière vérification : 2026-08-30 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 40/40 |
 | URLs dans le sitemap | 40 |
-| Poids total `dist` | 18.93 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 18.96 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -170,6 +170,19 @@ Défaut préexistant corrigé au passage : la garde du formulaire **EN** ne styl
 Case à cocher redessinée (`appearance: none` + coche en `clip-path`). **Ne pas revenir à `accent-color`** : le navigateur choisit alors seul la couleur de la coche et, sur un fond doré clair, Chrome la rend noire, donc invisible sur la charte. La coche est désormais dorée sur fond sombre, comme tous les ✓ du site.
 
 `data-refresh-expired="auto"` posé sur le widget : un jeton Turnstile vaut environ 5 minutes, un visiteur lent se voyait sinon refuser à l'envoi.
+
+### Banc d'essai du widget ONC — 30/08/2026
+`Layout.astro` porte le script d'embarquement One Nation Civic (`embed.js`, instance « tanzanie »), **gardé par `import.meta.env.DEV`**. Il fonctionne sous `pnpm run dev` et **disparaît du build** : vérifié, 0 occurrence sur les 40 pages de production.
+
+**Ne jamais lever cette garde durablement.** L'instance appartient à un client : afficher son agent sur le site de l'agence pose un problème déontologique, et le site a déjà son propre agent IA. Il a été poussé en production deux fois, de nuit et hors trafic, uniquement pour la mise au point ; les deux fois ont été suivies d'un retrait immédiat.
+
+**Prérequis côté ONC, découvert à cette occasion** : le domaine qui embarque le widget doit être déclaré dans les domaines autorisés de l'instance. Sans cela `/embed/widget` renvoie `X-Frame-Options: SAMEORIGIN`, le navigateur refuse l'iframe et n'affiche qu'un carré gris. Le diagnostic tient en une commande :
+
+```bash
+curl -sI "https://onenationcivic.com/embed/widget?inst=<inst>" | grep -i x-frame
+```
+
+Une réponse vide = embarquement tiers autorisé. **Piège de lecture** : la console Chrome nomme l'origine (`https://onenationcivic.com/`) et non l'URL refusée, ce qui fait croire à tort que la racine est mise en iframe. Compter les iframes du DOM plutôt que de se fier à ce message.
 
 ### Divers
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
