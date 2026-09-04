@@ -59,7 +59,7 @@ Sept sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-08-31 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-09-04 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
