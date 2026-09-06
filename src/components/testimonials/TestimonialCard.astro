@@ -2,7 +2,7 @@
 // Carte d'avis, purement présentationnelle : aucun texte de témoignage
 // n'est écrit ici, tout vient de `src/data/testimonials.ts`.
 import type { Testimonial } from '../../data/testimonials';
-import { getInitials, localiseTestimonialUrl } from '../../data/testimonials';
+import { getInitials, localiseTestimonialUrl, getReviewDisplay } from '../../data/testimonials';
 import Stars from './Stars.astro';
 
 interface Props {
@@ -15,6 +15,10 @@ interface Props {
 const { testimonial: t, lang = 'fr', index = 0 } = Astro.props;
 const en = lang === 'en';
 const l = (v: { fr: string; en: string } | undefined) => (v ? (en ? v.en : v.fr) : undefined);
+
+// La citation reste dans la langue du client ; la traduction ne
+// s'affiche qu'en dessous, et seulement sur une page d'une autre langue.
+const avis = getReviewDisplay(t, 'shortReview', lang);
 
 const href = localiseTestimonialUrl(t.projectUrl, lang);
 const initiales = getInitials(t.clientName);
@@ -29,9 +33,16 @@ const initiales = getInitials(t.clientName);
     <span class="tm-source">{t.source}</span>
   </header>
 
-  <blockquote class="tm-text">
-    <p>{l(t.shortReview)}</p>
+  <blockquote class="tm-text" lang={avis.originalLang}>
+    <p>{avis.original}</p>
   </blockquote>
+
+  {avis.translation && (
+    <p class="tm-translation" lang={lang}>
+      <span class="tm-translation-label">{en ? "Translated from French" : "Traduit de l'anglais"}</span>
+      {avis.translation}
+    </p>
+  )}
 
   <footer class="tm-foot">
     <div class="tm-client">
@@ -116,6 +127,26 @@ const initiales = getInitials(t.clientName);
   }
   .tm-text p::before { content: '\201C'; }
   .tm-text p::after  { content: '\201D'; }
+
+  /* Traduction : nettement secondaire, pour qu'on lise d'abord la
+     citation d'origine juste au-dessus. */
+  .tm-translation {
+    margin-top: 0.9rem;
+    font-size: 0.83rem;
+    line-height: 1.65;
+    color: var(--grey);
+  }
+  .tm-translation-label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: var(--font-display);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--grey);
+    opacity: 0.75;
+  }
 
   /* Pied poussé en bas : les CTA des trois cartes s'alignent. */
   .tm-foot {

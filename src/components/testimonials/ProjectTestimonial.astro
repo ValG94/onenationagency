@@ -12,7 +12,7 @@
 // son auteur soit client du produit concerné.
 // ============================================================
 
-import { getTestimonialForProject } from '../../data/testimonials';
+import { getTestimonialForProject, getReviewDisplay } from '../../data/testimonials';
 import Stars from './Stars.astro';
 
 interface Props {
@@ -35,8 +35,12 @@ const surTitre =
       ? 'Client testimonial'
       : 'Témoignage client';
 
-// L'avis intégral peut compter plusieurs paragraphes.
-const paragraphes = t ? (en ? t.fullReview.en : t.fullReview.fr).split(/\n{2,}/) : [];
+// L'avis intégral peut compter plusieurs paragraphes. Il s'affiche dans
+// la langue du client ; la traduction est repliée dans un `details`, pour
+// ne pas doubler un texte qui fait parfois six paragraphes.
+const avis = t ? getReviewDisplay(t, 'fullReview', lang) : null;
+const paragraphes = avis ? avis.original.split(/\n{2,}/) : [];
+const traduction = avis?.translation ? avis.translation.split(/\n{2,}/) : null;
 ---
 
 {t && (
@@ -48,9 +52,18 @@ const paragraphes = t ? (en ? t.fullReview.en : t.fullReview.fr).split(/\n{2,}/)
       <span class="pt-source">{t.source}</span>
     </div>
 
-    <blockquote class="pt-quote">
+    <blockquote class="pt-quote" lang={avis?.originalLang}>
       {paragraphes.map((p) => <p>{p}</p>)}
     </blockquote>
+
+    {traduction && (
+      <details class="pt-translation">
+        <summary>{en ? 'Read the English translation' : 'Lire la traduction française'}</summary>
+        <div lang={lang}>
+          {traduction.map((p) => <p>{p}</p>)}
+        </div>
+      </details>
+    )}
 
     <figcaption class="pt-author">
       <strong>{t.clientName}</strong>
@@ -96,6 +109,36 @@ const paragraphes = t ? (en ? t.fullReview.en : t.fullReview.fr).split(/\n{2,}/)
   .pt-quote p + p { margin-top: 0.9rem; }
   .pt-quote p:first-child::before { content: '\201C'; }
   .pt-quote p:last-child::after { content: '\201D'; }
+
+  /* Traduction repliée : élément natif, aucun JavaScript. */
+  .pt-translation {
+    margin-top: 1.1rem;
+    padding-left: 1.4rem;
+  }
+  .pt-translation summary {
+    display: inline-block;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey);
+    transition: color 0.2s ease;
+  }
+  .pt-translation summary:hover { color: var(--gold); }
+  .pt-translation summary:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  .pt-translation div { margin-top: 0.8rem; }
+  .pt-translation p {
+    font-size: 0.86rem;
+    line-height: 1.75;
+    color: var(--grey);
+  }
+  .pt-translation p + p { margin-top: 0.8rem; }
 
   .pt-author {
     display: flex;

@@ -7,6 +7,10 @@
 // RÈGLES à ne pas contourner :
 //   - ne jamais inventer ni reformuler un avis ; `fullReview` est le
 //     texte reçu, `shortReview` un extrait éditorialisé validé ;
+//   - **l'avis s'affiche toujours dans sa langue d'origine**, quelle
+//     que soit la langue de la page. `originalLang` la désigne ; la
+//     variante dans l'autre langue est une TRADUCTION, présentée
+//     comme telle et jamais à la place de la citation ;
 //   - ne jamais afficher de note moyenne Google calculée ici ;
 //   - `institutional` signale un avis mobilisable dans l'univers
 //     One Nation Civic. Il NE désigne PAS un client ONC : voir
@@ -46,6 +50,8 @@ export interface Testimonial {
   /** Note sur 5, telle que laissée par le client. */
   rating: number;
   source: TestimonialSource;
+  /** Langue dans laquelle le client a écrit. L'autre est une traduction. */
+  originalLang: 'fr' | 'en';
   /** Extrait affiché sur l'accueil. */
   shortReview: I18nString;
   /** Avis intégral, affiché dans les études de cas. */
@@ -81,6 +87,9 @@ export const testimonials: Testimonial[] = [
     },
     rating: 5,
     source: 'Google',
+    // Avis rédigé en anglais : le texte français visible sur Google est
+    // sa traduction automatique, pas les mots de la cliente.
+    originalLang: 'en',
     shortReview: {
       fr: "Disponible, professionnelle et attentionnée du début à la fin. Un accompagnement impeccable et un site web que j'adore.",
       en: 'Available, professional and attentive from start to finish. Impeccable support and a website I love.',
@@ -109,6 +118,7 @@ export const testimonials: Testimonial[] = [
     },
     rating: 5,
     source: 'Google',
+    originalLang: 'fr',
     shortReview: {
       fr: "One Nation a transformé une vision ambitieuse en un véritable écosystème digital. Une équipe réactive, impliquée, capable de comprendre des projets complexes et d'aller bien au-delà du simple développement technique.",
       en: 'One Nation turned an ambitious vision into a genuine digital ecosystem. A responsive, committed team, able to grasp complex projects and to go well beyond technical development alone.',
@@ -137,6 +147,7 @@ export const testimonials: Testimonial[] = [
     },
     rating: 5,
     source: 'Google',
+    originalLang: 'fr',
     shortReview: {
       fr: 'Innovation, professionnalisme et disponibilité : One Nation Agency propose des outils qui répondent aux attentes, notamment auprès des chancelleries.',
       en: 'Innovation, professionalism and availability: One Nation Agency offers tools that meet expectations, notably among chancelleries.',
@@ -162,6 +173,32 @@ export const testimonials: Testimonial[] = [
     order: 3,
   },
 ];
+
+export interface ReviewDisplay {
+  /** Texte tel qu'écrit par le client. */
+  original: string;
+  /** Langue de `original`, à poser en attribut `lang`. */
+  originalLang: 'fr' | 'en';
+  /** Traduction, seulement si la page n'est pas dans la langue d'origine. */
+  translation: string | null;
+}
+
+/**
+ * Prépare l'affichage d'un avis : la citation reste dans sa langue
+ * d'origine, la traduction n'accompagne que les pages d'une autre langue.
+ */
+export function getReviewDisplay(
+  t: Testimonial,
+  champ: 'shortReview' | 'fullReview',
+  lang: string
+): ReviewDisplay {
+  const langue: 'fr' | 'en' = lang === 'en' ? 'en' : 'fr';
+  return {
+    original: t[champ][t.originalLang],
+    originalLang: t.originalLang,
+    translation: langue === t.originalLang ? null : t[champ][langue],
+  };
+}
 
 /** Initiales pour la pastille, quand aucune photo n'est fournie. */
 export function getInitials(name: string): string {
