@@ -79,6 +79,52 @@ export interface Project {
 // ── Ajouter les nouveaux projets ICI, en tête de tableau ──
 export const projects: Project[] = [
   {
+    id: 'paiecashfan',
+    title: 'PaieCashFan',
+    subtitle: {
+      fr: "L'expérience digitale tout-en-un des fans de football",
+      en: 'The all-in-one digital experience for football fans',
+    },
+    category: { fr: 'Digital & Fintech', en: 'Digital & Fintech' },
+    countryLabel: { fr: 'FRANCE', en: 'FRANCE' },
+    countries: ['France'],
+    expertise: 'digital',
+    description: {
+      fr: "Conception et développement d'une plateforme complète qui réunit, dans un seul espace, tout ce qui relie un supporter à son club : billetterie dématérialisée avec e-billets et QR code (intégration Redtaag), boutiques officielles multi-clubs, streaming et live shopping interactif à la Whatnot, jeux et tombolas. Le tout repose sur un écosystème de paiement unifié (wallet PaieCashCoin, carte bancaire et virement instantané via Bridge) et un back-office complet pour les clubs, les fédérations et les administrateurs.",
+      en: 'Design and development of a complete platform bringing together, in a single space, everything that connects a supporter to their club: paperless ticketing with e-tickets and QR codes (Redtaag integration), official multi-club stores, streaming and interactive live shopping in the style of Whatnot, games and raffles. It all rests on a unified payment ecosystem (PaieCashCoin wallet, bank card and instant transfer via Bridge) and a full back office for clubs, federations and administrators.',
+    },
+    tags: {
+      fr: ['Plateforme Web', 'E-commerce', 'Fintech'],
+      en: ['Web Platform', 'E-commerce', 'Fintech'],
+    },
+    image: 'paiecashfan_phone.webp',
+    link: 'https://paiecashfan.com',
+    color: '#0d2a1c',
+  },
+  {
+    id: 'paiecashcoin',
+    title: 'PaieCashCoin',
+    subtitle: {
+      fr: "La couche de paiement stablecoin de l'écosystème sportif mondial",
+      en: 'The stablecoin payment layer of the global sports ecosystem',
+    },
+    category: { fr: 'Fintech & Stablecoin', en: 'Fintech & Stablecoin' },
+    countryLabel: { fr: 'FRANCE', en: 'FRANCE' },
+    countries: ['France'],
+    expertise: 'digital',
+    description: {
+      fr: "Conception et développement d'une plateforme fintech multilingue pour PaieCashCoin (PCC), la couche de paiement stablecoin dédiée à l'écosystème sportif mondial. Le projet couvre l'expérience mobile-first pour les fans, le back-office pour clubs et marchands, l'intégration des infrastructures régulées Circle (EURC) et Crossmint (smart-accounts), un moteur de paiement multi-canaux (PCC natif, carte Stripe, virement bancaire instantané Bridge, BNPL), une API publique pour partenaires B2B et un programme ambassadeur transparent avec dashboard temps réel. Disponible en 5 langues (FR, EN, ES, AR, PT).",
+      en: 'Design and development of a multilingual fintech platform for PaieCashCoin (PCC), the stablecoin payment layer dedicated to the global sports ecosystem. The project covers the mobile-first experience for fans, the back office for clubs and merchants, the integration of the regulated Circle (EURC) and Crossmint (smart accounts) infrastructures, a multi-channel payment engine (native PCC, Stripe card, Bridge instant bank transfer, BNPL), a public API for B2B partners and a transparent ambassador programme with a real-time dashboard. Available in 5 languages (FR, EN, ES, AR, PT).',
+    },
+    tags: {
+      fr: ['Plateforme Fintech', 'Stablecoin', 'Multilingue'],
+      en: ['Fintech Platform', 'Stablecoin', 'Multilingual'],
+    },
+    image: 'paiecashcoin_laptop.webp',
+    link: 'https://www.paiecashcoin.com',
+    color: '#2a2010',
+  },
+  {
     id: 'island-living-sxm',
     title: 'Island Living SXM',
     subtitle: {
