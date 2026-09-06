@@ -2,7 +2,8 @@
 // Carte d'avis, purement présentationnelle : aucun texte de témoignage
 // n'est écrit ici, tout vient de `src/data/testimonials.ts`.
 import type { Testimonial } from '../../data/testimonials';
-import { getInitials, localiseTestimonialUrl, getReviewDisplay } from '../../data/testimonials';
+import { Image } from 'astro:assets';
+import { getInitials, localiseTestimonialUrl, getReviewDisplay, avatarAsset } from '../../data/testimonials';
 import Stars from './Stars.astro';
 
 interface Props {
@@ -21,6 +22,8 @@ const l = (v: { fr: string; en: string } | undefined) => (v ? (en ? v.en : v.fr)
 const avis = getReviewDisplay(t, 'shortReview', lang);
 
 const href = localiseTestimonialUrl(t.projectUrl, lang);
+// Portrait quand il existe, initiales sinon : jamais de faux visage.
+const portrait = t.avatar ? avatarAsset(t.avatar) : null;
 const initiales = getInitials(t.clientName);
 ---
 
@@ -46,7 +49,20 @@ const initiales = getInitials(t.clientName);
 
   <footer class="tm-foot">
     <div class="tm-client">
-      <span class="tm-avatar" aria-hidden="true">{initiales}</span>
+      {portrait ? (
+        <Image
+          src={portrait}
+          alt=""
+          class="tm-avatar tm-avatar--photo"
+          width={42}
+          height={42}
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+      ) : (
+        <span class="tm-avatar" aria-hidden="true">{initiales}</span>
+      )}
       <span class="tm-identity">
         <strong>{t.clientName}</strong>
         {/* Masqué quand le projet porte le nom du client : la ligne
@@ -160,6 +176,12 @@ const initiales = getInitials(t.clientName);
     gap: 0.85rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-light);
+  }
+  /* Le portrait remplace les initiales mais garde le même gabarit,
+     pour que la ligne d'identité ne bouge pas d'une carte à l'autre. */
+  .tm-avatar--photo {
+    object-fit: cover;
+    background: rgba(201,168,76,0.1);
   }
   .tm-avatar {
     display: flex;

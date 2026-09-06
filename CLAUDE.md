@@ -71,14 +71,14 @@ _Dernière vérification : 2026-09-06 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 19.74 Mo (dont 8.08 Mo de vidéo) |
-| Variantes d'images générées | 144 |
+| Poids total `dist` | 19.75 Mo (dont 8.08 Mo de vidéo) |
+| Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
 
 **Chiffres affichés sur le site** — 10 Projets livrés · 7 Pays couverts · 3 Années d'expertise · 100% Clients satisfaits
 
-**Pages les plus lourdes au premier rendu** — `/en/portfolio` 1082 Ko · `/portfolio` 1082 Ko · `/` 801 Ko
+**Pages les plus lourdes au premier rendu** — `/en/portfolio` 1082 Ko · `/portfolio` 1082 Ko · `/` 805 Ko
 
 <!-- AUTO:FIN -->
 
@@ -193,7 +193,8 @@ Avis Google intégrés comme preuve sociale, entre le portfolio et One Nation Ci
 - Le portfolio a gagné une **ancre `id` par projet**, ce dont dépendent les CTA des cartes (`/portfolio#island-living-sxm`). L'avis de Constantin Etot s'affiche sur ses deux projets, PaieCashFan et PaieCashCoin.
 - **Alexis Mohamed n'est pas client One Nation Civic.** Son avis porte `institutional: true` parce qu'il mentionne les chancelleries, ce qui permettra de le reprendre dans un contexte ONC sous une formule du type « Un regard sur notre approche institutionnelle ». Ne jamais écrire « Client ONC » ni « Utilisateur ONC » : l'avertissement est répété dans le fichier de données.
 - `GOOGLE_REVIEW_URL` sert à **déposer** un avis. `GOOGLE_BUSINESS_URL` vaut `null` : tant qu'elle n'est pas renseignée, le lien « Voir tous les avis » n'est pas rendu. Ne pas utiliser l'une pour l'autre.
-- **Chaque avis s'affiche dans la langue où il a été écrit**, quelle que soit la langue de la page : `originalLang` la désigne, et la variante dans l'autre langue est présentée comme une traduction, jamais à la place de la citation. Sonia Petrilli a écrit en anglais, les deux autres en français. Sur la carte, la traduction suit en retrait ; en étude de cas, elle est repliée dans un `<details>` natif pour ne pas doubler six paragraphes.
+- **Portraits clients** dans `src/assets/avis-<id>.png`, rattachés par le champ `avatar` et résolus comme les visuels de `projects.ts`. Sans photo, la pastille retombe sur les initiales : **ne jamais générer de portrait de synthèse**. Les sources font 68 px pour un affichage à 42 px, soit 1,6x — des photos plus grandes seraient plus nettes sur écran Retina.
+- **Chaque avis s'affiche dans la langue où il a été écrit**, quelle que soit la langue de la page : `originalLang` la désigne, et la variante dans l'autre langue est présentée comme une traduction, jamais à la place de la citation. Les trois avis ont été rédigés en français. Sur la carte, la traduction suit en retrait ; en étude de cas, elle est repliée dans un `<details>` natif pour ne pas doubler six paragraphes.
 - Grille 3 colonnes jusqu'à 3 avis, bascule automatique en défilement horizontal au-delà (`tm-grid--scroll`). Sous 760 px, une carte par écran en `scroll-snap`. **Aucune dépendance ajoutée.**
 - **Piège rencontré, déjà connu du projet** : les règles `.tm-grid > *` de la section ne touchaient pas les cartes, qui appartiennent au scope de `TestimonialCard`. Résultat, des cartes à 90 px sur mobile. Les sélecteurs visant les cartes passent donc par `:global()`.
 
@@ -223,7 +224,6 @@ Avis Google intégrés comme preuve sociale, entre le portfolio et One Nation Ci
 | Tranché | **« Paris » comme positionnement** | `contact.astro`, `en/contact.astro` et `en/index.astro` affichent « Paris, France » et « Paris · Africa · International ». Volontairement conservé : c'est du discours commercial, pas l'adresse légale. Ne pas « corriger » au motif que cela diffère du footer. |
 | À valider | **Franchise de TVA** | `cgv.astro` et `en/terms-and-conditions.astro` annoncent des tarifs « nets et HT ». En micro-entreprise sous franchise, la formule attendue est « TVA non applicable, article 293 B du CGI ». Dépend du régime réel, non modifié. |
 | À valider | **Page dédiée One Nation Civic** | ONC vit dans une section d'accueil, un bandeau sur les pages IA et un bloc sur `/offres`. Une page `/one-nation-civic` + `/en/one-nation-civic` serait le prochain palier SEO : il suffirait d'y poser `<CivicSection />`, d'ajouter la paire dans `routes.ts` et de rebasculer le lien du menu. Non fait : hors demande. |
-| À valider | **Texte d'origine de l'avis de Sonia Petrilli** | Il a été rédigé en anglais ; le texte anglais stocké est une reconstitution à partir de la traduction française de Google, pas ses mots exacts. À remplacer par l'original, visible sur Google via « Voir l'original ». |
 | À valider | **Bannière og:image de `/offres`** | Les deux pages retombent sur `og-image-v2.jpg`, la bannière générique. Une bannière dédiée servirait mieux le partage d'une page commerciale. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |

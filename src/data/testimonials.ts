@@ -32,6 +32,22 @@ export const GOOGLE_REVIEW_URL = 'https://g.page/r/CaOGSMWQtdkEEBM/review';
  */
 export const GOOGLE_BUSINESS_URL: string | null = null;
 
+const assetModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/*.{jpg,jpeg,png,webp}',
+  { eager: true }
+);
+
+/** Portrait du client. Même mécanisme que `projects.ts`. */
+export function avatarAsset(file: string): ImageMetadata {
+  const mod = assetModules[`../assets/${file}`];
+  if (!mod) {
+    throw new Error(
+      `Portrait introuvable dans src/assets/ : "${file}".`
+    );
+  }
+  return mod.default;
+}
+
 export type TestimonialSource = 'Google';
 
 export interface I18nString {
@@ -79,6 +95,7 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     id: 'sonia-petrilli',
+    avatar: 'avis-sonia-petrilli.png',
     clientName: 'Sonia Petrilli',
     projectName: 'Island Living SXM',
     category: {
@@ -87,9 +104,7 @@ export const testimonials: Testimonial[] = [
     },
     rating: 5,
     source: 'Google',
-    // Avis rédigé en anglais : le texte français visible sur Google est
-    // sa traduction automatique, pas les mots de la cliente.
-    originalLang: 'en',
+    originalLang: 'fr',
     shortReview: {
       fr: "Disponible, professionnelle et attentionnée du début à la fin. Un accompagnement impeccable et un site web que j'adore.",
       en: 'Available, professional and attentive from start to finish. Impeccable support and a website I love.',
@@ -110,6 +125,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: 'constantin-etot',
+    avatar: 'avis-constantin-etot.png',
     clientName: 'Constantin Etot',
     projectName: 'PaieCashFan & PaieCashCoin',
     category: {
@@ -139,6 +155,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: 'alexis-mohamed',
+    avatar: 'avis-alexis-mohamed.png',
     clientName: 'Alexis Mohamed',
     projectName: 'Alexis Mohamed',
     category: {
