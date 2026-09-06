@@ -9,6 +9,7 @@ import { getProjects, portfolioStats, pad2 } from '../data/projects';
 // Source de verite unique : src/data/projects.ts
 // Numeros (08, 07...) et chiffres du hero calcules automatiquement.
 const projects = getProjects('fr');
+import ProjectTestimonial from '../components/testimonials/ProjectTestimonial.astro';
 ---
 
 
@@ -45,6 +46,7 @@ const projects = getProjects('fr');
     <section class="pf-projects">
       {projects.map((project, index) => (
         <article
+          id={project.id}
           class={`pf-item pf-item--photo ${index % 2 !== 0 ? 'pf-item--alt' : ''}`}
           style={`--project-color: ${project.color};`}
           data-index={index}
@@ -96,6 +98,7 @@ const projects = getProjects('fr');
                 <span>Projet confidentiel</span>
               </span>
             )}
+            <ProjectTestimonial projectId={project.id} lang="fr" />
           </div>
         </article>
       ))}

@@ -1,0 +1,123 @@
+---
+// ============================================================
+// TÉMOIGNAGE D'ÉTUDE DE CAS
+// ============================================================
+// Affiche l'avis INTÉGRAL rattaché à un projet, intégré à la fiche
+// plutôt que présenté comme une carte Google brute. Ne rend rien si
+// le projet n'a pas d'avis publié : on peut donc l'appeler pour tous
+// les projets sans condition côté page.
+//
+// `variant="institutional"` change uniquement le sur-titre, pour les
+// contextes où l'avis illustre l'approche institutionnelle sans que
+// son auteur soit client du produit concerné.
+// ============================================================
+
+import { getTestimonialForProject } from '../../data/testimonials';
+import Stars from './Stars.astro';
+
+interface Props {
+  projectId: string;
+  lang?: string;
+  variant?: 'default' | 'institutional';
+}
+
+const { projectId, lang = 'fr', variant = 'default' } = Astro.props;
+const en = lang === 'en';
+
+const t = getTestimonialForProject(projectId);
+
+const surTitre =
+  variant === 'institutional'
+    ? en
+      ? 'A view on our institutional approach'
+      : 'Un regard sur notre approche institutionnelle'
+    : en
+      ? 'Client testimonial'
+      : 'Témoignage client';
+
+// L'avis intégral peut compter plusieurs paragraphes.
+const paragraphes = t ? (en ? t.fullReview.en : t.fullReview.fr).split(/\n{2,}/) : [];
+---
+
+{t && (
+  <figure class="pt-block reveal">
+    <span class="label">{surTitre}</span>
+
+    <div class="pt-stars">
+      <Stars rating={t.rating} lang={lang} size={17} />
+      <span class="pt-source">{t.source}</span>
+    </div>
+
+    <blockquote class="pt-quote">
+      {paragraphes.map((p) => <p>{p}</p>)}
+    </blockquote>
+
+    <figcaption class="pt-author">
+      <strong>{t.clientName}</strong>
+      <span>{t.projectName}</span>
+    </figcaption>
+  </figure>
+)}
+
+<style>
+  .pt-block {
+    margin: 2.5rem 0 0;
+    padding: 2rem 0 0;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .pt-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0.9rem 0 1.2rem;
+  }
+  .pt-source {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .pt-quote {
+    margin: 0;
+    /* Filet doré plutôt qu'un cadre : le témoignage appartient à la
+       fiche projet, il ne doit pas s'en détacher comme un encart. */
+    border-left: 2px solid var(--gold);
+    padding-left: 1.4rem;
+  }
+  .pt-quote p {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--grey-light);
+  }
+  .pt-quote p + p { margin-top: 0.9rem; }
+  .pt-quote p:first-child::before { content: '\201C'; }
+  .pt-quote p:last-child::after { content: '\201D'; }
+
+  .pt-author {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-top: 1.3rem;
+    padding-left: 1.4rem;
+  }
+  .pt-author strong {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .pt-author span {
+    font-size: 0.78rem;
+    color: var(--grey);
+  }
+
+  @media (max-width: 640px) {
+    .pt-quote { padding-left: 1.1rem; }
+    .pt-author { padding-left: 1.1rem; }
+  }
+</style>

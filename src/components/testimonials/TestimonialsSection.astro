@@ -1,0 +1,214 @@
+---
+// ============================================================
+// SECTION TÉMOIGNAGES — ACCUEIL
+// ============================================================
+// Preuve sociale, placée entre le portfolio (preuve par le travail)
+// et One Nation Civic (montée vers l'offre institutionnelle).
+//
+// N'affiche que les avis `featured` et `published`, et se contente de
+// `shortReview` : l'avis intégral vit dans les études de cas, via
+// `ProjectTestimonial.astro`.
+//
+// Mise en page : grille à 3 colonnes tant qu'il y a 3 avis ou moins.
+// Au-delà, la classe `tm-grid--scroll` bascule le bloc en défilement
+// horizontal à ancrage, sans dépendance ni JavaScript.
+// ============================================================
+
+import {
+  getFeaturedTestimonials,
+  GOOGLE_REVIEW_URL,
+  GOOGLE_BUSINESS_URL,
+} from '../../data/testimonials';
+import TestimonialCard from './TestimonialCard.astro';
+
+interface Props {
+  lang?: string;
+  id?: string;
+}
+
+const { lang = 'fr', id = 'temoignages' } = Astro.props;
+const en = lang === 'en';
+
+const avis = getFeaturedTestimonials();
+
+// Au-delà de 3 avis mis en avant, la grille passe seule en défilement.
+const enDefilement = avis.length > 3;
+
+const t = {
+  eyebrow: en ? 'They trust us' : 'Ils nous font confiance',
+  title: en ? 'PROJECTS THAT SPEAK FOR US' : 'DES PROJETS QUI PARLENT POUR NOUS',
+  subtitle: en
+    ? 'Strategy, digital, technology: our clients share their experience with One Nation Agency.'
+    : 'Stratégie, digital, technologie : nos clients partagent leur expérience avec One Nation Agency.',
+  leaveReview: en ? 'Leave a Google review' : 'Laisser un avis Google',
+  allReviews: en ? 'See all Google reviews' : 'Voir tous les avis Google',
+  newTab: en ? '(opens in a new tab)' : '(nouvel onglet)',
+};
+---
+
+{avis.length > 0 && (
+  <section class="tm-section" id={id} aria-labelledby={`${id}-title`}>
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">{t.eyebrow}</span>
+        <div class="gold-bar"></div>
+        <h2 id={`${id}-title`}>{t.title}</h2>
+        <p class="section-intro">{t.subtitle}</p>
+      </div>
+
+      <div class:list={['tm-grid', { 'tm-grid--scroll': enDefilement }]}>
+        {avis.map((a, i) => (
+          <TestimonialCard testimonial={a} lang={lang} index={i} />
+        ))}
+      </div>
+
+      <div class="tm-actions reveal">
+        <a
+          href={GOOGLE_REVIEW_URL}
+          class="btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.leaveReview}
+          <span class="tm-sr">{t.newTab}</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+        </a>
+
+        {/* Rendu seulement quand l'URL publique de la fiche est renseignée.
+            GOOGLE_REVIEW_URL sert à DÉPOSER un avis, jamais à les lister. */}
+        {GOOGLE_BUSINESS_URL && (
+          <a
+            href={GOOGLE_BUSINESS_URL}
+            class="tm-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.allReviews}
+            <span class="tm-sr">{t.newTab}</span>
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .tm-section {
+    padding: var(--pad-section);
+    background: var(--anthracite);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  /* En-tête repris à l'identique des autres sections de l'accueil. */
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .section-header .gold-bar { margin: 0.9rem auto 1.4rem; }
+  .section-header h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); }
+  .section-intro {
+    max-width: 640px;
+    margin: 1.4rem auto 0;
+    color: var(--grey);
+    line-height: 1.8;
+  }
+
+  /* Les sélecteurs visant les cartes passent par `:global` : Astro
+     scope chaque composant, et le markup de TestimonialCard n'appartient
+     pas au scope de cette section. Sans cela les cartes se réduisaient
+     à 90 px sur mobile, la règle de largeur ne les atteignant jamais. */
+  .tm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    /* Cartes de hauteur égale : les CTA s'alignent malgré des extraits
+       de longueurs différentes. */
+    align-items: stretch;
+  }
+
+  .tm-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 3.5rem;
+  }
+  .tm-link {
+    font-family: var(--font-display);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey-light);
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .tm-link:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* Libellé réservé aux lecteurs d'écran. */
+  .tm-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ─── Au-delà de 3 avis : défilement horizontal à ancrage ─────
+     Aucune librairie : `scroll-snap` suffit et reste accessible au
+     clavier, la zone étant focalisable. */
+  .tm-grid--scroll {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(320px, 380px);
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+  }
+  .tm-grid--scroll > :global(.tm-card) { scroll-snap-align: start; }
+
+  /* ═══ RESPONSIVE ═════════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .tm-grid { grid-template-columns: 1fr 1fr; }
+    /* Trois cartes sur deux colonnes laissent une case vide : la
+       dernière occupe alors toute la largeur. */
+    .tm-grid > :global(.tm-card:last-child:nth-child(odd)) { grid-column: 1 / -1; }
+  }
+
+  /* Sous 760 px, une carte par écran avec défilement à ancrage : plus
+     lisible qu'un empilement de trois blocs hauts. */
+  @media (max-width: 760px) {
+    .tm-grid,
+    .tm-grid--scroll {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 1rem;
+      padding-bottom: 1.2rem;
+      /* Débordement volontaire jusqu'aux bords, pour signaler le défilement. */
+      margin-inline: calc(var(--pad-x) * -1);
+      padding-inline: var(--pad-x);
+      scrollbar-width: none;
+    }
+    .tm-grid::-webkit-scrollbar { display: none; }
+    .tm-grid > :global(.tm-card) {
+      flex: 0 0 86%;
+      scroll-snap-align: center;
+    }
+    .tm-grid > :global(.tm-card:last-child:nth-child(odd)) { grid-column: auto; }
+    .tm-actions { flex-direction: column; gap: 1rem; }
+    .tm-actions .btn-outline { width: 100%; justify-content: center; }
+  }
+
+  /* Le défilement reste instantané si l'utilisateur limite les animations. */
+  @media (prefers-reduced-motion: reduce) {
+    .tm-grid,
+    .tm-grid--scroll { scroll-behavior: auto; }
+  }
+</style>

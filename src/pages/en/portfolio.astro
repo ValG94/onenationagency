@@ -8,6 +8,7 @@ import { getProjects, portfolioStats, pad2 } from '../../data/projects';
 
 // Single source of truth: src/data/projects.ts
 const projects = getProjects('en');
+import ProjectTestimonial from '../../components/testimonials/ProjectTestimonial.astro';
 ---
 <Layout
   title="Portfolio - One Nation Agency | Strategic & Digital Projects"
@@ -46,6 +47,7 @@ const projects = getProjects('en');
     <section class="pf-projects">
       {projects.map((project, index) => (
         <article
+          id={project.id}
           class={`pf-item ${index % 2 !== 0 ? 'pf-item--alt' : ''}`}
           style={`--project-color: ${project.color};`}
           data-index={index}
@@ -94,6 +96,7 @@ const projects = getProjects('en');
                 <span>Confidential project</span>
               </span>
             )}
+            <ProjectTestimonial projectId={project.id} lang="en" />
           </div>
         </article>
       ))}

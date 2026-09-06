@@ -6,6 +6,7 @@ import HeroVideoLoader from '../components/HeroVideoLoader.astro';
 import { getLatestProjects } from '../data/projects';
 import ProjectCard from '../components/ProjectCard.astro';
 import CivicSection from '../components/CivicSection.astro';
+import TestimonialsSection from '../components/testimonials/TestimonialsSection.astro';
 import { civicHref } from '../data/civic';
 
 // Même source que la page portfolio : les 3 projets les plus récents.
@@ -279,6 +280,11 @@ const figures = getKeyFigures('fr');
           </div>
         </div>
       </section>
+
+      <!-- ===== TÉMOIGNAGES ===== -->
+      <!-- Preuve par les clients, entre la preuve par le travail
+           (portfolio) et la montée vers l'offre institutionnelle. -->
+      <TestimonialsSection lang="fr" />
 
       <!-- ===== ONE NATION CIVIC ===== -->
       <CivicSection lang="fr" />

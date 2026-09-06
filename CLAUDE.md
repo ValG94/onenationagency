@@ -33,7 +33,7 @@ pnpm run build        # construire + régénérer la section 3 de ce fichier
 
 ## 2. Architecture — où se trouve quoi
 
-Sept sources de vérité uniques. **Ne jamais dupliquer ces données dans une page.**
+Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une page.**
 
 | Fichier | Rôle |
 |---|---|
@@ -41,6 +41,7 @@ Sept sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 | `src/data/routes.ts` | Correspondance FR↔EN. Pilote le sélecteur de langue, le footer et les hreflang. |
 | `src/data/stats.ts` | Chiffres clés. Projets et années dérivés, pas saisis. |
 | `src/data/civic.ts` | Contenu One Nation Civic, FR et EN, plus l'URL et l'ancre. Alimente `CivicSection.astro` et le lien du menu. |
+| `src/data/testimonials.ts` | Avis clients, FR et EN, plus les URL Google. Alimente la section d'accueil et les avis intégraux du portfolio. |
 | `src/data/packages.ts` | Offres commerciales, FR et EN : les 3 packs, les 3 formules de maintenance, le case study et les CTA. Alimente `PackagesContent.astro` et le lien du menu. |
 | `src/scripts/consent.ts` | Consentement cookies, partagé bannière ↔ agent IA. |
 | `src/pages/sitemap.xml.ts` | Sitemap généré au build depuis les routes. |
@@ -63,15 +64,15 @@ _Dernière vérification : 2026-09-06 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
-| Pages générées | **40** (20 FR / 20 EN) |
+| Pages générées | **38** (19 FR / 19 EN) |
 | Liens internes cassés | ✅ 0 |
 | Médias cassés | ✅ 0 |
-| Balises hreflang | 120 |
+| Balises hreflang | 114 |
 | Pages sans alternative de langue | aucune |
-| Agent IA aligné sur la langue | ✅ 40/40 |
-| URLs dans le sitemap | 40 |
+| Agent IA aligné sur la langue | ✅ 38/38 |
+| URLs dans le sitemap | 38 |
 | Poids total `dist` | 19.74 Mo (dont 8.08 Mo de vidéo) |
-| Variantes d'images générées | 155 |
+| Variantes d'images générées | 144 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
 
@@ -184,6 +185,24 @@ curl -sI "https://onenationcivic.com/embed/widget?inst=<inst>" | grep -i x-frame
 
 Une réponse vide = embarquement tiers autorisé. **Piège de lecture** : la console Chrome nomme l'origine (`https://onenationcivic.com/`) et non l'URL refusée, ce qui fait croire à tort que la racine est mise en iframe. Compter les iframes du DOM plutôt que de se fier à ce message.
 
+### Témoignages clients — 06/09/2026
+Avis Google intégrés comme preuve sociale, entre le portfolio et One Nation Civic sur les deux accueils.
+- `src/data/testimonials.ts` : source unique. Les composants n'écrivent aucun texte d'avis. Les sélecteurs (`getFeaturedTestimonials`, `getTestimonialForProject`, `getInstitutionalTestimonials`) forment le contrat avec l'interface : une future administration remplacera le tableau sans toucher aux composants.
+- Trois composants dans `src/components/testimonials/` : `TestimonialsSection` (accueil, `shortReview`), `ProjectTestimonial` (portfolio, `fullReview`), `TestimonialCard` et `Stars` réutilisables.
+- **Accueil : extraits courts uniquement.** L'avis intégral n'existe que sur `/portfolio`. Vérifié : 3 cartes par accueil, aucun texte long.
+- Le portfolio a gagné une **ancre `id` par projet**, ce dont dépendent les CTA des cartes (`/portfolio#island-living-sxm`). L'avis de Constantin Etot s'affiche sur ses deux projets, PaieCashFan et PaieCashCoin.
+- **Alexis Mohamed n'est pas client One Nation Civic.** Son avis porte `institutional: true` parce qu'il mentionne les chancelleries, ce qui permettra de le reprendre dans un contexte ONC sous une formule du type « Un regard sur notre approche institutionnelle ». Ne jamais écrire « Client ONC » ni « Utilisateur ONC » : l'avertissement est répété dans le fichier de données.
+- `GOOGLE_REVIEW_URL` sert à **déposer** un avis. `GOOGLE_BUSINESS_URL` vaut `null` : tant qu'elle n'est pas renseignée, le lien « Voir tous les avis » n'est pas rendu. Ne pas utiliser l'une pour l'autre.
+- Grille 3 colonnes jusqu'à 3 avis, bascule automatique en défilement horizontal au-delà (`tm-grid--scroll`). Sous 760 px, une carte par écran en `scroll-snap`. **Aucune dépendance ajoutée.**
+- **Piège rencontré, déjà connu du projet** : les règles `.tm-grid > *` de la section ne touchaient pas les cartes, qui appartiennent au scope de `TestimonialCard`. Résultat, des cartes à 90 px sur mobile. Les sélecteurs visant les cartes passent donc par `:global()`.
+
+### Ancienne page témoignages retirée — 06/09/2026
+`/temoignages` et `/en/testimonials` n'étaient plus liées depuis la navigation, mais restaient **construites et présentes dans le sitemap** : Google pouvait donc les indexer. Elles affichaient 4 avis en dur, dont d'autres citations d'Alexis Mohamed et de Constantin Etot que les avis Google de l'accueil — deux propos différents des mêmes personnes.
+- Les deux fichiers sont déplacés dans **`src/_archive/`**, hors de `src/pages/`. Astro ne construit que `src/pages/`, et `sitemap.xml.ts` y découvre les pages par glob : sortir les fichiers les retire du routage **et** du sitemap d'un seul geste.
+- **Un préfixe `_` n'aurait pas suffi** : le glob du sitemap ne filtre que `/404`, la page serait restée listée en 404. Ne pas « simplifier » en renommant.
+- Paire retirée de `routes.ts`, sinon le sitemap émettait des `hreflang` vers des URL mortes. Le site repasse de 40 à 38 pages, parité 19/19.
+- La marche à suivre pour les remettre en service est dans `src/_archive/README.md`.
+
 ### Divers
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
 - `:root` des pages portfolio écrasait le design system globalement → variables scopées.
@@ -203,6 +222,7 @@ Une réponse vide = embarquement tiers autorisé. **Piège de lecture** : la con
 | Tranché | **« Paris » comme positionnement** | `contact.astro`, `en/contact.astro` et `en/index.astro` affichent « Paris, France » et « Paris · Africa · International ». Volontairement conservé : c'est du discours commercial, pas l'adresse légale. Ne pas « corriger » au motif que cela diffère du footer. |
 | À valider | **Franchise de TVA** | `cgv.astro` et `en/terms-and-conditions.astro` annoncent des tarifs « nets et HT ». En micro-entreprise sous franchise, la formule attendue est « TVA non applicable, article 293 B du CGI ». Dépend du régime réel, non modifié. |
 | À valider | **Page dédiée One Nation Civic** | ONC vit dans une section d'accueil, un bandeau sur les pages IA et un bloc sur `/offres`. Une page `/one-nation-civic` + `/en/one-nation-civic` serait le prochain palier SEO : il suffirait d'y poser `<CivicSection />`, d'ajouter la paire dans `routes.ts` et de rebasculer le lien du menu. Non fait : hors demande. |
+| À valider | **Traductions des avis** | Les avis ont été reçus en français. Les versions anglaises de `testimonials.ts` sont des traductions fidèles, pas des propos tenus en anglais. À relire, ou à afficher en français sur la version EN si vous préférez la citation d'origine. |
 | À valider | **Bannière og:image de `/offres`** | Les deux pages retombent sur `og-image-v2.jpg`, la bannière générique. Une bannière dédiée servirait mieux le partage d'une page commerciale. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |

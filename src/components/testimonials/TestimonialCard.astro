@@ -1,0 +1,203 @@
+---
+// Carte d'avis, purement présentationnelle : aucun texte de témoignage
+// n'est écrit ici, tout vient de `src/data/testimonials.ts`.
+import type { Testimonial } from '../../data/testimonials';
+import { getInitials, localiseTestimonialUrl } from '../../data/testimonials';
+import Stars from './Stars.astro';
+
+interface Props {
+  testimonial: Testimonial;
+  lang?: string;
+  /** Position dans la grille, pilote le délai d'animation. */
+  index?: number;
+}
+
+const { testimonial: t, lang = 'fr', index = 0 } = Astro.props;
+const en = lang === 'en';
+const l = (v: { fr: string; en: string } | undefined) => (v ? (en ? v.en : v.fr) : undefined);
+
+const href = localiseTestimonialUrl(t.projectUrl, lang);
+const initiales = getInitials(t.clientName);
+---
+
+<article class:list={['tm-card', 'reveal', `reveal-delay-${Math.min(index + 1, 4)}`]}>
+  <!-- Guillemet décoratif, purement typographique. -->
+  <span class="tm-quote" aria-hidden="true">&ldquo;</span>
+
+  <header class="tm-head">
+    <Stars rating={t.rating} lang={lang} />
+    <span class="tm-source">{t.source}</span>
+  </header>
+
+  <blockquote class="tm-text">
+    <p>{l(t.shortReview)}</p>
+  </blockquote>
+
+  <footer class="tm-foot">
+    <div class="tm-client">
+      <span class="tm-avatar" aria-hidden="true">{initiales}</span>
+      <span class="tm-identity">
+        <strong>{t.clientName}</strong>
+        {/* Masqué quand le projet porte le nom du client : la ligne
+            se contentait sinon de répéter le nom juste au-dessus. */}
+        {t.projectName !== t.clientName && <em>{t.projectName}</em>}
+      </span>
+    </div>
+
+    {t.category && <p class="tm-category">{l(t.category)}</p>}
+
+    {href && (
+      <a href={href} class="tm-cta">
+        {l(t.ctaLabel) ?? (en ? 'Discover the project' : 'Découvrir le projet')}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    )}
+  </footer>
+</article>
+
+<style>
+  .tm-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 2.4rem 2rem 2rem;
+    overflow: hidden;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .tm-card:hover {
+    border-color: var(--border);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.42);
+  }
+
+  /* Guillemet : très en retrait, il ne doit pas concurrencer le texte. */
+  .tm-quote {
+    position: absolute;
+    top: -0.9rem;
+    right: 1.1rem;
+    font-family: var(--font-display);
+    font-size: 6rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.09;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .tm-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+  }
+  .tm-source {
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .tm-text {
+    margin: 0;
+    flex: 1;
+  }
+  .tm-text p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--off-white);
+  }
+  .tm-text p::before { content: '\201C'; }
+  .tm-text p::after  { content: '\201D'; }
+
+  /* Pied poussé en bas : les CTA des trois cartes s'alignent. */
+  .tm-foot {
+    margin-top: auto;
+    padding-top: 1.8rem;
+  }
+
+  .tm-client {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+  }
+  .tm-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+  .tm-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .tm-identity strong {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .tm-identity em {
+    font-style: normal;
+    font-size: 0.78rem;
+    color: var(--grey-light);
+  }
+
+  .tm-category {
+    margin-top: 0.9rem;
+    font-family: var(--font-display);
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey);
+    line-height: 1.5;
+  }
+
+  /* `inline` et non `inline-flex` : sur un libellé qui passe à la ligne,
+     la flèche restait seule à droite, détachée du texte. */
+  .tm-cta {
+    display: inline-block;
+    margin-top: 1.3rem;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    transition: color 0.2s ease;
+  }
+  .tm-cta svg {
+    display: inline-block;
+    vertical-align: -1px;
+    margin-left: 0.4rem;
+    transition: transform 0.2s ease;
+  }
+  .tm-cta:hover { color: var(--gold-light); }
+  .tm-cta:hover svg { transform: translateX(3px); }
+
+  @media (max-width: 480px) {
+    .tm-card { padding: 2rem 1.5rem 1.8rem; }
+  }
+</style>

@@ -7,6 +7,7 @@ import { Image } from 'astro:assets';
 import { getLatestProjects } from '../../data/projects';
 import ProjectCard from '../../components/ProjectCard.astro';
 import CivicSection from '../../components/CivicSection.astro';
+import TestimonialsSection from '../../components/testimonials/TestimonialsSection.astro';
 import { civicHref } from '../../data/civic';
 import imgLogoOnenation from '../../assets/logoOnenation.jpg';
 import imgTeamVision from '../../assets/team_vision.jpg';
@@ -257,6 +258,11 @@ const figures = getKeyFigures('en');
           </div>
         </div>
       </section>
+
+      <!-- ===== TÉMOIGNAGES ===== -->
+      <!-- Preuve par les clients, entre la preuve par le travail
+           (portfolio) et la montée vers l'offre institutionnelle. -->
+      <TestimonialsSection lang="en" id="testimonials" />
 
       <!-- ===== ONE NATION CIVIC ===== -->
       <CivicSection lang="en" />

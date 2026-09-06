@@ -31,7 +31,6 @@ export const localePairs: LocalePair[] = [
   { fr: '/portfolio', en: '/en/portfolio' },
   { fr: '/intelligence-artificielle', en: '/en/artificial-intelligence' },
   { fr: '/contact', en: '/en/contact' },
-  { fr: '/temoignages', en: '/en/testimonials' },
   { fr: '/afrique', en: '/en/africa' },
 
   // Pages expertise
