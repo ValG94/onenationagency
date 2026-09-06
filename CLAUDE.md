@@ -71,7 +71,7 @@ _Dernière vérification : 2026-09-06 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 19.75 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 19.78 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -204,6 +204,13 @@ Avis Google intégrés comme preuve sociale, entre le portfolio et One Nation Ci
 - **Un préfixe `_` n'aurait pas suffi** : le glob du sitemap ne filtre que `/404`, la page serait restée listée en 404. Ne pas « simplifier » en renommant.
 - Paire retirée de `routes.ts`, sinon le sitemap émettait des `hreflang` vers des URL mortes. Le site repasse de 40 à 38 pages, parité 19/19.
 - La marche à suivre pour les remettre en service est dans `src/_archive/README.md`.
+
+### Repli sans JavaScript — 06/09/2026
+`.site-wrapper` et `.reveal` partent à `opacity: 0` et ne sont révélés que par script. **Sans JavaScript, tout le site restait invisible** alors que le contenu est bien dans le HTML. Un bloc `<noscript>` dans `Layout.astro` rétablit la visibilité et masque le splash, sur les 38 pages. Il est inerte dès que le script s'exécute : l'animation est inchangée.
+
+Vérifié à cette occasion sur la production, sans exécuter de JavaScript : la section témoignages, les trois avis, les noms et les notes sont **tous présents dans le HTML brut**. Même réponse octet pour octet avec l'agent Googlebot, `robots.txt` autorise tout hors `/api/`, aucune balise `noindex`, accueil présent au sitemap.
+
+**Ne pas ajouter de balisage `Review` ou `AggregateRating`** pour ces avis : Google n'affiche pas d'extrait enrichi pour les avis qu'un site publie sur lui-même (*self-serving reviews*), et le baliser expose à un avertissement dans la Search Console. Les étoiles dans les résultats viennent de la fiche Google Business, pas du site.
 
 ### Divers
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.

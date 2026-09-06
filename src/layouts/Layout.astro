@@ -176,6 +176,26 @@ const orgJsonLd = {
     </a>
   )}
 
+  <!-- ============================================================
+       REPLI SANS JAVASCRIPT
+       ------------------------------------------------------------
+       `.site-wrapper` et `.reveal` partent à `opacity: 0` et ne sont
+       révélés que par script. Sans JS — script bloqué, erreur réseau,
+       navigateur restreint — la page restait entièrement invisible
+       alors que tout son contenu est bien dans le HTML.
+
+       Ce bloc rétablit la visibilité et neutralise le splash. Il ne
+       s'applique que si le JavaScript est absent : le comportement
+       animé reste inchangé pour tout le monde.
+  ============================================================ -->
+  <noscript>
+    <style>
+      .site-wrapper { opacity: 1 !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .splash { display: none !important; }
+    </style>
+  </noscript>
+
   <style is:global>
     /* =============================================
        ONE NATION AGENCY DESIGN SYSTEM NOIR / OR
