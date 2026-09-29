@@ -60,7 +60,7 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-09-06 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-09-29 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -71,7 +71,7 @@ _Dernière vérification : 2026-09-06 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 19.78 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 19.79 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -211,6 +211,14 @@ Avis Google intégrés comme preuve sociale, entre le portfolio et One Nation Ci
 Vérifié à cette occasion sur la production, sans exécuter de JavaScript : la section témoignages, les trois avis, les noms et les notes sont **tous présents dans le HTML brut**. Même réponse octet pour octet avec l'agent Googlebot, `robots.txt` autorise tout hors `/api/`, aucune balise `noindex`, accueil présent au sitemap.
 
 **Ne pas ajouter de balisage `Review` ou `AggregateRating`** pour ces avis : Google n'affiche pas d'extrait enrichi pour les avis qu'un site publie sur lui-même (*self-serving reviews*), et le baliser expose à un avertissement dans la Search Console. Les étoiles dans les résultats viennent de la fiche Google Business, pas du site.
+
+### Mentions légales refondues — 29/09/2026
+Texte fourni par l'utilisateur, appliqué en FR et **répercuté en EN** : la version anglaise annonçait encore IONOS comme hébergeur, ce qui était faux sur une page légale.
+- **L'hébergeur est Vercel**, pas IONOS. IONOS n'apparaît plus que comme **registrar du nom de domaine**, dans une section distincte. Ne pas réintroduire l'ancienne formulation.
+- 8 sections dans les deux langues : éditeur, hébergement, nom de domaine, propriété intellectuelle, données personnelles (avec responsable du traitement), cookies et traceurs, liens hypertextes, droit applicable.
+- Coordonnées ajoutées à l'éditeur : SIRET au format lisible, téléphone et e-mail cliquables.
+- Liens posés vers `vercel.com`, `ionos.fr`, la CNIL et la page cookies interne, plutôt que des mentions inertes.
+- Classes et styles d'origine conservés ; deux ajouts seulement, un filet doré sur les blocs d'adresse (`.legal-block`) et un palier à 480 px, la carte n'ayant plus que des marges sur petit écran.
 
 ### Divers
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.

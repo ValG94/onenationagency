@@ -5,43 +5,76 @@ import Footer from '../components/Footer.astro';
 ---
 
 
-<Layout title="Mentions légales - One Nation">
+<Layout
+	title="Mentions légales - One Nation"
+	description="Mentions légales du site One Nation Agency : éditeur, hébergement, nom de domaine, propriété intellectuelle, données personnelles et cookies."
+>
 	<Header />
 	<main id="main-content">
 		<section class="legal">
 			<div class="container">
 				<h1>Mentions légales</h1>
-				
+
 				<div class="legal-content">
 					<h2>Éditeur du site</h2>
-					<p>Le site One Nation est édité par :</p>
-					<p>One Nation Agency<br>
-					Valéry Garrec, entrepreneur individuel (EI)<br>
+					<p>Le site www.onenationagency.com est édité par :</p>
+					<p class="legal-block">One Nation Agency<br>
+					Valéry Garrec, Entrepreneur individuel (EI)<br>
 					6 rue Jean Colly<br>
 					94140 Alfortville, France</p>
-					<p>SIRET : 51821216200029</p>
+					<p>SIRET : 518 212 162 00029<br>
+					Téléphone : <a href="tel:+33698619710">+33 6 98 61 97 10</a><br>
+					Email : <a href="mailto:contact@onenationagency.com">contact@onenationagency.com</a></p>
 					<p>Directeur de la publication : Valéry Garrec</p>
-					
-					<h2>Hébergement</h2>
-					<p>Le site est hébergé par :</p>
-					<p>IONOS Sarl<br>
-					7, place de la Gare<br>
-          BP 70109<br>
-          57201 Sarreguemines Cedex, France</p>
-					
+
+					<h2>Hébergement du site</h2>
+					<p>Le site www.onenationagency.com est hébergé par :</p>
+					<p class="legal-block">Vercel Inc.<br>
+					440 N Barranca Avenue #4133<br>
+					Covina, CA 91723<br>
+					États-Unis</p>
+					<p>Site : <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
+
+					<h2>Nom de domaine</h2>
+					<p>Le nom de domaine onenationagency.com est enregistré auprès de :</p>
+					<p class="legal-block">IONOS SARL<br>
+					7 place de la Gare<br>
+					BP 70109<br>
+					57201 Sarreguemines Cedex<br>
+					France</p>
+					<p>Site : <a href="https://www.ionos.fr" target="_blank" rel="noopener noreferrer">ionos.fr</a></p>
+
 					<h2>Propriété intellectuelle</h2>
-					<p>L'ensemble du contenu de ce site (textes, images, vidéos, etc.) est la propriété exclusive de One Nation Agency ou de ses partenaires. Toute reproduction, représentation, modification, publication ou adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de One Nation Agency.</p>
-					
+					<p>L'ensemble des éléments présents sur le site www.onenationagency.com, notamment les textes, contenus, graphismes, logos, images, vidéos, illustrations, éléments visuels, structure et organisation du site, est protégé par les dispositions applicables en matière de propriété intellectuelle.</p>
+					<p>Sauf mention contraire, ces éléments sont la propriété de One Nation Agency ou sont utilisés avec l'autorisation de leurs titulaires respectifs.</p>
+					<p>Toute reproduction, représentation, modification, adaptation, publication ou exploitation, totale ou partielle, des éléments du site, quel que soit le procédé utilisé, est interdite sans autorisation écrite préalable de One Nation Agency.</p>
+
 					<h2>Données personnelles</h2>
-					<p>Les informations recueillies sur ce site font l'objet d'un traitement informatique destiné à One Nation Agency pour la gestion de sa clientèle et la prospection commerciale.</p>
-					<p>Conformément à la loi « informatique et libertés » du 6 janvier 1978 modifiée et au Règlement européen n°2016/679/UE du 27 avril 2016, vous bénéficiez d'un droit d'accès, de rectification, de portabilité et d'effacement de vos données ou encore de limitation du traitement. Vous pouvez également, pour des motifs légitimes, vous opposer au traitement des données vous concernant.</p>
-					<p>Pour exercer ces droits ou pour toute question sur le traitement de vos données, vous pouvez contacter One Nation Agency à l'adresse email : contact@onenationagency.com</p>
-					
-					<h2>Cookies</h2>
-					<p>Le site One Nation peut utiliser des cookies pour améliorer l'expérience utilisateur. Vous pouvez désactiver l'utilisation de cookies en sélectionnant les paramètres appropriés de votre navigateur. Cependant, une telle désactivation pourrait empêcher l'utilisation de certaines fonctionnalités de ce site.</p>
-					
+					<p>Dans le cadre de l'utilisation du site, One Nation Agency peut collecter et traiter certaines données personnelles, notamment lorsque l'utilisateur utilise un formulaire de contact, sollicite des informations ou entre en relation avec One Nation Agency.</p>
+					<p>Les données collectées sont utilisées uniquement pour répondre aux demandes, assurer la gestion de la relation commerciale, réaliser les prestations demandées et, lorsque cela est autorisé, effectuer des actions de prospection commerciale.</p>
+					<p>Le responsable du traitement est :</p>
+					<p class="legal-block">One Nation Agency<br>
+					Valéry Garrec<br>
+					6 rue Jean Colly<br>
+					94140 Alfortville, France</p>
+					<p>Email : <a href="mailto:contact@onenationagency.com">contact@onenationagency.com</a></p>
+					<p>Conformément au Règlement général sur la protection des données (RGPD, règlement UE 2016/679) et à la loi Informatique et Libertés modifiée, toute personne dispose notamment d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et, lorsque cela est applicable, d'un droit à la portabilité de ses données.</p>
+					<p>Pour exercer ces droits ou pour toute question relative au traitement des données personnelles, l'utilisateur peut contacter One Nation Agency à l'adresse suivante : <a href="mailto:contact@onenationagency.com">contact@onenationagency.com</a></p>
+					<p>L'utilisateur dispose également du droit d'introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">Commission nationale de l'informatique et des libertés (CNIL)</a>.</p>
+
+					<h2>Cookies et traceurs</h2>
+					<p>Le site peut utiliser des cookies ou autres traceurs nécessaires à son fonctionnement ainsi que, le cas échéant, des outils de mesure d'audience ou d'autres services nécessitant le dépôt de traceurs.</p>
+					<p>Les cookies strictement nécessaires au fonctionnement du site peuvent être déposés sans consentement lorsqu'ils répondent aux conditions prévues par la réglementation.</p>
+					<p>Lorsque des cookies ou traceurs nécessitent le consentement de l'utilisateur, ils ne doivent être déposés qu'après obtention de ce consentement.</p>
+					<p>L'utilisateur doit pouvoir accepter, refuser ou modifier ses préférences concernant les cookies via le <a href="/politique-cookies">dispositif de gestion des cookies du site</a>, lorsque celui-ci est applicable.</p>
+
 					<h2>Liens hypertextes</h2>
-					<p>Le site One Nation peut contenir des liens hypertextes vers d'autres sites. One Nation Agency n'a pas la possibilité de vérifier le contenu des sites ainsi visités, et n'assumera en conséquence aucune responsabilité de ce fait.</p>
+					<p>Le site www.onenationagency.com peut contenir des liens hypertextes vers des sites ou ressources externes.</p>
+					<p>One Nation Agency ne contrôle pas le contenu de ces sites tiers et ne saurait être tenue responsable de leur disponibilité, de leur contenu ou des conséquences liées à leur utilisation.</p>
+
+					<h2>Droit applicable</h2>
+					<p>Le présent site et ses mentions légales sont soumis au droit français.</p>
+					<p>En cas de litige, et sous réserve des dispositions légales impératives applicables, les juridictions françaises seront compétentes.</p>
 				</div>
 			</div>
 		</section>
@@ -87,6 +120,23 @@ import Footer from '../components/Footer.astro';
 		line-height: 1.6;
 	}
 
+	/* Bloc d'adresse : légèrement détaché du texte courant pour qu'on
+	   repère d'un coup d'œil l'éditeur, l'hébergeur et le registrar. */
+	.legal-block {
+		padding-left: 1rem;
+		border-left: 2px solid var(--border);
+		color: var(--off-white);
+	}
+
+	.legal-content a {
+		color: var(--color-accent);
+		border-bottom: 1px solid transparent;
+		transition: border-color 0.2s ease;
+	}
+	.legal-content a:hover {
+		border-bottom-color: var(--color-accent);
+	}
+
 	@media (max-width: 768px) {
 		.legal {
 			padding: 6rem 0;
@@ -103,6 +153,22 @@ import Footer from '../components/Footer.astro';
 
 		h2 {
 			font-size: 1.5rem;
+		}
+	}
+
+	/* Sous 480 px, la carte occupait presque tout l'écran en marges :
+	   on rend la largeur au texte. */
+	@media (max-width: 480px) {
+		.legal-content {
+			padding: 1.5rem 1.25rem;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		.legal-block {
+			padding-left: 0.85rem;
 		}
 	}
 </style>
