@@ -1,38 +1,44 @@
 ---
 const { lang = 'fr' } = Astro.props;
 
+// Le site NE DÉPOSE AUCUN COOKIE et n'embarque aucun outil de mesure
+// d'audience — vérifié au navigateur le 29/09/2026, base de cookies vide.
+// Le bandeau subsiste pour une seule raison : recueillir le consentement
+// à la transmission par e-mail des conversations tenues avec l'assistant
+// (`hasAnalyticsConsent()` dans AIAgent.astro). Décrire autre chose
+// reviendrait à recueillir un consentement pour une finalité fictive.
 const texts = {
   fr: {
-    title: "Nous utilisons des cookies",
-    body: "Ce site utilise des cookies <strong>strictement nécessaires</strong> à son fonctionnement (session, sécurité) et, avec votre consentement, des cookies <strong>d'analyse d'audience anonymisée</strong> pour améliorer nos services. Aucun cookie publicitaire tiers n'est utilisé.",
+    title: "Vos préférences de confidentialité",
+    body: "Ce site <strong>ne dépose aucun cookie</strong> et n'utilise aucun outil de mesure d'audience ni de publicité. Seul votre choix ci-dessous est conservé dans votre navigateur. Avec votre accord, un compte rendu de vos échanges avec l'assistant pourra être transmis par e-mail à notre équipe.",
     policyLink: "Politique de confidentialité →",
     policyUrl: "/politique-confidentialite",
-    detailsToggle: "Voir le détail des cookies",
-    detailsHide: "Masquer le détail des cookies",
+    detailsToggle: "Voir le détail",
+    detailsHide: "Masquer le détail",
     cookies: [
-      { name: "Cookies nécessaires", desc: "Session, sécurité, préférences de langue. Toujours actifs.", always: true },
-      { name: "Cookies analytiques", desc: "Mesure d'audience anonymisée (pages vues, durée de session). Désactivables.", always: false },
+      { name: "Fonctionnement du site", desc: "Mémorise votre choix ci-dessous et le fait que l'animation d'accueil a déjà été vue. Stocké dans votre navigateur, jamais transmis. Toujours actif.", always: true },
+      { name: "Comptes rendus de l'assistant", desc: "Autorise l'envoi par e-mail à One Nation Agency d'un résumé de votre conversation avec l'assistant. Aucun autre usage, aucun partage avec des tiers. Désactivable.", always: false },
     ],
-    footer: "Conformément à la recommandation CNIL du 17 septembre 2020 et au RGPD (UE) 2016/679. Vous pouvez modifier votre choix à tout moment depuis la",
+    footer: "Conformément au RGPD (UE) 2016/679 et à la recommandation CNIL du 17 septembre 2020. Vous pouvez modifier votre choix à tout moment depuis la",
     footerLink: "politique de confidentialité",
-    refuse: "Refuser les cookies analytiques",
-    accept: "Accepter tous les cookies",
+    refuse: "Refuser",
+    accept: "Accepter",
   },
   en: {
-    title: "We use cookies",
-    body: "This site uses <strong>strictly necessary</strong> cookies for its operation (session, security) and, with your consent, <strong>anonymised audience analytics</strong> cookies to improve our services. No third-party advertising cookies are used.",
+    title: "Your privacy preferences",
+    body: "This site <strong>sets no cookies</strong> and uses no audience measurement or advertising tool. Only your choice below is kept in your browser. With your agreement, a summary of your exchanges with the assistant may be sent by email to our team.",
     policyLink: "Privacy policy →",
-    policyUrl: "/politique-confidentialite",
-    detailsToggle: "View cookie details",
-    detailsHide: "Hide cookie details",
+    policyUrl: "/en/privacy-policy",
+    detailsToggle: "View details",
+    detailsHide: "Hide details",
     cookies: [
-      { name: "Necessary cookies", desc: "Session, security, language preferences. Always active.", always: true },
-      { name: "Analytics cookies", desc: "Anonymised audience measurement (page views, session duration). Can be disabled.", always: false },
+      { name: "Site operation", desc: "Remembers your choice below and whether the intro animation has already been seen. Stored in your browser, never transmitted. Always active.", always: true },
+      { name: "Assistant summaries", desc: "Allows a summary of your conversation with the assistant to be emailed to One Nation Agency. No other use, no sharing with third parties. Can be disabled.", always: false },
     ],
-    footer: "In accordance with the CNIL recommendation of 17 September 2020 and GDPR (EU) 2016/679. You can change your choice at any time from the",
+    footer: "In accordance with GDPR (EU) 2016/679 and the CNIL recommendation of 17 September 2020. You can change your choice at any time from the",
     footerLink: "privacy policy",
-    refuse: "Refuse analytics cookies",
-    accept: "Accept all cookies",
+    refuse: "Refuse",
+    accept: "Accept",
   }
 };
 
@@ -371,21 +377,25 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    /* Refuser doit être aussi visible qu'accepter : la CNIL exige que le
+       refus soit aussi simple que l'acceptation. Même taille, même graisse,
+       même padding, bordure dorée et non grise. Seul le remplissage
+       distingue le bouton principal. */
     background: none;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.75);
+    border: 1px solid #C9A84C;
+    color: #C9A84C;
     font-size: 0.82rem;
-    font-weight: 600;
-    padding: 0.6rem 1.1rem;
+    font-weight: 700;
+    padding: 0.6rem 1.3rem;
     border-radius: 8px;
     cursor: pointer;
     transition: border-color 0.2s, color 0.2s, background 0.2s;
     letter-spacing: 0.01em;
   }
   .cookie-btn-refuse:hover {
-    border-color: rgba(255,255,255,0.45);
-    color: #fff;
-    background: rgba(255,255,255,0.05);
+    border-color: #d4b55a;
+    color: #0A0A0A;
+    background: #d4b55a;
   }
 
   .cookie-btn-accept {

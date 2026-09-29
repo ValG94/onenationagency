@@ -71,7 +71,7 @@ _Dernière vérification : 2026-09-29 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 19.79 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 19.76 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -220,6 +220,25 @@ Texte fourni par l'utilisateur, appliqué en FR et **répercuté en EN** : la ve
 - Liens posés vers `vercel.com`, `ionos.fr`, la CNIL et la page cookies interne, plutôt que des mentions inertes.
 - Classes et styles d'origine conservés ; deux ajouts seulement, un filet doré sur les blocs d'adresse (`.legal-block`) et un palier à 480 px, la carte n'ayant plus que des marges sur petit écran.
 
+### Audit juridique et RGPD — 29/09/2026
+Mené avant dépôt du dossier Activateur France Num. **Constat central, mesuré et non déduit : le site ne dépose aucun cookie.** Base de cookies vide après chargement de `/contact` en production dans un navigateur neuf, aucun `Set-Cookie` serveur, aucun sur le script Turnstile.
+
+**Inventaire réel des tiers** — seulement deux ressources externes : **Google Fonts** (`fonts.googleapis.com`, `fonts.gstatic.com`) et **Cloudflare Turnstile** (`challenges.cloudflare.com`, page contact uniquement, sans cookie, exempté au titre de la sécurité). Aucun Google Analytics, Tag Manager, Matomo, Meta Pixel, LinkedIn Insight, Hotjar, Vercel Analytics, YouTube, Maps ni Calendly. Les liens sociaux sont de simples `<a href>`. **Ne pas repartir de zéro sur cet inventaire : il est à jour.**
+
+Corrections apportées :
+- **Politique de confidentialité entièrement réécrite**, FR et EN. L'ancienne était un modèle générique où manquait *tout* l'article 13 : responsable du traitement, base légale, destinataires, sous-traitants, transferts hors UE, durées de conservation, CNIL. Elle décrit désormais les **trois traitements réels** vérifiés dans le code : formulaire, assistant IA, sécurité du formulaire. Les sous-traitants sont nommés : Vercel, Resend, Cloudflare, Google Ireland.
+- **La bannière annonçait une mesure d'audience inexistante** (« cookies d'analyse d'audience anonymisée »). Elle recueillait donc un consentement pour une finalité fictive. Le consentement optionnel commande en réalité **une seule chose** : l'envoi par e-mail du compte rendu des conversations avec l'assistant (`hasAnalyticsConsent()` dans `AIAgent.astro`). Texte aligné sur cette réalité.
+- **Les pages cookies annonçaient des cookies de performance, de fonctionnalité, de ciblage et publicitaires tiers** — aucun n'existe. Réécrites FR et EN. Le bouton `data-cookie-settings` de retrait du consentement est conservé tel quel, c'est un mécanisme fonctionnel.
+- **Bug corrigé** : la bannière anglaise renvoyait vers `/politique-confidentialite`, la page française.
+- **Boutons de consentement équilibrés** : « Refuser » avait une bordure grise et une graisse moindre face à un « Accepter » doré. Même taille, même graisse, bordure dorée des deux côtés — la CNIL exige que refuser soit aussi simple qu'accepter.
+- Mention RGPD au point de collecte sous les deux formulaires, avec durée de conservation et lien vers la politique.
+- Footer : « Cookies » devient **« Gérer mes cookies »**, lien permanent sur les 38 pages.
+- **Fuite corrigée** : un commentaire HTML exposait le nom d'instance d'un client (« tanzanie ») dans le code source des 38 pages. Les commentaires `<!-- -->` sont servis au navigateur ; le bloc vit désormais dans le frontmatter. **Ne jamais documenter en commentaire HTML.**
+
+**Durées de conservation retenues** : trois ans à compter du dernier contact pour les demandes et les comptes rendus, conformément à la recommandation CNIL sur la prospection. À ajuster si la pratique réelle diffère.
+
+**L'URL reste `/politique-confidentialite`**, pas `/politique-de-confidentialite` : c'est celle qui est indexée et référencée partout, et un 404 sur cette variante avait déjà été corrigé par le passé.
+
 ### Divers
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
 - `:root` des pages portfolio écrasait le design system globalement → variables scopées.
@@ -244,7 +263,7 @@ Texte fourni par l'utilisateur, appliqué en FR et **répercuté en EN** : la ve
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Activer Turnstile** | Le code est prêt. Créer un site sur dash.cloudflare.com/turnstile, puis poser `PUBLIC_TURNSTILE_SITE_KEY` et `TURNSTILE_SECRET_KEY` sur Vercel et redéployer. Tant que c'est absent, seuls les filtres de contenu protègent. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
-| Moyen | **Google Fonts bloquant** | 2 familles × 9 graisses en `<link rel="stylesheet">` sans `preload`. Auto-hébergement à envisager. |
+| **Important** | **Google Fonts : enjeu RGPD, pas seulement performance** | Les polices sont chargées depuis le CDN de Google, ce qui transmet l'adresse IP de chaque visiteur à Google aux États-Unis, avant tout consentement. La CNIL recommande l'auto-hébergement et un tribunal allemand a condamné cette pratique en 2022. Seul point de l'audit du 29/09/2026 non corrigé : l'auto-hébergement touche le rendu de toutes les pages et méritait une revue visuelle préalable. Déclaré en attendant dans la politique de confidentialité. |
 | Faible | **JSON-LD identique sur les 38 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
 | Faible | **Menu mobile** | `role="dialog"` sans focus trap ni `inert` sur l'arrière-plan. |
 | Faible | **`aria-label` du burger** | Figé à « Ouvrir le menu », jamais mis à jour en « Fermer ». |

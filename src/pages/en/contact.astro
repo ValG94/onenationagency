@@ -114,6 +114,9 @@ const TURNSTILE_LANG = 'en';
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
               <p class="form-note">Response guaranteed within 24 business hours.</p>
+              <!-- Mention RGPD au point de collecte : le visiteur doit savoir
+                   à quoi servent ses données au moment où il les saisit. -->
+              <p class="form-rgpd">The information submitted through this form is used solely to handle your request and manage the commercial relationship that may follow. It is intended for One Nation Agency, kept for three years from the last contact, and is never passed on to third parties. You have rights of access, rectification, erasure and objection: <a href="/en/privacy-policy">privacy policy</a>.</p>
             </form>
           </div>
 
@@ -348,6 +351,23 @@ const TURNSTILE_LANG = 'en';
     line-height: 1.55;
   }
   .form-error[hidden] { display: none; }
+
+  /* Mention RGPD sous le formulaire : lisible mais secondaire, elle ne
+     doit pas concurrencer le bouton d'envoi. */
+  .form-rgpd {
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--grey);
+  }
+  .form-rgpd a {
+    color: var(--gold);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .form-rgpd a:hover { border-bottom-color: var(--gold); }
 </style>
 
 <script>

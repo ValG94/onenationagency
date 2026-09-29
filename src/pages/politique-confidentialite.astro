@@ -2,55 +2,117 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+// Cette page décrit les traitements RÉELLEMENT effectués par le site,
+// vérifiés dans le code : formulaire de contact (api/contact.js, envoi
+// via Resend), agent IA conversationnel, Cloudflare Turnstile,
+// hébergement Vercel, polices Google. Ne rien y ajouter qui ne
+// corresponde pas à un traitement existant.
+const maj = '29 septembre 2026';
 ---
 
 
-<Layout title="Politique de confidentialité - One Nation">
+<Layout
+	title="Politique de confidentialité - One Nation"
+	description="Comment One Nation Agency collecte et traite vos données personnelles : finalités, bases légales, destinataires, durées de conservation et vos droits."
+>
 	<Header />
 	<main id="main-content">
 		<section class="privacy">
 			<div class="container">
 				<h1>Politique de confidentialité</h1>
-				
+
 				<div class="privacy-content">
-					<h2>Introduction</h2>
-					<p>One Nation Agency s'engage à protéger la vie privée des utilisateurs de son site internet. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations personnelles lorsque vous visitez notre site ou utilisez nos services.</p>
-					
-					<h2>Collecte des informations</h2>
-					<p>Nous collectons des informations lorsque vous vous inscrivez sur notre site, remplissez un formulaire ou soumettez une demande de contact. Les informations collectées incluent votre nom, votre adresse e-mail, votre numéro de téléphone et le nom de votre entreprise.</p>
-					<p>Nous collectons également automatiquement des informations sur votre ordinateur, y compris votre adresse IP, votre navigateur et les pages que vous consultez sur notre site.</p>
-					
-					<h2>Utilisation des informations</h2>
-					<p>Les informations que nous collectons auprès de vous peuvent être utilisées pour :</p>
+					<p class="privacy-date">Dernière mise à jour : {maj}</p>
+
+					<h2>Responsable du traitement</h2>
+					<p>Le responsable du traitement des données collectées sur le site www.onenationagency.com est :</p>
+					<p class="privacy-block">One Nation Agency<br>
+					Valéry Garrec, Entrepreneur individuel (EI)<br>
+					6 rue Jean Colly<br>
+					94140 Alfortville, France</p>
+					<p>SIRET : 518 212 162 00029<br>
+					Téléphone : <a href="tel:+33698619710">+33 6 98 61 97 10</a><br>
+					Email : <a href="mailto:contact@onenationagency.com">contact@onenationagency.com</a></p>
+					<p>Aucun délégué à la protection des données n'a été désigné, cette désignation n'étant pas obligatoire au regard de l'activité et de la taille de la structure.</p>
+
+					<h2>Données collectées et finalités</h2>
+					<p>Le site ne crée aucun compte utilisateur et ne pratique aucun profilage. Trois traitements seulement sont mis en œuvre.</p>
+
+					<h3>1. Formulaire de contact</h3>
+					<p>Données collectées : nom, prénom, adresse e-mail, numéro de téléphone (facultatif), organisation ou entreprise (facultatif), sujet de la demande et contenu du message.</p>
+					<p><strong>Finalité :</strong> répondre à votre demande et assurer le suivi de la relation commerciale qui peut en découler.</p>
+					<p><strong>Base légale :</strong> votre consentement, recueilli par la case à cocher du formulaire, ainsi que les mesures précontractuelles prises à votre demande (article 6.1.a et 6.1.b du RGPD).</p>
+					<p>Seuls le nom, le prénom, l'adresse e-mail, le sujet et le message sont obligatoires : ils sont nécessaires pour vous identifier et vous répondre. Le téléphone et l'organisation restent facultatifs.</p>
+
+					<h3>2. Assistant conversationnel</h3>
+					<p>Le site propose un assistant automatisé. Les échanges se déroulent dans votre navigateur et ne sont pas enregistrés sur un serveur.</p>
+					<p><strong>Finalité :</strong> si, et seulement si, vous y avez consenti via le bandeau de confidentialité, un compte rendu de la conversation peut être transmis par e-mail à One Nation Agency afin de mieux comprendre les demandes des visiteurs et d'améliorer le service.</p>
+					<p><strong>Base légale :</strong> votre consentement (article 6.1.a du RGPD), révocable à tout moment.</p>
+
+					<h3>3. Sécurité du formulaire</h3>
+					<p>Afin d'empêcher les envois automatisés, votre adresse IP est traitée de façon temporaire au moment de la soumission du formulaire, et le service Cloudflare Turnstile vérifie que la demande provient bien d'un navigateur.</p>
+					<p><strong>Finalité :</strong> prévention des abus et des envois automatisés.</p>
+					<p><strong>Base légale :</strong> l'intérêt légitime de One Nation Agency à protéger son site et sa messagerie (article 6.1.f du RGPD).</p>
+
+					<h2>Destinataires et sous-traitants</h2>
+					<p>Vos données ne sont ni vendues, ni louées, ni cédées à des tiers à des fins commerciales.</p>
+					<p>Elles sont accessibles à Valéry Garrec, seul responsable de la structure, et sont traitées par les prestataires techniques suivants, agissant en qualité de sous-traitants :</p>
 					<ul>
-						<li>Personnaliser votre expérience et répondre à vos besoins individuels</li>
-						<li>Améliorer notre site web</li>
-						<li>Améliorer notre service client et vos besoins de support</li>
-						<li>Vous contacter par e-mail</li>
-						<li>Administrer un concours, une promotion, ou une enquête</li>
+						<li><strong>Vercel Inc.</strong> (États-Unis) : hébergement du site et exécution de la fonction d'envoi du formulaire.</li>
+						<li><strong>Resend</strong> (États-Unis) : acheminement des e-mails émis par le formulaire de contact et par l'assistant.</li>
+						<li><strong>Cloudflare, Inc.</strong> (États-Unis) : service Turnstile de protection du formulaire contre les envois automatisés.</li>
+						<li><strong>Google Ireland Limited</strong> : fourniture des polices de caractères du site. Votre adresse IP est transmise à Google lors du chargement des pages.</li>
 					</ul>
-					
-					<h2>Protection des informations</h2>
-					<p>Nous mettons en œuvre une variété de mesures de sécurité pour préserver la sécurité de vos informations personnelles. Nous utilisons un cryptage à la pointe de la technologie pour protéger les informations sensibles transmises en ligne. Nous protégeons également vos informations hors ligne.</p>
-					
-					<h2>Cookies</h2>
-					<p>Nous utilisons des cookies pour comprendre et enregistrer vos préférences pour vos futures visites, tenir à jour des statistiques sur le nombre de visiteurs qui visitent notre site et comment ils utilisent le site, et pour aider à optimiser votre expérience sur notre site.</p>
-					
-					<h2>Divulgation à des tiers</h2>
-					<p>Nous ne vendons, n'échangeons, ni ne transférons de quelque autre manière que ce soit vos informations personnelles identifiables à des tiers. Cela ne comprend pas les tiers de confiance qui nous aident à exploiter notre site web ou à mener nos affaires, tant que ces parties conviennent de garder ces informations confidentielles.</p>
-					
-					<h2>Consentement</h2>
-					<p>En utilisant notre site, vous consentez à notre politique de confidentialité.</p>
-					
-					<h2>Modifications de notre politique de confidentialité</h2>
-					<p>Si nous décidons de changer notre politique de confidentialité, nous publierons ces changements sur cette page.</p>
-					
+
+					<h2>Transferts hors Union européenne</h2>
+					<p>Les prestataires mentionnés ci-dessus sont établis aux États-Unis ou susceptibles d'y traiter des données. Ces transferts sont encadrés par les clauses contractuelles types de la Commission européenne et, le cas échéant, par le cadre de protection des données UE–États-Unis (Data Privacy Framework) auquel ces prestataires ont adhéré.</p>
+
+					<h2>Durées de conservation</h2>
+					<ul>
+						<li><strong>Demandes via le formulaire de contact</strong> : trois ans à compter du dernier contact, conformément à la recommandation de la CNIL en matière de prospection commerciale.</li>
+						<li><strong>Comptes rendus de conversation avec l'assistant</strong> : trois ans à compter de leur réception.</li>
+						<li><strong>Adresse IP traitée pour la limitation des envois</strong> : une heure au maximum, en mémoire vive, sans enregistrement durable.</li>
+						<li><strong>Preuve du consentement aux traceurs</strong> : conservée dans votre navigateur, et effacée dès que vous videz vos données de navigation.</li>
+					</ul>
+
+					<h2>Cookies et stockage local</h2>
+					<p>Le site <strong>ne dépose aucun cookie</strong>, ni de première ni de tierce partie. Il n'utilise aucun outil de mesure d'audience, aucun pixel publicitaire et aucun réseau de suivi.</p>
+					<p>Deux informations seulement sont enregistrées dans votre navigateur, sans être transmises à qui que ce soit :</p>
+					<ul>
+						<li><strong>ona_cookie_consent</strong> : votre choix concernant la transmission des conversations à l'assistant. Cet enregistrement est exempté de consentement puisqu'il sert précisément à conserver votre choix.</li>
+						<li><strong>ona_intro_seen</strong> : mémorise que l'animation d'accueil a déjà été vue, pour ne pas vous la rejouer. Cette information disparaît à la fermeture de l'onglet.</li>
+					</ul>
+					<p>Vous pouvez à tout moment revoir ou retirer votre choix depuis la page <a href="/politique-cookies">gestion des cookies</a>.</p>
+
+					<h2>Sécurité</h2>
+					<p>Le site est servi exclusivement en HTTPS. Les données transmises par le formulaire ne sont pas stockées dans une base de données : elles sont acheminées par e-mail puis conservées dans la messagerie de One Nation Agency. L'accès à cette messagerie est protégé par mot de passe.</p>
+
+					<h2>Vos droits</h2>
+					<p>Conformément au Règlement général sur la protection des données (règlement UE 2016/679) et à la loi Informatique et Libertés modifiée, vous disposez des droits suivants sur vos données :</p>
+					<ul>
+						<li>droit d'accès et de copie ;</li>
+						<li>droit de rectification ;</li>
+						<li>droit à l'effacement ;</li>
+						<li>droit à la limitation du traitement ;</li>
+						<li>droit d'opposition, notamment à la prospection commerciale ;</li>
+						<li>droit à la portabilité des données que vous nous avez fournies ;</li>
+						<li>droit de retirer votre consentement à tout moment, sans que cela remette en cause la licéité du traitement effectué auparavant.</li>
+					</ul>
+					<p>Pour exercer ces droits, écrivez à <a href="mailto:contact@onenationagency.com">contact@onenationagency.com</a>. Une réponse vous sera apportée dans un délai d'un mois. Une pièce justificative d'identité pourra vous être demandée en cas de doute raisonnable sur votre identité.</p>
+
+					<h2>Réclamation</h2>
+					<p>Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">Commission nationale de l'informatique et des libertés (CNIL)</a>, 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07.</p>
+
+					<h2>Modifications</h2>
+					<p>Cette politique peut être mise à jour pour tenir compte d'évolutions techniques ou réglementaires. La date de dernière mise à jour figure en tête de page.</p>
+
 					<h2>Nous contacter</h2>
-					<p>Si vous avez des questions concernant cette politique de confidentialité, vous pouvez nous contacter à l'adresse suivante :</p>
-					<p>One Nation Agency<br>
+					<p>Pour toute question relative à cette politique ou au traitement de vos données :</p>
+					<p class="privacy-block">One Nation Agency<br>
 					6 rue Jean Colly<br>
 					94140 Alfortville, France<br>
-					Email : contact@onenationagency.com</p>
+					<a href="mailto:contact@onenationagency.com">contact@onenationagency.com</a></p>
 				</div>
 			</div>
 		</section>
@@ -91,6 +153,14 @@ import Footer from '../components/Footer.astro';
 		margin-top: 0;
 	}
 
+	/* Sous-titres des trois traitements : subordonnés aux h2, sans
+	   concurrencer la couleur d'accent. */
+	h3 {
+		font-size: 1.15rem;
+		color: var(--off-white);
+		margin: 1.8rem 0 0.6rem;
+	}
+
 	p {
 		margin: 0.8rem 0;
 		line-height: 1.6;
@@ -104,6 +174,28 @@ import Footer from '../components/Footer.astro';
 	li {
 		margin-bottom: 0.5rem;
 		line-height: 1.6;
+	}
+
+	.privacy-date {
+		font-size: 0.85rem;
+		color: var(--grey);
+		margin-bottom: 2rem;
+	}
+
+	/* Bloc d'adresse, même traitement que les mentions légales. */
+	.privacy-block {
+		padding-left: 1rem;
+		border-left: 2px solid var(--border);
+		color: var(--off-white);
+	}
+
+	.privacy-content a {
+		color: var(--color-accent);
+		border-bottom: 1px solid transparent;
+		transition: border-color 0.2s ease;
+	}
+	.privacy-content a:hover {
+		border-bottom-color: var(--color-accent);
 	}
 
 	@media (max-width: 768px) {
@@ -122,6 +214,24 @@ import Footer from '../components/Footer.astro';
 
 		h2 {
 			font-size: 1.5rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.privacy-content {
+			padding: 1.5rem 1.25rem;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		ul {
+			padding-left: 1.25rem;
+		}
+
+		.privacy-block {
+			padding-left: 0.85rem;
 		}
 	}
 </style>
