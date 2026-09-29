@@ -30,11 +30,9 @@ import Footer from '../../components/Footer.astro';
 					</ul>
 
 					<h2>Third-party services called by the site</h2>
-					<p>Two external services are called when pages are displayed. Neither sets a cookie, but both receive your IP address, which is technically required for any connection.</p>
-					<ul>
-						<li><strong>Google Fonts</strong>: supplies the site's typefaces. Your IP address is transmitted to Google when pages load.</li>
-						<li><strong>Cloudflare Turnstile</strong>: checks, on the contact page only, that the form is not being filled in by a bot. This service is cookieless and serves site security: it is exempt from consent.</li>
-					</ul>
+					<p>The site's typefaces are <strong>hosted by the site itself</strong>: displaying them triggers no call to any external service.</p>
+					<p>Only one third-party service is called, and only on the contact page: <strong>Cloudflare Turnstile</strong>, which checks that the form is not being filled in by a bot. It sets no cookie and serves site security, which exempts it from consent. It receives your IP address, which is technically required for any connection.</p>
+					<p>Away from that page, browsing the site sends no request to any third party.</p>
 
 					<h2>So what is the privacy banner for?</h2>
 					<p>It is not about cookies, but about one specific point: whether or not a summary of your conversation with the site's assistant may be emailed to One Nation Agency. Without your agreement, no summary is sent.</p>

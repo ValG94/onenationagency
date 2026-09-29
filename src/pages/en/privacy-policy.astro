@@ -5,7 +5,8 @@ import Footer from '../../components/Footer.astro';
 
 // Traduction fidèle de `politique-confidentialite.astro`. Les deux pages
 // décrivent les traitements RÉELS vérifiés dans le code : formulaire
-// (api/contact.js via Resend), agent IA, Turnstile, Vercel, Google Fonts.
+// (api/contact.js via Resend), agent IA, Turnstile, Vercel. Les polices
+// sont auto-hébergées : aucun appel à Google.
 // Toute modification de l'une doit être répercutée sur l'autre.
 const maj = '29 September 2026';
 ---
@@ -63,7 +64,6 @@ const maj = '29 September 2026';
 						<li><strong>Vercel Inc.</strong> (United States): website hosting and execution of the form submission function.</li>
 						<li><strong>Resend</strong> (United States): delivery of the emails sent by the contact form and by the assistant.</li>
 						<li><strong>Cloudflare, Inc.</strong> (United States): Turnstile service protecting the form against automated submissions.</li>
-						<li><strong>Google Ireland Limited</strong>: supply of the site's typefaces. Your IP address is transmitted to Google when pages load.</li>
 					</ul>
 
 					<h2>Transfers outside the European Union</h2>
@@ -87,6 +87,7 @@ const maj = '29 September 2026';
 					<p>You may review or withdraw your choice at any time from the <a href="/en/cookie-policy">cookie management page</a>.</p>
 
 					<h2>Security</h2>
+					<p>The site's typefaces are <strong>served by the site itself</strong>: no request is made to any third-party service to display them, so your IP address is not transmitted to anyone when you simply browse the pages.</p>
 					<p>The site is served exclusively over HTTPS. Data submitted through the form is not stored in a database: it is delivered by email and then kept in One Nation Agency's mailbox, access to which is password protected.</p>
 
 					<h2>Your rights</h2>

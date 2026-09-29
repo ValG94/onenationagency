@@ -6,7 +6,8 @@ import Footer from '../components/Footer.astro';
 // Cette page décrit les traitements RÉELLEMENT effectués par le site,
 // vérifiés dans le code : formulaire de contact (api/contact.js, envoi
 // via Resend), agent IA conversationnel, Cloudflare Turnstile,
-// hébergement Vercel, polices Google. Ne rien y ajouter qui ne
+// hébergement Vercel. Les polices sont auto-hébergées : aucun appel
+// à Google. Ne rien y ajouter qui ne
 // corresponde pas à un traitement existant.
 const maj = '29 septembre 2026';
 ---
@@ -62,7 +63,6 @@ const maj = '29 septembre 2026';
 						<li><strong>Vercel Inc.</strong> (États-Unis) : hébergement du site et exécution de la fonction d'envoi du formulaire.</li>
 						<li><strong>Resend</strong> (États-Unis) : acheminement des e-mails émis par le formulaire de contact et par l'assistant.</li>
 						<li><strong>Cloudflare, Inc.</strong> (États-Unis) : service Turnstile de protection du formulaire contre les envois automatisés.</li>
-						<li><strong>Google Ireland Limited</strong> : fourniture des polices de caractères du site. Votre adresse IP est transmise à Google lors du chargement des pages.</li>
 					</ul>
 
 					<h2>Transferts hors Union européenne</h2>
@@ -86,6 +86,7 @@ const maj = '29 septembre 2026';
 					<p>Vous pouvez à tout moment revoir ou retirer votre choix depuis la page <a href="/politique-cookies">gestion des cookies</a>.</p>
 
 					<h2>Sécurité</h2>
+					<p>Les polices de caractères sont <strong>servies par le site lui-même</strong> : aucune requête n'est adressée à un service tiers pour les afficher, et votre adresse IP n'est donc transmise à personne lors de la simple consultation des pages.</p>
 					<p>Le site est servi exclusivement en HTTPS. Les données transmises par le formulaire ne sont pas stockées dans une base de données : elles sont acheminées par e-mail puis conservées dans la messagerie de One Nation Agency. L'accès à cette messagerie est protégé par mot de passe.</p>
 
 					<h2>Vos droits</h2>

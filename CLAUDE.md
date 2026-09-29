@@ -71,7 +71,7 @@ _Dernière vérification : 2026-09-29 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 19.76 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 19.98 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -223,10 +223,10 @@ Texte fourni par l'utilisateur, appliqué en FR et **répercuté en EN** : la ve
 ### Audit juridique et RGPD — 29/09/2026
 Mené avant dépôt du dossier Activateur France Num. **Constat central, mesuré et non déduit : le site ne dépose aucun cookie.** Base de cookies vide après chargement de `/contact` en production dans un navigateur neuf, aucun `Set-Cookie` serveur, aucun sur le script Turnstile.
 
-**Inventaire réel des tiers** — seulement deux ressources externes : **Google Fonts** (`fonts.googleapis.com`, `fonts.gstatic.com`) et **Cloudflare Turnstile** (`challenges.cloudflare.com`, page contact uniquement, sans cookie, exempté au titre de la sécurité). Aucun Google Analytics, Tag Manager, Matomo, Meta Pixel, LinkedIn Insight, Hotjar, Vercel Analytics, YouTube, Maps ni Calendly. Les liens sociaux sont de simples `<a href>`. **Ne pas repartir de zéro sur cet inventaire : il est à jour.**
+**Inventaire réel des tiers** — après auto-hébergement des polices, **une seule ressource externe subsiste** : **Cloudflare Turnstile** (`challenges.cloudflare.com`), sur la page contact uniquement, sans cookie, exempté au titre de la sécurité. Aucun Google Analytics, Tag Manager, Matomo, Meta Pixel, LinkedIn Insight, Hotjar, Vercel Analytics, YouTube, Maps ni Calendly. Les liens sociaux sont de simples `<a href>`. **Ne pas repartir de zéro sur cet inventaire : il est à jour.**
 
 Corrections apportées :
-- **Politique de confidentialité entièrement réécrite**, FR et EN. L'ancienne était un modèle générique où manquait *tout* l'article 13 : responsable du traitement, base légale, destinataires, sous-traitants, transferts hors UE, durées de conservation, CNIL. Elle décrit désormais les **trois traitements réels** vérifiés dans le code : formulaire, assistant IA, sécurité du formulaire. Les sous-traitants sont nommés : Vercel, Resend, Cloudflare, Google Ireland.
+- **Politique de confidentialité entièrement réécrite**, FR et EN. L'ancienne était un modèle générique où manquait *tout* l'article 13 : responsable du traitement, base légale, destinataires, sous-traitants, transferts hors UE, durées de conservation, CNIL. Elle décrit désormais les **trois traitements réels** vérifiés dans le code : formulaire, assistant IA, sécurité du formulaire. Les sous-traitants sont nommés : Vercel, Resend, Cloudflare. **Google n'y figure plus** depuis l'auto-hébergement des polices le 29/09 : il n'est plus sous-traitant et ne reçoit plus aucune adresse IP. Ne pas l'y réintroduire.
 - **La bannière annonçait une mesure d'audience inexistante** (« cookies d'analyse d'audience anonymisée »). Elle recueillait donc un consentement pour une finalité fictive. Le consentement optionnel commande en réalité **une seule chose** : l'envoi par e-mail du compte rendu des conversations avec l'assistant (`hasAnalyticsConsent()` dans `AIAgent.astro`). Texte aligné sur cette réalité.
 - **Les pages cookies annonçaient des cookies de performance, de fonctionnalité, de ciblage et publicitaires tiers** — aucun n'existe. Réécrites FR et EN. Le bouton `data-cookie-settings` de retrait du consentement est conservé tel quel, c'est un mécanisme fonctionnel.
 - **Bug corrigé** : la bannière anglaise renvoyait vers `/politique-confidentialite`, la page française.
@@ -238,6 +238,15 @@ Corrections apportées :
 **Durées de conservation retenues** : trois ans à compter du dernier contact pour les demandes et les comptes rendus, conformément à la recommandation CNIL sur la prospection. À ajuster si la pratique réelle diffère.
 
 **L'URL reste `/politique-confidentialite`**, pas `/politique-de-confidentialite` : c'est celle qui est indexée et référencée partout, et un 404 sur cette variante avait déjà été corrigé par le passé.
+
+### Polices auto-hébergées — 29/09/2026
+Dernier écart de l'audit RGPD refermé. **Ne jamais revenir au CDN Google** : il transmet l'adresse IP de chaque visiteur à Google aux États-Unis avant tout consentement, ce que la CNIL déconseille et qu'un tribunal allemand a sanctionné en 2022.
+- Les `<link>` vers `fonts.googleapis.com` et `fonts.gstatic.com` ont disparu. Vérifié : **0 occurrence** dans les 38 pages construites.
+- **Versions variables** plutôt que statiques : un seul fichier par famille et par sous-ensemble couvre toutes les graisses de 300 à 900, au lieu des 11 fichiers qu'auraient exigés les 7 graisses de Montserrat et les 4 d'Inter.
+- **Seuls latin et latin-ext** sont embarqués. Google en propose 6 par famille — cyrillique, grec, vietnamien — inutiles sur un site FR/EN. Les fichiers vivent dans `public/fonts/` : Astro ne traite pas les `url()` des feuilles de style.
+- 244 Ko au total, mais `unicode-range` fait que la plupart des visiteurs ne chargent que le latin, soit **84 Ko**. Les deux fichiers latins sont en `preload`, ce qui règle au passage le caractère bloquant signalé de longue date.
+- Les déclarations `@font-face` sont en tête du `<style is:global>` de `Layout.astro`. Le fichier `src/styles/fonts-generated.css` conserve la version produite, pour pouvoir la régénérer.
+- Rendu vérifié : `document.fonts` confirme Montserrat 300-900 et Inter 300-600 chargés, les titres en Montserrat, le texte courant en Inter, largeurs de rendu inchangées.
 
 ### Divers
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -263,7 +272,6 @@ Corrections apportées :
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Activer Turnstile** | Le code est prêt. Créer un site sur dash.cloudflare.com/turnstile, puis poser `PUBLIC_TURNSTILE_SITE_KEY` et `TURNSTILE_SECRET_KEY` sur Vercel et redéployer. Tant que c'est absent, seuls les filtres de contenu protègent. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
-| **Important** | **Google Fonts : enjeu RGPD, pas seulement performance** | Les polices sont chargées depuis le CDN de Google, ce qui transmet l'adresse IP de chaque visiteur à Google aux États-Unis, avant tout consentement. La CNIL recommande l'auto-hébergement et un tribunal allemand a condamné cette pratique en 2022. Seul point de l'audit du 29/09/2026 non corrigé : l'auto-hébergement touche le rendu de toutes les pages et méritait une revue visuelle préalable. Déclaré en attendant dans la politique de confidentialité. |
 | Faible | **JSON-LD identique sur les 38 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
 | Faible | **Menu mobile** | `role="dialog"` sans focus trap ni `inert` sur l'arrière-plan. |
 | Faible | **`aria-label` du burger** | Figé à « Ouvrir le menu », jamais mis à jour en « Fermer ». |

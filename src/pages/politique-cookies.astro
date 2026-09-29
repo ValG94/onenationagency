@@ -25,11 +25,9 @@ import Footer from '../components/Footer.astro';
 					</ul>
 
 					<h2>Services tiers appelés par le site</h2>
-					<p>Deux services extérieurs sont sollicités lors de l'affichage des pages. Aucun des deux ne dépose de cookie, mais tous deux reçoivent votre adresse IP, techniquement nécessaire à toute connexion.</p>
-					<ul>
-						<li><strong>Google Fonts</strong> : fournit les polices de caractères du site. Votre adresse IP est transmise à Google au chargement des pages.</li>
-						<li><strong>Cloudflare Turnstile</strong> : vérifie, sur la page de contact uniquement, que le formulaire n'est pas rempli par un robot. Ce service est sans cookie et relève de la sécurité du site : il est exempté de consentement.</li>
-					</ul>
+					<p>Les polices de caractères sont <strong>hébergées par le site lui-même</strong> : leur affichage n'entraîne aucun appel à un service extérieur.</p>
+					<p>Un seul service tiers est sollicité, et uniquement sur la page de contact : <strong>Cloudflare Turnstile</strong>, qui vérifie que le formulaire n'est pas rempli par un robot. Il ne dépose aucun cookie et relève de la sécurité du site, ce qui l'exempte de consentement. Il reçoit votre adresse IP, techniquement nécessaire à toute connexion.</p>
+					<p>En dehors de cette page, la consultation du site n'adresse de requête à aucun tiers.</p>
 
 					<h2>À quoi sert alors le bandeau de confidentialité ?</h2>
 					<p>Il ne porte pas sur des cookies, mais sur un point précis : autoriser ou non l'envoi par e-mail à One Nation Agency d'un compte rendu de votre conversation avec l'assistant du site. Sans votre accord, aucun compte rendu n'est transmis.</p>
