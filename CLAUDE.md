@@ -71,7 +71,7 @@ _Dernière vérification : 2026-09-29 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 19.98 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 19.94 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -249,6 +249,7 @@ Dernier écart de l'audit RGPD refermé. **Ne jamais revenir au CDN Google** : i
 - Rendu vérifié : `document.fonts` confirme Montserrat 300-900 et Inter 300-600 chargés, les titres en Montserrat, le texte courant en Inter, largeurs de rendu inchangées.
 
 ### Divers
+- **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
 - `:root` des pages portfolio écrasait le design system globalement → variables scopées.
 - 8 bannières og:image manquantes générées en 1200×630.
