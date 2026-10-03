@@ -14,6 +14,7 @@ Site vitrine bilingue de l'agence. **Ce fichier est la source de vérité sur l'
 | Fonction serveur | `api/contact.js` (Vercel), envoi via Resend |
 | Paquets | **pnpm** — un seul lockfile, `pnpm-lock.yaml` |
 | Dépôt | https://github.com/ValG94/onenationagency |
+| Emplacement local | `C:\dev\ONA\ona` — **hors OneDrive** depuis le 03/10/2026 |
 
 ```bash
 pnpm install          # installer
@@ -60,7 +61,7 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-09-29 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-10-03 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -248,6 +249,28 @@ Dernier écart de l'audit RGPD refermé. **Ne jamais revenir au CDN Google** : i
 - Les déclarations `@font-face` sont en tête du `<style is:global>` de `Layout.astro`. Le fichier `src/styles/fonts-generated.css` conserve la version produite, pour pouvoir la régénérer.
 - Rendu vérifié : `document.fonts` confirme Montserrat 300-900 et Inter 300-600 chargés, les titres en Montserrat, le texte courant en Inter, largeurs de rendu inchangées.
 
+### Turnstile confirmé actif — 03/10/2026
+Les deux variables sont bien posées sur Vercel, **vérifié en production** et non déduit :
+- `PUBLIC_TURNSTILE_SITE_KEY` — le widget est rendu sur `/contact`, `data-sitekey` présent et `challenges.cloudflare.com` appelé.
+- `TURNSTILE_SECRET_KEY` — un POST sur `/api/contact` avec un jeton invalide répond **400 « Vérification anti-robot échouée »**. Si le secret était absent, `verifieTurnstile()` renverrait `actif: false` et la demande passerait.
+
+La protection ne repose donc plus sur les seuls filtres de contenu : le défi Cloudflare s'applique vraiment. **Ne pas rouvrir « activer Turnstile ».**
+
+Pour refaire ce test sans polluer la boîte mail : donner aux deux noms une forme qui marque 4 au score anti-spam, un chiffre dans chaque nom valant +2. Secret absent → 200 sans envoi ; secret présent → 400. Les deux réponses se distinguent et aucun e-mail ne part dans l'un ou l'autre cas.
+
+### Déplacement du dépôt hors OneDrive — 03/10/2026
+Le projet vit désormais dans **`C:\dev\ONA\ona`**. L'ancien dossier (`OneDrive/Documents/ONE NATION/onenationagency.com/project`) a été vérifié puis peut être supprimé. **Le piège OneDrive de la section 6 ne s'applique plus** : plus de synchro à mettre en pause avant un traitement de masse.
+
+Copie vérifiée, pas supposée :
+- Git identique — branche `main`, HEAD `c504ab2`, 94 commits, 175 fichiers suivis, 0 modification, 0 stash, même remote.
+- Fichiers **non versionnés donc irrécupérables depuis GitHub** : `.env`, `.env.example`, `.gitignore` identiques au md5 ; `originals/` — 63 fichiers, 64 Mo, arborescence et somme de contrôle agrégée identiques.
+- `pnpm install --frozen-lockfile` puis `pnpm run build` passent depuis le nouveau dossier.
+- **Preuve décisive** : le md5 agrégé de tous les `dist/**/*.html` est le même dans les deux dossiers.
+
+Aucun chemin absolu de l'ancien emplacement n'existe dans le code, les scripts ou la configuration : rien à réparer après le déplacement.
+
+**`node_modules` n'a pas été copié** (ni copiable utilement) : lancer `pnpm install` avant tout. pnpm 10 affiche alors `Ignored build scripts: esbuild, sharp` — **sans conséquence vérifiée**, le build optimise bien les 147 variantes d'images. Ne pas « corriger » par `pnpm approve-builds` sans raison.
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -271,17 +294,25 @@ Dernier écart de l'audit RGPD refermé. **Ne jamais revenir au CDN Google** : i
 | À valider | **Bannière og:image de `/offres`** | Les deux pages retombent sur `og-image-v2.jpg`, la bannière générique. Une bannière dédiée servirait mieux le partage d'une page commerciale. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
-| Moyen | **Activer Turnstile** | Le code est prêt. Créer un site sur dash.cloudflare.com/turnstile, puis poser `PUBLIC_TURNSTILE_SITE_KEY` et `TURNSTILE_SECRET_KEY` sur Vercel et redéployer. Tant que c'est absent, seuls les filtres de contenu protègent. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
 | Faible | **JSON-LD identique sur les 38 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
 | Faible | **Menu mobile** | `role="dialog"` sans focus trap ni `inert` sur l'arrière-plan. |
 | Faible | **`aria-label` du burger** | Figé à « Ouvrir le menu », jamais mis à jour en « Fermer ». |
 
+**Hors code — à faire par l'utilisateur, aucun développement attendu**
+
+| Sujet | Détail |
+|---|---|
+| **Numéro de téléphone** | Le site affiche partout le `06 98 61 97 10`. Reste à le reporter sur la **fiche Google Business**, les signatures d'e-mail et la page LinkedIn, sinon Google voit deux numéros pour la même entreprise. |
+| **WhatsApp** | Le widget pointe vers `wa.me/33698619710`. À vérifier d'un clic : si ce numéro n'est pas inscrit sur WhatsApp, le lien ouvre une erreur. |
+| **`GOOGLE_BUSINESS_URL`** | `null` dans `testimonials.ts`, donc le lien « Voir tous les avis » n'est pas rendu — c'est voulu. La renseigner quand l'URL de la fiche sera en main. Ne pas y mettre `GOOGLE_REVIEW_URL`, qui sert à *déposer* un avis. |
+| **Portraits clients** | `src/assets/avis-*.png` font 68 px pour un affichage à 42 px, soit 1,6x. Des sources plus grandes seraient plus nettes sur écran Retina. **Jamais de portrait de synthèse** : sans photo, la pastille retombe sur les initiales. |
+
 ---
 
 ## 6. Pièges connus
 
-- **OneDrive** — le dépôt est dans un dossier synchronisé. Les traitements de masse (images, `node_modules`) échouent en `EBUSY`/`Permission denied`. Demander la mise en pause de la synchro **avant**, pas après.
+- **OneDrive — piège levé le 03/10/2026.** Le dépôt est sorti de la synchro (`C:\dev\ONA\ona`), les traitements de masse ne tombent plus en `EBUSY`/`Permission denied`. Conservé ici pour une seule raison : si un jour le projet retourne dans un dossier synchronisé, demander la mise en pause **avant** le traitement, pas après.
 - **Previews Vercel** — l'utilisateur teste souvent sur `onenationagency-<hash>-…vercel.app`, figée sur son commit. Devant un bug « qui persiste » après correction, lire d'abord l'URL de sa capture.
 - **Fins de ligne** — les fichiers historiques sont en CRLF, les nouveaux en LF. Comparer en normalisant avant de conclure à une modification.
 - **Styles Astro scopés** — un `<style>` de page ne s'applique pas au markup d'un composant. Déplacer un markup vers un composant impose de déplacer son CSS avec.
