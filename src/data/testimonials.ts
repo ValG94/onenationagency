@@ -30,7 +30,7 @@ export const GOOGLE_REVIEW_URL = 'https://g.page/r/CaOGSMWQtdkEEBM/review';
  * URL publique de la fiche Google Business, pour un futur
  * « Voir tous les avis ». Tant qu'elle vaut null, le lien n'est pas rendu.
  */
-export const GOOGLE_BUSINESS_URL: string | null = null;
+export const GOOGLE_BUSINESS_URL: string | null = 'https://share.google/CedPkNVagkkgOdEnQ';
 
 const assetModules = import.meta.glob<{ default: ImageMetadata }>(
   '../assets/*.{jpg,jpeg,png,webp}',

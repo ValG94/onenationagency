@@ -36,7 +36,7 @@ export const localePairs: LocalePair[] = [
   // Pages expertise
   { fr: '/conseil-strategique', en: '/en/strategic-consulting' },
   { fr: '/design-graphique', en: '/en/graphic-design' },
-  { fr: '/e-reputation', en: '/en/e-reputation' },
+  { fr: '/e-reputation', en: '/en/online-reputation' },
   { fr: '/referencement', en: '/en/seo' },
   { fr: '/relations-presse', en: '/en/press-relations' },
   { fr: '/reseaux-sociaux', en: '/en/social-media' },

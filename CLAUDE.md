@@ -61,7 +61,7 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-10-03 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-10-04 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -72,7 +72,7 @@ _Dernière vérification : 2026-10-03 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 19.94 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 19.98 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -193,7 +193,7 @@ Avis Google intégrés comme preuve sociale, entre le portfolio et One Nation Ci
 - **Accueil : extraits courts uniquement.** L'avis intégral n'existe que sur `/portfolio`. Vérifié : 3 cartes par accueil, aucun texte long.
 - Le portfolio a gagné une **ancre `id` par projet**, ce dont dépendent les CTA des cartes (`/portfolio#island-living-sxm`). L'avis de Constantin Etot s'affiche sur ses deux projets, PaieCashFan et PaieCashCoin.
 - **Alexis Mohamed n'est pas client One Nation Civic.** Son avis porte `institutional: true` parce qu'il mentionne les chancelleries, ce qui permettra de le reprendre dans un contexte ONC sous une formule du type « Un regard sur notre approche institutionnelle ». Ne jamais écrire « Client ONC » ni « Utilisateur ONC » : l'avertissement est répété dans le fichier de données.
-- `GOOGLE_REVIEW_URL` sert à **déposer** un avis. `GOOGLE_BUSINESS_URL` vaut `null` : tant qu'elle n'est pas renseignée, le lien « Voir tous les avis » n'est pas rendu. Ne pas utiliser l'une pour l'autre.
+- `GOOGLE_REVIEW_URL` sert à **déposer** un avis. `GOOGLE_BUSINESS_URL` sert à les **lister** : tant qu'elle vaut `null`, le lien « Voir tous les avis » n'est pas rendu. Ne pas utiliser l'une pour l'autre.
 - **Portraits clients** dans `src/assets/avis-<id>.png`, rattachés par le champ `avatar` et résolus comme les visuels de `projects.ts`. Sans photo, la pastille retombe sur les initiales : **ne jamais générer de portrait de synthèse**. Les sources font 68 px pour un affichage à 42 px, soit 1,6x — des photos plus grandes seraient plus nettes sur écran Retina.
 - **Chaque avis s'affiche dans la langue où il a été écrit**, quelle que soit la langue de la page : `originalLang` la désigne, et la variante dans l'autre langue est présentée comme une traduction, jamais à la place de la citation. Les trois avis ont été rédigés en français. Sur la carte, la traduction suit en retrait ; en étude de cas, elle est repliée dans un `<details>` natif pour ne pas doubler six paragraphes.
 - Grille 3 colonnes jusqu'à 3 avis, bascule automatique en défilement horizontal au-delà (`tm-grid--scroll`). Sous 760 px, une carte par écran en `scroll-snap`. **Aucune dépendance ajoutée.**
@@ -271,6 +271,19 @@ Aucun chemin absolu de l'ancien emplacement n'existe dans le code, les scripts o
 
 **`node_modules` n'a pas été copié** (ni copiable utilement) : lancer `pnpm install` avant tout. pnpm 10 affiche alors `Ignored build scripts: esbuild, sharp` — **sans conséquence vérifiée**, le build optimise bien les 147 variantes d'images. Ne pas « corriger » par `pnpm approve-builds` sans raison.
 
+### TVA, slug anglais, accessibilité du menu — 03/10/2026
+- **Franchise de TVA** : l'utilisateur est auto-entrepreneur. CGV FR et EN, article des tarifs : « nets et HT » devient **« nets : TVA non applicable, article 293 B du Code général des impôts »**. Seule occurrence de HT/TVA du site, `packages.ts` compris.
+- **Slugs anglais passés en revue** : tous reprennent le titre de leur page et le terme anglais usuel, sauf un. `/en/e-reputation` devient **`/en/online-reputation`** : « e-reputation » est un gallicisme, un anglophone cherche *online reputation management*. Le texte anglais suit (titre, H1, FAQ, footer EN, `/en/services`, réponse EN de l'agent IA), la page FR garde « e-réputation ». **Redirection 301** de l'ancienne URL dans `vercel.json`, avec et sans slash final. Les autres slugs sont validés, ne pas les rouvrir.
+- **Piège rencontré** : un remplacement global de « e-reputation » attrape aussi « onlin**e-reputation** ». Le canonical s'était transformé en `/en/onlinonline reputation` et la page avait perdu ses 3 hreflang (114 → 111). C'est le compteur de la section 3 qui l'a signalé. Toujours relire ce chiffre après un renommage.
+- **Menu mobile**, `Header.astro` :
+  - L'`aria-label` du burger bascule entre « Ouvrir » et « Fermer le menu ». Il était aussi **figé en français sur les pages EN** : il est désormais traduit (« Open/Close menu »).
+  - `inert` est posé à l'ouverture sur tout ce qui n'est ni le menu ni le burger. Il est calculé au moment de l'ouverture, donc les widgets injectés après chargement sont couverts. Seuls les `inert` posés par le menu sont levés à la fermeture.
+  - Focus trap : Tab boucle entre le burger (qui sert de bouton de fermeture) et les liens. Le focus entre dans le menu à l'ouverture et revient au burger sur Échap ou sur clic du burger.
+  - Le menu se referme si l'écran repasse au-dessus de 1024 px. Sinon, burger masqué, la page entière restait inerte sans issue.
+  - `aria-modal` volontairement absent : le bouton de fermeture est hors du `role="dialog"`, et `aria-modal` le masquerait aux lecteurs d'écran. C'est `inert` qui isole le fond.
+  - Vérifié dans Chrome sur `/contact` et `/en/online-reputation` en 390 px : 19 contrôles par page, tous passés, rendu visuel inchangé.
+- **Lien « Voir tous les avis Google »** activé sur les deux accueils : `GOOGLE_BUSINESS_URL` vaut `https://share.google/CedPkNVagkkgOdEnQ`, le lien court de partage de la fiche (302 vers Google, vérifié). **C'est une constante de `testimonials.ts`, pas une variable d'environnement** : la ligne `GOOGLE_BUSINESS_URL` du `.env` local n'est lue par aucun code et peut être supprimée. Ne pas la déclarer sur Vercel en croyant activer quelque chose.
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -287,25 +300,21 @@ Aucun chemin absolu de l'ancien emplacement n'existe dans le code, les scripts o
 
 | Priorité | Sujet | Détail |
 |---|---|---|
-| À valider | **Slugs anglais** | `/en/seo`, `/en/digital-marketing`, `/en/terms-and-conditions`… choisis par défaut. Les changer coûte une ligne dans `routes.ts` + un renommage, tant que Google ne les a pas indexés. |
 | Tranché | **« Paris » comme positionnement** | `contact.astro`, `en/contact.astro` et `en/index.astro` affichent « Paris, France » et « Paris · Africa · International ». Volontairement conservé : c'est du discours commercial, pas l'adresse légale. Ne pas « corriger » au motif que cela diffère du footer. |
-| À valider | **Franchise de TVA** | `cgv.astro` et `en/terms-and-conditions.astro` annoncent des tarifs « nets et HT ». En micro-entreprise sous franchise, la formule attendue est « TVA non applicable, article 293 B du CGI ». Dépend du régime réel, non modifié. |
 | À valider | **Page dédiée One Nation Civic** | ONC vit dans une section d'accueil, un bandeau sur les pages IA et un bloc sur `/offres`. Une page `/one-nation-civic` + `/en/one-nation-civic` serait le prochain palier SEO : il suffirait d'y poser `<CivicSection />`, d'ajouter la paire dans `routes.ts` et de rebasculer le lien du menu. Non fait : hors demande. |
 | À valider | **Bannière og:image de `/offres`** | Les deux pages retombent sur `og-image-v2.jpg`, la bannière générique. Une bannière dédiée servirait mieux le partage d'une page commerciale. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
 | Faible | **JSON-LD identique sur les 38 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
-| Faible | **Menu mobile** | `role="dialog"` sans focus trap ni `inert` sur l'arrière-plan. |
-| Faible | **`aria-label` du burger** | Figé à « Ouvrir le menu », jamais mis à jour en « Fermer ». |
+| Faible | **Libellés ARIA du header en français sur les pages EN** | « Navigation principale », « Menu mobile », « Navigation mobile », « Changer de langue », « One Nation Agency Accueil » restent en français sur les 19 pages EN. Seul le burger a été traduit le 03/10. |
 
 **Hors code — à faire par l'utilisateur, aucun développement attendu**
 
 | Sujet | Détail |
 |---|---|
-| **Numéro de téléphone** | Le site affiche partout le `06 98 61 97 10`. Reste à le reporter sur la **fiche Google Business**, les signatures d'e-mail et la page LinkedIn, sinon Google voit deux numéros pour la même entreprise. |
+| **Numéro de téléphone** | Le site affiche partout le `06 98 61 97 10`. **Déjà sur la fiche Google Business** (confirmé le 03/10). Reste à le reporter sur les signatures d'e-mail et la page LinkedIn. |
 | **WhatsApp** | Le widget pointe vers `wa.me/33698619710`. À vérifier d'un clic : si ce numéro n'est pas inscrit sur WhatsApp, le lien ouvre une erreur. |
-| **`GOOGLE_BUSINESS_URL`** | `null` dans `testimonials.ts`, donc le lien « Voir tous les avis » n'est pas rendu — c'est voulu. La renseigner quand l'URL de la fiche sera en main. Ne pas y mettre `GOOGLE_REVIEW_URL`, qui sert à *déposer* un avis. |
 | **Portraits clients** | `src/assets/avis-*.png` font 68 px pour un affichage à 42 px, soit 1,6x. Des sources plus grandes seraient plus nettes sur écran Retina. **Jamais de portrait de synthèse** : sans photo, la pastille retombe sur les initiales. |
 
 ---

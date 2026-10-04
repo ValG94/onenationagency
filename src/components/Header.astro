@@ -60,6 +60,12 @@ import { counterpart } from '../data/routes';
 const targetLang = lang === 'en' ? 'fr' : 'en';
 const langHref = counterpart(currentPath, targetLang) ?? (targetLang === 'en' ? '/en' : '/');
 const langLabel = targetLang.toUpperCase();
+
+// Libellés du burger dans la langue de la page. Le script bascule de
+// l'un à l'autre à l'ouverture et à la fermeture du menu.
+const burgerLabels = lang === 'en'
+  ? { open: 'Open menu', close: 'Close menu' }
+  : { open: 'Ouvrir le menu', close: 'Fermer le menu' };
 ---
 
 <header class="site-header" id="site-header">
@@ -104,7 +110,15 @@ const langLabel = targetLang.toUpperCase();
       </a>
 
       <!-- Burger mobile -->
-      <button class="burger" id="burger-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+      <button
+        class="burger"
+        id="burger-btn"
+        aria-label={burgerLabels.open}
+        data-label-open={burgerLabels.open}
+        data-label-close={burgerLabels.close}
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -413,19 +427,70 @@ const langLabel = targetLang.toUpperCase();
     }
   }, { passive: true });
 
+  // ── Arrière-plan inerte ─────────────────────────────────────
+  // Tout ce qui n'est ni le menu ni le burger (qui sert de bouton de
+  // fermeture) devient inert : ni focus, ni clic, ni lecteur d'écran.
+  // Calculé à l'ouverture, pour couvrir aussi les widgets injectés après
+  // le chargement (agent IA, WhatsApp). On ne restaure que ce qu'on a posé.
+  let inertedByMenu: HTMLElement[] = [];
+
+  function setBackgroundInert(on: boolean) {
+    if (!on) {
+      inertedByMenu.forEach(el => { el.inert = false; });
+      inertedByMenu = [];
+      return;
+    }
+    const keep = [burgerBtn, mobileMenu].filter((el): el is HTMLElement => !!el);
+    const ancestors = new Set<Element>();
+    keep.forEach(el => {
+      for (let n = el.parentElement; n && n !== document.documentElement; n = n.parentElement) {
+        ancestors.add(n);
+      }
+    });
+    ancestors.forEach(parent => {
+      Array.from(parent.children).forEach(child => {
+        if (ancestors.has(child) || keep.includes(child as HTMLElement)) return;
+        const el = child as HTMLElement;
+        if (el.inert) return;
+        el.inert = true;
+        inertedByMenu.push(el);
+      });
+    });
+  }
+
+  // ── Focus trap ──────────────────────────────────────────────
+  // Tab boucle entre le burger et les liens du menu.
+  function trappedFocusables(): HTMLElement[] {
+    const links = mobileMenu ? Array.from(mobileMenu.querySelectorAll<HTMLElement>('a[href], button')) : [];
+    return burgerBtn ? [burgerBtn, ...links] : links;
+  }
+
+  function isMenuOpen() {
+    return !!mobileMenu?.classList.contains('open');
+  }
+
   // ── Helpers open / close ────────────────────────────────────
   function openMenu() {
     mobileMenu?.classList.add('open');
     burgerBtn?.classList.add('open');
     burgerBtn?.setAttribute('aria-expanded', 'true');
+    burgerBtn?.setAttribute('aria-label', burgerBtn.dataset.labelClose ?? '');
+    setBackgroundInert(true);
+    // Le menu passe de visibility: hidden à visible au début de la
+    // transition : ses liens sont focusables dès la frame suivante.
+    requestAnimationFrame(() => trappedFocusables()[1]?.focus());
     // NE PAS bloquer document.body.overflow — le menu a son propre scroll interne
     // Bloquer uniquement le scroll de la page derrière le menu via pointer-events
   }
 
-  function closeMenu() {
+  function closeMenu({ restoreFocus = false } = {}) {
+    if (!isMenuOpen()) return;
     mobileMenu?.classList.remove('open');
     burgerBtn?.classList.remove('open');
     burgerBtn?.setAttribute('aria-expanded', 'false');
+    burgerBtn?.setAttribute('aria-label', burgerBtn.dataset.labelOpen ?? '');
+    setBackgroundInert(false);
+    if (restoreFocus) burgerBtn?.focus();
     // S'assurer que le scroll de la page est toujours libéré
     document.body.style.overflow = '';
     document.body.style.position = '';
@@ -434,12 +499,35 @@ const langLabel = targetLang.toUpperCase();
 
   // ── Toggle burger ───────────────────────────────────────────
   burgerBtn?.addEventListener('click', () => {
-    const isOpen = mobileMenu?.classList.contains('open');
-    if (isOpen) {
-      closeMenu();
+    if (isMenuOpen()) {
+      closeMenu({ restoreFocus: true });
     } else {
       openMenu();
     }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || !isMenuOpen()) return;
+    const items = trappedFocusables();
+    if (items.length === 0) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    const active = document.activeElement as HTMLElement | null;
+    const inside = !!active && items.includes(active);
+    if (e.shiftKey && (active === first || !inside)) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && (active === last || !inside)) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  // ── Fermer si l'écran repasse en nav desktop ────────────────
+  // Le burger disparaît au-dessus de 1024 px : un menu resté ouvert
+  // laisserait la page entière inerte, sans bouton pour en sortir.
+  window.matchMedia('(min-width: 1025px)').addEventListener('change', (e) => {
+    if (e.matches) closeMenu();
   });
 
   // ── Fermer sur clic de lien ─────────────────────────────────
@@ -451,8 +539,8 @@ const langLabel = targetLang.toUpperCase();
 
   // ── Fermer sur Escape ───────────────────────────────────────
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileMenu?.classList.contains('open')) {
-      closeMenu();
+    if (e.key === 'Escape' && isMenuOpen()) {
+      closeMenu({ restoreFocus: true });
     }
   });
 
