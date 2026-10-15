@@ -61,7 +61,7 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-10-04 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-10-15 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -72,7 +72,7 @@ _Dernière vérification : 2026-10-04 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 19.98 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 20.00 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -136,14 +136,14 @@ Intégration d'ONC comme **solution propriétaire de l'agence**, sans refonte : 
 ### Page Offres — 25/08/2026
 Page commerciale `/offres` et `/en/packages` : 3 packs, maintenance, case study, ONC, CTA final.
 - `src/data/packages.ts` + `PackagesContent.astro` : **un seul markup pour les deux langues**, les pages ne portent que les métadonnées. Aucune dérive FR/EN possible.
-- **Règles commerciales inscrites dans le fichier de données**, à ne pas contourner : jamais de prix ferme, aucune promesse d'illimité, périmètre arrêté au devis. ESSENTIEL et BUSINESS annoncent « à partir de » ; **SIGNATURE affiche « Sur devis »**, avec le plancher de 3 900 € en retrait sous la mention — une plateforme métier ne se résume pas à un forfait.
-- CTA des packs → `/contact?offre=essentiel|business|signature#contactForm`. Les pages contact lisent le paramètre, positionnent le sujet sur « web » et amorcent le message. **L'API n'a pas bougé** : `subject` y est du texte libre. Sans JS, le formulaire reste utilisable.
+- **Règles commerciales inscrites dans le fichier de données**, à ne pas contourner : jamais de prix ferme (**sauf le Diagnostic depuis le 15/10, voir « Formats pour site existant »**), aucune promesse d'illimité, périmètre arrêté au devis. ESSENTIEL et BUSINESS annoncent « à partir de » ; **SIGNATURE affiche « Sur devis »**, avec le plancher de 3 900 € en retrait sous la mention — une plateforme métier ne se résume pas à un forfait.
+- CTA des packs → `/contact?offre=essentiel|business|signature#contactForm` (plus `diagnostic`, `sprint`, `care` depuis le 15/10). Les pages contact lisent le paramètre, positionnent le sujet sur « web » et amorcent le message. **L'API n'a pas bougé** : `subject` y est du texte libre. Sans JS, le formulaire reste utilisable.
 - Case study Island Living SXM : visuel, titre et pays viennent de `projects.ts` via `getProjects()`, déjà localisés et déjà en `ImageMetadata`. Seul l'angle commercial est dans `packages.ts`.
 - `CivicSection` gagne une 3e variante, `feature`, pour le bloc institutionnel. Ses 4 bénéfices sont un sous-ensemble des 6 de `civic.ts` (`featureIndices`) : aucune copie ONC dupliquée.
 - Nav à 7 entrées : **« Intelligence IA » et « One Nation Civic » sont abrégés en « IA » et « ONC » en desktop uniquement** (`shortLabel`), le menu mobile garde les libellés entiers et `aria-label` porte le nom complet. La bascule burger reste à 1024 px.
 - Grille des offres : 3 colonnes au-dessus de 900 px, **une offre par ligne en dessous**. Une grille paire à trois cartes laissait une case vide béante à côté de la première.
 - Cartes de hauteur égale (`align-items: stretch`) et **bouton toujours en dernier dans le pied de carte** : c'est ce qui aligne les trois CTA malgré des mentions de longueur inégale. Une mention insérée après le bouton casserait l'alignement.
-- JSON-LD `Service` + `OfferCatalog` par page, avec `minPrice` et non `price` : les tarifs sont des planchers.
+- JSON-LD `Service` + `OfferCatalog` par page, avec `minPrice` et non `price` : les tarifs sont des planchers. (Généré par `getOffersJsonLd()` depuis le 15/10.)
 
 ### Domaine One Nation Civic — 25/08/2026
 `CIVIC_URL` passe de `onenationcivic.onrender.com` à **`onenationcivic.com`**. L'ancienne adresse répond encore mais n'est plus référencée nulle part.
@@ -284,6 +284,18 @@ Aucun chemin absolu de l'ancien emplacement n'existe dans le code, les scripts o
   - Vérifié dans Chrome sur `/contact` et `/en/online-reputation` en 390 px : 19 contrôles par page, tous passés, rendu visuel inchangé.
 - **Lien « Voir tous les avis Google »** activé sur les deux accueils : `GOOGLE_BUSINESS_URL` vaut `https://share.google/CedPkNVagkkgOdEnQ`, le lien court de partage de la fiche (302 vers Google, vérifié). **C'est une constante de `testimonials.ts`, pas une variable d'environnement** : la ligne `GOOGLE_BUSINESS_URL` du `.env` local n'est lue par aucun code et peut être supprimée. Ne pas la déclarer sur Vercel en croyant activer quelque chose.
 
+### Formats pour site existant, page Offres — 15/10/2026
+Trois offres d'entrée ajoutées à `/offres` et `/en/packages`, sans refonte : Diagnostic Digital & IA Express (490 €), Sprint Digital (à partir de 990 €), Care vendu seul (49 € et 99 € par mois).
+- **Deux sections, séparées par une question et non par un prix.** Section 1, « Vous n'avez pas encore de site ? » : Essentiel, Business, Signature, **inchangés**. Section 2, « Votre site existe déjà ? », titre « UN REGARD. UNE ACTION. UN SUIVI. » : Diagnostic, Sprint, puis Care. **Ne jamais fusionner les deux dans une grille** : cinq prix alignés de 490 à 3 900 € se lisent comme une échelle de budget, et le visiteur descend au premier barreau. La question est dans l'étiquette dorée au-dessus du titre, celui de la section 1 n'a pas bougé.
+- **Care remonté, pas dupliqué** : l'ancien bloc « Après la mise en ligne » (3 petites cartes en bas de page) est supprimé. Care et Care Plus prennent les grandes cartes, Care Plus en avant avec le badge **« Recommandé »** (et non « Le plus choisi » : formule vendue seule toute neuve, l'affirmation n'était pas vérifiable). Business Care n'est plus qu'une ligne discrète sous les cartes. Accroche : « Nous maintenons aussi les sites que nous n'avons pas réalisés. » **Un seul bouton pour les deux formules**, `?offre=care`.
+- **Aucun « HT »** : franchise de TVA. Règle écrite en tête de `packages.ts`. Le JSON-LD perd aussi `valueAddedTaxIncluded: false`, qui disait la même chose à Google.
+- **CGV, article 4, FR et EN** : « Sauf mention contraire dans l'offre ou le devis accepté » devant l'acompte de 30 %. Sans cela, le Diagnostic payé à la commande et l'acompte de 50 % du Sprint contredisaient les CGV.
+- **Carte extraite dans `src/components/PackageCard.astro`**, utilisée par les deux sections, **CSS déménagé avec elle** (piège des styles scopés). Les champs facultatifs absents sont omis : lignes de pied multiples (`terms`, ex-`delayLabel`/`delayValue`), périodicité (`pricePeriod`), mention encadrée (`highlight`, la déduction du Diagnostic), carte sans bouton (Care). **Vérifié au pixel près** : la grille de la section 1 est identique avant et après, à 1280, 820 et 390 px, FR et EN. Seule l'étiquette au-dessus du titre diffère, comme voulu.
+- **Le formulaire de contact ne recopie plus la liste des offres.** `getContactOffers()` la construit depuis `packages.ts` au build, posée dans `data-offers` sur le `<form>`. Une offre future est reconnue sans toucher aux pages contact. Pour une offre « site existant », le message prérempli finit par « Mon site : » au lieu de « Mon projet : ». Testé dans Chrome : 6 offres × 2 langues, plus `?offre=inconnue` et `?offre=toString` ignorés, aucune erreur JS.
+- **JSON-LD** : `getOffersJsonLd()` produit les 7 offres, avec `price` pour le Diagnostic (prix ferme), `minPrice` pour les planchers et `UnitPriceSpecification` à l'unité `MON` pour Care. Plus aucun montant recopié dans les pages.
+- Méta-titre et méta-description FR/EN couvrent désormais l'audit et la maintenance. Phrase du hero : « Créer votre site, ou faire progresser celui que vous avez déjà. »
+- Section 2 sur fond `--anthracite` avec filet `--border`, repris du CTA final : aucune couleur nouvelle.
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -303,6 +315,8 @@ Aucun chemin absolu de l'ancien emplacement n'existe dans le code, les scripts o
 | Tranché | **« Paris » comme positionnement** | `contact.astro`, `en/contact.astro` et `en/index.astro` affichent « Paris, France » et « Paris · Africa · International ». Volontairement conservé : c'est du discours commercial, pas l'adresse légale. Ne pas « corriger » au motif que cela diffère du footer. |
 | À valider | **Page dédiée One Nation Civic** | ONC vit dans une section d'accueil, un bandeau sur les pages IA et un bloc sur `/offres`. Une page `/one-nation-civic` + `/en/one-nation-civic` serait le prochain palier SEO : il suffirait d'y poser `<CivicSection />`, d'ajouter la paire dans `routes.ts` et de rebasculer le lien du menu. Non fait : hors demande. |
 | À valider | **Bannière og:image de `/offres`** | Les deux pages retombent sur `og-image-v2.jpg`, la bannière générique. Une bannière dédiée servirait mieux le partage d'une page commerciale. |
+| À valider | **Accès direct à la section 2 depuis le hero de `/offres`** | Le bouton « Découvrir les offres » mène à `#offres` (section 1). Un visiteur qui a déjà un site doit faire défiler. L'ancre `#site-existant` existe déjà : un second lien suffirait. Non fait : hors demande. |
+| Faible | **Description ONC dans le JSON-LD de `/offres`** | L'offre One Nation Civic du catalogue reprend la méta-description de la page entière comme description. Défaut antérieur au 15/10, non corrigé : hors demande. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |

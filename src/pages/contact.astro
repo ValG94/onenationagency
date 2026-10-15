@@ -2,10 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getContactOffers } from '../data/packages';
 
 // Clé publique Turnstile, injectée au build. Absente = widget non rendu.
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const TURNSTILE_LANG = 'fr';
+
+// Offres reconnues dans `?offre=`, lues dans packages.ts au build et
+// posées sur le formulaire (data-offers) pour le script de préremplissage.
+const contactOffers = JSON.stringify(getContactOffers('fr'));
 ---
 
 
@@ -42,7 +47,7 @@ const TURNSTILE_LANG = 'fr';
           <!-- FORMULAIRE -->
           <div class="contact-form-wrap reveal">
             <h2>Envoyez-nous un message</h2>
-            <form class="contact-form" id="contactForm" novalidate>
+            <form class="contact-form" id="contactForm" novalidate data-offers={contactOffers}>
               <div class="form-row">
                 <div class="form-group">
                   <label for="firstName">Prénom *</label>
@@ -696,26 +701,34 @@ const TURNSTILE_LANG = 'fr';
   }
 
   // ── Préremplissage depuis la page Offres ────────────────────
-  // Les CTA de /offres arrivent avec ?offre=essentiel|business|signature.
-  // On positionne le sujet sur « Création web » et on amorce le message :
-  // le visiteur n'a plus qu'à décrire son projet. Sans JS, le formulaire
-  // reste utilisable tel quel.
-  const OFFRES: Record<string, string> = {
-    essentiel: 'ESSENTIEL',
-    business: 'BUSINESS',
-    signature: 'SIGNATURE',
-  };
+  // Les boutons de /offres arrivent avec ?offre=<id> (essentiel, business,
+  // signature, diagnostic, sprint, care). On positionne le sujet sur
+  // « Création web » et on amorce le message : le visiteur n'a plus qu'à
+  // compléter. Sans JS, le formulaire reste utilisable tel quel.
+  //
+  // La liste des offres n'est PAS écrite ici : elle vient de packages.ts,
+  // posée au build dans l'attribut data-offers du formulaire. Une offre
+  // ajoutée là-bas est donc reconnue ici sans retouche.
+  type ContactOffer = { name: string; existingSite: boolean };
+  let offres: Record<string, ContactOffer> = {};
+  try {
+    offres = JSON.parse(document.getElementById('contactForm')?.dataset.offers ?? '{}');
+  } catch { /* attribut absent ou illisible : pas de préremplissage */ }
 
   const offre = new URLSearchParams(window.location.search).get('offre');
-  const nomOffre = offre ? OFFRES[offre] : null;
+  // hasOwnProperty : un ?offre=toString ne doit pas remonter le prototype de l'objet.
+  const choix = offre && Object.prototype.hasOwnProperty.call(offres, offre) ? offres[offre] : null;
 
-  if (nomOffre) {
+  if (choix) {
     const subject = document.getElementById('subject') as HTMLSelectElement | null;
     const message = document.getElementById('message') as HTMLTextAreaElement | null;
 
     if (subject) subject.value = 'web';
     if (message && !message.value) {
-      message.value = `Bonjour, je souhaite échanger au sujet de l'offre ${nomOffre}.\n\nMon projet : `;
+      // Site existant (Diagnostic, Sprint, Care) : on demande l'adresse du
+      // site plutôt qu'une description de projet.
+      const suite = choix.existingSite ? 'Mon site : ' : 'Mon projet : ';
+      message.value = `Bonjour, je souhaite échanger au sujet de l'offre ${choix.name}.\n\n${suite}`;
     }
   }
 </script>

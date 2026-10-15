@@ -12,6 +12,7 @@ import { Image } from 'astro:assets';
 import { getPackagesCopy, packageContactHref } from '../data/packages';
 import { getProjects } from '../data/projects';
 import CivicSection from './CivicSection.astro';
+import PackageCard from './PackageCard.astro';
 
 interface Props {
   lang?: string;
@@ -69,60 +70,74 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
 <section class="pk-offers" id="offres" aria-labelledby="offres-title">
   <div class="container">
     <div class="section-header reveal">
-      <span class="label">{en ? 'The packages' : 'Les offres'}</span>
+      {/* La question range le visiteur selon sa situation (pas encore
+          de site / site existant), pas selon son budget. */}
+      <span class="label">{t.packagesLabel}</span>
       <div class="gold-bar"></div>
       <h2 id="offres-title" set:html={t.packagesTitle} />
     </div>
 
     <div class="pk-grid">
       {t.offers.map((offer, i) => (
-        <article
-          class:list={['pk-card', { 'pk-card--featured': offer.badge }, 'reveal', `reveal-delay-${i + 1}`]}
-          aria-labelledby={`offer-${offer.id}`}
-        >
-          {offer.badge && <div class="pk-badge">{offer.badge}</div>}
-
-          <header class="pk-card-head">
-            <h3 id={`offer-${offer.id}`}>{offer.name}</h3>
-            <p class="pk-tagline">{offer.tagline}</p>
-            <p class:list={['pk-price', { 'pk-price--quote': offer.priceSub }]}>
-              {offer.priceLabel && <span class="pk-price-label">{offer.priceLabel}</span>}
-              <strong>{offer.price}</strong>
-              {offer.priceSub && <span class="pk-price-sub">{offer.priceSub}</span>}
-              {offer.priceFrom && <span class="pk-price-from">{offer.priceFrom}</span>}
-            </p>
-          </header>
-
-          <p class="pk-desc">{offer.description}</p>
-
-          {offer.featuresIntro && <p class="pk-features-intro">{offer.featuresIntro}</p>}
-
-          <ul class="pk-features">
-            {offer.features.map(feature => (
-              <li>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={CHECK} />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div class="pk-card-foot">
-            <p class="pk-delay">
-              <span>{offer.delayLabel}</span>
-              <strong>{offer.delayValue}</strong>
-            </p>
-            {offer.option && <p class="pk-note pk-option">{offer.option}</p>}
-            <!-- Le bouton ferme toujours la carte : c'est ce qui aligne
-                 les trois CTA malgré les mentions de longueur inégale. -->
-            <a
-              href={packageContactHref(lang, offer.id)}
-              class:list={[offer.badge ? 'btn-gold' : 'btn-outline', 'pk-cta']}
-            >
-              {offer.cta}
-            </a>
-          </div>
-        </article>
+        <PackageCard
+          card={offer}
+          headingId={`offer-${offer.id}`}
+          href={packageContactHref(lang, offer.id)}
+          cta={offer.cta}
+          index={i}
+        />
       ))}
+    </div>
+  </div>
+</section>
+
+{/* ═══ VOTRE SITE EXISTE DÉJÀ ═════════════════════════════
+    Section distincte de la précédente, volontairement : dans une même
+    grille, cinq prix de 490 à 3 900 € se liraient comme une échelle de
+    budget. Ici le visiteur arrive par sa situation. */}
+<section class="pk-offers pk-existing" id="site-existant" aria-labelledby="existing-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">{t.existing.label}</span>
+      <div class="gold-bar"></div>
+      <h2 id="existing-title">{t.existing.title}</h2>
+    </div>
+
+    <div class="pk-grid pk-grid--two">
+      {t.existing.offers.map((offer, i) => (
+        <PackageCard
+          card={offer}
+          headingId={`offer-${offer.id}`}
+          href={packageContactHref(lang, offer.id)}
+          cta={offer.cta}
+          index={i}
+        />
+      ))}
+    </div>
+
+    {/* Care, la maintenance vendue seule. Les deux formules partagent un
+        bouton unique, placé sous les cartes (pas de bouton par carte). */}
+    <div class="pk-care" id="care" aria-labelledby="care-title">
+      <div class="pk-care-head reveal">
+        <h3 id="care-title">{t.care.title}</h3>
+        <p class="pk-care-lead">{t.care.lead}</p>
+      </div>
+
+      <div class="pk-grid pk-grid--two">
+        {t.care.plans.map((plan, i) => (
+          <PackageCard
+            card={plan}
+            headingId={`offer-${plan.name.toLowerCase().replace(/\s+/g, '-')}`}
+            index={i}
+          />
+        ))}
+      </div>
+
+      <p class="pk-care-beyond reveal">{t.care.beyond}</p>
+      <div class="pk-care-actions reveal">
+        <a href={packageContactHref(lang, 'care')} class="btn-gold">{t.care.cta}</a>
+      </div>
+      <p class="pk-care-disclaimer reveal">{t.care.disclaimer}</p>
     </div>
   </div>
 </section>
@@ -186,41 +201,6 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
         </figure>
       )}
     </div>
-  </div>
-</section>
-
-<!-- ═══ MAINTENANCE & HÉBERGEMENT ══════════════════════════ -->
-<section class="pk-care" aria-labelledby="care-title">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="label">{t.care.eyebrow}</span>
-      <div class="gold-bar"></div>
-      <h2 id="care-title" set:html={t.care.title} />
-      <p class="section-intro">{t.care.subtitle}</p>
-    </div>
-
-    <div class="pk-care-grid">
-      {t.care.plans.map((plan, i) => (
-        <article class:list={['pk-care-card', 'reveal', `reveal-delay-${i + 1}`]}>
-          <h3>{plan.name}</h3>
-          <p class="pk-care-price">
-            <strong>{plan.price}</strong>
-            <span>{plan.period}</span>
-          </p>
-          {plan.intro && <p class="pk-care-intro">{plan.intro}</p>}
-          <ul>
-            {plan.features.map(feature => (
-              <li>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={CHECK} />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-      ))}
-    </div>
-
-    <p class="pk-care-disclaimer reveal">{t.care.disclaimer}</p>
   </div>
 </section>
 
@@ -354,185 +334,68 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
     align-items: stretch;
   }
 
-  .pk-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background: var(--card-bg);
-    border: 1px solid var(--border-light);
-    border-radius: 10px;
-    padding: 2.6rem 2rem 2.2rem;
-    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  }
-  .pk-card:hover {
-    border-color: var(--border);
-    transform: translateY(-4px);
-    box-shadow: 0 18px 44px rgba(0,0,0,0.42);
+  /* ═══ VOTRE SITE EXISTE DÉJÀ ═════════════════════════════ */
+  /* Fond et filet repris du CTA final : on change de situation, la
+     page le marque sans introduire de couleur. */
+  .pk-existing {
+    background: var(--anthracite);
+    border-top: 1px solid var(--border);
   }
 
-  /* Mise en avant sobre : filet doré, fond légèrement relevé,
-     légère élévation. Pas de couleur d'accent supplémentaire. */
-  .pk-card--featured {
-    border-color: var(--gold);
-    background: linear-gradient(160deg, #1b1b1b 0%, #141414 100%);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  }
-  .pk-card--featured:hover { box-shadow: 0 26px 60px rgba(0,0,0,0.55); }
-
-  .pk-badge {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--gold);
-    color: var(--black);
-    font-family: var(--font-display);
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 0.4rem 1.1rem;
-    border-radius: 999px;
-    white-space: nowrap;
+  /* Deux cartes par rangée (Diagnostic + Sprint, Care + Care Plus),
+     centrées et bornées : étirées sur toute la largeur du conteneur,
+     elles deviendraient des bandeaux difficiles à lire. Sous 900 px,
+     la règle commune `.pk-grid` repasse à une carte par ligne. */
+  .pk-grid--two {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 920px;
+    margin: 0 auto;
   }
 
-  .pk-card-head {
+  /* Bloc Care : même hiérarchie qu'un en-tête de section, un cran
+     en dessous puisqu'il vit dans la section « site existant ». */
+  .pk-care { margin-top: 6rem; }
+  .pk-care-head {
     text-align: center;
-    padding-bottom: 1.6rem;
-    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 3.5rem;
   }
-  .pk-card h3 {
-    font-size: 1.35rem;
-    letter-spacing: 0.04em;
+  .pk-care-head h3 {
+    font-size: clamp(1.5rem, 2.8vw, 2.1rem);
   }
-  .pk-tagline {
-    margin-top: 0.6rem;
-    font-size: 0.88rem;
-    line-height: 1.5;
-    color: var(--grey-light);
-  }
-  .pk-price {
-    margin-top: 1.4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-  .pk-price-label {
+  /* L'accroche ouvre l'offre aux sites faits ailleurs : c'est
+     l'argument principal de Care, elle doit se lire du premier coup. */
+  .pk-care-lead {
+    max-width: 620px;
+    margin: 1rem auto 0;
     font-family: var(--font-display);
-    font-size: 0.64rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--grey);
-  }
-  .pk-price strong {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 3vw, 2.3rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.6;
     color: var(--gold);
   }
-
-  /* Offre sur devis : « Sur devis » remplace le montant, en capitales et
-     un cran plus petit (une suite de lettres occupe plus de place qu'un
-     nombre). Le plancher reste visible, en retrait. */
-  .pk-price--quote strong {
-    font-size: clamp(1.5rem, 2.4vw, 1.85rem);
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .pk-price-sub {
-    margin-top: 0.45rem;
-    font-size: 0.8rem;
-    line-height: 1.4;
-    color: var(--grey-light);
-  }
-  .pk-price-from {
-    margin-top: 0.3rem;
-    font-family: var(--font-display);
-    font-size: 0.76rem;
-    font-weight: 600;
-    color: var(--grey);
-  }
-
-  .pk-desc {
-    margin-top: 1.6rem;
+  /* Business Care : ligne discrète, à la demande. */
+  .pk-care-beyond {
+    max-width: 720px;
+    margin: 2.4rem auto 0;
+    text-align: center;
     font-size: 0.86rem;
     line-height: 1.7;
     color: var(--grey);
   }
-
-  .pk-features-intro {
-    margin-top: 1.6rem;
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  .pk-features {
-    list-style: none;
-    margin-top: 1.2rem;
+  .pk-care-actions {
     display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-  }
-  .pk-features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-    font-size: 0.87rem;
-    line-height: 1.5;
-    color: var(--grey-light);
-  }
-  .pk-features svg {
-    color: var(--gold);
-    flex-shrink: 0;
-    margin-top: 0.2rem;
-  }
-
-  /* Pied de carte poussé en bas : les 3 boutons s'alignent
-     même si les listes n'ont pas le même nombre de lignes. */
-  .pk-card-foot { margin-top: auto; padding-top: 1.8rem; }
-  .pk-delay {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    padding-top: 1.3rem;
-    border-top: 1px solid var(--border-light);
-    margin-bottom: 1.4rem;
-  }
-  .pk-delay span {
-    font-family: var(--font-display);
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--grey);
-  }
-  .pk-delay strong {
-    font-family: var(--font-display);
-    font-size: 0.86rem;
-    font-weight: 600;
-    color: var(--off-white);
-  }
-  .pk-note {
-    font-size: 0.76rem;
-    line-height: 1.55;
-    color: var(--grey);
-    margin-bottom: 1.2rem;
-  }
-  .pk-cta {
-    width: 100%;
     justify-content: center;
+    margin-top: 2rem;
   }
-  /* Même traitement que la mention de cadrage budgétaire : les deux
-     occupent la même place, juste au-dessus du bouton. */
-  .pk-option strong,
-  .pk-option { color: var(--grey-light); }
+  /* Mention qui engage commercialement : lisible, mais en retrait. */
+  .pk-care-disclaimer {
+    max-width: 720px;
+    margin: 2rem auto 0;
+    text-align: center;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--grey);
+  }
 
   /* ═══ SUR MESURE ═════════════════════════════════════════ */
   .pk-bespoke {
@@ -626,90 +489,6 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
     color: var(--white);
   }
 
-  /* ═══ MAINTENANCE ════════════════════════════════════════ */
-  .pk-care { padding: var(--pad-section); }
-  .pk-care-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.75rem;
-    /* Cartes de hauteur égale : leurs bas s'alignent malgré des listes
-       de 4 et de 6 lignes. */
-    align-items: stretch;
-  }
-  .pk-care-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-light);
-    border-radius: 10px;
-    padding: 2rem 1.8rem;
-    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
-  }
-  .pk-care-card:hover {
-    border-color: var(--border);
-    transform: translateY(-3px);
-  }
-  .pk-care-card h3 {
-    font-size: 1.05rem;
-    letter-spacing: 0.06em;
-  }
-  .pk-care-price {
-    display: flex;
-    align-items: baseline;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    margin: 0.7rem 0 1.4rem;
-    padding-bottom: 1.4rem;
-    border-bottom: 1px solid var(--border-light);
-  }
-  .pk-care-price strong {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--gold);
-  }
-  .pk-care-price span {
-    font-family: var(--font-display);
-    font-size: 0.78rem;
-    color: var(--grey);
-  }
-  .pk-care-intro {
-    font-family: var(--font-display);
-    font-size: 0.66rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--grey);
-    margin-bottom: 0.8rem;
-  }
-  .pk-care-card ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-  }
-  .pk-care-card li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.55rem;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--grey-light);
-  }
-  .pk-care-card svg {
-    color: var(--gold);
-    flex-shrink: 0;
-    margin-top: 0.2rem;
-  }
-  /* Mention lisible et non décorative : elle engage commercialement,
-     elle doit se lire sans effort. */
-  .pk-care-disclaimer {
-    max-width: 720px;
-    margin: 2.6rem auto 0;
-    text-align: center;
-    font-size: 0.925rem;
-    line-height: 1.7;
-    color: var(--grey-light);
-  }
-
   /* ═══ CTA FINAL ══════════════════════════════════════════ */
   .pk-final {
     padding: var(--pad-section);
@@ -750,14 +529,13 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
      offre par ligne plutôt qu'à deux colonnes : à trois cartes, une grille
      paire laisse une case vide béante à côté de la première. */
   @media (max-width: 900px) {
-    .pk-grid,
-    .pk-care-grid {
+    .pk-grid {
       grid-template-columns: 1fr;
       gap: 2.4rem;
       max-width: 560px;
       margin: 0 auto;
     }
-    .pk-care-grid { gap: 1.5rem; }
+    .pk-care { margin-top: 4.5rem; }
   }
 
   @media (max-width: 768px) {
@@ -767,10 +545,6 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
     .pk-bespoke-text p { max-width: none; }
     .pk-bespoke-cta { width: 100%; justify-content: center; }
     .pk-case-blocks { grid-template-columns: 1fr; gap: 1.3rem; }
-  }
-
-  @media (max-width: 640px) {
-    .pk-card { padding: 2.4rem 1.5rem 2rem; }
   }
 
   @media (max-width: 480px) {

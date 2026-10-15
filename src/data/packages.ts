@@ -8,46 +8,86 @@
 // parité FR/EN.
 //
 // RÈGLES COMMERCIALES à ne pas contourner en éditant ce fichier :
-//   - tous les prix sont annoncés « À partir de » / « From » ;
+//   - les prix de création sont annoncés « À partir de » / « From » ;
+//     seule exception, le Diagnostic : périmètre fixe, donc prix fixe ;
+//   - jamais « HT » : l'agence est en franchise de TVA (art. 293 B du
+//     CGI, voir les CGV). Un prix affiché est le prix payé ;
 //   - aucune promesse d'illimité (modifications, support, SEO) ;
 //   - le périmètre exact est arrêté au devis, pas ici.
+//
+// La page est organisée par SITUATION du visiteur, pas par budget :
+//   - `offers`          : « Vous n'avez pas encore de site ? »
+//   - `existingOffers`  : « Votre site existe déjà ? » (Diagnostic, Sprint)
+//   - `care`            : maintenance, ouverte aux sites faits ailleurs.
+// Ne pas fusionner ces listes dans une même grille : alignés, cinq prix
+// se lisent comme une échelle de budget et le visiteur descend toujours
+// au premier barreau.
 // ============================================================
 
-/** Identifiant d'offre, repris en paramètre d'URL vers le formulaire. */
-export type PackageId = 'essentiel' | 'business' | 'signature';
+/**
+ * Identifiant d'offre, repris en paramètre d'URL vers le formulaire
+ * (`/contact?offre=<id>`). Le formulaire retrouve le nom de l'offre via
+ * `getContactOffers()` : ajouter un identifiant ici suffit.
+ */
+export type PackageId = 'essentiel' | 'business' | 'signature' | 'diagnostic' | 'sprint' | 'care';
 
-export interface PackageOffer {
-  id: PackageId;
+/** Ligne du pied de carte : « Délai », « Paiement »… */
+export interface OfferTerm {
+  label: string;
+  value: string;
+}
+
+/**
+ * Montant lu par les données structurées (JSON-LD), pas par le visiteur.
+ * Le texte affiché reste `price` : ce chiffre n'existe que pour Google.
+ */
+export interface OfferAmount {
+  value: number;
+  /** Vrai pour un prix ferme (Diagnostic) ; sinon c'est un plancher. */
+  fixed?: boolean;
+  /** Prix mensuel (formules Care). */
+  monthly?: boolean;
+}
+
+/**
+ * Une carte d'offre, telle que l'affiche `PackageCard.astro`. Commune aux
+ * offres de création, aux formats pour site existant et aux formules Care :
+ * tous les champs facultatifs sont simplement omis à l'affichage.
+ */
+export interface OfferCard {
   name: string;
-  tagline: string;
-  /** Mention « À partir de », au-dessus du montant. Absente sur un devis. */
+  tagline?: string;
+  /** Mention « À partir de », au-dessus du montant. Absente sur un prix fixe. */
   priceLabel?: string;
   /** Montant, ou mention « Sur devis » pour une offre non forfaitisée. */
   price: string;
+  /** Périodicité sous le montant (« / mois »). Optionnel. */
+  pricePeriod?: string;
   /** Précision sous le prix, pour une offre sur devis. Optionnel. */
   priceSub?: string;
   /** Plancher tarifaire, affiché en retrait sous « Sur devis ». Optionnel. */
   priceFrom?: string;
-  description: string;
+  amount: OfferAmount;
+  description?: string;
   /** Intitulé au-dessus de la liste (« Tout ESSENTIEL + »). Optionnel. */
   featuresIntro?: string;
   features: string[];
-  delayLabel: string;
-  delayValue: string;
+  /** Lignes du pied de carte (délai, restitution, paiement). Optionnel. */
+  terms?: OfferTerm[];
   /** Ligne d'option payante, juste au-dessus du bouton. Optionnel. */
   option?: string;
-  cta: string;
+  /** Mention à lire absolument, encadrée au-dessus du bouton. Optionnel. */
+  highlight?: string;
   /** Renseigné uniquement sur l'offre mise en avant. */
   badge?: string;
 }
 
-export interface CarePlan {
-  name: string;
-  price: string;
-  period: string;
-  /** Ligne d'introduction (« Pour : »), affichée avant la liste. Optionnel. */
-  intro?: string;
-  features: string[];
+/** Offre qui porte son propre bouton vers le formulaire de contact. */
+export interface PackageOffer extends OfferCard {
+  id: PackageId;
+  tagline: string;
+  description: string;
+  cta: string;
 }
 
 export interface CaseStudyBlock {
@@ -71,8 +111,17 @@ export interface PackagesCopy {
     benefits: string[];
   };
 
+  /** Section 1 : question posée au visiteur, au-dessus du titre. */
+  packagesLabel: string;
   packagesTitle: string;
   offers: PackageOffer[];
+
+  /** Section 2 : formats pour un site qui existe déjà. */
+  existing: {
+    label: string;
+    title: string;
+    offers: PackageOffer[];
+  };
 
   bespoke: {
     eyebrow: string;
@@ -89,11 +138,15 @@ export interface PackagesCopy {
     cta: string;
   };
 
+  /** Maintenance vendue seule, dans la section 2. Un seul bouton. */
   care: {
-    eyebrow: string;
     title: string;
-    subtitle: string;
-    plans: CarePlan[];
+    /** Phrase qui ouvre l'offre aux sites réalisés ailleurs. */
+    lead: string;
+    plans: OfferCard[];
+    /** Ligne discrète sous les cartes : Business Care. */
+    beyond: string;
+    cta: string;
     disclaimer: string;
   };
 
@@ -109,9 +162,9 @@ export interface PackagesCopy {
 
 const fr: PackagesCopy = {
   navLabel: 'Offres',
-  metaTitle: 'Offres & Tarifs | Création de sites, plateformes & IA | One Nation Agency',
+  metaTitle: 'Offres & Tarifs | Création de sites, audit, maintenance & IA | One Nation Agency',
   metaDescription:
-    "Découvrez les offres One Nation Agency : sites web premium, plateformes métier, réservation, paiement, automatisation et solutions digitales sur mesure.",
+    "Création de sites et de plateformes métier, diagnostic digital et IA en 72 h, sprints ciblés, hébergement et maintenance de votre site existant. Les offres One Nation Agency.",
 
   hero: {
     eyebrow: 'Nos offres',
@@ -119,12 +172,13 @@ const fr: PackagesCopy = {
     titleLine2: 'DES INVESTISSEMENTS MAÎTRISÉS.',
     description:
       "De la présence en ligne essentielle aux plateformes métier sur mesure, nous concevons des expériences digitales performantes, élégantes et pensées autour de vos objectifs.",
-    statement: "3 niveaux d'accompagnement pour transformer votre présence digitale.",
+    statement: 'Créer votre site, ou faire progresser celui que vous avez déjà.',
     ctaPrimary: 'Découvrir les offres',
     ctaSecondary: 'Parler de mon projet',
     benefits: ['Design premium', 'Bilingue FR / EN', 'Mobile first', 'Accompagnement de A à Z'],
   },
 
+  packagesLabel: "Vous n'avez pas encore de site ?",
   packagesTitle: 'TROIS NIVEAUX.<br />UN MÊME NIVEAU D\'EXIGENCE.',
 
   offers: [
@@ -134,6 +188,7 @@ const fr: PackagesCopy = {
       tagline: 'Votre présence digitale professionnelle.',
       priceLabel: 'À partir de',
       price: '1 490 €',
+      amount: { value: 1490 },
       description:
         "Pour les indépendants, restaurants, professionnels du tourisme, consultants et petites entreprises qui souhaitent disposer d'une présence digitale professionnelle sans fonctionnalités métier complexes.",
       features: [
@@ -148,8 +203,7 @@ const fr: PackagesCopy = {
         'Formation rapide à la prise en main',
         '1 langue',
       ],
-      delayLabel: 'Délai indicatif',
-      delayValue: '7 à 15 jours',
+      terms: [{ label: 'Délai indicatif', value: '7 à 15 jours' }],
       option: 'Version bilingue FR / EN : +350 €',
       cta: 'Démarrer mon projet',
     },
@@ -160,6 +214,7 @@ const fr: PackagesCopy = {
       tagline: 'Un site qui travaille pour votre activité.',
       priceLabel: 'À partir de',
       price: '2 490 €',
+      amount: { value: 2490 },
       description:
         "Pour les entreprises qui souhaitent transformer leur site en véritable outil commercial, générer davantage de demandes et automatiser une partie de leur parcours client.",
       featuresIntro: 'Tout ESSENTIEL, plus :',
@@ -176,8 +231,7 @@ const fr: PackagesCopy = {
         'Accompagnement au contenu',
         'Formation administrateur',
       ],
-      delayLabel: 'Délai indicatif',
-      delayValue: '2 à 4 semaines',
+      terms: [{ label: 'Délai indicatif', value: '2 à 4 semaines' }],
       cta: 'Développer mon activité',
     },
     {
@@ -190,6 +244,7 @@ const fr: PackagesCopy = {
       price: 'Sur devis',
       priceSub: 'Selon périmètre et complexité',
       priceFrom: 'à partir de 3 900 €',
+      amount: { value: 3900 },
       description:
         "Pour les entreprises dont le digital fait directement partie du business model : tourisme, immobilier, locations saisonnières, services, marketplaces et plateformes métier.",
       featuresIntro: 'Selon les besoins du projet :',
@@ -206,11 +261,62 @@ const fr: PackagesCopy = {
         'Automatisations IA',
         'Accompagnement technique renforcé',
       ],
-      delayLabel: 'Délai',
-      delayValue: 'Sur étude du projet',
+      terms: [{ label: 'Délai', value: 'Sur étude du projet' }],
       cta: 'Étudier mon projet',
     },
   ],
+
+  existing: {
+    label: 'Votre site existe déjà ?',
+    title: 'UN REGARD. UNE ACTION. UN SUIVI.',
+    offers: [
+      {
+        id: 'diagnostic',
+        name: 'DIAGNOSTIC DIGITAL & IA EXPRESS',
+        tagline: 'Un regard externe, structuré et directement exploitable.',
+        // Pas de « À partir de » : le périmètre est fixe, le prix aussi.
+        price: '490 €',
+        amount: { value: 490, fixed: true },
+        description:
+          "En 72 h, nous analysons votre environnement digital afin d'identifier les améliorations réellement prioritaires.",
+        featuresIntro: 'Vous recevez :',
+        features: [
+          'Analyse de votre site et de votre parcours client',
+          'Identification des principaux points de friction',
+          '3 quick wins digitaux à mettre en œuvre rapidement',
+          "2 opportunités réalistes d'automatisation ou d'IA",
+          'Une feuille de route priorisée sur 30 jours',
+        ],
+        terms: [
+          { label: 'Délai', value: '72 h après réception des éléments nécessaires' },
+          { label: 'Restitution', value: '30 min en visioconférence' },
+          { label: 'Paiement', value: 'À la commande' },
+        ],
+        highlight: "Les 490 € sont déduits du Sprint Digital s'il est commandé dans les 30 jours.",
+        cta: 'Commander mon diagnostic',
+      },
+      {
+        id: 'sprint',
+        name: 'SPRINT DIGITAL',
+        tagline: 'Nous ne nous contentons pas de recommander, nous mettons en œuvre une priorité.',
+        priceLabel: 'À partir de',
+        price: '990 €',
+        amount: { value: 990 },
+        description:
+          'À partir d\'un besoin clairement identifié, nous réalisons un sprint ciblé sur un objectif précis. Périmètre, délai et livrables sont confirmés avant démarrage.',
+        featuresIntro: 'Exemples :',
+        features: [
+          "Amélioration d'un parcours de contact ou de conversion",
+          'Landing page ou page commerciale',
+          "Automatisation d'une tâche répétitive",
+          "Intégration d'un assistant IA ou d'une FAQ conversationnelle",
+          "Optimisation UX/UI d'un parcours existant",
+        ],
+        terms: [{ label: 'Paiement', value: 'Acompte de 50 % à la commande' }],
+        cta: 'Lancer un sprint',
+      },
+    ],
+  },
 
   bespoke: {
     eyebrow: 'Sur mesure',
@@ -245,42 +351,38 @@ const fr: PackagesCopy = {
   },
 
   care: {
-    eyebrow: 'Après la mise en ligne',
-    title: 'VOTRE SOLUTION RESTE<br />ENTRE DE BONNES MAINS.',
-    subtitle: 'Hébergement, maintenance et support adaptés à votre niveau de besoin.',
+    title: 'CARE, VOTRE SITE RESTE EN LIGNE.',
+    lead: "Nous maintenons aussi les sites que nous n'avons pas réalisés.",
     plans: [
       {
         name: 'CARE',
         price: '49 €',
-        period: '/ mois',
-        features: ['Hébergement géré', 'Surveillance', 'Sauvegardes', 'Mises à jour techniques essentielles'],
+        pricePeriod: 'par mois',
+        amount: { value: 49, monthly: true },
+        features: [
+          'Hébergement géré',
+          'Surveillance et monitoring',
+          'Sauvegardes régulières',
+          'Mises à jour techniques essentielles',
+        ],
       },
       {
         name: 'CARE PLUS',
+        badge: 'Recommandé',
         price: '99 €',
-        period: '/ mois',
+        pricePeriod: 'par mois',
+        amount: { value: 99, monthly: true },
+        featuresIntro: 'Tout Care, plus :',
         features: [
-          'Tout Care',
           'Support prioritaire',
-          'Petites modifications de contenu - jusqu\'à 30 min/mois',
+          'Modifications de contenu, 30 min par mois',
           'Monitoring renforcé',
         ],
       },
-      {
-        name: 'BUSINESS CARE',
-        price: 'À partir de 149 €',
-        period: '/ mois',
-        intro: 'Pour :',
-        features: [
-          'Plateformes métier',
-          'Réservation',
-          'Paiement',
-          'API',
-          'Applications métier',
-          'Support adapté à l\'architecture',
-        ],
-      },
     ],
+    beyond:
+      'Au-delà, pour les plateformes métier, la réservation, le paiement ou les API : Business Care à partir de 149 € par mois.',
+    cta: 'Protéger mon site',
     disclaimer:
       "Les prestations d'hébergement, de maintenance et de support sont adaptées à la solution déployée et précisées dans chaque proposition commerciale.",
   },
@@ -297,9 +399,9 @@ const fr: PackagesCopy = {
 
 const en: PackagesCopy = {
   navLabel: 'Packages',
-  metaTitle: 'Packages & Pricing | Websites, Digital Platforms & AI | One Nation Agency',
+  metaTitle: 'Packages & Pricing | Websites, Audits, Maintenance & AI | One Nation Agency',
   metaDescription:
-    'Explore One Nation Agency packages for premium websites, business platforms, booking systems, payments, automation and bespoke digital solutions.',
+    'Websites and business platforms, a 72-hour digital and AI audit, focused sprints, plus hosting and maintenance for your existing website. One Nation Agency packages.',
 
   hero: {
     eyebrow: 'Our packages',
@@ -307,12 +409,13 @@ const en: PackagesCopy = {
     titleLine2: 'BUDGETS YOU CAN PLAN FOR.',
     description:
       'From an essential online presence to fully customized business platforms, we design premium digital experiences built around your goals.',
-    statement: '3 levels of support to transform your digital presence.',
+    statement: 'Build your website, or take the one you already have further.',
     ctaPrimary: 'Explore our packages',
     ctaSecondary: 'Discuss my project',
     benefits: ['Premium design', 'FR / EN', 'Mobile first', 'End-to-end support'],
   },
 
+  packagesLabel: "Don't have a website yet?",
   packagesTitle: 'THREE LEVELS.<br />ONE STANDARD OF CRAFT.',
 
   offers: [
@@ -322,6 +425,7 @@ const en: PackagesCopy = {
       tagline: 'Your professional online presence.',
       priceLabel: 'From',
       price: '€1,490',
+      amount: { value: 1490 },
       description:
         'For independent professionals, restaurants, tourism businesses, consultants and small companies looking for a premium professional website without complex business features.',
       features: [
@@ -336,8 +440,7 @@ const en: PackagesCopy = {
         'Quick handover training',
         '1 language',
       ],
-      delayLabel: 'Estimated delivery',
-      delayValue: '7 to 15 days',
+      terms: [{ label: 'Estimated delivery', value: '7 to 15 days' }],
       option: 'Bilingual FR / EN: +€350',
       cta: 'Start my project',
     },
@@ -348,6 +451,7 @@ const en: PackagesCopy = {
       tagline: 'A website designed to support your business.',
       priceLabel: 'From',
       price: '€2,490',
+      amount: { value: 2490 },
       description:
         'For businesses looking to turn their website into a genuine sales tool, generate more enquiries and automate part of the customer journey.',
       featuresIntro: 'Everything in ESSENTIAL, plus:',
@@ -364,8 +468,7 @@ const en: PackagesCopy = {
         'Content guidance',
         'Admin training',
       ],
-      delayLabel: 'Estimated delivery',
-      delayValue: '2 to 4 weeks',
+      terms: [{ label: 'Estimated delivery', value: '2 to 4 weeks' }],
       cta: 'Grow my business',
     },
     {
@@ -375,6 +478,7 @@ const en: PackagesCopy = {
       price: 'On request',
       priceSub: 'Based on scope and complexity',
       priceFrom: 'from €3,900',
+      amount: { value: 3900 },
       description:
         'For businesses where digital is part of the business model: tourism, real estate, vacation rentals, services, marketplaces and custom business platforms.',
       featuresIntro: 'Depending on project requirements:',
@@ -391,11 +495,61 @@ const en: PackagesCopy = {
         'AI automations',
         'Enhanced technical support',
       ],
-      delayLabel: 'Delivery',
-      delayValue: 'Based on project scope',
+      terms: [{ label: 'Delivery', value: 'Based on project scope' }],
       cta: 'Discuss my project',
     },
   ],
+
+  existing: {
+    label: 'Already have a website?',
+    title: 'A FRESH LOOK. A FOCUSED SPRINT. ONGOING CARE.',
+    offers: [
+      {
+        id: 'diagnostic',
+        name: 'DIGITAL & AI EXPRESS AUDIT',
+        tagline: 'An outside perspective, structured and ready to act on.',
+        price: '€490',
+        amount: { value: 490, fixed: true },
+        description:
+          'Within 72 hours, we review your digital setup to pinpoint the improvements that truly matter.',
+        featuresIntro: 'You receive:',
+        features: [
+          'A review of your website and customer journey',
+          'The main friction points, identified',
+          '3 digital quick wins you can roll out fast',
+          '2 realistic automation or AI opportunities',
+          'A prioritized 30-day roadmap',
+        ],
+        terms: [
+          { label: 'Delivery', value: '72 hours after we receive the required materials' },
+          { label: 'Debrief', value: '30-minute video call' },
+          { label: 'Payment', value: 'Upon ordering' },
+        ],
+        highlight: 'The €490 is credited against a Digital Sprint ordered within 30 days.',
+        cta: 'Order my audit',
+      },
+      {
+        id: 'sprint',
+        name: 'DIGITAL SPRINT',
+        tagline: "We don't stop at recommendations: we deliver one priority.",
+        priceLabel: 'From',
+        price: '€990',
+        amount: { value: 990 },
+        description:
+          'Starting from a clearly identified need, we run a focused sprint on one specific goal. Scope, timeline and deliverables are confirmed before we start.',
+        featuresIntro: 'For example:',
+        features: [
+          'Improving a contact or conversion journey',
+          'A landing page or sales page',
+          'Automating a repetitive task',
+          'Adding an AI assistant or a conversational FAQ',
+          'UX/UI optimization of an existing journey',
+        ],
+        terms: [{ label: 'Payment', value: '50% deposit upon ordering' }],
+        cta: 'Start a sprint',
+      },
+    ],
+  },
 
   bespoke: {
     eyebrow: 'Bespoke',
@@ -430,42 +584,38 @@ const en: PackagesCopy = {
   },
 
   care: {
-    eyebrow: 'After launch',
-    title: 'YOUR DIGITAL SOLUTION<br />STAYS IN GOOD HANDS.',
-    subtitle: 'Managed hosting, maintenance and support adapted to your needs.',
+    title: 'CARE, KEEPING YOUR WEBSITE ONLINE.',
+    lead: "We also maintain websites we didn't build.",
     plans: [
       {
         name: 'CARE',
         price: '€49',
-        period: '/ month',
-        features: ['Managed hosting', 'Monitoring', 'Backups', 'Essential technical updates'],
+        pricePeriod: 'per month',
+        amount: { value: 49, monthly: true },
+        features: [
+          'Managed hosting',
+          'Uptime and performance monitoring',
+          'Regular backups',
+          'Essential technical updates',
+        ],
       },
       {
         name: 'CARE PLUS',
+        badge: 'Recommended',
         price: '€99',
-        period: '/ month',
+        pricePeriod: 'per month',
+        amount: { value: 99, monthly: true },
+        featuresIntro: 'Everything in Care, plus:',
         features: [
-          'Everything in Care',
           'Priority support',
-          'Minor content updates - up to 30 min/month',
+          'Content updates, 30 min per month',
           'Enhanced monitoring',
         ],
       },
-      {
-        name: 'BUSINESS CARE',
-        price: 'From €149',
-        period: '/ month',
-        intro: 'For:',
-        features: [
-          'Business platforms',
-          'Booking systems',
-          'Payments',
-          'APIs',
-          'Business applications',
-          'Architecture-specific support',
-        ],
-      },
     ],
+    beyond:
+      'Beyond that, for business platforms, booking, payments or APIs: Business Care from €149 per month.',
+    cta: 'Protect my website',
     disclaimer:
       'Hosting, maintenance and support are adapted to the deployed solution and detailed in each commercial proposal.',
   },
@@ -497,4 +647,59 @@ export function packagesHref(lang: string): string {
 export function packageContactHref(lang: string, id: PackageId): string {
   const base = lang === 'en' ? '/en/contact' : '/contact';
   return `${base}?offre=${id}#contactForm`;
+}
+
+/** Ce que le formulaire de contact doit savoir d'une offre pour se préremplir. */
+export interface ContactOffer {
+  name: string;
+  /** Vrai pour les offres destinées à un site existant : le message
+      prérempli invite alors à indiquer le site plutôt que le projet. */
+  existingSite: boolean;
+}
+
+/**
+ * Table identifiant → offre, lue par les pages contact (FR et EN) pour
+ * préremplir le message quand le visiteur arrive avec `?offre=<id>`.
+ *
+ * Construite ici plutôt que recopiée dans les pages contact : une offre
+ * ajoutée à ce fichier est reconnue par le formulaire sans autre retouche.
+ */
+export function getContactOffers(lang: string): Record<string, ContactOffer> {
+  const t = getPackagesCopy(lang);
+  const table: Record<string, ContactOffer> = {};
+  for (const offer of t.offers) table[offer.id] = { name: offer.name, existingSite: false };
+  for (const offer of t.existing.offers) table[offer.id] = { name: offer.name, existingSite: true };
+  // Care n'a qu'un bouton pour ses deux formules : l'identifiant est `care`.
+  table.care = { name: 'CARE', existingSite: true };
+  return table;
+}
+
+/**
+ * Offres au format schema.org, pour le JSON-LD des pages Offres.
+ * Prix ferme → `price` ; plancher → `minPrice` ; formule mensuelle →
+ * `UnitPriceSpecification` à l'unité « MON » (mois).
+ *
+ * Pas de `valueAddedTaxIncluded` : en franchise de TVA, le prix affiché
+ * est le prix payé. Le déclarer « hors taxe » laisserait croire à Google
+ * qu'une TVA s'y ajoute.
+ */
+export function getOffersJsonLd(lang: string) {
+  const t = getPackagesCopy(lang);
+  const cards: OfferCard[] = [...t.offers, ...t.existing.offers, ...t.care.plans];
+
+  return cards.map((card) => {
+    const { value, fixed, monthly } = card.amount;
+    const priceSpecification = monthly
+      ? { '@type': 'UnitPriceSpecification', priceCurrency: 'EUR', price: value, unitCode: 'MON' }
+      : fixed
+        ? { '@type': 'PriceSpecification', priceCurrency: 'EUR', price: value }
+        : { '@type': 'PriceSpecification', priceCurrency: 'EUR', minPrice: value };
+
+    return {
+      '@type': 'Offer',
+      name: card.name,
+      ...(card.tagline ? { description: card.tagline } : {}),
+      priceSpecification,
+    };
+  });
 }

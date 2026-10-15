@@ -1,0 +1,305 @@
+---
+// ============================================================
+// CARTE D'OFFRE — page Offres (/offres et /en/packages)
+// ============================================================
+// Une seule carte pour toutes les offres de la page : création
+// (Essentiel, Business, Signature), site existant (Diagnostic, Sprint)
+// et formules Care. Le contenu vient de `src/data/packages.ts` ; chaque
+// champ facultatif absent est simplement omis.
+//
+// Le CSS des cartes vit ICI et pas dans `PackagesContent.astro` : les
+// styles Astro sont limités au composant qui les déclare, une règle
+// restée dans la page ne toucherait plus ce markup.
+// ============================================================
+
+import type { OfferCard } from '../data/packages';
+
+interface Props {
+  card: OfferCard;
+  /** Identifiant du titre, pour `aria-labelledby`. Unique dans la page. */
+  headingId: string;
+  /** Bouton en pied de carte. Sans `href`, la carte n'a pas de bouton
+      (formules Care, qui partagent un bouton commun sous les cartes). */
+  href?: string;
+  cta?: string;
+  /** Rang dans la grille, pour décaler l'apparition au défilement. */
+  index?: number;
+}
+const { card, headingId, href, cta, index = 0 } = Astro.props;
+
+const hasFoot = !!(card.terms?.length || card.option || card.highlight || href);
+
+// Coche des listes.
+const CHECK = '<path d="M20 6L9 17l-5-5"/>';
+---
+
+<article
+  class:list={['pk-card', { 'pk-card--featured': card.badge }, 'reveal', `reveal-delay-${index + 1}`]}
+  aria-labelledby={headingId}
+>
+  {card.badge && <div class="pk-badge">{card.badge}</div>}
+
+  <header class="pk-card-head">
+    <h3 id={headingId}>{card.name}</h3>
+    {card.tagline && <p class="pk-tagline">{card.tagline}</p>}
+    <p class:list={['pk-price', { 'pk-price--quote': card.priceSub }]}>
+      {card.priceLabel && <span class="pk-price-label">{card.priceLabel}</span>}
+      <strong>{card.price}</strong>
+      {card.pricePeriod && <span class="pk-price-period">{card.pricePeriod}</span>}
+      {card.priceSub && <span class="pk-price-sub">{card.priceSub}</span>}
+      {card.priceFrom && <span class="pk-price-from">{card.priceFrom}</span>}
+    </p>
+  </header>
+
+  {card.description && <p class="pk-desc">{card.description}</p>}
+
+  {card.featuresIntro && <p class="pk-features-intro">{card.featuresIntro}</p>}
+
+  <ul class="pk-features">
+    {card.features.map(feature => (
+      <li>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={CHECK} />
+        <span>{feature}</span>
+      </li>
+    ))}
+  </ul>
+
+  {hasFoot && (
+    <div class="pk-card-foot">
+      {card.terms?.map(term => (
+        <p class="pk-delay">
+          <span>{term.label}</span>
+          <strong>{term.value}</strong>
+        </p>
+      ))}
+      {card.option && <p class="pk-note pk-option">{card.option}</p>}
+      {card.highlight && <p class="pk-highlight">{card.highlight}</p>}
+      {/* Le bouton ferme toujours la carte : c'est ce qui aligne les
+          boutons d'une même rangée malgré des mentions de longueur
+          inégale. Ne rien insérer après lui. */}
+      {href && (
+        <a href={href} class:list={[card.badge ? 'btn-gold' : 'btn-outline', 'pk-cta']}>
+          {cta}
+        </a>
+      )}
+    </div>
+  )}
+</article>
+
+<style>
+  .pk-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 2.6rem 2rem 2.2rem;
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .pk-card:hover {
+    border-color: var(--border);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.42);
+  }
+
+  /* Mise en avant sobre : filet doré, fond légèrement relevé,
+     légère élévation. Pas de couleur d'accent supplémentaire. */
+  .pk-card--featured {
+    border-color: var(--gold);
+    background: linear-gradient(160deg, #1b1b1b 0%, #141414 100%);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .pk-card--featured:hover { box-shadow: 0 26px 60px rgba(0,0,0,0.55); }
+
+  .pk-badge {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .pk-card-head {
+    text-align: center;
+    padding-bottom: 1.6rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .pk-card h3 {
+    font-size: 1.35rem;
+    letter-spacing: 0.04em;
+  }
+  .pk-tagline {
+    margin-top: 0.6rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--grey-light);
+  }
+  .pk-price {
+    margin-top: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .pk-price-label {
+    font-family: var(--font-display);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  .pk-price strong {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--gold);
+  }
+  /* Périodicité d'une formule mensuelle (« par mois »), même traitement
+     que la mention « À partir de », placée sous le montant. */
+  .pk-price-period {
+    font-family: var(--font-display);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  /* Offre sur devis : « Sur devis » remplace le montant, en capitales et
+     un cran plus petit (une suite de lettres occupe plus de place qu'un
+     nombre). Le plancher reste visible, en retrait. */
+  .pk-price--quote strong {
+    font-size: clamp(1.5rem, 2.4vw, 1.85rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .pk-price-sub {
+    margin-top: 0.45rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--grey-light);
+  }
+  .pk-price-from {
+    margin-top: 0.3rem;
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--grey);
+  }
+
+  .pk-desc {
+    margin-top: 1.6rem;
+    font-size: 0.86rem;
+    line-height: 1.7;
+    color: var(--grey);
+  }
+
+  .pk-features-intro {
+    margin-top: 1.6rem;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .pk-features {
+    list-style: none;
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .pk-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.87rem;
+    line-height: 1.5;
+    color: var(--grey-light);
+  }
+  .pk-features svg {
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+
+  /* Pied de carte poussé en bas : les boutons d'une rangée s'alignent
+     même si les listes n'ont pas le même nombre de lignes. */
+  .pk-card-foot { margin-top: auto; padding-top: 1.8rem; }
+  .pk-delay {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--border-light);
+    margin-bottom: 1.4rem;
+  }
+  /* Plusieurs lignes à la suite (Diagnostic : délai, restitution,
+     paiement) : un seul filet au-dessus du groupe, lignes resserrées.
+     Une carte à une seule ligne n'est pas concernée. */
+  .pk-delay + .pk-delay {
+    padding-top: 0;
+    border-top: none;
+    margin-top: -0.5rem;
+  }
+  .pk-delay span {
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  .pk-delay strong {
+    font-family: var(--font-display);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--off-white);
+  }
+  .pk-note {
+    font-size: 0.76rem;
+    line-height: 1.55;
+    color: var(--grey);
+    margin-bottom: 1.2rem;
+  }
+  /* Mention qui engage commercialement (déduction du Diagnostic) : elle
+     doit se voir. Même principe que les blocs d'adresse des pages
+     légales (filet à gauche), en or plein pour ressortir dans la carte.
+     Aucune couleur nouvelle. */
+  .pk-highlight {
+    margin-bottom: 1.4rem;
+    padding: 0.75rem 0.9rem;
+    border-left: 2px solid var(--gold);
+    background: rgba(255,255,255,0.03);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--off-white);
+  }
+  .pk-cta {
+    width: 100%;
+    justify-content: center;
+  }
+  /* Même traitement que la mention de cadrage budgétaire : les deux
+     occupent la même place, juste au-dessus du bouton. */
+  .pk-option strong,
+  .pk-option { color: var(--grey-light); }
+
+  @media (max-width: 640px) {
+    .pk-card { padding: 2.4rem 1.5rem 2rem; }
+  }
+</style>

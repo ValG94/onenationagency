@@ -2,10 +2,15 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { getContactOffers } from '../../data/packages';
 
 // Clé publique Turnstile, injectée au build. Absente = widget non rendu.
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 const TURNSTILE_LANG = 'en';
+
+// Offres reconnues dans `?offre=`, lues dans packages.ts au build et
+// posées sur le formulaire (data-offers) pour le script de préremplissage.
+const contactOffers = JSON.stringify(getContactOffers('en'));
 ---
 
 
@@ -44,7 +49,7 @@ const TURNSTILE_LANG = 'en';
           <!-- FORM -->
           <div class="contact-form-wrap reveal">
             <h2>Send us a message</h2>
-            <form class="contact-form" id="contactForm" novalidate>
+            <form class="contact-form" id="contactForm" novalidate data-offers={contactOffers}>
               <div class="form-row">
                 <div class="form-group">
                   <label for="firstName">First name *</label>
@@ -505,26 +510,33 @@ const TURNSTILE_LANG = 'en';
   }
 
   // ── Prefill from the Packages page ──────────────────────────
-  // CTAs on /en/packages arrive with ?offre=essentiel|business|signature.
-  // We set the subject to "Web creation" and seed the message so the
-  // visitor only has to describe the project. Without JS the form still
-  // works as before.
-  const PACKAGES: Record<string, string> = {
-    essentiel: 'ESSENTIAL',
-    business: 'BUSINESS',
-    signature: 'SIGNATURE',
-  };
+  // Buttons on /en/packages arrive with ?offre=<id> (essentiel, business,
+  // signature, diagnostic, sprint, care). We set the subject to "Web
+  // creation" and seed the message. Without JS the form still works.
+  //
+  // The list of packages is NOT written here: it comes from packages.ts,
+  // set at build time in the form's data-offers attribute. A package added
+  // there is recognised here with no further change.
+  type ContactOffer = { name: string; existingSite: boolean };
+  let packages: Record<string, ContactOffer> = {};
+  try {
+    packages = JSON.parse(document.getElementById('contactForm')?.dataset.offers ?? '{}');
+  } catch { /* missing or unreadable attribute: no prefill */ }
 
   const chosen = new URLSearchParams(window.location.search).get('offre');
-  const packageName = chosen ? PACKAGES[chosen] : null;
+  // hasOwnProperty: ?offre=toString must not reach the object prototype.
+  const pkg = chosen && Object.prototype.hasOwnProperty.call(packages, chosen) ? packages[chosen] : null;
 
-  if (packageName) {
+  if (pkg) {
     const subject = document.getElementById('subject') as HTMLSelectElement | null;
     const message = document.getElementById('message') as HTMLTextAreaElement | null;
 
     if (subject) subject.value = 'web';
     if (message && !message.value) {
-      message.value = `Hello, I would like to discuss the ${packageName} package.\n\nMy project: `;
+      // Existing website (Audit, Sprint, Care): ask for the site's address
+      // rather than a project description.
+      const next = pkg.existingSite ? 'My website: ' : 'My project: ';
+      message.value = `Hello, I would like to discuss the ${pkg.name} package.\n\n${next}`;
     }
   }
 </script>
