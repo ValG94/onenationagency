@@ -169,15 +169,33 @@ const burgerLabels = lang === 'en'
     /* z-index élevé mais sans transform ni will-change qui créent un nouveau stacking context */
     z-index: 10000;
     padding: 0;
-    transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
-    /* IMPORTANT : pas de transform ici — un transform sur le parent
-       réinitialise le stacking context et casse le fixed des enfants */
+    transition: box-shadow 0.4s ease;
+    /* IMPORTANT : ni transform, ni filter, ni backdrop-filter, ni
+       will-change sur cet élément. Chacun en fait le cadre de référence
+       de ses enfants en position: fixed : le menu mobile, qui vit à
+       l'intérieur, se retrouverait réduit à la hauteur du header au lieu
+       de couvrir l'écran. Bug réel du 19/10/2026 : une fois la page
+       défilée, le menu n'affichait plus que « L'Agence ». */
   }
 
-  .site-header.scrolled {
+  /* Fond et flou de l'en-tête défilé, portés par un pseudo-élément
+     placé derrière le contenu : même rendu qu'avant, mais le
+     backdrop-filter n'est plus sur un ancêtre du menu mobile. */
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+  }
+  .site-header.scrolled::before {
     background: rgba(10,10,10,0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+  }
+
+  .site-header.scrolled {
     box-shadow: 0 1px 0 rgba(201,168,76,0.12);
   }
 

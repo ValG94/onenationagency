@@ -334,6 +334,13 @@ Les deux points laissés hors de la PR n°1 sont soldés.
 - **Bloc Care : `<div>` devenu `<section>`.** `aria-labelledby` sur un `div` sans rôle est ignoré par les lecteurs d'écran. En `<section>`, la zone est annoncée sous son titre (« CARE, VOTRE SITE RESTE EN LIGNE. » / « CARE, KEEPING YOUR WEBSITE ONLINE. »), vérifié dans l'arbre d'accessibilité de Chrome. **Aucun pixel ne change** : section 2 comparée avec et sans la correction, sur le code actuel, à 1280 et 390 px, FR et EN.
 - **Contrastes du case study : faux positif, aucune couleur modifiée.** Mesurés dans Chrome une fois le bloc affiché, `dt` (or `#C9A84C`) est à **8,3:1** et `dd` (`#BBBBBB`) à **9,8:1** sur `#111`, au-dessus de l'AA (4,5:1) et même de l'AAA (7:1). Les 3,2:1 et 3,6:1 de l'audit viennent de l'animation d'apparition : `.reveal` part à `opacity: 0` et un outil qui mesure pendant le fondu voit un texte à moitié transparent. **Ne pas « corriger » ces couleurs.** Devant un contraste trop bas signalé par un outil automatique sur ce site, mesurer d'abord après l'apparition (classe `.visible`).
 
+### Menu mobile tronqué après défilement · 19/10/2026
+Signalé par l'utilisateur sur iPhone, en production : en bas de page, le burger n'ouvrait qu'une bande avec « L'Agence ». En haut de page, tout s'affichait.
+- **Cause** : passé 40 px de défilement, `.site-header.scrolled` posait `backdrop-filter: blur(20px)` **sur l'en-tête**. Or `#mobile-menu` est un enfant de l'en-tête, en `position: fixed`. Un ancêtre qui porte `backdrop-filter` (comme `transform`, `filter`, `will-change`, `contain`, `perspective`) devient le cadre de référence de ses descendants fixes : le menu se calait sur l'en-tête (104 px) au lieu de l'écran.
+- **Correction** : fond et flou déplacés sur `.site-header::before`, en `z-index: -1` derrière le contenu de l'en-tête. L'en-tête ne porte plus de filtre, le menu redevient plein écran.
+- **Vérifié dans Chrome** à 390 px, sur `/portfolio`, `/en/packages` et `/`, en haut, au milieu et en bas : avant 1 lien visible sur 9 dès qu'on a défilé, après 9/9 partout. En-tête défilé **identique au pixel près** à 1280 et 390 px. Tests d'accessibilité du menu (inert, focus, Échap) toujours verts.
+- Pourquoi mes tests du 03/10 ne l'avaient pas vu : ils ouvraient le menu en haut de page. Un test de menu doit désormais aussi l'ouvrir **après défilement**.
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -375,6 +382,7 @@ Les deux points laissés hors de la PR n°1 sont soldés.
 - **Previews Vercel** — l'utilisateur teste souvent sur `onenationagency-<hash>-…vercel.app`, figée sur son commit. Devant un bug « qui persiste » après correction, lire d'abord l'URL de sa capture.
 - **Fins de ligne** — les fichiers historiques sont en CRLF, les nouveaux en LF. Comparer en normalisant avant de conclure à une modification.
 - **Styles Astro scopés** — un `<style>` de page ne s'applique pas au markup d'un composant. Déplacer un markup vers un composant impose de déplacer son CSS avec.
+- **Ancêtres du menu mobile** — jamais de `transform`, `filter`, `backdrop-filter`, `will-change`, `contain` ni `perspective` sur `.site-header` ou ses parents : le menu, en `position: fixed` à l'intérieur, serait réduit à la hauteur de l'en-tête. Un effet visuel sur l'en-tête se pose sur `::before`. Tester le menu **après défilement**, pas seulement en haut de page.
 - **Tirets cadratins** — le site n'en utilise plus dans le texte visible. Espace dans le texte courant, trait d'union dans les titres, « à »/« to » dans les plages.
 - **`pnpm` uniquement** — ne pas lancer `npm install`, cela recréerait un `package-lock.json` concurrent et casserait le build Vercel.
 
