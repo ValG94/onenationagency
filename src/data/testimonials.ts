@@ -173,19 +173,17 @@ export const testimonials: Testimonial[] = [
       fr: "Je recommande absolument One Nation Agency dont l'innovation et les outils proposés répondent aux attentes, notamment auprès des chancelleries. Merci à sa directrice pour sa dynamique, son professionnalisme et sa disponibilité.",
       en: 'I absolutely recommend One Nation Agency, whose innovation and the tools it offers meet expectations, notably among chancelleries. Thanks to its director for her drive, her professionalism and her availability.',
     },
-    projectId: 'alexis-mohamed',
-    projectUrl: '/portfolio#alexis-mohamed',
-    ctaLabel: {
-      fr: 'Découvrir le projet Alexis Mohamed',
-      en: 'Discover the Alexis Mohamed project',
-    },
-    featured: true,
+    // Avis détaché de son projet le 19/10/2026 : le projet est désormais
+    // anonyme dans le portfolio, l'avis ne doit pas permettre de l'identifier.
+    // Retiré de l'accueil le 19/10/2026 (discrétion sur les clients politiques).
+    featured: false,
     // ATTENTION — mobilisable dans l'univers One Nation Civic parce que
     // l'avis mentionne les chancelleries. Alexis Mohamed n'est PAS client
     // d'ONC. Toute reprise doit être introduite par une formule du type
     // « Un regard sur notre approche institutionnelle », JAMAIS par
     // « Client One Nation Civic » ni « Utilisateur One Nation Civic ».
-    institutional: true,
+    // Ne plus mobiliser pour One Nation Civic (décision du 19/10/2026).
+    institutional: false,
     published: true,
     order: 3,
   },

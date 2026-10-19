@@ -56,7 +56,7 @@ const t = {
         <p class="section-intro">{t.subtitle}</p>
       </div>
 
-      <div class:list={['tm-grid', { 'tm-grid--scroll': enDefilement }]}>
+      <div class:list={['tm-grid', { 'tm-grid--scroll': enDefilement, 'tm-grid--duo': avis.length === 2 }]}>
         {avis.map((a, i) => (
           <TestimonialCard testimonial={a} lang={lang} index={i} />
         ))}
@@ -125,6 +125,13 @@ const t = {
     /* Cartes de hauteur égale : les CTA s'alignent malgré des extraits
        de longueurs différentes. */
     align-items: stretch;
+  }
+
+  /* Deux avis : deux colonnes centrées, sans case vide à droite. */
+  .tm-grid--duo {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 860px;
+    margin-inline: auto;
   }
 
   .tm-actions {
