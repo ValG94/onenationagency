@@ -72,7 +72,7 @@ _Dernière vérification : 2026-10-15 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 20.00 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 20.09 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 147 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -296,6 +296,39 @@ Trois offres d'entrée ajoutées à `/offres` et `/en/packages`, sans refonte : 
 - Méta-titre et méta-description FR/EN couvrent désormais l'audit et la maintenance. Phrase du hero : « Créer votre site, ou faire progresser celui que vous avez déjà. »
 - Section 2 sur fond `--anthracite` avec filet `--border`, repris du CTA final : aucune couleur nouvelle.
 
+**Suites, même jour :**
+- **Hero, un bouton par situation**, dans l'ordre de la phrase « Créer votre site, ou faire progresser celui que vous avez déjà » : « Créer mon site » → `#offres`, « Améliorer mon site existant » → `#site-existant` (`ctaExisting` dans `packages.ts`), puis « Parler de mon projet », conservé. Vérifié au clic : le titre de la section 2 arrive sous l'en-tête fixe, sans être masqué (les 7rem de marge haute des sections suffisent, aucun `scroll-margin` nécessaire).
+- **Bannières de partage dédiées** : `public/images/offres-banner.jpg` (FR) et `packages-banner.jpg` (EN), 1200×630, branchées par `ogImage` sur chaque page. L'accueil et les autres pages gardent `og-image-v2.jpg`. Même charte que la bannière générique : fond noir, lignes dorées, titre en Montserrat doré. Les deux pastilles reprennent les deux questions de la page. **Aucun prix sur la bannière, volontairement** : Facebook et LinkedIn la gardent en cache longtemps après un changement de tarif. Les 8 autres bannières de pages sont des photos recadrées sans texte : celles-ci sont les seules composées.
+- Le script qui les produit est dans **`originals/og/banner.mjs`**, hors dépôt, avec la marche à suivre en tête : page HTML avec les polices de `public/fonts`, capturée par Chrome, puis JPEG via `sharp`. **Piège** : la page doit être ouverte depuis un fichier (`file://`). Injectée sans adresse, Chrome refuse de lire les polices locales et la bannière sort dans une police de repli, sans erreur visible.
+
+### Portfolio : clients politiques rendus anonymes · 19/10/2026
+Discrétion sur les campagnes politiques, pour ne pas gêner la prospection ONC auprès des ambassades.
+- `projects.ts` : `alexis-mohamed` devient `personnalite-afrique-est`, `djorie` devient `personnalite-afrique-centrale`. Plus de nom, plus de lien, plus de mot « présidentielle ». `countries` conservé : le compteur de pays ne bouge pas.
+- Visuels remplacés par `projet-afrique-est.jpg` et `projet-afrique-centrale.jpg` (écran pixellisé). Les anciens fichiers sont rangés dans `originals/confidentiel/` : **ne pas les remettre dans `src/assets/`**, car `import.meta.glob` publie dans `dist/` toute image présente dans ce dossier, même inutilisée.
+- `testimonials.ts` : l'avis Google d'Alexis Mohamed n'est plus rattaché à un projet, n'est plus sur l'accueil (`featured: false`) et n'est plus mobilisable pour ONC (`institutional: false`). L'accueil affiche deux avis : `TestimonialsSection` passe alors en deux colonnes centrées (`tm-grid--duo`).
+- `AIAgent.astro` : réponse « portfolio » FR et EN reformulée, mots-clés `djorie` et `mohamed` retirés.
+
+### Accessibilité RGAA · 19/10/2026
+Branche `accessibilite-rgaa`, PR n°1. Point de départ : audit rgaa-checker de l'accueil (26 % estimatif, 4 non-conformités dont 2 critiques) et audit axe-core des 38 pages (133 occurrences en échec, **8 après**).
+- Bannière cookies : l'`aria-label` était posé sur le `<label>` et non sur la case, qui n'avait donc aucun nom (11.1). Le panneau replié était en `aria-hidden` tout en restant atteignable au clavier (10.8) : il est désormais `inert` tant qu'il est replié. « Toujours actif » traduit.
+- Vidéo de l'accueil : bouton pause en haut à droite du hero (13.8). Il n'apparaît que si la vidéo joue réellement : rien n'est affiché si `prefers-reduced-motion` ou l'économiseur de données gardent le poster.
+- Liens « Explorer » des trois piliers : complément en `.sr-only` (6.1). **La classe `.sr-only` est globale, dans `Layout.astro`.**
+- Lien de langue : `lang` et libellé « English version / Version française » (8.7). Libellés ARIA de l'en-tête traduits sur les pages EN.
+- Liens sans classe dans `p`, `li`, `dd` de `main` soulignés globalement (10.6). Contrastes : numéros d'étapes IA et SEO, étiquettes du portfolio (3.2).
+- Titres : pied de page h4 vers h2, services h4 vers h3, nom d'auteur de `/afrique` en paragraphe (9.1).
+- **283 SVG passés en `aria-hidden="true" focusable="false"`** (1.2). Règle pour la suite : toute nouvelle icône décorative porte ces deux attributs ; une icône seule dans un lien ou un bouton impose un `aria-label` sur le lien.
+- Bouton WhatsApp flottant dans un `<aside>` étiqueté (12.6), ouverture d'onglet signalée.
+- **Les 8 occurrences restantes sont volontaires** : grands numéros en filigrane (`.pf-item__num`, `.service-num`), décoratifs et en `aria-hidden`. Ne pas les « corriger » en relevant leur contraste, cela changerait le design pour un texte exempté.
+- **SIRET corrigé, même PR** : les mentions légales et la politique de confidentialité, FR et EN, affichaient `518 212 162 00029`, numéro de l'ancien établissement parisien. Le bon est **`518 212 162 00045`** (Alfortville), confirmé par l'utilisatrice le 19/10/2026. Ne pas réintroduire 00029.
+
+### Portfolio : visuels entiers sur grand écran · 19/10/2026
+Même PR n°1. À 100 % sur ordinateur, la rangée d'un projet prend la hauteur de son texte (description et avis intégral), souvent plus d'un écran. En `object-fit: cover`, l'image remplissait une colonne haute et étroite et n'en montrait qu'une tranche ; elle n'apparaissait entière qu'en dézoomant.
+- Au-dessus de 1024 px seulement (bloc en fin de `<style>` des deux pages portfolio) : zone `position: sticky` de la hauteur de l'écran, **remplie bord à bord** (une première version avec marges et image encadrée a été jugée moins premium). Elle reste visible pendant la lecture.
+- Les visuels vont de 0,59 (téléphone) à 2,16 de ratio, la zone est à peu près carrée. `needsFit()`, dans le frontmatter des deux pages, tranche au build : ratio entre 0,79 et 1,4, plein cadre en `cover` (au moins 75 % de l'image visible) ; au-delà, classe `pf-item--fit`, image entière en `contain` sur un fond flou et assombri tiré d'elle-même (`.mockup__photo-backdrop`, 480 px). **Ne pas forcer `cover` sur une image large** : Nomadéo ou AFAC26 perdraient la moitié de l'appareil. Pour recentrer un plein cadre, régler `imagePosition` dans `projects.ts`.
+- **Piège 1** : `inset: auto` doit précéder `top: 80px`, sinon le raccourci annule `top` et le collage ne se fait pas.
+- **Piège 2** : `body` est passé de `overflow-x: hidden` à **`overflow-x: clip`** (repli `hidden` pour les vieux navigateurs). `hidden` faisait du body un conteneur de défilement et rendait tout `position: sticky` du site inopérant. Même chose sur `.pf-item` et `.pf-item__visual`. Ne pas revenir à `hidden`.
+- Vérifié à 1366 et 1920 px, FR et EN ; mobile inchangé, aucun débordement horizontal à 390 px.
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -314,14 +347,13 @@ Trois offres d'entrée ajoutées à `/offres` et `/en/packages`, sans refonte : 
 |---|---|---|
 | Tranché | **« Paris » comme positionnement** | `contact.astro`, `en/contact.astro` et `en/index.astro` affichent « Paris, France » et « Paris · Africa · International ». Volontairement conservé : c'est du discours commercial, pas l'adresse légale. Ne pas « corriger » au motif que cela diffère du footer. |
 | À valider | **Page dédiée One Nation Civic** | ONC vit dans une section d'accueil, un bandeau sur les pages IA et un bloc sur `/offres`. Une page `/one-nation-civic` + `/en/one-nation-civic` serait le prochain palier SEO : il suffirait d'y poser `<CivicSection />`, d'ajouter la paire dans `routes.ts` et de rebasculer le lien du menu. Non fait : hors demande. |
-| À valider | **Bannière og:image de `/offres`** | Les deux pages retombent sur `og-image-v2.jpg`, la bannière générique. Une bannière dédiée servirait mieux le partage d'une page commerciale. |
-| À valider | **Accès direct à la section 2 depuis le hero de `/offres`** | Le bouton « Découvrir les offres » mène à `#offres` (section 1). Un visiteur qui a déjà un site doit faire défiler. L'ancre `#site-existant` existe déjà : un second lien suffirait. Non fait : hors demande. |
 | Faible | **Description ONC dans le JSON-LD de `/offres`** | L'offre One Nation Civic du catalogue reprend la méta-description de la page entière comme description. Défaut antérieur au 15/10, non corrigé : hors demande. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
 | Faible | **JSON-LD identique sur les 38 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
-| Faible | **Libellés ARIA du header en français sur les pages EN** | « Navigation principale », « Menu mobile », « Navigation mobile », « Changer de langue », « One Nation Agency Accueil » restent en français sur les 19 pages EN. Seul le burger a été traduit le 03/10. |
+| Moyen | **Accessibilité de la page Offres** | `PackagesContent.astro` : `aria-labelledby` posé sur un `div` sans rôle (`#care`), contrastes du cas client (`dt` à 3,2:1, `dd` à 3,6:1 sur fond `#111`). Laissé hors de la PR n°1 pour ne pas croiser le travail en cours sur les Offres. |
+| À faire | **Vérification manuelle RGAA** | 49 critères « à vérifier » dans rgaa-checker (multimédia, clavier, zoom 200 %, espacement du texte), puis déclaration d'accessibilité « partiellement conforme ». Vérifier aussi à l'œil l'absence de flash rapide dans la vidéo du hero (13.7). |
 
 **Hors code — à faire par l'utilisateur, aucun développement attendu**
 

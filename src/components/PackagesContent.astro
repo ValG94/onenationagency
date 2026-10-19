@@ -47,8 +47,14 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
       <p class="pk-hero-statement reveal reveal-delay-2">{t.hero.statement}</p>
 
       <div class="pk-hero-actions reveal reveal-delay-3">
+        {/* Un bouton par situation, dans l'ordre de la phrase au-dessus :
+            pas encore de site → section 1, site existant → section 2. */}
         <a href="#offres" class="btn-gold">
           {t.hero.ctaPrimary}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+        <a href="#site-existant" class="btn-outline">
+          {t.hero.ctaExisting}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </a>
         <a href={contactHref} class="btn-outline">{t.hero.ctaSecondary}</a>

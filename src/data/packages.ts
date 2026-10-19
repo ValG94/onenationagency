@@ -106,7 +106,10 @@ export interface PackagesCopy {
     titleLine2: string;
     description: string;
     statement: string;
+    /** Bouton vers la section 1 (pas encore de site). */
     ctaPrimary: string;
+    /** Bouton vers la section 2 (site existant), ancre #site-existant. */
+    ctaExisting: string;
     ctaSecondary: string;
     benefits: string[];
   };
@@ -173,7 +176,8 @@ const fr: PackagesCopy = {
     description:
       "De la présence en ligne essentielle aux plateformes métier sur mesure, nous concevons des expériences digitales performantes, élégantes et pensées autour de vos objectifs.",
     statement: 'Créer votre site, ou faire progresser celui que vous avez déjà.',
-    ctaPrimary: 'Découvrir les offres',
+    ctaPrimary: 'Créer mon site',
+    ctaExisting: 'Améliorer mon site existant',
     ctaSecondary: 'Parler de mon projet',
     benefits: ['Design premium', 'Bilingue FR / EN', 'Mobile first', 'Accompagnement de A à Z'],
   },
@@ -410,7 +414,8 @@ const en: PackagesCopy = {
     description:
       'From an essential online presence to fully customized business platforms, we design premium digital experiences built around your goals.',
     statement: 'Build your website, or take the one you already have further.',
-    ctaPrimary: 'Explore our packages',
+    ctaPrimary: 'Build my website',
+    ctaExisting: 'Improve my existing website',
     ctaSecondary: 'Discuss my project',
     benefits: ['Premium design', 'FR / EN', 'Mobile first', 'End-to-end support'],
   },
