@@ -122,8 +122,11 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
     </div>
 
     {/* Care, la maintenance vendue seule. Les deux formules partagent un
-        bouton unique, placé sous les cartes (pas de bouton par carte). */}
-    <div class="pk-care" id="care" aria-labelledby="care-title">
+        bouton unique, placé sous les cartes (pas de bouton par carte).
+        <section> et non <div> : sur un div sans rôle, aria-labelledby est
+        ignoré par les lecteurs d'écran. Une section nommée devient une
+        zone (« region ») qu'on peut atteindre directement. */}
+    <section class="pk-care" id="care" aria-labelledby="care-title">
       <div class="pk-care-head reveal">
         <h3 id="care-title">{t.care.title}</h3>
         <p class="pk-care-lead">{t.care.lead}</p>
@@ -144,7 +147,7 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
         <a href={packageContactHref(lang, 'care')} class="btn-gold">{t.care.cta}</a>
       </div>
       <p class="pk-care-disclaimer reveal">{t.care.disclaimer}</p>
-    </div>
+    </section>
   </div>
 </section>
 

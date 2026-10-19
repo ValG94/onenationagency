@@ -329,6 +329,11 @@ Même PR n°1. À 100 % sur ordinateur, la rangée d'un projet prend la hauteur 
 - **Piège 2** : `body` est passé de `overflow-x: hidden` à **`overflow-x: clip`** (repli `hidden` pour les vieux navigateurs). `hidden` faisait du body un conteneur de défilement et rendait tout `position: sticky` du site inopérant. Même chose sur `.pf-item` et `.pf-item__visual`. Ne pas revenir à `hidden`.
 - Vérifié à 1366 et 1920 px, FR et EN ; mobile inchangé, aucun débordement horizontal à 390 px.
 
+### Accessibilité de la page Offres · 19/10/2026
+Les deux points laissés hors de la PR n°1 sont soldés.
+- **Bloc Care : `<div>` devenu `<section>`.** `aria-labelledby` sur un `div` sans rôle est ignoré par les lecteurs d'écran. En `<section>`, la zone est annoncée sous son titre (« CARE, VOTRE SITE RESTE EN LIGNE. » / « CARE, KEEPING YOUR WEBSITE ONLINE. »), vérifié dans l'arbre d'accessibilité de Chrome. **Aucun pixel ne change** : section 2 comparée avec et sans la correction, sur le code actuel, à 1280 et 390 px, FR et EN.
+- **Contrastes du case study : faux positif, aucune couleur modifiée.** Mesurés dans Chrome une fois le bloc affiché, `dt` (or `#C9A84C`) est à **8,3:1** et `dd` (`#BBBBBB`) à **9,8:1** sur `#111`, au-dessus de l'AA (4,5:1) et même de l'AAA (7:1). Les 3,2:1 et 3,6:1 de l'audit viennent de l'animation d'apparition : `.reveal` part à `opacity: 0` et un outil qui mesure pendant le fondu voit un texte à moitié transparent. **Ne pas « corriger » ces couleurs.** Devant un contraste trop bas signalé par un outil automatique sur ce site, mesurer d'abord après l'apparition (classe `.visible`).
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -352,7 +357,6 @@ Même PR n°1. À 100 % sur ordinateur, la rangée d'un projet prend la hauteur 
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
 | Faible | **JSON-LD identique sur les 38 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
-| Moyen | **Accessibilité de la page Offres** | `PackagesContent.astro` : `aria-labelledby` posé sur un `div` sans rôle (`#care`), contrastes du cas client (`dt` à 3,2:1, `dd` à 3,6:1 sur fond `#111`). Laissé hors de la PR n°1 pour ne pas croiser le travail en cours sur les Offres. |
 | À faire | **Vérification manuelle RGAA** | 49 critères « à vérifier » dans rgaa-checker (multimédia, clavier, zoom 200 %, espacement du texte), puis déclaration d'accessibilité « partiellement conforme ». Vérifier aussi à l'œil l'absence de flash rapide dans la vidéo du hero (13.7). |
 
 **Hors code — à faire par l'utilisateur, aucun développement attendu**
