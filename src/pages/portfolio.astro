@@ -807,6 +807,38 @@ import ProjectTestimonial from '../components/testimonials/ProjectTestimonial.as
   .mockup--phone { width: 38%; }
   .mockup--screen { width: 92%; }
 }
+
+/* ─── Visuels du portfolio sur grand écran ────────────────────────────
+   La rangée prend la hauteur du texte (description + avis intégral), soit
+   souvent plus d'un écran. En « cover », l'image remplissait alors une
+   colonne haute et étroite et n'en montrait qu'une tranche verticale.
+   L'image garde désormais ses proportions, entière, centrée dans une zone
+   collante de la hauteur de l'écran : elle reste visible pendant la lecture. */
+@media (min-width: 1025px) {
+  .pf-item { overflow: clip; }
+  .pf-item .pf-item__visual {
+    display: block;
+    padding: 0;
+    overflow: clip;              /* « hidden » empêcherait le collage */
+  }
+  .pf-item .mockup--photo {
+    position: sticky;
+    inset: auto;                     /* avant « top », sinon il l'annule */
+    top: 80px;                       /* hauteur de l'en-tête fixe */
+    height: calc(100vh - 80px);
+    padding: 3rem 3vw;
+    overflow: visible;
+  }
+  .pf-item .mockup__photo-img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  }
+}
 </style>
 
 <script>

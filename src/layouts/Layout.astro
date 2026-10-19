@@ -324,6 +324,10 @@ const orgJsonLd = {
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      /* « clip » coupe le débordement sans faire du body un conteneur de
+         défilement, ce qui casserait position: sticky (visuels du portfolio).
+         Les navigateurs qui ne le connaissent pas gardent « hidden ». */
+      overflow-x: clip;
     }
 
     main { flex: 1; }
