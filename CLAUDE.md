@@ -61,7 +61,7 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-10-15 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-10-19 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -72,14 +72,14 @@ _Dernière vérification : 2026-10-15 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 38/38 |
 | URLs dans le sitemap | 38 |
-| Poids total `dist` | 20.09 Mo (dont 8.08 Mo de vidéo) |
-| Variantes d'images générées | 147 |
+| Poids total `dist` | 21.55 Mo (dont 8.08 Mo de vidéo) |
+| Variantes d'images générées | 149 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
 
 **Chiffres affichés sur le site** — 10 Projets livrés · 7 Pays couverts · 3 Années d'expertise · 100% Clients satisfaits
 
-**Pages les plus lourdes au premier rendu** — `/en/portfolio` 1082 Ko · `/portfolio` 1082 Ko · `/` 805 Ko
+**Pages les plus lourdes au premier rendu** — `/en/portfolio` 1052 Ko · `/portfolio` 1052 Ko · `/` 804 Ko
 
 <!-- AUTO:FIN -->
 
