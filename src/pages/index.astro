@@ -100,6 +100,11 @@ const figures = getKeyFigures('fr');
           </video>
           <div class="hero-overlay"></div>
         </div>
+        <button type="button" class="hero-video-toggle" data-hero-video-toggle hidden
+                aria-label="Mettre en pause la vidéo d'arrière-plan" data-label-pause="Mettre en pause la vidéo d'arrière-plan" data-label-play="Lire la vidéo d'arrière-plan">
+          <svg aria-hidden="true" focusable="false" class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          <svg aria-hidden="true" focusable="false" class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>
+        </button>
 
         <div class="hero-content container">
           <div class="hero-badge reveal">
@@ -117,7 +122,7 @@ const figures = getKeyFigures('fr');
           <div class="hero-actions reveal reveal-delay-3">
             <a href="/vision" class="btn-gold">
               Découvrir notre vision
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <a href="/contact" class="btn-outline">Nous contacter</a>
           </div>
@@ -163,7 +168,7 @@ const figures = getKeyFigures('fr');
             <!-- Pilier 1 -->
             <article class="pillar-card reveal reveal-delay-1">
               <div class="pillar-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <svg aria-hidden="true" focusable="false" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path d="M3 3h18v18H3z" rx="2"/>
                   <path d="M3 9h18M9 21V9"/>
                 </svg>
@@ -172,15 +177,15 @@ const figures = getKeyFigures('fr');
               <h3>Communication<br />Institutionnelle</h3>
               <p>Façonner l'opinion. Protéger votre réputation. Nous concevons des stratégies d'influence sur mesure pour les acteurs publics et privés de premier plan.</p>
               <a href="/conseil-strategique" class="pillar-link">
-                Explorer
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Explorer<span class="sr-only"> : Communication institutionnelle</span>
+                <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
             </article>
 
             <!-- Pilier 2 -->
             <article class="pillar-card pillar-card--featured reveal reveal-delay-2">
               <div class="pillar-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <svg aria-hidden="true" focusable="false" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <circle cx="12" cy="12" r="3"/>
                   <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
                 </svg>
@@ -189,8 +194,8 @@ const figures = getKeyFigures('fr');
               <h3>Agents IA &<br />Automatisation</h3>
               <p>L'intelligence artificielle au service de votre croissance. Des assistants virtuels sur mesure pour qualifier, convertir et servir vos audiences 24h/24.</p>
               <a href="/intelligence-artificielle" class="pillar-link">
-                Explorer
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Explorer<span class="sr-only"> : Agents IA et automatisation</span>
+                <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
               <!-- Rattache la solution propriétaire à son expertise, sans
                    dupliquer le contenu de la section ONC plus bas. -->
@@ -204,7 +209,7 @@ const figures = getKeyFigures('fr');
             <!-- Pilier 3 -->
             <article class="pillar-card reveal reveal-delay-3">
               <div class="pillar-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <svg aria-hidden="true" focusable="false" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <rect x="2" y="3" width="20" height="14" rx="2"/>
                   <path d="M8 21h8M12 17v4"/>
                 </svg>
@@ -213,8 +218,8 @@ const figures = getKeyFigures('fr');
               <h3>Création Web<br />Premium</h3>
               <p>Des plateformes digitales immersives, performantes et mémorables. L'écrin technologique que mérite votre ambition.</p>
               <a href="/services" class="pillar-link">
-                Explorer
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Explorer<span class="sr-only"> : Création web premium</span>
+                <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
             </article>
           </div>
@@ -248,7 +253,7 @@ const figures = getKeyFigures('fr');
               <div class="agency-actions reveal reveal-delay-3">
                 <a href="/vision" class="btn-gold">
                   Notre vision
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
                 <a href="/portfolio" class="btn-outline">Nos réalisations</a>
               </div>
@@ -275,7 +280,7 @@ const figures = getKeyFigures('fr');
           <div class="portfolio-cta reveal">
             <a href="/portfolio" class="btn-outline">
               Voir toutes nos réalisations
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
@@ -299,10 +304,10 @@ const figures = getKeyFigures('fr');
             <div class="cta-actions">
               <a href="/contact" class="btn-gold">
                 Nous contacter
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
               <a href="https://wa.me/33698619710" target="_blank" rel="noopener noreferrer" class="btn-outline">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 1.856.001 3.598.723 4.907 2.034 1.31 1.311 2.031 3.054 2.03 4.908-.001 3.825-3.113 6.938-6.937 6.938z"/></svg>
+                <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 1.856.001 3.598.723 4.907 2.034 1.31 1.311 2.031 3.054 2.03 4.908-.001 3.825-3.113 6.938-6.937 6.938z"/></svg>
                 WhatsApp
               </a>
             </div>
@@ -315,11 +320,13 @@ const figures = getKeyFigures('fr');
     <Footer />
 
     <!-- WhatsApp flottant -->
-    <a href="https://wa.me/33698619710" class="whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Nous contacter sur WhatsApp">
-      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+    <aside aria-label="Contact rapide">
+    <a href="https://wa.me/33698619710" class="whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Nous contacter sur WhatsApp (nouvel onglet)">
+      <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-3.825 3.113-6.937 6.937-6.937 1.856.001 3.598.723 4.907 2.034 1.31 1.311 2.031 3.054 2.03 4.908-.001 3.825-3.113 6.938-6.937 6.938z"/>
       </svg>
     </a>
+    </aside>
   </div>
   <HeroVideoLoader />
 </Layout>
@@ -699,6 +706,30 @@ const figures = getKeyFigures('fr');
     object-fit: cover;
     object-position: center;
   }
+  /* Bouton pause de la vidéo d'arrière-plan (RGAA 13.8) */
+  .hero-video-toggle {
+    position: absolute;
+    /* En haut à droite, sous l'en-tête : visible dès l'arrivée, sans
+       chevaucher les boutons flottants WhatsApp et assistant du bas d'écran. */
+    right: 2rem;
+    top: 7rem;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.6);
+    background: rgba(10,10,10,0.6);
+    color: var(--gold);
+    cursor: pointer;
+  }
+  .hero-video-toggle[hidden] { display: none; }
+  .hero-video-toggle:hover { background: rgba(201,168,76,0.15); }
+  .hero-video-toggle .icon-play { display: none; }
+  .hero-video-toggle[aria-pressed="true"] .icon-play { display: block; }
+  .hero-video-toggle[aria-pressed="true"] .icon-pause { display: none; }
   .hero-overlay {
     position: absolute;
     inset: 0;

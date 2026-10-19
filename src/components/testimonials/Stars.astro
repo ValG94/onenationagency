@@ -16,7 +16,7 @@ const label = en ? `${note} stars out of 5` : `${note} étoiles sur 5`;
 
 <span class="tm-stars" role="img" aria-label={label}>
   {Array.from({ length: 5 }, (_, i) => (
-    <svg
+    <svg aria-hidden="true" focusable="false"
       width={size}
       height={size}
       viewBox="0 0 24 24"

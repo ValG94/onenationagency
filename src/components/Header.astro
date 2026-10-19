@@ -71,12 +71,12 @@ const burgerLabels = lang === 'en'
 <header class="site-header" id="site-header">
   <div class="header-inner container">
     <!-- Logo -->
-    <a href={lang === 'en' ? '/en' : '/'} class="logo" aria-label="One Nation Agency Accueil">
+    <a href={lang === 'en' ? '/en' : '/'} class="logo" aria-label={lang === 'en' ? 'One Nation Agency, home' : 'One Nation Agency, accueil'}>
       <Image src={imgLogoOnenation} alt="One Nation Agency" width="140" height="40" decoding="async" />
     </a>
 
     <!-- Navigation desktop -->
-    <nav class="nav-desktop" aria-label="Navigation principale">
+    <nav class="nav-desktop" aria-label={lang === 'en' ? 'Main navigation' : 'Navigation principale'}>
       <ul>
         {nav.map(item => (
           <li>
@@ -98,8 +98,9 @@ const burgerLabels = lang === 'en'
     <!-- Actions droite -->
     <div class="header-actions">
       <!-- Sélecteur de langue -->
-      <div class="lang-switcher" aria-label="Changer de langue">
-        <a href={langHref} class="lang-btn" hreflang={targetLang}>
+      <div class="lang-switcher">
+        <a href={langHref} class="lang-btn" hreflang={targetLang} lang={targetLang}
+           aria-label={targetLang === 'en' ? 'English version' : 'Version française'}>
           {langLabel}
         </a>
       </div>
@@ -127,8 +128,8 @@ const burgerLabels = lang === 'en'
   </div>
 
   <!-- Menu mobile -->
-  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Menu mobile">
-    <nav aria-label="Navigation mobile">
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label={lang === 'en' ? 'Mobile menu' : 'Menu mobile'}>
+    <nav aria-label={lang === 'en' ? 'Mobile navigation' : 'Navigation mobile'}>
       <ul>
         {nav.map(item => (
           <li>
@@ -144,8 +145,8 @@ const burgerLabels = lang === 'en'
           </li>
         ))}
         <li class="mobile-lang">
-          <a href={langHref} hreflang={targetLang}>
-            {lang === 'en' ? '🇫🇷 Français' : '🇬🇧 English'}
+          <a href={langHref} hreflang={targetLang} lang={targetLang}>
+            <span aria-hidden="true">{lang === 'en' ? '🇫🇷 ' : '🇬🇧 '}</span>{lang === 'en' ? 'Français' : 'English'}
           </a>
         </li>
         <li>

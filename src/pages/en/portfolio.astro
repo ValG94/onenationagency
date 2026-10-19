@@ -76,7 +76,7 @@ import ProjectTestimonial from '../../components/testimonials/ProjectTestimonial
               <span class="pf-item__sep">|</span>
               <span class="pf-item__category">{project.category}</span>
             </div>
-            <div class="pf-item__num">{project.number}</div>
+            <div class="pf-item__num" aria-hidden="true">{project.number}</div>
             <h2 class="pf-item__title">{project.title}</h2>
             <p class="pf-item__subtitle">{project.subtitle}</p>
             <p class="pf-item__desc">{project.description}</p>
@@ -88,11 +88,11 @@ import ProjectTestimonial from '../../components/testimonials/ProjectTestimonial
             {project.link ? (
               <a href={project.link} target="_blank" rel="noopener noreferrer" class="pf-item__cta">
                 <span>View project</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
               </a>
             ) : (
               <span class="pf-item__cta pf-item__cta--locked">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 <span>Confidential project</span>
               </span>
             )}
@@ -372,7 +372,7 @@ import ProjectTestimonial from '../../components/testimonials/ProjectTestimonial
   font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.6);
   border: 1px solid rgba(255,255,255,0.1);
   padding: 0.3rem 0.75rem;
   border-radius: 100px;

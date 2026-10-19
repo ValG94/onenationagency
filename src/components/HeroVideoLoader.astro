@@ -7,6 +7,21 @@
 <script>
   const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
 
+  // Bouton pause : un contenu en mouvement de plus de 5 s doit pouvoir être
+  // arrêté (RGAA 13.8). Il n'apparaît que si la vidéo joue vraiment.
+  const toggle = document.querySelector<HTMLButtonElement>('[data-hero-video-toggle]');
+  function showToggle() {
+    if (!toggle || !video) return;
+    toggle.hidden = false;
+    toggle.setAttribute('aria-pressed', 'false');
+    toggle.addEventListener('click', () => {
+      const paused = !video.paused;
+      if (paused) video.pause(); else video.play().catch(() => {});
+      toggle.setAttribute('aria-pressed', String(paused));
+      toggle.setAttribute('aria-label', (paused ? toggle.dataset.labelPlay : toggle.dataset.labelPause) ?? '');
+    });
+  }
+
   if (video) {
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
@@ -26,7 +41,7 @@
         }
         video.load();
         // play() peut être refusé (politique navigateur) : le poster reste.
-        video.play().catch(() => {});
+        video.play().then(showToggle).catch(() => {});
       };
 
       if (document.readyState === 'complete') start();

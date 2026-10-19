@@ -54,7 +54,7 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
     <div class="cookie-header">
       <div class="cookie-title-row">
         <div class="cookie-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <circle cx="12" cy="12" r="10"/>
             <circle cx="8" cy="9" r="1.2" fill="currentColor"/>
             <circle cx="15" cy="7" r="1" fill="currentColor"/>
@@ -66,7 +66,7 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
         <h2 class="cookie-title">{t.title}</h2>
       </div>
       <button class="cookie-close" id="cookie-close-btn" aria-label="Fermer">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M18 6L6 18M6 6l12 12"/>
         </svg>
       </button>
@@ -80,14 +80,14 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
 
     <!-- Toggle "Voir le détail" -->
     <button class="cookie-details-toggle" id="cookie-details-toggle" aria-expanded="false" aria-controls="cookie-details">
-      <svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <svg aria-hidden="true" focusable="false" class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M6 9l6 6 6-6"/>
       </svg>
       <span id="cookie-details-label">{t.detailsToggle}</span>
     </button>
 
     <!-- Panneau détail (masqué par défaut) -->
-    <div class="cookie-details" id="cookie-details" aria-hidden="true">
+    <div class="cookie-details" id="cookie-details" aria-hidden="true" inert>
       {t.cookies.map(item => (
         <div class="cookie-detail-row">
           <div class="cookie-detail-info">
@@ -95,9 +95,9 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
             <span class="cookie-detail-desc">{item.desc}</span>
           </div>
           {item.always
-            ? <span class="cookie-badge-always">Toujours actif</span>
-            : <label class="cookie-toggle-switch" aria-label={item.name}>
-                <input type="checkbox" class="cookie-analytics-checkbox" checked />
+            ? <span class="cookie-badge-always">{lang === 'en' ? 'Always active' : 'Toujours actif'}</span>
+            : <label class="cookie-toggle-switch">
+                <input type="checkbox" class="cookie-analytics-checkbox" aria-label={item.name} checked />
                 <span class="cookie-toggle-track"></span>
               </label>
           }
@@ -108,11 +108,11 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
     <!-- Boutons d'action -->
     <div class="cookie-actions">
       <button class="cookie-btn-refuse" id="cookie-refuse-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
         {t.refuse}
       </button>
       <button class="cookie-btn-accept" id="cookie-accept-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+        <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
         {t.accept}
       </button>
     </div>
@@ -560,12 +560,15 @@ const isHomePage = lang === 'fr'; // La home FR a un splash de 6s
           // Replier
           detailPanel.classList.remove('open');
           detailPanel.setAttribute('aria-hidden', 'true');
+          // inert : la case du panneau replié ne doit pas rester atteignable au clavier
+          detailPanel.inert = true;
           detailToggle.setAttribute('aria-expanded', 'false');
           detailLabel.textContent = labelShow;
         } else {
           // Déplier
           detailPanel.classList.add('open');
           detailPanel.setAttribute('aria-hidden', 'false');
+          detailPanel.inert = false;
           detailToggle.setAttribute('aria-expanded', 'true');
           detailLabel.textContent = labelHide;
         }
