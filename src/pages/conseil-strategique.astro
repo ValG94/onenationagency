@@ -517,7 +517,7 @@ import imgStrategieCom from '../assets/strategie_com.jpg';
 
 	.benefits {
 		padding: 8rem 0;
-		background: linear-gradient(to right, rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/benefit.jpg') center/cover no-repeat;
+		background: linear-gradient(to right, rgba(72, 71, 68, 0.88), rgba(72, 71, 68, 0.9)), url('/benefit.jpg') center/cover no-repeat;
 	}
 
 	.benefits h2 {
@@ -607,7 +607,7 @@ import imgStrategieCom from '../assets/strategie_com.jpg';
 	.cta-section {
 		padding: 6rem 0;
 		text-align: center;
-		background: linear-gradient(rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&auto=format') center/cover no-repeat;
+		background: linear-gradient(rgba(72, 71, 68, 0.8), rgba(72, 71, 68, 0.9)), url('/conseil-cta.jpg') center/cover no-repeat;
 	}
 
 	.cta-section h2 {
@@ -689,5 +689,17 @@ import imgStrategieCom from '../assets/strategie_com.jpg';
 			flex-direction: column;
 			align-items: center;
 		}
+	}
+
+	/* RGAA 3.2 : sections sur photo voilée de gris chaud. Le gris clair
+	   du site y tombait entre 3,4 et 4,4:1 selon la photo ; le blanc
+	   cassé passe à plus de 5:1 sans changer l'aspect de la page. */
+	.service-card p,
+	.benefit-card p,
+	.cta-section p,
+	.testimonial-content p,
+	.author-info p {
+		color: var(--off-white);
+		opacity: 1;
 	}
 </style>

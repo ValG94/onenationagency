@@ -31,7 +31,7 @@ const wrapperProps = project.link
     <div class="portfolio-img-wrap">
       <Image
         src={project.homeImage}
-        alt={`Aperçu du projet ${project.title}`}
+        alt={project.imageAlt}
         widths={[400, 800, 1200]}
         sizes="(max-width: 768px) 100vw, 33vw"
         loading="lazy"

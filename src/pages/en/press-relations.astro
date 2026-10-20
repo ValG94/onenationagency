@@ -773,4 +773,16 @@ import imgCommunicationCrise from '../../assets/communication-crise.jpg';
 			align-items: center;
 		}
 	}
+
+	/* RGAA 3.2 : sections sur photo voilée de gris chaud. Le gris clair
+	   du site y tombait entre 3,4 et 4,4:1 selon la photo ; le blanc
+	   cassé passe à plus de 5:1 sans changer l'aspect de la page. */
+	.service-card p,
+	.benefit-card p,
+	.cta-section p,
+	.testimonial-content p,
+	.author-info p {
+		color: var(--off-white);
+		opacity: 1;
+	}
 </style>

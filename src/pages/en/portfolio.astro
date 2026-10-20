@@ -70,7 +70,7 @@ const needsFit = (img: { width: number; height: number }) => {
               )}
               <Image
                 src={project.image}
-                alt={`Preview of the ${project.title} project`}
+                alt={project.imageAlt}
                 widths={[480, 900, 1400]}
                 sizes="(max-width: 1024px) 100vw, 55vw"
                 class="mockup__photo-img"
@@ -220,7 +220,7 @@ const needsFit = (img: { width: number; height: number }) => {
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--grey);
+  color: var(--grey-light);
   margin-top: 0.4rem;
 }
 

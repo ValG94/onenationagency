@@ -160,8 +160,8 @@ const initiales = getInitials(t.clientName);
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
+    /* Sans opacité réduite : à 0,75 la mention tombait à 3,2:1 (RGAA 3.2). */
     color: var(--grey);
-    opacity: 0.75;
   }
 
   /* Pied poussé en bas : les CTA des trois cartes s'alignent. */

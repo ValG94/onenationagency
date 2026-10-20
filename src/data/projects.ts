@@ -64,6 +64,9 @@ export interface Project {
   tags: { fr: string[]; en: string[] };
   /** Visuel du portfolio (mockup) — nom du fichier dans src/assets/ */
   image: string;
+  /** Texte alternatif du visuel : ce que l'image montre (« Application PaieCashFan »).
+      Optionnel : sans lui, « Aperçu du projet X » / « Preview of the X project ». */
+  imageAlt?: I18nText;
   /** object-position CSS optionnel */
   imagePosition?: string;
   /** Vignette de la home. Par défaut : `image`. */
@@ -81,6 +84,10 @@ export const projects: Project[] = [
   {
     id: 'paiecashfan',
     title: 'PaieCashFan',
+    imageAlt: {
+      fr: 'Application PaieCashFan',
+      en: 'PaieCashFan app',
+    },
     subtitle: {
       fr: "L'expérience digitale tout-en-un des fans de football",
       en: 'The all-in-one digital experience for football fans',
@@ -104,6 +111,10 @@ export const projects: Project[] = [
   {
     id: 'paiecashcoin',
     title: 'PaieCashCoin',
+    imageAlt: {
+      fr: 'Application PaieCashCoin',
+      en: 'PaieCashCoin app',
+    },
     subtitle: {
       fr: "La couche de paiement stablecoin de l'écosystème sportif mondial",
       en: 'The stablecoin payment layer of the global sports ecosystem',
@@ -127,6 +138,10 @@ export const projects: Project[] = [
   {
     id: 'island-living-sxm',
     title: 'Island Living SXM',
+    imageAlt: {
+      fr: 'Site de réservation de villas à Saint-Martin, Island Living SXM',
+      en: 'Villa booking website in Saint Martin, Island Living SXM',
+    },
     subtitle: {
       fr: 'Expérience digitale premium et réservation directe à Sint Maarten',
       en: 'Premium digital experience and direct booking in Sint Maarten',
@@ -345,6 +360,8 @@ export interface LocalizedProject {
   tags: string[];
   /** Image prête pour <Image /> d'astro:assets (dimensions incluses) */
   image: ImageMetadata;
+  /** Texte alternatif du visuel, dans la langue demandée (RGAA 1.3). */
+  imageAlt: string;
   imagePosition?: string;
   /** Vignette pour la home (retombe sur `image` si non définie) */
   homeImage: ImageMetadata;
@@ -366,6 +383,8 @@ export function getProjects(lang: Lang): LocalizedProject[] {
     description: p.description[lang],
     tags: p.tags[lang],
     image: asset(p.image),
+    imageAlt: p.imageAlt?.[lang]
+      ?? (lang === 'en' ? `Preview of the ${p.title} project` : `Aperçu du projet ${p.title}`),
     imagePosition: p.imagePosition,
     homeImage: asset(p.homeImage ?? p.image),
     homeImagePosition: p.homeImagePosition,

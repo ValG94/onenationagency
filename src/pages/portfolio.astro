@@ -71,7 +71,7 @@ const needsFit = (img: { width: number; height: number }) => {
               )}
               <Image
                 src={project.image}
-                alt={`Aperçu du projet ${project.title}`}
+                alt={project.imageAlt}
                 widths={[480, 900, 1400]}
                 sizes="(max-width: 1024px) 100vw, 55vw"
                 class="mockup__photo-img"
@@ -229,7 +229,8 @@ const needsFit = (img: { width: number; height: number }) => {
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+  /* Gris clair : à 30 % de blanc 2,3:1, en gris moyen 4,4:1 sur mobile (RGAA 3.2). */
+  color: var(--grey-light);
   margin-top: 0.4rem;
 }
 

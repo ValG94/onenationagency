@@ -812,7 +812,9 @@ const figures = getKeyFigures('fr');
     align-items: center;
     gap: 0.5rem;
     z-index: 1;
-    opacity: 0.5;
+    /* 0,85 et non 0,5 : à mi-opacité, le mot « Scroll » tombait à 1,9:1
+       sur la vidéo (RGAA 3.2). */
+    opacity: 0.85;
     animation: fadeIn 1s ease 2.5s both;
   }
   .scroll-line {
@@ -825,7 +827,7 @@ const figures = getKeyFigures('fr');
     font-size: 0.65rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--grey);
+    color: var(--grey-light);
     font-family: var(--font-display);
   }
 

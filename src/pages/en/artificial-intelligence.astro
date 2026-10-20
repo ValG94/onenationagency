@@ -287,7 +287,8 @@ import CivicSection from '../../components/CivicSection.astro';
   .step-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 900; color: rgba(201,168,76,0.55); line-height: 1; margin-bottom: 1rem; }
   .process-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.8rem; }
   .process-step p { font-size: 0.85rem; color: var(--grey); line-height: 1.7; }
-  .process-arrow { font-size: 1.5rem; color: var(--gold); opacity: 0.4; flex-shrink: 0; margin-top: 3rem; }
+  /* Opacité 0,8 et non 0,4 : à 0,4 la flèche tombait à 2:1 (RGAA 3.2). */
+  .process-arrow { font-size: 1.5rem; color: var(--gold); opacity: 0.8; flex-shrink: 0; margin-top: 3rem; }
   .cta-section { padding: var(--pad-section); border-top: 1px solid var(--border); }
   .cta-inner { text-align: center; max-width: 700px; margin: 0 auto; }
   .cta-inner h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); margin: 0.8rem 0 1.5rem; }
