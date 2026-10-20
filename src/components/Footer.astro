@@ -54,11 +54,11 @@ const en = lang === 'en';
       <div class="footer-nav-group">
         <h2>{lang === 'en' ? 'Expertise' : 'Expertises'}</h2>
         <ul>
-          <li><a href={url('/conseil-strategique')}>{en ? 'Strategic Communication' : 'Communication Stratégique'}</a></li>
+          {/* Les expertises vivent dans les sections de /services depuis le
+              retrait des pages de la V1 (20/10/2026) : liens par ancre. */}
+          <li><a href={`${url('/services')}#communication`}>{en ? 'Strategic Communication' : 'Communication Stratégique'}</a></li>
           <li><a href={url('/intelligence-artificielle')}>{en ? 'AI Agents' : 'Agents IA'}</a></li>
-          <li><a href={url('/services')}>{en ? 'Premium Web' : 'Création Web Premium'}</a></li>
-          <li><a href={url('/design-graphique')}>{en ? 'Graphic Design' : 'Design Graphique'}</a></li>
-          <li><a href={url('/e-reputation')}>{en ? 'Online Reputation' : 'E-Réputation'}</a></li>
+          <li><a href={`${url('/services')}#web`}>{en ? 'Premium Web' : 'Création Web Premium'}</a></li>
         </ul>
       </div>
 

@@ -11,24 +11,195 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "onenationagency.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "onenationagency.com"
+        }
+      ],
       "destination": "https://www.onenationagency.com/$1",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "header", "key": "x-forwarded-proto", "value": "http" }],
+      "has": [
+        {
+          "type": "header",
+          "key": "x-forwarded-proto",
+          "value": "http"
+        }
+      ],
       "destination": "https://www.onenationagency.com/$1",
       "permanent": true
     },
     {
+      "source": "/afrique",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/afrique/",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/conseil-strategique",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/conseil-strategique/",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/e-reputation",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/e-reputation/",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/relations-presse",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/relations-presse/",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/reseaux-sociaux",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/reseaux-sociaux/",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/webmarketing",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/webmarketing/",
+      "destination": "/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/design-graphique",
+      "destination": "/services#web",
+      "permanent": true
+    },
+    {
+      "source": "/design-graphique/",
+      "destination": "/services#web",
+      "permanent": true
+    },
+    {
+      "source": "/referencement",
+      "destination": "/services#web",
+      "permanent": true
+    },
+    {
+      "source": "/referencement/",
+      "destination": "/services#web",
+      "permanent": true
+    },
+    {
+      "source": "/en/africa",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/africa/",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/strategic-consulting",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/strategic-consulting/",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/online-reputation",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/online-reputation/",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
       "source": "/en/e-reputation",
-      "destination": "/en/online-reputation",
+      "destination": "/en/services#communication",
       "permanent": true
     },
     {
       "source": "/en/e-reputation/",
-      "destination": "/en/online-reputation",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/press-relations",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/press-relations/",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/social-media",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/social-media/",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/digital-marketing",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/digital-marketing/",
+      "destination": "/en/services#communication",
+      "permanent": true
+    },
+    {
+      "source": "/en/graphic-design",
+      "destination": "/en/services#web",
+      "permanent": true
+    },
+    {
+      "source": "/en/graphic-design/",
+      "destination": "/en/services#web",
+      "permanent": true
+    },
+    {
+      "source": "/en/seo",
+      "destination": "/en/services#web",
+      "permanent": true
+    },
+    {
+      "source": "/en/seo/",
+      "destination": "/en/services#web",
       "permanent": true
     }
   ],

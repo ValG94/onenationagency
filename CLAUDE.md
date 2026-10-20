@@ -65,15 +65,15 @@ _Dernière vérification : 2026-10-20 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
-| Pages générées | **40** (20 FR / 20 EN) |
+| Pages générées | **24** (12 FR / 12 EN) |
 | Liens internes cassés | ✅ 0 |
 | Médias cassés | ✅ 0 |
-| Balises hreflang | 120 |
+| Balises hreflang | 72 |
 | Pages sans alternative de langue | aucune |
-| Agent IA aligné sur la langue | ✅ 40/40 |
-| URLs dans le sitemap | 40 |
-| Poids total `dist` | 21.86 Mo (dont 8.08 Mo de vidéo) |
-| Variantes d'images générées | 149 |
+| Agent IA aligné sur la langue | ✅ 24/24 |
+| URLs dans le sitemap | 24 |
+| Poids total `dist` | 20.26 Mo (dont 8.08 Mo de vidéo) |
+| Variantes d'images générées | 90 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
 
@@ -362,6 +362,14 @@ Suite aux premiers tests NVDA de l'utilisatrice.
 - **Textes alternatifs des visuels de projets** : champ `imageAlt` bilingue dans `projects.ts`, utilisé par l'accueil (`ProjectCard`), le portfolio et le case study de `/offres`. Renseigné pour PaieCashFan (« Application PaieCashFan »), PaieCashCoin et Island Living SXM (« Site de réservation de villas à Saint-Martin, Island Living SXM »). Sans `imageAlt`, le texte par défaut est désormais **traduit** : il était écrit en dur en français, y compris sur `/en`. Le case study utilisait l'accroche du projet comme texte alternatif.
 - **NVDA « ne lit rien »** : c'est un usage à expliquer, pas un défaut. Tab ne parcourt que les éléments interactifs. Le texte se lit en mode navigation (flèches, H, D, K, F, NVDA+Flèche bas). Le survol à la souris demande NVDA+M, et DevTools capte la souris. L'arbre d'accessibilité relevé sur l'accueil et le contact est complet et correct.
 
+### Pages d'expertise de la V1 retirées · 20/10/2026
+Signalé par l'utilisatrice : `/conseil-strategique` était encore en ligne, alors que le menu ne la proposait plus. On n'y arrivait que par le plan du site, le pied de page ou le premier pilier de l'accueil FR, ce qui prêtait à confusion.
+- **Retirées, FR et EN (16 pages)** : afrique, conseil-strategique, design-graphique, e-reputation, referencement, relations-presse, reseaux-sociaux, webmarketing, et leurs équivalents anglais. Archivées dans `src/_archive/` (même méthode que l'ancienne page témoignages, procédure de remise en service dans `src/_archive/README.md`), paires retirées de `routes.ts`. **Le site passe de 40 à 24 pages**, parité 12/12, 72 hreflang, 0 lien cassé. **Pages à conserver = les entrées du menu** : accueil, L'Agence, Expertises, Portfolio, Intelligence IA, One Nation Civic (section de l'accueil), Offres, Contact, plus les pages légales et le plan du site.
+- **301 dans `vercel.json`** (avec et sans `/` final) : communication, Afrique, réseaux sociaux et webmarketing vers `/services#communication` ; design graphique et référencement vers `/services#web` ; mêmes cibles en anglais. La redirection `/en/e-reputation` → `/en/online-reputation` du 03/10 pointe désormais directement vers `/en/services#communication`, pour éviter une chaîne vers une page retirée.
+- **Liens corrigés** : rubrique Expertises du pied de page (Communication stratégique → `#communication`, Création web premium → `#web`, Design graphique et E-réputation supprimés), piliers de l'accueil FR et EN vers leur section de `/services`.
+- **Plan du site** : il suit l'ordre du menu. Nouveau champ `sections` dans `routes.ts` : une page y déclare ses ancres, listées sous elle (Expertises → communication, IA, web ; Accueil → One Nation Civic, via `CIVIC_ANCHOR` de `civic.ts`). La rubrique `expertise` a disparu de `PageGroup`. Mise en page en colonnes (`columns: 2`) et non en grille, sinon une page suivie de ses sections laisse des trous.
+- Conséquence sur le travail du jour : l'image Unsplash auto-hébergée (`public/conseil-cta.jpg`) et la correction de contraste des pages d'expertise ne servent plus qu'aux pages archivées.
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -384,7 +392,8 @@ Suite aux premiers tests NVDA de l'utilisatrice.
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
-| Faible | **JSON-LD identique sur les 38 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
+| À décider | **Images orphelines** | Depuis le retrait des pages V1 (20/10), une cinquantaine d'images ne sont plus utilisées par aucune page en ligne : fonds dans `public/` (afrique.jpg, analyseSeo.jpg, benefit.jpg, conseil-cta.jpg, relationsPresse.jpg…), 8 bannières `public/images/*-banner.jpg`, et des visuels de `src/assets/`, dont certains orphelins depuis plus longtemps (anciens portraits de témoignages, anciennes photos). Celles de `public/` sont encore publiées. Les supprimer allège `dist`, mais une page archivée remise en service en aurait besoin : l'historique git les conserve. **Attention**, `web-app-manifest-512x512.png` est utilisée par `site.webmanifest`, ne pas la supprimer. |
+| Faible | **JSON-LD identique sur les 24 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
 | En cours | **Vérification manuelle RGAA** | Faite par l'utilisatrice à l'aide d'une **liste interactive** : https://claude.ai/artifact/MmnySpfpr6LRxXWUNN9BSa (artifact privé). 45 critères avec la marche à suivre sur ce site, verdicts et notes enregistrés dans la base de l'artifact (collection `verifications`, un document par critère, plus `meta/environnement` pour les navigateurs et lecteurs d'écran utilisés). **Relire cette base avec l'outil ArtifactData avant de rédiger la déclaration.** Le rapport rgaa-checker d'origine (49 critères) n'a pas été conservé : la liste a été reconstruite le 20/10 à partir du RGAA 4.1.2, confronté au code du site. |
 | À faire | **Déclaration d'accessibilité** | Après vérification et corrections : page `/accessibilite` + `/en/accessibility` (paire dans `routes.ts`), mention « Accessibilité : partiellement conforme » (ou l'état obtenu) dans le pied de page des 38 pages. Taux = conformes / (conformes + non conformes). Obligation légale probablement inexistante pour une micro-entreprise, démarche volontaire. |
 

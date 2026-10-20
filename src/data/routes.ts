@@ -18,8 +18,17 @@
 //      mettent à jour tout seuls.
 // ============================================================
 
+import { CIVIC_ANCHOR } from './civic';
+
 /** Rubrique de la page dans le plan du site. */
-export type PageGroup = 'main' | 'expertise' | 'legal';
+export type PageGroup = 'main' | 'legal';
+
+/** Section ancrée d'une page, listée sous elle dans le plan du site. */
+export interface PageSection {
+  /** Identifiant de l'ancre, sans « # » (id présent dans les deux langues). */
+  anchor: string;
+  label: { fr: string; en: string };
+}
 
 export interface LocalePair {
   fr: string;
@@ -27,28 +36,37 @@ export interface LocalePair {
   /** Intitulé de la page dans le plan du site, dans chaque langue. */
   label: { fr: string; en: string };
   group: PageGroup;
+  /** Sous-parties ancrées affichées sous la page dans le plan du site. */
+  sections?: PageSection[];
 }
 
-// L'ordre de ce tableau est celui du plan du site (/plan-du-site).
+// L'ordre de ce tableau est celui du plan du site (/plan-du-site) : il suit
+// celui du menu principal.
+//
+// Les huit pages d'expertise de la première version du site (afrique,
+// conseil-strategique, design-graphique, e-reputation, referencement,
+// relations-presse, reseaux-sociaux, webmarketing) ont été retirées le
+// 20/10/2026 : archivées dans src/_archive/, redirigées en 301 vers les
+// sections de /services (vercel.json). Ne pas les réintroduire ici.
 export const localePairs: LocalePair[] = [
   // Pages principales
-  { fr: '/', en: '/en', label: { fr: 'Accueil', en: 'Home' }, group: 'main' },
+  {
+    fr: '/', en: '/en', label: { fr: 'Accueil', en: 'Home' }, group: 'main',
+    sections: [{ anchor: CIVIC_ANCHOR, label: { fr: 'One Nation Civic', en: 'One Nation Civic' } }],
+  },
   { fr: '/vision', en: '/en/vision', label: { fr: "L'Agence", en: 'The Agency' }, group: 'main' },
-  { fr: '/services', en: '/en/services', label: { fr: 'Expertises', en: 'Expertise' }, group: 'main' },
-  { fr: '/offres', en: '/en/packages', label: { fr: 'Offres et tarifs', en: 'Packages and pricing' }, group: 'main' },
+  {
+    fr: '/services', en: '/en/services', label: { fr: 'Expertises', en: 'Expertise' }, group: 'main',
+    sections: [
+      { anchor: 'communication', label: { fr: 'Communication stratégique', en: 'Strategic communication' } },
+      { anchor: 'ia', label: { fr: 'Intelligence artificielle', en: 'Artificial intelligence' } },
+      { anchor: 'web', label: { fr: 'Création web premium', en: 'Premium web creation' } },
+    ],
+  },
   { fr: '/portfolio', en: '/en/portfolio', label: { fr: 'Portfolio', en: 'Portfolio' }, group: 'main' },
   { fr: '/intelligence-artificielle', en: '/en/artificial-intelligence', label: { fr: 'Intelligence artificielle', en: 'Artificial intelligence' }, group: 'main' },
-  { fr: '/afrique', en: '/en/africa', label: { fr: 'Afrique', en: 'Africa' }, group: 'main' },
+  { fr: '/offres', en: '/en/packages', label: { fr: 'Offres et tarifs', en: 'Packages and pricing' }, group: 'main' },
   { fr: '/contact', en: '/en/contact', label: { fr: 'Contact', en: 'Contact' }, group: 'main' },
-
-  // Pages expertise
-  { fr: '/conseil-strategique', en: '/en/strategic-consulting', label: { fr: 'Conseil stratégique', en: 'Strategic consulting' }, group: 'expertise' },
-  { fr: '/design-graphique', en: '/en/graphic-design', label: { fr: 'Design graphique', en: 'Graphic design' }, group: 'expertise' },
-  { fr: '/e-reputation', en: '/en/online-reputation', label: { fr: 'E-réputation', en: 'Online reputation' }, group: 'expertise' },
-  { fr: '/referencement', en: '/en/seo', label: { fr: 'Référencement', en: 'SEO' }, group: 'expertise' },
-  { fr: '/relations-presse', en: '/en/press-relations', label: { fr: 'Relations presse', en: 'Press relations' }, group: 'expertise' },
-  { fr: '/reseaux-sociaux', en: '/en/social-media', label: { fr: 'Réseaux sociaux', en: 'Social media' }, group: 'expertise' },
-  { fr: '/webmarketing', en: '/en/digital-marketing', label: { fr: 'Webmarketing', en: 'Digital marketing' }, group: 'expertise' },
 
   // Pages légales et pratiques
   { fr: '/mentions-legales', en: '/en/legal-notice', label: { fr: 'Mentions légales', en: 'Legal notice' }, group: 'legal' },
