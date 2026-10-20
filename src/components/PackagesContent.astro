@@ -193,8 +193,14 @@ const CHECK = '<path d="M20 6L9 17l-5-5"/>';
         </a>
       </div>
 
+      {/* RGAA 1.9 : une image légendée se relie à sa légende par
+          role="figure" et un aria-label qui reprend le texte du figcaption. */}
       {island && (
-        <figure class="pk-case-visual reveal reveal-delay-2">
+        <figure
+          class="pk-case-visual reveal reveal-delay-2"
+          role="figure"
+          aria-label={`${island.country}, ${island.title}`}
+        >
           <Image
             src={island.image}
             alt={island.subtitle}

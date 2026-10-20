@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SiteMapContent from '../../components/SiteMapContent.astro';
+
+// Corps de page partagé avec /plan-du-site : la liste vient de routes.ts.
+---
+
+<Layout
+	title="Site map - One Nation"
+	description="One Nation Agency site map: every page, from the agency to our expertise, packages, portfolio and legal information."
+	lang="en"
+	canonical="/en/site-map"
+>
+	<Header lang="en" />
+	<main id="main-content">
+		<SiteMapContent lang="en" />
+	</main>
+	<Footer lang="en" />
+</Layout>

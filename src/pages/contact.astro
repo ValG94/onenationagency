@@ -48,27 +48,29 @@ const contactOffers = JSON.stringify(getContactOffers('fr'));
           <div class="contact-form-wrap reveal">
             <h2>Envoyez-nous un message</h2>
             <form class="contact-form" id="contactForm" novalidate data-offers={contactOffers}>
+              {/* RGAA 11.10 : l'astérisque des étiquettes doit être expliqué avant le premier champ. */}
+              <p class="form-required-note">Les champs marqués d'un astérisque (*) sont obligatoires.</p>
               <div class="form-row">
                 <div class="form-group">
                   <label for="firstName">Prénom *</label>
-                  <input type="text" id="firstName" name="firstName" placeholder="Votre prénom" required />
+                  <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Votre prénom" required />
                 </div>
                 <div class="form-group">
                   <label for="lastName">Nom *</label>
-                  <input type="text" id="lastName" name="lastName" placeholder="Votre nom" required />
+                  <input type="text" id="lastName" name="lastName" autocomplete="family-name" placeholder="Votre nom" required />
                 </div>
               </div>
               <div class="form-group">
                 <label for="email">Email professionnel *</label>
-                <input type="email" id="email" name="email" placeholder="votre@email.com" required />
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="votre@email.com" required />
               </div>
               <div class="form-group">
                 <label for="phone">Téléphone / WhatsApp</label>
-                <input type="tel" id="phone" name="phone" placeholder="+33 6 XX XX XX XX" />
+                <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+33 6 XX XX XX XX" />
               </div>
               <div class="form-group">
                 <label for="organization">Organisation / Entreprise</label>
-                <input type="text" id="organization" name="organization" placeholder="Votre organisation" />
+                <input type="text" id="organization" name="organization" autocomplete="organization" placeholder="Votre organisation" />
               </div>
               <div class="form-group">
                 <label for="subject">Sujet de votre demande *</label>
@@ -113,6 +115,11 @@ const contactOffers = JSON.stringify(getContactOffers('fr'));
                 </div>
               )}
               <p class="form-error" role="alert" hidden></p>
+              {/* RGAA 7.5 : la réussite de l'envoi s'affiche dans le bouton, ce
+                  qu'un lecteur d'écran n'annonce pas. Cette zone, vide et invisible
+                  à l'écran, la lui fait lire. Elle existe dès le chargement :
+                  une zone créée au moment du message ne serait pas annoncée. */}
+              <p class="sr-only" id="form-status" role="status"></p>
               <button type="submit" class="btn-gold btn-submit">
                 <span class="btn-text">Envoyer le message</span>
                 <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -536,6 +543,13 @@ const contactOffers = JSON.stringify(getContactOffers('fr'));
 
   /* Message d'erreur du formulaire : lisible, à côté du bouton, plutôt
      que noyé dans le libellé du bouton comme auparavant. */
+  /* Explication de l'astérisque (RGAA 11.10) : lisible, mais en retrait. */
+  .form-required-note {
+    margin: 0 0 1.2rem;
+    font-size: 0.8rem;
+    color: var(--grey-light);
+  }
+
   .form-error {
     margin-bottom: 1rem;
     padding: 0.8rem 1rem;
@@ -639,6 +653,9 @@ const contactOffers = JSON.stringify(getContactOffers('fr'));
 
       btn.disabled = true;
       btnText.textContent = 'Envoi en cours...';
+      // Vidée à chaque envoi : un même texte réécrit ne serait pas réannoncé.
+      const zoneStatut = document.getElementById('form-status');
+      if (zoneStatut) zoneStatut.textContent = '';
 
       const formData = new FormData(form);
       const payload = {
@@ -671,6 +688,8 @@ const contactOffers = JSON.stringify(getContactOffers('fr'));
 
         if (res.ok && result.success) {
           btnText.textContent = '✓ Message envoyé !';
+          const statut = document.getElementById('form-status');
+          if (statut) statut.textContent = 'Votre message a bien été envoyé. Nous vous répondrons rapidement.';
           btn.style.background = '#2a9d5c';
           setTimeout(() => {
             form.reset();
@@ -690,6 +709,7 @@ const contactOffers = JSON.stringify(getContactOffers('fr'));
         }
       } catch (err) {
         btnText.textContent = 'Erreur réseau réessayez';
+        signaler("Erreur réseau : le message n'est pas parti. Vérifiez votre connexion puis réessayez.");
         btn.style.background = '#e74c3c';
         btn.disabled = false;
         setTimeout(() => {

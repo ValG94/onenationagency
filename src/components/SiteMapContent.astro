@@ -1,0 +1,150 @@
+---
+// ============================================================
+// PLAN DU SITE — /plan-du-site et /en/site-map
+// ============================================================
+// Second système de navigation exigé par le RGAA (critère 12.1 : au
+// moins deux parmi menu, plan du site, moteur de recherche).
+//
+// La liste n'est écrite nulle part ici : elle vient de `localePairs`
+// (src/data/routes.ts), dans l'ordre et avec les libellés qui y sont
+// déclarés. Une page ajoutée à la table apparaît d'elle-même.
+// Apparence reprise des pages légales.
+// ============================================================
+
+import { localePairs, type PageGroup } from '../data/routes';
+
+interface Props {
+  lang?: string;
+}
+const { lang = 'fr' } = Astro.props;
+const en = lang === 'en';
+const key = en ? 'en' : 'fr';
+
+const GROUPS: { id: PageGroup; title: string }[] = [
+  { id: 'main', title: en ? 'Main pages' : 'Pages principales' },
+  { id: 'expertise', title: en ? 'Expertise' : 'Expertises' },
+  { id: 'legal', title: en ? 'Legal and practical information' : 'Informations légales et pratiques' },
+];
+
+const sections = GROUPS.map(group => ({
+  ...group,
+  pages: localePairs
+    .filter(p => p.group === group.id)
+    .map(p => ({ href: p[key], label: p.label[key] })),
+}));
+
+// La page en cours est signalée aux lecteurs d'écran (aria-current).
+const current = en ? '/en/site-map' : '/plan-du-site';
+---
+
+<section class="legal">
+  <div class="container">
+    <h1>{en ? 'Site map' : 'Plan du site'}</h1>
+
+    <div class="legal-content">
+      {sections.map(section => (
+        <>
+          <h2>{section.title}</h2>
+          <ul class="sitemap-list">
+            {section.pages.map(page => (
+              <li>
+                <a href={page.href} aria-current={page.href === current ? 'page' : undefined}>
+                  {page.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .legal {
+    padding: 8rem 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .legal-content {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: 12px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    color: var(--color-accent);
+    margin: 2.5rem 0 1rem;
+  }
+
+  h2:first-child {
+    margin-top: 0;
+  }
+
+  .sitemap-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 2rem;
+  }
+
+  /* Le soulignement vient déjà de la règle globale de Layout.astro
+     (liens sans classe dans main, RGAA 10.6) ; il est redit ici pour que
+     la page ne dépende pas de cette règle. */
+  .sitemap-list a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    line-height: 1.6;
+  }
+  .sitemap-list a:hover {
+    color: var(--off-white);
+  }
+  .sitemap-list a[aria-current="page"] {
+    color: var(--off-white);
+    text-decoration-style: dotted;
+  }
+
+  @media (max-width: 768px) {
+    .legal {
+      padding: 6rem 0;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .legal-content {
+      padding: 2rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .legal-content {
+      padding: 1.5rem 1.25rem;
+    }
+
+    .sitemap-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -71,6 +71,14 @@ const figures = getKeyFigures('fr');
     <!-- Barre de chargement -->
     <div class="splash-bar"></div>
   </div>
+  {/* Bouton « Passer l'introduction » : l'animation dure 6 s, au-delà
+      de la limite de 5 s du RGAA (13.8) pour un contenu en mouvement sans
+      moyen de l'arrêter. Placé HORS du splash, qui est en aria-hidden :
+      un bouton à l'intérieur serait atteignable au clavier mais muet pour
+      les lecteurs d'écran. Masqué par le script dès que l'intro se termine. */}
+  <button type="button" class="splash-skip btn-outline" id="splash-skip" hidden>
+    Passer l'introduction
+  </button>
 
   <!-- SITE PRINCIPAL -->
   <div class="site-wrapper" id="site-wrapper">
@@ -353,6 +361,19 @@ const figures = getKeyFigures('fr');
 
   /* Particules dorées flottantes */
   .splash-particles { position: absolute; inset: 0; pointer-events: none; }
+
+  /* Bouton « Passer l'introduction » : discret, en bas à droite, au-dessus
+     du splash (z-index 9999). Le [hidden] est redit car .btn-outline
+     impose un display qui l'emporterait sur l'attribut. */
+  .splash-skip {
+    position: fixed;
+    right: calc(1.5rem + env(safe-area-inset-right, 0px));
+    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    z-index: 10001;
+    font-size: 0.68rem;
+    padding: 0.6rem 1.1rem;
+  }
+  .splash-skip[hidden] { display: none; }
   .particle {
     position: absolute;
     left: var(--px);
@@ -1164,8 +1185,12 @@ const figures = getKeyFigures('fr');
     const splash = document.getElementById('splash');
     const siteWrapper = document.getElementById('site-wrapper');
 
+    const skipBtn = document.getElementById('splash-skip') as HTMLButtonElement | null;
     const hasHash = window.location.hash.length > 1;
-    const alreadySeen = sessionStorage.getItem('ona_intro_seen') || hasHash;
+    // Visiteur qui a demandé moins d'animations dans son système : pas
+    // d'intro du tout (RGAA 13.8, WCAG 2.3.3).
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const alreadySeen = sessionStorage.getItem('ona_intro_seen') || hasHash || reduceMotion;
 
     if (alreadySeen) {
       // Retour sur la home dans la même session → pas d'animation
@@ -1176,12 +1201,36 @@ const figures = getKeyFigures('fr');
     } else {
       // Première visite → animation complète (6s)
       // Timing : tagline apparaît à 3.3s + 2s de lecture = 5.3s + 0.7s transition = 6s
-      setTimeout(() => {
+      let introDone = false;
+      const finishIntro = () => {
+        if (introDone) return;
+        introDone = true;
+        clearTimeout(introTimer);
+        const skipHadFocus = document.activeElement === skipBtn;
+        if (skipBtn) skipBtn.hidden = true;
         splash?.classList.add('hidden');
         siteWrapper?.classList.add('visible');
         sessionStorage.setItem('ona_intro_seen', '1');
         setTimeout(initReveal, 100);
-      }, 6000);
+        // Le bouton disparaît : si le focus y était, on le pose sur le
+        // contenu principal plutôt que de le laisser se perdre.
+        if (skipHadFocus) {
+          const main = document.getElementById('main-content');
+          if (main) {
+            if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+            main.focus({ preventScroll: true });
+          }
+        }
+      };
+      const introTimer = setTimeout(finishIntro, 6000);
+      if (skipBtn) {
+        skipBtn.hidden = false;
+        skipBtn.addEventListener('click', finishIntro);
+      }
+      // Échap passe aussi l'introduction, réflexe naturel au clavier.
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') finishIntro();
+      });
     }
   });
 </script>

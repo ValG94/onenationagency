@@ -295,7 +295,7 @@ const figures = getKeyFigures('en');
 
     </main>
 
-    <Footer />
+    <Footer lang="en" />
 
     <!-- WhatsApp floating button -->
     <aside aria-label="Quick contact">
@@ -848,7 +848,11 @@ const figures = getKeyFigures('en');
   const siteWrapper = document.getElementById('site-wrapper');
 
   const hasHash = window.location.hash.length > 1;
-  const alreadySeen = sessionStorage.getItem('ona_intro_seen_en') || hasHash;
+  // Moins d'animations demandé dans le système : pas d'intro. L'intro EN
+  // dure 2,2 s, sous la limite de 5 s du RGAA (13.8) : pas besoin du
+  // bouton « Passer » de la version FR, seulement de ce respect.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const alreadySeen = sessionStorage.getItem('ona_intro_seen_en') || hasHash || reduceMotion;
 
   if (alreadySeen) {
     // Retour sur la home EN dans la même session → pas d'animation

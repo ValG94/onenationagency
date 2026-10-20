@@ -39,7 +39,7 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 | Fichier | Rôle |
 |---|---|
 | `src/data/projects.ts` | Les projets du portfolio, bilingues. Numéros et compteurs calculés. |
-| `src/data/routes.ts` | Correspondance FR↔EN. Pilote le sélecteur de langue, le footer et les hreflang. |
+| `src/data/routes.ts` | Correspondance FR↔EN, avec libellé et rubrique de chaque page. Pilote le sélecteur de langue, le footer, les hreflang et le plan du site. |
 | `src/data/stats.ts` | Chiffres clés. Projets et années dérivés, pas saisis. |
 | `src/data/civic.ts` | Contenu One Nation Civic, FR et EN, plus l'URL et l'ancre. Alimente `CivicSection.astro` et le lien du menu. |
 | `src/data/testimonials.ts` | Avis clients, FR et EN, plus les URL Google. Alimente la section d'accueil et les avis intégraux du portfolio. |
@@ -61,18 +61,18 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-10-19 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-10-20 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
-| Pages générées | **38** (19 FR / 19 EN) |
+| Pages générées | **40** (20 FR / 20 EN) |
 | Liens internes cassés | ✅ 0 |
 | Médias cassés | ✅ 0 |
-| Balises hreflang | 114 |
+| Balises hreflang | 120 |
 | Pages sans alternative de langue | aucune |
-| Agent IA aligné sur la langue | ✅ 38/38 |
-| URLs dans le sitemap | 38 |
-| Poids total `dist` | 21.55 Mo (dont 8.08 Mo de vidéo) |
+| Agent IA aligné sur la langue | ✅ 40/40 |
+| URLs dans le sitemap | 40 |
+| Poids total `dist` | 21.61 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 149 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -341,6 +341,17 @@ Signalé par l'utilisateur sur iPhone, en production : en bas de page, le burger
 - **Vérifié dans Chrome** à 390 px, sur `/portfolio`, `/en/packages` et `/`, en haut, au milieu et en bas : avant 1 lien visible sur 9 dès qu'on a défilé, après 9/9 partout. En-tête défilé **identique au pixel près** à 1280 et 390 px. Tests d'accessibilité du menu (inert, focus, Échap) toujours verts.
 - Pourquoi mes tests du 03/10 ne l'avaient pas vu : ils ouvraient le menu en haut de page. Un test de menu doit désormais aussi l'ouvrir **après défilement**.
 
+### Six non-conformités RGAA corrigées · 20/10/2026
+Repérées en lisant le code pendant la préparation de la vérification manuelle (liste : https://claude.ai/artifact/MmnySpfpr6LRxXWUNN9BSa), corrigées avant la déclaration.
+- **12.1 Plan du site** : `/plan-du-site` et `/en/site-map`, un seul composant (`SiteMapContent.astro`) pour les deux langues, lien dans le pied de page des 40 pages. **La liste vient de `localePairs`** : chaque paire de `routes.ts` porte désormais un `label` FR/EN et un `group` (`main`, `expertise`, `legal`). Ajouter une page à la table la met au plan du site. Le site passe de 38 à **40 pages**, parité 20/20, 120 hreflang.
+- **13.8 Animation d'accueil** (FR, 6 s) : bouton « Passer l'introduction » en bas à droite, placé **hors** du splash, qui est en `aria-hidden` (un bouton dedans serait muet pour les lecteurs d'écran). Échap passe aussi l'intro ; si le focus était sur le bouton, il va au contenu principal. Les deux accueils **sautent l'intro avec `prefers-reduced-motion`**. L'intro EN dure 2,2 s, sous la limite de 5 s : pas de bouton.
+- **11.13** `autocomplete` sur les cinq champs nominatifs des formulaires FR et EN (`given-name`, `family-name`, `email`, `tel`, `organization`).
+- **11.10** Phrase « Les champs marqués d'un astérisque (*) sont obligatoires. » avant le premier champ, FR et EN.
+- **7.5** Zone `#form-status` en `role="status"` et `.sr-only`, présente dès le chargement et vidée à chaque envoi : le succès est annoncé. L'erreur réseau, qui n'allait que dans le bouton, passe désormais par `signaler()` et la zone `role="alert"`.
+- **1.9** Figure du case study de `/offres` : `role="figure"` et `aria-label` reprenant la légende (pays, titre).
+- **Défaut trouvé au passage** : cinq pages anglaises (`/en`, contact, services, vision, artificial-intelligence) appelaient `<Footer />` sans `lang`, donc un **pied de page entièrement en français**. Visible pour un anglophone et non conforme au 8.7. Corrigé, voir la section 6.
+- **Vérifié dans Chrome** : plan du site, 20 liens sans lien cassé dans chaque langue ; bouton, Échap et réduction des animations ; autocomplete et phrase d'astérisque ; succès et erreur réseau annoncés (**réponse du serveur simulée, aucun e-mail envoyé**) ; figure exposée avec son nom.
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -365,7 +376,6 @@ Signalé par l'utilisateur sur iPhone, en production : en bas de page, le burger
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
 | Faible | **JSON-LD identique sur les 38 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
 | En cours | **Vérification manuelle RGAA** | Faite par l'utilisatrice à l'aide d'une **liste interactive** : https://claude.ai/artifact/MmnySpfpr6LRxXWUNN9BSa (artifact privé). 45 critères avec la marche à suivre sur ce site, verdicts et notes enregistrés dans la base de l'artifact (collection `verifications`, un document par critère, plus `meta/environnement` pour les navigateurs et lecteurs d'écran utilisés). **Relire cette base avec l'outil ArtifactData avant de rédiger la déclaration.** Le rapport rgaa-checker d'origine (49 critères) n'a pas été conservé : la liste a été reconstruite le 20/10 à partir du RGAA 4.1.2, confronté au code du site. |
-| À corriger | **Non-conformités RGAA repérées dans le code (20/10)** | À corriger avant la déclaration, sans attendre la vérification manuelle : **12.1** un seul système de navigation, il faut un plan du site FR/EN lié depuis le pied de page ; **13.8** animation d'ouverture de l'accueil (6 s) impossible à passer ou arrêter, et jouée même avec `prefers-reduced-motion` ; **11.13** aucun `autocomplete` sur le formulaire de contact ; **11.10** astérisque des champs obligatoires jamais expliqué ; **1.9** `figure` du case study de `/offres` sans `role="figure"` ni `aria-label` ; **7.5** « Message envoyé » écrit seulement dans le libellé du bouton, donc non annoncé (l'erreur, elle, est en `role="alert"`). |
 | À faire | **Déclaration d'accessibilité** | Après vérification et corrections : page `/accessibilite` + `/en/accessibility` (paire dans `routes.ts`), mention « Accessibilité : partiellement conforme » (ou l'état obtenu) dans le pied de page des 38 pages. Taux = conformes / (conformes + non conformes). Obligation légale probablement inexistante pour une micro-entreprise, démarche volontaire. |
 
 **Hors code — à faire par l'utilisateur, aucun développement attendu**
@@ -384,6 +394,7 @@ Signalé par l'utilisateur sur iPhone, en production : en bas de page, le burger
 - **Previews Vercel** — l'utilisateur teste souvent sur `onenationagency-<hash>-…vercel.app`, figée sur son commit. Devant un bug « qui persiste » après correction, lire d'abord l'URL de sa capture.
 - **Fins de ligne** — les fichiers historiques sont en CRLF, les nouveaux en LF. Comparer en normalisant avant de conclure à une modification.
 - **Styles Astro scopés** — un `<style>` de page ne s'applique pas au markup d'un composant. Déplacer un markup vers un composant impose de déplacer son CSS avec.
+- **`<Footer />` sur une page anglaise** — toujours `<Footer lang="en" />`. Sans `lang`, le composant retombe sur le français : le 20/10, cinq pages EN avaient tout leur pied de page en français. Même règle pour `<Header />`.
 - **Ancêtres du menu mobile** — jamais de `transform`, `filter`, `backdrop-filter`, `will-change`, `contain` ni `perspective` sur `.site-header` ou ses parents : le menu, en `position: fixed` à l'intérieur, serait réduit à la hauteur de l'en-tête. Un effet visuel sur l'en-tête se pose sur `::before`. Tester le menu **après défilement**, pas seulement en haut de page.
 - **Tirets cadratins** — le site n'en utilise plus dans le texte visible. Espace dans le texte courant, trait d'union dans les titres, « à »/« to » dans les plages.
 - **`pnpm` uniquement** — ne pas lancer `npm install`, cela recréerait un `package-lock.json` concurrent et casserait le build Vercel.
