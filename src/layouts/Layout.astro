@@ -320,6 +320,12 @@ const orgJsonLd = {
     }
 
     body {
+      /* Fond redit sur body, alors que html le porte déjà : sans lui, body
+         est transparent et les vérificateurs de contraste (extension WCAG
+         Contrast Checker et consorts) supposent un fond BLANC. Ils
+         annonçaient alors 1:1 pour le texte blanc et 1,92:1 pour le gris
+         clair, de fausses erreurs pour un auditeur RGAA. Aucun effet visible. */
+      background: var(--black);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
