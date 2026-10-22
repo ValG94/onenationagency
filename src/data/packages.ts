@@ -183,7 +183,7 @@ const fr: PackagesCopy = {
   },
 
   packagesLabel: "Vous n'avez pas encore de site ?",
-  packagesTitle: 'TROIS NIVEAUX.<br />UN MÊME NIVEAU D\'EXIGENCE.',
+  packagesTitle: 'TROIS NIVEAUX.<br>UN MÊME NIVEAU D\'EXIGENCE.',
 
   offers: [
     {
@@ -331,7 +331,7 @@ const fr: PackagesCopy = {
 
   caseStudy: {
     eyebrow: 'Case study',
-    title: 'UN PROJET SIGNATURE<br />DÉJÀ DÉPLOYÉ À SINT MAARTEN.',
+    title: 'UN PROJET SIGNATURE<br>DÉJÀ DÉPLOYÉ À SINT MAARTEN.',
     subtitle: 'Island Living SXM, reprendre le contrôle de ses réservations.',
     blocks: [
       {
@@ -421,7 +421,7 @@ const en: PackagesCopy = {
   },
 
   packagesLabel: "Don't have a website yet?",
-  packagesTitle: 'THREE LEVELS.<br />ONE STANDARD OF CRAFT.',
+  packagesTitle: 'THREE LEVELS.<br>ONE STANDARD OF CRAFT.',
 
   offers: [
     {
@@ -565,7 +565,7 @@ const en: PackagesCopy = {
 
   caseStudy: {
     eyebrow: 'Case study',
-    title: 'A SIGNATURE PROJECT<br />ALREADY DELIVERED IN SINT MAARTEN.',
+    title: 'A SIGNATURE PROJECT<br>ALREADY DELIVERED IN SINT MAARTEN.',
     subtitle: 'Island Living SXM, taking back control of direct bookings.',
     blocks: [
       {

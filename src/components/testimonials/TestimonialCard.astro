@@ -27,7 +27,7 @@ const portrait = t.avatar ? avatarAsset(t.avatar) : null;
 const initiales = getInitials(t.clientName);
 ---
 
-<article class:list={['tm-card', 'reveal', `reveal-delay-${Math.min(index + 1, 4)}`]}>
+<div class:list={['tm-card', 'reveal', `reveal-delay-${Math.min(index + 1, 4)}`]}>
   <!-- Guillemet décoratif, purement typographique. -->
   <span class="tm-quote" aria-hidden="true">&ldquo;</span>
 
@@ -80,7 +80,7 @@ const initiales = getInitials(t.clientName);
       </a>
     )}
   </footer>
-</article>
+</div>
 
 <style>
   .tm-card {
