@@ -65,9 +65,8 @@ const figures = getKeyFigures('en');
             poster={heroPoster.src}
             aria-hidden="true"
             data-hero-video
+            data-sources='[{"src":"/hero-presentation.webm","type":"video/webm"},{"src":"/hero-presentation.mp4","type":"video/mp4"}]'
           >
-            <source data-src="/hero-presentation.webm" type="video/webm" />
-            <source data-src="/hero-presentation.mp4" type="video/mp4" />
           </video>
           <div class="hero-overlay"></div>
         </div>
@@ -140,7 +139,7 @@ const figures = getKeyFigures('en');
             <article class="pillar-card reveal reveal-delay-1">
               <div class="pillar-icon">
                 <svg aria-hidden="true" focusable="false" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 3h18v18H3z" rx="2"/>
+                  <path d="M3 3h18v18H3z"/>
                   <path d="M3 9h18M9 21V9"/>
                 </svg>
               </div>
@@ -307,6 +306,63 @@ const figures = getKeyFigures('en');
     </aside>
   </div>
   <HeroVideoLoader />
+  <script>
+  // ── Helpers reveal ──────────────────────────────────────────
+  function initReveal() {
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => observer.observe(el));
+  }
+
+  // ── Arrivée sur une ancre (ex. le lien One Nation Civic du menu) ──
+  // Le visiteur vient chercher une section précise : on saute l'intro et
+  // on l'y amène une fois la page visible, sinon il atterrit en haut.
+  function scrollToHash() {
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    const target = document.querySelector(hash);
+    if (!target) return;
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+  }
+
+  // ── Splash screen (une seule fois par session) ───────────────────
+  const splash = document.getElementById('splash');
+  const siteWrapper = document.getElementById('site-wrapper');
+
+  const hasHash = window.location.hash.length > 1;
+  // Moins d'animations demandé dans le système : pas d'intro. L'intro EN
+  // dure 2,2 s, sous la limite de 5 s du RGAA (13.8) : pas besoin du
+  // bouton « Passer » de la version FR, seulement de ce respect.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const alreadySeen = sessionStorage.getItem('ona_intro_seen_en') || hasHash || reduceMotion;
+
+  if (alreadySeen) {
+    // Retour sur la home EN dans la même session → pas d'animation
+    if (splash) splash.style.display = 'none';
+    if (siteWrapper) siteWrapper.classList.add('visible');
+    setTimeout(initReveal, 100);
+    scrollToHash();
+  } else {
+    // Première visite → animation (2.2s)
+    if (splash && siteWrapper) {
+      setTimeout(() => {
+        splash.classList.add('hidden');
+        siteWrapper.classList.add('visible');
+        sessionStorage.setItem('ona_intro_seen_en', '1');
+        setTimeout(initReveal, 100);
+      }, 2200);
+    }
+  }
+</script>
 </Layout>
 
 <style>
@@ -486,7 +542,7 @@ const figures = getKeyFigures('en');
     width: 1px;
     height: 40px;
     background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
+    animation: scrollPulse 2s ease-in-out 2 both; /* 4 s puis arrêt (RGAA 13.8) */
   }
   .scroll-indicator span {
     font-size: 0.65rem;
@@ -815,60 +871,3 @@ const figures = getKeyFigures('en');
   }
 </style>
 
-<script>
-  // ── Helpers reveal ──────────────────────────────────────────
-  function initReveal() {
-    const revealElements = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    revealElements.forEach(el => observer.observe(el));
-  }
-
-  // ── Arrivée sur une ancre (ex. le lien One Nation Civic du menu) ──
-  // Le visiteur vient chercher une section précise : on saute l'intro et
-  // on l'y amène une fois la page visible, sinon il atterrit en haut.
-  function scrollToHash() {
-    const hash = window.location.hash;
-    if (!hash || hash.length < 2) return;
-    const target = document.querySelector(hash);
-    if (!target) return;
-    requestAnimationFrame(() => {
-      target.scrollIntoView({ behavior: 'auto', block: 'start' });
-    });
-  }
-
-  // ── Splash screen (une seule fois par session) ───────────────────
-  const splash = document.getElementById('splash');
-  const siteWrapper = document.getElementById('site-wrapper');
-
-  const hasHash = window.location.hash.length > 1;
-  // Moins d'animations demandé dans le système : pas d'intro. L'intro EN
-  // dure 2,2 s, sous la limite de 5 s du RGAA (13.8) : pas besoin du
-  // bouton « Passer » de la version FR, seulement de ce respect.
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const alreadySeen = sessionStorage.getItem('ona_intro_seen_en') || hasHash || reduceMotion;
-
-  if (alreadySeen) {
-    // Retour sur la home EN dans la même session → pas d'animation
-    if (splash) splash.style.display = 'none';
-    if (siteWrapper) siteWrapper.classList.add('visible');
-    setTimeout(initReveal, 100);
-    scrollToHash();
-  } else {
-    // Première visite → animation (2.2s)
-    if (splash && siteWrapper) {
-      setTimeout(() => {
-        splash.classList.add('hidden');
-        siteWrapper.classList.add('visible');
-        sessionStorage.setItem('ona_intro_seen_en', '1');
-        setTimeout(initReveal, 100);
-      }, 2200);
-    }
-  }
-</script>

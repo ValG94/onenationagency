@@ -169,6 +169,44 @@ const figures = getKeyFigures('en');
   </main>
 
   <Footer lang="en" />
+  <script>
+function animateCounter(element) {
+  const target = parseInt(element.getAttribute('data-target'));
+  const prefix = element.getAttribute('data-prefix') || '';
+  const suffix = element.getAttribute('data-suffix') || '';
+  const duration = 2000;
+  const frameDuration = 1000 / 60;
+  const totalFrames = Math.round(duration / frameDuration);
+  let frame = 0;
+  const counter = setInterval(() => {
+    frame++;
+    const progress = frame / totalFrames;
+    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+    const currentValue = Math.round(easeOutQuart * target);
+    element.textContent = prefix + currentValue + suffix;
+    if (frame === totalFrames) {
+      clearInterval(counter);
+      element.textContent = prefix + target + suffix;
+    }
+  }, frameDuration);
+}
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+      entry.target.classList.add('counted');
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.addEventListener('DOMContentLoaded', () => {
+  const counters = document.querySelectorAll('.counter');
+  counters.forEach(counter => {
+    counter.textContent = counter.getAttribute('data-prefix') + '0' + counter.getAttribute('data-suffix');
+    counterObserver.observe(counter);
+  });
+});
+</script>
 </Layout>
 
 <style>
@@ -218,41 +256,3 @@ const figures = getKeyFigures('en');
   }
 </style>
 
-<script>
-function animateCounter(element) {
-  const target = parseInt(element.getAttribute('data-target'));
-  const prefix = element.getAttribute('data-prefix') || '';
-  const suffix = element.getAttribute('data-suffix') || '';
-  const duration = 2000;
-  const frameDuration = 1000 / 60;
-  const totalFrames = Math.round(duration / frameDuration);
-  let frame = 0;
-  const counter = setInterval(() => {
-    frame++;
-    const progress = frame / totalFrames;
-    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-    const currentValue = Math.round(easeOutQuart * target);
-    element.textContent = prefix + currentValue + suffix;
-    if (frame === totalFrames) {
-      clearInterval(counter);
-      element.textContent = prefix + target + suffix;
-    }
-  }, frameDuration);
-}
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-      entry.target.classList.add('counted');
-      animateCounter(entry.target);
-      counterObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.5 });
-document.addEventListener('DOMContentLoaded', () => {
-  const counters = document.querySelectorAll('.counter');
-  counters.forEach(counter => {
-    counter.textContent = counter.getAttribute('data-prefix') + '0' + counter.getAttribute('data-suffix');
-    counterObserver.observe(counter);
-  });
-});
-</script>

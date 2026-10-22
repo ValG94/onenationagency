@@ -176,6 +176,23 @@ const orgJsonLd = {
 
   <!-- Schema.org -->
   <script type="application/ld+json" is:inline set:html={JSON.stringify(orgJsonLd)} />
+
+  {/* REPLI SANS JAVASCRIPT
+      `.site-wrapper` et `.reveal` partent à `opacity: 0` et ne sont
+      révélés que par script. Sans JS (script bloqué, erreur réseau,
+      navigateur restreint), la page restait entièrement invisible alors
+      que tout son contenu est bien dans le HTML. Ce bloc rétablit la
+      visibilité et neutralise le splash ; il est inerte dès que le JS
+      s'exécute.
+      Placé dans <head> et non dans <body> : un <noscript> qui contient
+      un <style> n'est valide qu'en tête de document (RGAA 8.2). */}
+  <noscript>
+    <style>
+      .site-wrapper { opacity: 1 !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .splash { display: none !important; }
+    </style>
+  </noscript>
 </head>
 <body>
   <a href="#main-content" class="skip-to-content">
@@ -201,26 +218,6 @@ const orgJsonLd = {
     </a>
     </aside>
   )}
-
-  <!-- ============================================================
-       REPLI SANS JAVASCRIPT
-       ------------------------------------------------------------
-       `.site-wrapper` et `.reveal` partent à `opacity: 0` et ne sont
-       révélés que par script. Sans JS — script bloqué, erreur réseau,
-       navigateur restreint — la page restait entièrement invisible
-       alors que tout son contenu est bien dans le HTML.
-
-       Ce bloc rétablit la visibilité et neutralise le splash. Il ne
-       s'applique que si le JavaScript est absent : le comportement
-       animé reste inchangé pour tout le monde.
-  ============================================================ -->
-  <noscript>
-    <style>
-      .site-wrapper { opacity: 1 !important; }
-      .reveal { opacity: 1 !important; transform: none !important; }
-      .splash { display: none !important; }
-    </style>
-  </noscript>
 
   <style is:global>
     /* ─── POLICES AUTO-HÉBERGÉES ────────────────────────────────

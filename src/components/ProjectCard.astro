@@ -94,7 +94,10 @@ const wrapperProps = project.link
     opacity: 0;
     transition: opacity 0.3s ease;
   }
-  .portfolio-card:hover .portfolio-overlay {
+  /* :focus-within en plus du survol : ce qui apparaît à la souris doit
+     aussi apparaître quand on arrive sur la carte au clavier (RGAA 10.14). */
+  .portfolio-card:hover .portfolio-overlay,
+  .portfolio-card:focus-within .portfolio-overlay {
     opacity: 1;
   }
   .portfolio-visit {

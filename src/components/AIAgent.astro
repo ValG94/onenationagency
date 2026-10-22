@@ -19,7 +19,6 @@ const t = {
   close: en ? 'Close the assistant' : "Fermer l'assistant",
   name: en ? 'One Nation Assistant' : 'Assistant One Nation',
   online: en ? 'Online' : 'En ligne',
-  switchLang: en ? 'Changer de langue' : 'Switch language',
   switchTitle: en ? 'Passer en français' : 'Switch to English',
   langToggle: en ? 'FR' : 'EN',
   conversation: en ? 'Conversation' : 'Conversation',
@@ -36,19 +35,22 @@ const contactHref = localised('/contact', lang);
 <div id="ai-agent" class="ai-agent" aria-label={t.agentLabel} role="complementary">
   <!-- BOUTON FLOTTANT -->
   <button id="ai-agent-trigger" class="ai-trigger" aria-label={t.open} aria-expanded="false">
-    <div class="ai-trigger-icon ai-trigger-icon--closed">
+    {/* <span> et non <div> : un <button> n'accepte que du contenu de type
+        phrasé (RGAA 8.2). Rendu inchangé : le bouton est en flex, ses
+        enfants y sont traités en blocs quelle que soit la balise. */}
+    <span class="ai-trigger-icon ai-trigger-icon--closed">
       <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
         <circle cx="9" cy="14" r="1" fill="currentColor"/>
         <circle cx="15" cy="14" r="1" fill="currentColor"/>
       </svg>
-    </div>
-    <div class="ai-trigger-icon ai-trigger-icon--open" style="display:none">
+    </span>
+    <span class="ai-trigger-icon ai-trigger-icon--open" style="display:none">
       <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M18 6L6 18M6 6l12 12"/>
       </svg>
-    </div>
-    <div class="ai-trigger-pulse" aria-hidden="true"></div>
+    </span>
+    <span class="ai-trigger-pulse" aria-hidden="true"></span>
   </button>
 
   <!-- FENÊTRE DU CHAT -->
@@ -70,7 +72,7 @@ const contactHref = localised('/contact', lang);
         </span>
       </div>
       <div class="ai-header-actions">
-        <button id="ai-lang-toggle" class="ai-lang-btn" aria-label={t.switchLang} title={t.switchTitle}>{t.langToggle}</button>
+        <button id="ai-lang-toggle" class="ai-lang-btn" aria-label={t.switchTitle} title={t.switchTitle} lang={en ? 'fr' : 'en'}>{t.langToggle}</button>
         <button id="ai-close-btn" class="ai-close-btn" aria-label={t.close}>
           <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M18 6L6 18M6 6l12 12"/>
@@ -146,7 +148,9 @@ const contactHref = localised('/contact', lang);
     inset: -4px;
     border-radius: 50%;
     border: 2px solid rgba(201,168,76,0.4);
-    animation: agentPulse 2.5s ease-in-out infinite;
+    /* Deux pulsations (5 s) puis le halo reste fixe : visible sur toutes
+       les pages, il tournait sans fin sans moyen de l'arrêter (RGAA 13.8). */
+    animation: agentPulse 2.5s ease-in-out 2 both;
   }
   @keyframes agentPulse {
     0%, 100% { transform: scale(1); opacity: 0.6; }
@@ -216,7 +220,7 @@ const contactHref = localised('/contact', lang);
     height: 6px;
     border-radius: 50%;
     background: #2a9d5c;
-    animation: statusPulse 2s ease-in-out infinite;
+    animation: statusPulse 2s ease-in-out 2 both; /* 4 s puis arrêt (RGAA 13.8) */
   }
   @keyframes statusPulse {
     0%, 100% { opacity: 1; }
@@ -877,7 +881,13 @@ const contactHref = localised('/contact', lang);
     currentLang = currentLang === 'fr' ? 'en' : 'fr';
     const script = SCRIPTS[currentLang as keyof typeof SCRIPTS];
     langToggle!.textContent = script.langToggle;
-    langToggle!.title = currentLang === 'en' ? 'Passer en français' : 'Switch to English';
+    // Nom et langue du bouton suivent la langue VISÉE (RGAA 8.7) : un
+    // lecteur d'écran lit « Switch to English » avec une voix anglaise.
+    const target = currentLang === 'en' ? 'fr' : 'en';
+    const label = target === 'fr' ? 'Passer en français' : 'Switch to English';
+    langToggle!.title = label;
+    langToggle!.setAttribute('aria-label', label);
+    langToggle!.lang = target;
     inputEl.placeholder = script.inputPlaceholder;
     // Cible le texte, pas la pastille d'état : `span:last-child` visait
     // le point de 6 px et y écrivait le libellé.

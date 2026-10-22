@@ -238,6 +238,178 @@ const contactOffers = JSON.stringify(getContactOffers('fr'));
       is:inline
     />
   )}
+  <script>
+  // Instant d'affichage du formulaire. La durée de remplissage part
+  // avec la requête : un robot soumet en quelques millisecondes.
+  const formOpenedAt = performance.now();
+
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.btn-submit') as HTMLButtonElement;
+      const btnText = form.querySelector('.btn-text') as HTMLSpanElement;
+      const consentCheckbox = form.querySelector('input[name="consent"]') as HTMLInputElement;
+
+      // ── Validation avant envoi ───────────────────────────────
+      // Le formulaire est en `novalidate` : sans ce contrôle, un champ
+      // vide partait jusqu'au serveur et revenait avec un message
+      // générique glissé dans le libellé du bouton, que personne ne voit.
+      const erreurEl = form.querySelector('.form-error') as HTMLElement | null;
+
+      const effacerErreur = () => {
+        if (erreurEl) { erreurEl.hidden = true; erreurEl.textContent = ''; }
+      };
+
+      const signaler = (message: string, champ?: HTMLElement | null) => {
+        if (erreurEl) { erreurEl.textContent = message; erreurEl.hidden = false; }
+        if (champ) {
+          champ.style.borderColor = '#e74c3c';
+          champ.addEventListener('input', () => { champ.style.borderColor = ''; }, { once: true });
+          champ.addEventListener('change', () => { champ.style.borderColor = ''; }, { once: true });
+          champ.focus({ preventScroll: true });
+          champ.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+      };
+
+      effacerErreur();
+
+      const REQUIS: [string, string][] = [
+        ['firstName', "Merci d'indiquer votre prénom."],
+        ['lastName', "Merci d'indiquer votre nom."],
+        ['email', "Merci d'indiquer votre email professionnel."],
+        ['subject', "Merci de choisir un sujet."],
+        ['message', "Merci de décrire votre demande."],
+      ];
+
+      for (const [nom, message] of REQUIS) {
+        const champ = form.querySelector(`[name="${nom}"]`) as HTMLInputElement | null;
+        if (!champ || !champ.value.trim()) {
+          signaler(message, champ);
+          return;
+        }
+      }
+
+      const champEmail = form.querySelector('[name="email"]') as HTMLInputElement;
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(champEmail.value.trim())) {
+        // RGAA 11.11 : suggérer le format attendu, pas seulement signaler l'erreur.
+        signaler("Cette adresse e-mail ne semble pas valide. Format attendu : nom@domaine.fr", champEmail);
+        return;
+      }
+
+      // Consentement RGPD
+      if (!consentCheckbox || !consentCheckbox.checked) {
+        signaler("Merci d'accepter la politique de confidentialité pour continuer.");
+        const consentLabel = form.querySelector('.checkbox-label') as HTMLElement;
+        if (consentLabel) {
+          consentLabel.style.color = '#e74c3c';
+          consentLabel.style.transition = 'color 0.3s';
+          setTimeout(() => { consentLabel.style.color = ''; }, 3000);
+        }
+        return;
+      }
+
+      btn.disabled = true;
+      btnText.textContent = 'Envoi en cours...';
+      // Vidée à chaque envoi : un même texte réécrit ne serait pas réannoncé.
+      const zoneStatut = document.getElementById('form-status');
+      if (zoneStatut) zoneStatut.textContent = '';
+
+      const formData = new FormData(form);
+      const payload = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        company: formData.get('organization'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        consent: consentCheckbox.checked,
+        website: formData.get('website'), // honeypot
+        elapsedMs: Math.round(performance.now() - formOpenedAt),
+        // Injecté par le widget Turnstile, absent s'il n'est pas configuré.
+        turnstileToken: formData.get('cf-turnstile-response'),
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await res.json();
+
+        // Un jeton Turnstile ne sert qu'une fois : sans reset, une
+        // seconde tentative échouerait quoi que fasse le visiteur.
+        if (!res.ok) (window as any).turnstile?.reset();
+
+        if (res.ok && result.success) {
+          btnText.textContent = '✓ Message envoyé !';
+          const statut = document.getElementById('form-status');
+          if (statut) statut.textContent = 'Votre message a bien été envoyé. Nous vous répondrons rapidement.';
+          btn.style.background = '#2a9d5c';
+          setTimeout(() => {
+            form.reset();
+            btnText.textContent = 'Envoyer le message →';
+            btn.disabled = false;
+            btn.style.background = '';
+          }, 4000);
+        } else {
+          btnText.textContent = result.error || 'Erreur réessayez';
+          signaler(result.error || 'Erreur réessayez');
+          btn.style.background = '#e74c3c';
+          btn.disabled = false;
+          setTimeout(() => {
+            btnText.textContent = 'Envoyer le message →';
+            btn.style.background = '';
+          }, 4000);
+        }
+      } catch (err) {
+        btnText.textContent = 'Erreur réseau réessayez';
+        signaler("Erreur réseau : le message n'est pas parti. Vérifiez votre connexion puis réessayez.");
+        btn.style.background = '#e74c3c';
+        btn.disabled = false;
+        setTimeout(() => {
+          btnText.textContent = 'Envoyer le message →';
+          btn.style.background = '';
+        }, 4000);
+      }
+    });
+  }
+
+  // ── Préremplissage depuis la page Offres ────────────────────
+  // Les boutons de /offres arrivent avec ?offre=<id> (essentiel, business,
+  // signature, diagnostic, sprint, care). On positionne le sujet sur
+  // « Création web » et on amorce le message : le visiteur n'a plus qu'à
+  // compléter. Sans JS, le formulaire reste utilisable tel quel.
+  //
+  // La liste des offres n'est PAS écrite ici : elle vient de packages.ts,
+  // posée au build dans l'attribut data-offers du formulaire. Une offre
+  // ajoutée là-bas est donc reconnue ici sans retouche.
+  type ContactOffer = { name: string; existingSite: boolean };
+  let offres: Record<string, ContactOffer> = {};
+  try {
+    offres = JSON.parse(document.getElementById('contactForm')?.dataset.offers ?? '{}');
+  } catch { /* attribut absent ou illisible : pas de préremplissage */ }
+
+  const offre = new URLSearchParams(window.location.search).get('offre');
+  // hasOwnProperty : un ?offre=toString ne doit pas remonter le prototype de l'objet.
+  const choix = offre && Object.prototype.hasOwnProperty.call(offres, offre) ? offres[offre] : null;
+
+  if (choix) {
+    const subject = document.getElementById('subject') as HTMLSelectElement | null;
+    const message = document.getElementById('message') as HTMLTextAreaElement | null;
+
+    if (subject) subject.value = 'web';
+    if (message && !message.value) {
+      // Site existant (Diagnostic, Sprint, Care) : on demande l'adresse du
+      // site plutôt qu'une description de projet.
+      const suite = choix.existingSite ? 'Mon site : ' : 'Mon projet : ';
+      message.value = `Bonjour, je souhaite échanger au sujet de l'offre ${choix.name}.\n\n${suite}`;
+    }
+  }
+</script>
 </Layout>
 
 <style>
@@ -581,174 +753,3 @@ const contactOffers = JSON.stringify(getContactOffers('fr'));
   .form-rgpd a:hover { border-bottom-color: var(--gold); }
 </style>
 
-<script>
-  // Instant d'affichage du formulaire. La durée de remplissage part
-  // avec la requête : un robot soumet en quelques millisecondes.
-  const formOpenedAt = performance.now();
-
-  const form = document.getElementById('contactForm') as HTMLFormElement;
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = form.querySelector('.btn-submit') as HTMLButtonElement;
-      const btnText = form.querySelector('.btn-text') as HTMLSpanElement;
-      const consentCheckbox = form.querySelector('input[name="consent"]') as HTMLInputElement;
-
-      // ── Validation avant envoi ───────────────────────────────
-      // Le formulaire est en `novalidate` : sans ce contrôle, un champ
-      // vide partait jusqu'au serveur et revenait avec un message
-      // générique glissé dans le libellé du bouton, que personne ne voit.
-      const erreurEl = form.querySelector('.form-error') as HTMLElement | null;
-
-      const effacerErreur = () => {
-        if (erreurEl) { erreurEl.hidden = true; erreurEl.textContent = ''; }
-      };
-
-      const signaler = (message: string, champ?: HTMLElement | null) => {
-        if (erreurEl) { erreurEl.textContent = message; erreurEl.hidden = false; }
-        if (champ) {
-          champ.style.borderColor = '#e74c3c';
-          champ.addEventListener('input', () => { champ.style.borderColor = ''; }, { once: true });
-          champ.addEventListener('change', () => { champ.style.borderColor = ''; }, { once: true });
-          champ.focus({ preventScroll: true });
-          champ.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        }
-      };
-
-      effacerErreur();
-
-      const REQUIS: [string, string][] = [
-        ['firstName', "Merci d'indiquer votre prénom."],
-        ['lastName', "Merci d'indiquer votre nom."],
-        ['email', "Merci d'indiquer votre email professionnel."],
-        ['subject', "Merci de choisir un sujet."],
-        ['message', "Merci de décrire votre demande."],
-      ];
-
-      for (const [nom, message] of REQUIS) {
-        const champ = form.querySelector(`[name="${nom}"]`) as HTMLInputElement | null;
-        if (!champ || !champ.value.trim()) {
-          signaler(message, champ);
-          return;
-        }
-      }
-
-      const champEmail = form.querySelector('[name="email"]') as HTMLInputElement;
-      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(champEmail.value.trim())) {
-        signaler("Cette adresse email ne semble pas valide.", champEmail);
-        return;
-      }
-
-      // Consentement RGPD
-      if (!consentCheckbox || !consentCheckbox.checked) {
-        signaler("Merci d'accepter la politique de confidentialité pour continuer.");
-        const consentLabel = form.querySelector('.checkbox-label') as HTMLElement;
-        if (consentLabel) {
-          consentLabel.style.color = '#e74c3c';
-          consentLabel.style.transition = 'color 0.3s';
-          setTimeout(() => { consentLabel.style.color = ''; }, 3000);
-        }
-        return;
-      }
-
-      btn.disabled = true;
-      btnText.textContent = 'Envoi en cours...';
-      // Vidée à chaque envoi : un même texte réécrit ne serait pas réannoncé.
-      const zoneStatut = document.getElementById('form-status');
-      if (zoneStatut) zoneStatut.textContent = '';
-
-      const formData = new FormData(form);
-      const payload = {
-        firstName: formData.get('firstName'),
-        lastName: formData.get('lastName'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        company: formData.get('organization'),
-        subject: formData.get('subject'),
-        message: formData.get('message'),
-        consent: consentCheckbox.checked,
-        website: formData.get('website'), // honeypot
-        elapsedMs: Math.round(performance.now() - formOpenedAt),
-        // Injecté par le widget Turnstile, absent s'il n'est pas configuré.
-        turnstileToken: formData.get('cf-turnstile-response'),
-      };
-
-      try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-
-        const result = await res.json();
-
-        // Un jeton Turnstile ne sert qu'une fois : sans reset, une
-        // seconde tentative échouerait quoi que fasse le visiteur.
-        if (!res.ok) (window as any).turnstile?.reset();
-
-        if (res.ok && result.success) {
-          btnText.textContent = '✓ Message envoyé !';
-          const statut = document.getElementById('form-status');
-          if (statut) statut.textContent = 'Votre message a bien été envoyé. Nous vous répondrons rapidement.';
-          btn.style.background = '#2a9d5c';
-          setTimeout(() => {
-            form.reset();
-            btnText.textContent = 'Envoyer le message →';
-            btn.disabled = false;
-            btn.style.background = '';
-          }, 4000);
-        } else {
-          btnText.textContent = result.error || 'Erreur réessayez';
-          signaler(result.error || 'Erreur réessayez');
-          btn.style.background = '#e74c3c';
-          btn.disabled = false;
-          setTimeout(() => {
-            btnText.textContent = 'Envoyer le message →';
-            btn.style.background = '';
-          }, 4000);
-        }
-      } catch (err) {
-        btnText.textContent = 'Erreur réseau réessayez';
-        signaler("Erreur réseau : le message n'est pas parti. Vérifiez votre connexion puis réessayez.");
-        btn.style.background = '#e74c3c';
-        btn.disabled = false;
-        setTimeout(() => {
-          btnText.textContent = 'Envoyer le message →';
-          btn.style.background = '';
-        }, 4000);
-      }
-    });
-  }
-
-  // ── Préremplissage depuis la page Offres ────────────────────
-  // Les boutons de /offres arrivent avec ?offre=<id> (essentiel, business,
-  // signature, diagnostic, sprint, care). On positionne le sujet sur
-  // « Création web » et on amorce le message : le visiteur n'a plus qu'à
-  // compléter. Sans JS, le formulaire reste utilisable tel quel.
-  //
-  // La liste des offres n'est PAS écrite ici : elle vient de packages.ts,
-  // posée au build dans l'attribut data-offers du formulaire. Une offre
-  // ajoutée là-bas est donc reconnue ici sans retouche.
-  type ContactOffer = { name: string; existingSite: boolean };
-  let offres: Record<string, ContactOffer> = {};
-  try {
-    offres = JSON.parse(document.getElementById('contactForm')?.dataset.offers ?? '{}');
-  } catch { /* attribut absent ou illisible : pas de préremplissage */ }
-
-  const offre = new URLSearchParams(window.location.search).get('offre');
-  // hasOwnProperty : un ?offre=toString ne doit pas remonter le prototype de l'objet.
-  const choix = offre && Object.prototype.hasOwnProperty.call(offres, offre) ? offres[offre] : null;
-
-  if (choix) {
-    const subject = document.getElementById('subject') as HTMLSelectElement | null;
-    const message = document.getElementById('message') as HTMLTextAreaElement | null;
-
-    if (subject) subject.value = 'web';
-    if (message && !message.value) {
-      // Site existant (Diagnostic, Sprint, Care) : on demande l'adresse du
-      // site plutôt qu'une description de projet.
-      const suite = choix.existingSite ? 'Mon site : ' : 'Mon projet : ';
-      message.value = `Bonjour, je souhaite échanger au sujet de l'offre ${choix.name}.\n\n${suite}`;
-    }
-  }
-</script>

@@ -34,10 +34,17 @@
 
     if (!prefersReducedMotion && !saveData && !slowNetwork) {
       const start = () => {
-        // Transfère data-src -> src puis déclenche le chargement.
-        for (const source of video.querySelectorAll('source[data-src]')) {
-          const url = source.getAttribute('data-src');
-          if (url) source.setAttribute('src', url);
+        // Crée les <source> à partir de data-sources puis déclenche le
+        // chargement. Les sources ne sont pas écrites dans le HTML : un
+        // <source> sans src y serait invalide (RGAA 8.2), et avec src le
+        // navigateur pourrait télécharger la vidéo trop tôt.
+        let sources: { src: string; type: string }[] = [];
+        try { sources = JSON.parse(video.dataset.sources ?? '[]'); } catch { /* poster seul */ }
+        for (const { src, type } of sources) {
+          const source = document.createElement('source');
+          source.src = src;
+          source.type = type;
+          video.append(source);
         }
         video.load();
         // play() peut être refusé (politique navigateur) : le poster reste.

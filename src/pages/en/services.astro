@@ -323,7 +323,7 @@ import imgServiceWeb from '../../assets/service_web.jpg';
   .service-img-wrap--dark { background: var(--card-bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 2rem; }
   .ai-visual-card { background: var(--dark); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; width: 100%; max-width: 340px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
   .ai-visual-header { display: flex; align-items: center; gap: 0.8rem; padding: 1rem 1.2rem; background: rgba(201,168,76,0.06); border-bottom: 1px solid var(--border); }
-  .ai-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulseGold 2s ease-in-out infinite; }
+  .ai-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulseGold 2s ease-in-out 2 both; /* 4 s puis arrêt (RGAA 13.8) */ }
   .ai-visual-header span { font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; color: var(--gold); }
   .ai-visual-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.2rem; }
   .ai-visual-stat { display: flex; flex-direction: column; gap: 0.2rem; }

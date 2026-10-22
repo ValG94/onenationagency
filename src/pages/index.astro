@@ -102,9 +102,8 @@ const figures = getKeyFigures('fr');
             poster={heroPoster.src}
             aria-hidden="true"
             data-hero-video
+            data-sources='[{"src":"/hero-presentation.webm","type":"video/webm"},{"src":"/hero-presentation.mp4","type":"video/mp4"}]'
           >
-            <source data-src="/hero-presentation.webm" type="video/webm" />
-            <source data-src="/hero-presentation.mp4" type="video/mp4" />
           </video>
           <div class="hero-overlay"></div>
         </div>
@@ -177,7 +176,7 @@ const figures = getKeyFigures('fr');
             <article class="pillar-card reveal reveal-delay-1">
               <div class="pillar-icon">
                 <svg aria-hidden="true" focusable="false" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 3h18v18H3z" rx="2"/>
+                  <path d="M3 3h18v18H3z"/>
                   <path d="M3 9h18M9 21V9"/>
                 </svg>
               </div>
@@ -337,6 +336,89 @@ const figures = getKeyFigures('fr');
     </aside>
   </div>
   <HeroVideoLoader />
+  <script>
+  // ── Helpers reveal ──────────────────────────────────────────
+  function initReveal() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+
+  // ── Arrivée sur une ancre (ex. le lien One Nation Civic du menu) ──
+  // Le visiteur vient chercher une section précise : on saute l'intro et
+  // on l'y amène une fois la page visible, sinon il attend 6s devant un
+  // splash puis atterrit en haut de page.
+  function scrollToHash() {
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    const target = document.querySelector(hash);
+    if (!target) return;
+    // rAF : on attend que le wrapper soit peint avant de mesurer.
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+  }
+
+  // ── Gestion du splash screen ─────────────────────────────────
+  // L'animation ne se joue qu'une seule fois par session de navigation.
+  // Dès que l'utilisateur a vu l'intro, sessionStorage mémorise la visite
+  // et les retours sur la home (logo, bouton retour, lien) sautent l'animation.
+  window.addEventListener('load', () => {
+    const splash = document.getElementById('splash');
+    const siteWrapper = document.getElementById('site-wrapper');
+
+    const skipBtn = document.getElementById('splash-skip') as HTMLButtonElement | null;
+    const hasHash = window.location.hash.length > 1;
+    // Visiteur qui a demandé moins d'animations dans son système : pas
+    // d'intro du tout (RGAA 13.8, WCAG 2.3.3).
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const alreadySeen = sessionStorage.getItem('ona_intro_seen') || hasHash || reduceMotion;
+
+    if (alreadySeen) {
+      // Retour sur la home dans la même session → pas d'animation
+      if (splash) splash.style.display = 'none';
+      siteWrapper?.classList.add('visible');
+      setTimeout(initReveal, 100);
+      scrollToHash();
+    } else {
+      // Première visite → animation complète (6s)
+      // Timing : tagline apparaît à 3.3s + 2s de lecture = 5.3s + 0.7s transition = 6s
+      let introDone = false;
+      const finishIntro = () => {
+        if (introDone) return;
+        introDone = true;
+        clearTimeout(introTimer);
+        const skipHadFocus = document.activeElement === skipBtn;
+        if (skipBtn) skipBtn.hidden = true;
+        splash?.classList.add('hidden');
+        siteWrapper?.classList.add('visible');
+        sessionStorage.setItem('ona_intro_seen', '1');
+        setTimeout(initReveal, 100);
+        // Le bouton disparaît : si le focus y était, on le pose sur le
+        // contenu principal plutôt que de le laisser se perdre.
+        if (skipHadFocus) {
+          const main = document.getElementById('main-content');
+          if (main) {
+            if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+            main.focus({ preventScroll: true });
+          }
+        }
+      };
+      const introTimer = setTimeout(finishIntro, 6000);
+      if (skipBtn) {
+        skipBtn.hidden = false;
+        skipBtn.addEventListener('click', finishIntro);
+      }
+      // Échap passe aussi l'introduction, réflexe naturel au clavier.
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') finishIntro();
+      });
+    }
+  });
+</script>
 </Layout>
 
 <style>
@@ -786,7 +868,9 @@ const figures = getKeyFigures('fr');
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: shimmer 3s linear infinite;
+    /* Une seule passe (3 s), figée sur sa dernière image : au-delà de
+       5 s, un contenu en mouvement doit pouvoir être arrêté (RGAA 13.8). */
+    animation: shimmer 3s linear 1 both;
   }
   .hero-sub {
     font-size: 1.05rem;
@@ -821,7 +905,7 @@ const figures = getKeyFigures('fr');
     width: 1px;
     height: 40px;
     background: linear-gradient(to bottom, transparent, var(--gold));
-    animation: float 2s ease-in-out infinite;
+    animation: float 2s ease-in-out 2 both; /* 4 s puis arrêt (RGAA 13.8) */
   }
   .scroll-indicator span {
     font-size: 0.65rem;
@@ -1153,86 +1237,3 @@ const figures = getKeyFigures('fr');
   }
 </style>
 
-<script>
-  // ── Helpers reveal ──────────────────────────────────────────
-  function initReveal() {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  }
-
-  // ── Arrivée sur une ancre (ex. le lien One Nation Civic du menu) ──
-  // Le visiteur vient chercher une section précise : on saute l'intro et
-  // on l'y amène une fois la page visible, sinon il attend 6s devant un
-  // splash puis atterrit en haut de page.
-  function scrollToHash() {
-    const hash = window.location.hash;
-    if (!hash || hash.length < 2) return;
-    const target = document.querySelector(hash);
-    if (!target) return;
-    // rAF : on attend que le wrapper soit peint avant de mesurer.
-    requestAnimationFrame(() => {
-      target.scrollIntoView({ behavior: 'auto', block: 'start' });
-    });
-  }
-
-  // ── Gestion du splash screen ─────────────────────────────────
-  // L'animation ne se joue qu'une seule fois par session de navigation.
-  // Dès que l'utilisateur a vu l'intro, sessionStorage mémorise la visite
-  // et les retours sur la home (logo, bouton retour, lien) sautent l'animation.
-  window.addEventListener('load', () => {
-    const splash = document.getElementById('splash');
-    const siteWrapper = document.getElementById('site-wrapper');
-
-    const skipBtn = document.getElementById('splash-skip') as HTMLButtonElement | null;
-    const hasHash = window.location.hash.length > 1;
-    // Visiteur qui a demandé moins d'animations dans son système : pas
-    // d'intro du tout (RGAA 13.8, WCAG 2.3.3).
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const alreadySeen = sessionStorage.getItem('ona_intro_seen') || hasHash || reduceMotion;
-
-    if (alreadySeen) {
-      // Retour sur la home dans la même session → pas d'animation
-      if (splash) splash.style.display = 'none';
-      siteWrapper?.classList.add('visible');
-      setTimeout(initReveal, 100);
-      scrollToHash();
-    } else {
-      // Première visite → animation complète (6s)
-      // Timing : tagline apparaît à 3.3s + 2s de lecture = 5.3s + 0.7s transition = 6s
-      let introDone = false;
-      const finishIntro = () => {
-        if (introDone) return;
-        introDone = true;
-        clearTimeout(introTimer);
-        const skipHadFocus = document.activeElement === skipBtn;
-        if (skipBtn) skipBtn.hidden = true;
-        splash?.classList.add('hidden');
-        siteWrapper?.classList.add('visible');
-        sessionStorage.setItem('ona_intro_seen', '1');
-        setTimeout(initReveal, 100);
-        // Le bouton disparaît : si le focus y était, on le pose sur le
-        // contenu principal plutôt que de le laisser se perdre.
-        if (skipHadFocus) {
-          const main = document.getElementById('main-content');
-          if (main) {
-            if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
-            main.focus({ preventScroll: true });
-          }
-        }
-      };
-      const introTimer = setTimeout(finishIntro, 6000);
-      if (skipBtn) {
-        skipBtn.hidden = false;
-        skipBtn.addEventListener('click', finishIntro);
-      }
-      // Échap passe aussi l'introduction, réflexe naturel au clavier.
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') finishIntro();
-      });
-    }
-  });
-</script>

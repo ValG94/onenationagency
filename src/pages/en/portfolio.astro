@@ -127,6 +127,21 @@ const needsFit = (img: { width: number; height: number }) => {
 
   </main>
   <Footer lang="en" />
+  <script>
+// Scroll reveal animation
+const items = document.querySelectorAll('.pf-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+items.forEach(item => observer.observe(item));
+</script>
 </Layout>
 
 <style>
@@ -572,18 +587,3 @@ const needsFit = (img: { width: number; height: number }) => {
 .mockup__photo-backdrop { display: none; }
 </style>
 
-<script>
-// Scroll reveal animation
-const items = document.querySelectorAll('.pf-item');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, 100);
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.08 });
-items.forEach(item => observer.observe(item));
-</script>
