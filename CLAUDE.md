@@ -61,18 +61,18 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-10-22 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-11-07 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
-| Pages générées | **24** (12 FR / 12 EN) |
+| Pages générées | **26** (13 FR / 13 EN) |
 | Liens internes cassés | ✅ 0 |
 | Médias cassés | ✅ 0 |
-| Balises hreflang | 72 |
+| Balises hreflang | 78 |
 | Pages sans alternative de langue | aucune |
-| Agent IA aligné sur la langue | ✅ 24/24 |
-| URLs dans le sitemap | 24 |
-| Poids total `dist` | 20.25 Mo (dont 8.08 Mo de vidéo) |
+| Agent IA aligné sur la langue | ✅ 26/26 |
+| URLs dans le sitemap | 26 |
+| Poids total `dist` | 20.32 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 90 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -393,6 +393,15 @@ Revue menée avec la skill `rgaa-accessibilite` (compte claude.ai de l'utilisatr
 - **Seul avertissement conservé, volontairement** : « The figure role is unnecessary for element figure » sur `/offres` et `/en/packages`. Le test RGAA 1.9.1 **exige** `role="figure"` (ou `group`) sur `<figure>`, pour les lecteurs d'écran qui ne reconnaissent pas la balise seule. Le RGAA prime sur l'avertissement : **ne pas retirer ce rôle.**
 - Faux positifs de l'audit automatisé, à ne pas rouvrir : « textes coupés » (mentions `.tm-sr` / `.civic-sr` réservées aux lecteurs d'écran), « double `<br>` » (adresses ligne par ligne), « paragraphes vides » de `/en/portfolio` (traductions repliées dans `<details>`), Tab qui sort du contenu après le lien d'évitement sur les CGV (aucun lien dans leur contenu).
 
+### Déclaration d'accessibilité · 07/11/2026
+Pages `/accessibilite` et `/en/accessibility`, composant unique `AccessibilityContent.astro`, paire dans `routes.ts` (donc au plan du site, au sitemap et dans les hreflang). Le site passe à **26 pages**, 78 hreflang. Rédigée avec la skill `rgaa-accessibilite`, selon la structure du modèle officiel : engagement, état de conformité, résultats des tests, contenus non accessibles (non-conformités, dérogations, contenus tiers), établissement de la déclaration (date, technologies, environnement de test, outils, pages vérifiées), retour d'information et contact, voies de recours (Défenseur des droits : formulaire, délégués, Libre réponse 71120).
+- **État déclaré : « partiellement conforme »**, alors que l'auto-évaluation ne relève aucune non-conformité restante. Ce choix de prudence est expliqué au visiteur : il s'agit d'une auto-évaluation interne, pas d'un audit exhaustif par un organisme indépendant. **Aucun taux chiffré n'est publié**, car les règles du RGAA associent 100 % à « totalement conforme ». Pour afficher « totalement conforme », faire réaliser un audit externe.
+- **Contenu tiers déclaré** : Cloudflare Turnstile (anti-robot du formulaire de contact), avec renvoi vers l'e-mail et le téléphone comme alternative.
+- **Environnement de test** : Google Chrome 156 sous Windows 11, NVDA 2026.3, saisi aussi dans la liste de vérification (`meta/environnement`). **Échantillon déclaré** : accueil, Expertises, Portfolio, IA, Offres, contact, mentions légales, plan du site et la page Accessibilité elle-même, lus dans `routes.ts`.
+- **Mention en pied de page** « Accessibilité : partiellement conforme » / « Accessibility: partially compliant » sur les 26 pages. **L'état doit rester identique entre le pied de page (`Footer.astro`) et la déclaration** : les modifier ensemble, l'avertissement est dans les deux fichiers.
+- **À mettre à jour** à chaque nouvelle évaluation ou modification substantielle du site : `DECLARED_ON`, `EVALUATED`, `ENVIRONMENT` en tête du composant. Une déclaration vaut 3 ans au plus ; à revoir au plus tard 18 mois après la publication du RGAA 5, annoncé pour fin 2026.
+- **Vérifié** : validateur W3C 0 erreur et 0 avertissement (FR et EN) ; axe-core 0 violation ; un seul h1, aucun saut de niveau ; 48 éléments au clavier sans piège, focus visible ; lien d'évitement ; 320 px, zoom 200 % et espacement du texte sans défilement ni texte coupé ; liens externes signalés « nouvel onglet ».
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -417,8 +426,7 @@ Revue menée avec la skill `rgaa-accessibilite` (compte claude.ai de l'utilisatr
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
 | À décider | **Images orphelines** | Depuis le retrait des pages V1 (20/10), une cinquantaine d'images ne sont plus utilisées par aucune page en ligne : fonds dans `public/` (afrique.jpg, analyseSeo.jpg, benefit.jpg, conseil-cta.jpg, relationsPresse.jpg…), 8 bannières `public/images/*-banner.jpg`, et des visuels de `src/assets/`, dont certains orphelins depuis plus longtemps (anciens portraits de témoignages, anciennes photos). Celles de `public/` sont encore publiées. Les supprimer allège `dist`, mais une page archivée remise en service en aurait besoin : l'historique git les conserve. **Attention**, `web-app-manifest-512x512.png` est utilisée par `site.webmanifest`, ne pas la supprimer. |
 | Faible | **JSON-LD identique sur les 24 pages** | Pas de `BreadcrumbList`, pas de `WebSite`+`SearchAction`, pas de schéma `Service` par page. |
-| En cours | **Vérification manuelle RGAA** | **Bilan au 22/10, après corrections : 42 conformes, 0 non conforme, 3 non applicables sur 45**, soit 100 % des critères applicables de la liste. 10 jugés par l'utilisatrice, 35 par Claude (notes « Claude, 22/10 »), écoute NVDA confirmée par l'utilisatrice le 22/10. Reste à saisir l'environnement de test dans la page, puis à rédiger la déclaration. **Prudence pour la déclaration** : cette liste couvre les critères à juger humainement, les autres ont été contrôlés par script ; c'est un audit interne, pas un audit par un tiers. Faite par l'utilisatrice à l'aide d'une **liste interactive** : https://claude.ai/artifact/MmnySpfpr6LRxXWUNN9BSa (artifact privé). 45 critères avec la marche à suivre sur ce site, verdicts et notes enregistrés dans la base de l'artifact (collection `verifications`, un document par critère, plus `meta/environnement` pour les navigateurs et lecteurs d'écran utilisés). **Relire cette base avec l'outil ArtifactData avant de rédiger la déclaration.** Le rapport rgaa-checker d'origine (49 critères) n'a pas été conservé : la liste a été reconstruite le 20/10 à partir du RGAA 4.1.2, confronté au code du site. |
-| À faire | **Déclaration d'accessibilité** | Après vérification et corrections : page `/accessibilite` + `/en/accessibility` (paire dans `routes.ts`), mention « Accessibilité : partiellement conforme » (ou l'état obtenu) dans le pied de page des 38 pages. Taux = conformes / (conformes + non conformes). Obligation légale probablement inexistante pour une micro-entreprise, démarche volontaire. |
+| En cours | **Vérification manuelle RGAA** | **Bilan au 22/10, après corrections : 42 conformes, 0 non conforme, 3 non applicables sur 45**, soit 100 % des critères applicables de la liste. 10 jugés par l'utilisatrice, 35 par Claude (notes « Claude, 22/10 »), écoute NVDA confirmée par l'utilisatrice le 22/10. Environnement de test saisi le 07/11 (Chrome 156, Windows 11, NVDA 2026.3) ; déclaration rédigée le 07/11, voir section 4. **Prudence pour la déclaration** : cette liste couvre les critères à juger humainement, les autres ont été contrôlés par script ; c'est un audit interne, pas un audit par un tiers. Faite par l'utilisatrice à l'aide d'une **liste interactive** : https://claude.ai/artifact/MmnySpfpr6LRxXWUNN9BSa (artifact privé). 45 critères avec la marche à suivre sur ce site, verdicts et notes enregistrés dans la base de l'artifact (collection `verifications`, un document par critère, plus `meta/environnement` pour les navigateurs et lecteurs d'écran utilisés). **Relire cette base avec l'outil ArtifactData avant de rédiger la déclaration.** Le rapport rgaa-checker d'origine (49 critères) n'a pas été conservé : la liste a été reconstruite le 20/10 à partir du RGAA 4.1.2, confronté au code du site. |
 
 **Hors code — à faire par l'utilisateur, aucun développement attendu**
 

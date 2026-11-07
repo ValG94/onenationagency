@@ -1,0 +1,264 @@
+---
+// ============================================================
+// DÉCLARATION D'ACCESSIBILITÉ — /accessibilite et /en/accessibility
+// ============================================================
+// Structure du modèle officiel de déclaration (RGAA 4.1.2) : engagement,
+// état de conformité, résultats des tests, contenus non accessibles,
+// établissement de la déclaration, retour d'information, voies de recours.
+//
+// À METTRE À JOUR à chaque nouvelle évaluation : DECLARED_ON, EVALUATED,
+// ENVIRONMENT et, si besoin, l'état de conformité (ici « partiellement »).
+// L'état affiché ici doit rester identique à la mention du pied de page
+// (Footer.astro) : les modifier ensemble.
+//
+// Pourquoi « partiellement conforme » alors que l'auto-évaluation ne
+// relève aucune non-conformité : c'est une auto-évaluation interne, pas un
+// audit exhaustif mené par un tiers. Déclarer « totalement conforme » sans
+// audit externe exposerait l'agence. Choix de prudence de l'éditeur,
+// expliqué au visiteur dans la section « Résultats des tests ».
+// Apparence reprise des pages légales.
+// ============================================================
+
+import { localePairs } from '../data/routes';
+
+interface Props {
+  lang?: string;
+}
+const { lang = 'fr' } = Astro.props;
+const en = lang === 'en';
+const key = en ? 'en' : 'fr';
+
+const SITE = 'https://www.onenationagency.com';
+const EMAIL = 'contact@onenationagency.com';
+const PHONE_DISPLAY = '+33 6 98 61 97 10';
+const PHONE_LINK = 'tel:+33698619710';
+
+const DECLARED_ON = en ? 'November 7, 2026' : '7 novembre 2026';
+const EVALUATED = en ? 'October 2026' : 'octobre 2026';
+const ENVIRONMENT = en
+  ? ['Google Chrome 156 on Windows 11, with the NVDA 2026.3 screen reader']
+  : ['Google Chrome 156 sous Windows 11, avec le lecteur d\'écran NVDA 2026.3'];
+
+// Échantillon évalué : les pages obligatoires (accueil, contact, mentions
+// légales, plan du site, accessibilité) et une page par gabarit. Libellés
+// et adresses lus dans routes.ts.
+const SAMPLE = ['/', '/services', '/portfolio', '/intelligence-artificielle', '/offres', '/contact',
+  '/mentions-legales', '/plan-du-site', '/accessibilite'];
+const samplePages = SAMPLE
+  .map(fr => localePairs.find(p => p.fr === fr))
+  .filter((p): p is NonNullable<typeof p> => !!p)
+  .map(p => ({ href: p[key], label: p.label[key] }));
+
+const contactHref = en ? '/en/contact' : '/contact';
+---
+
+<section class="legal">
+  <div class="container">
+    <h1>{en ? 'Accessibility statement' : 'Déclaration d\'accessibilité'}</h1>
+
+    <div class="legal-content">
+      <p>
+        {en
+          ? 'One Nation Agency is committed, on a voluntary basis, to making its website accessible to everyone, following the French accessibility framework RGAA (Référentiel général d\'amélioration de l\'accessibilité), version 4.1.2.'
+          : 'One Nation Agency s\'engage, de manière volontaire, à rendre son site internet accessible à tous, en suivant le Référentiel général d\'amélioration de l\'accessibilité (RGAA), version 4.1.2.'}
+      </p>
+      <p>
+        {en ? 'This accessibility statement applies to ' : 'Cette déclaration d\'accessibilité s\'applique au site '}
+        <a href={SITE}>www.onenationagency.com</a>{en ? ', in French and in English.' : ', en français et en anglais.'}
+      </p>
+
+      <h2>{en ? 'Compliance status' : 'État de conformité'}</h2>
+      <p class="legal-block">
+        {en
+          ? <>The website www.onenationagency.com is <strong>partially compliant</strong> with RGAA version 4.1.2.</>
+          : <>Le site www.onenationagency.com est <strong>partiellement conforme</strong> avec le RGAA, version 4.1.2.</>}
+      </p>
+
+      <h2>{en ? 'Test results' : 'Résultats des tests'}</h2>
+      <p>
+        {en
+          ? `An internal self-assessment was carried out by One Nation Agency in ${EVALUATED}, on the sample of pages listed below. The criteria that require human judgement were checked page by page, including with a screen reader; the other criteria were checked with automated tools (HTML validity, contrasts measured on screen, full keyboard navigation, 200% zoom, 320 px display, text spacing).`
+          : `Une auto-évaluation interne a été menée par One Nation Agency en ${EVALUATED}, sur l'échantillon de pages listé plus bas. Les critères qui demandent un jugement humain ont été vérifiés page par page, y compris au lecteur d'écran ; les autres ont été contrôlés avec des outils automatisés (validité du code HTML, contrastes mesurés à l'écran, navigation complète au clavier, zoom à 200 %, affichage à 320 pixels de large, espacement du texte).`}
+      </p>
+      <p>
+        {en
+          ? 'At the date of the assessment, no remaining non-compliance was identified on the criteria checked. As this is an internal assessment and not an exhaustive audit carried out by an independent body, the website is declared partially compliant.'
+          : 'À la date de l\'évaluation, aucune non-conformité restante n\'a été relevée sur les critères vérifiés. S\'agissant d\'une auto-évaluation interne et non d\'un audit exhaustif mené par un organisme indépendant, le site est déclaré partiellement conforme.'}
+      </p>
+
+      <h2>{en ? 'Non-accessible content' : 'Contenus non accessibles'}</h2>
+      <h3>{en ? 'Non-compliance' : 'Non-conformités'}</h3>
+      <p>{en ? 'None identified at the date of the assessment.' : 'Aucune non-conformité identifiée à la date de l\'évaluation.'}</p>
+
+      <h3>{en ? 'Exemptions for disproportionate burden' : 'Dérogations pour charge disproportionnée'}</h3>
+      <p>{en ? 'None.' : 'Aucune.'}</p>
+
+      <h3>{en ? 'Third-party content' : 'Contenus tiers'}</h3>
+      <p>
+        {en
+          ? 'The anti-robot check on the contact form is provided by Cloudflare Turnstile, a third-party service whose accessibility does not depend on One Nation Agency. If it prevents you from sending your message, you can reach us directly by email or phone, using the details in the "Feedback and contact" section below.'
+          : 'La vérification anti-robot du formulaire de contact est fournie par Cloudflare Turnstile, un service tiers dont l\'accessibilité ne dépend pas de One Nation Agency. S\'il vous empêche d\'envoyer votre message, vous pouvez nous joindre directement par e-mail ou par téléphone, avec les coordonnées de la section « Retour d\'information et contact » ci-dessous.'}
+      </p>
+
+      <h2>{en ? 'Preparation of this statement' : 'Établissement de cette déclaration'}</h2>
+      <p>{en ? `This statement was prepared on ${DECLARED_ON}.` : `Cette déclaration a été établie le ${DECLARED_ON}.`}</p>
+
+      <h3>{en ? 'Technologies used' : 'Technologies utilisées pour la réalisation du site'}</h3>
+      <ul class="legal-list">
+        <li>HTML5</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+      </ul>
+
+      <h3>{en ? 'Test environment' : 'Environnement de test'}</h3>
+      <ul class="legal-list">
+        {ENVIRONMENT.map(e => <li>{e}</li>)}
+      </ul>
+
+      <h3>{en ? 'Tools used for the assessment' : 'Outils utilisés pour évaluer l\'accessibilité'}</h3>
+      <ul class="legal-list">
+        <li>{en ? 'W3C Nu HTML Checker (validator.w3.org/nu)' : 'Validateur HTML du W3C (validator.w3.org/nu)'}</li>
+        <li>axe-core</li>
+        <li>{en ? 'Browser extensions: Assistant RGAA, HeadingsMap, WCAG Color Contrast Checker' : 'Extensions de navigateur : Assistant RGAA, HeadingsMap, WCAG Color Contrast Checker'}</li>
+        <li>{en ? 'NVDA screen reader' : 'Lecteur d\'écran NVDA'}</li>
+        <li>{en ? 'Automated browser tests: keyboard navigation, zoom, display width, contrasts' : 'Tests automatisés en navigateur : parcours clavier, zoom, largeur d\'affichage, contrastes'}</li>
+      </ul>
+
+      <h3>{en ? 'Pages assessed' : 'Pages du site ayant fait l\'objet de la vérification'}</h3>
+      <ul class="legal-list">
+        {samplePages.map(page => (
+          <li><a href={page.href}>{page.label}</a></li>
+        ))}
+      </ul>
+      <p>{en ? 'Each page exists in French and in English and shares the same code in both languages.' : 'Chaque page existe en français et en anglais, avec le même code dans les deux langues.'}</p>
+
+      <h2>{en ? 'Feedback and contact' : 'Retour d\'information et contact'}</h2>
+      <p>
+        {en
+          ? 'If you cannot access a piece of content or a service, you can contact us so that we can direct you to an accessible alternative or provide the content in another form:'
+          : 'Si vous n\'arrivez pas à accéder à un contenu ou à un service, vous pouvez nous contacter pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme :'}
+      </p>
+      <ul class="legal-list">
+        <li>{en ? 'Email: ' : 'E-mail : '}<a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+        <li>{en ? 'Phone: ' : 'Téléphone : '}<a href={PHONE_LINK}>{PHONE_DISPLAY}</a></li>
+        <li>{en ? 'Contact form: ' : 'Formulaire : '}<a href={contactHref}>{en ? 'contact page' : 'page contact'}</a></li>
+        <li>{en ? 'Post: One Nation Agency, 6 rue Jean Colly, 94140 Alfortville, France' : 'Courrier : One Nation Agency, 6 rue Jean Colly, 94140 Alfortville'}</li>
+      </ul>
+
+      <h2>{en ? 'Remedies' : 'Voies de recours'}</h2>
+      <p>
+        {en
+          ? 'If you have reported an accessibility issue that prevents you from accessing content or a service on the site and you have not received a satisfactory answer, you can:'
+          : 'Si vous avez signalé un défaut d\'accessibilité qui vous empêche d\'accéder à un contenu ou à un service du site et que vous n\'avez pas obtenu de réponse satisfaisante, vous pouvez :'}
+      </p>
+      <ul class="legal-list">
+        <li>
+          {en ? 'write to the Défenseur des droits (French Rights Defender) using the ' : 'écrire un message au Défenseur des droits, avec le '}
+          <a href="https://formulaire.defenseurdesdroits.fr/" target="_blank" rel="noopener noreferrer">{en ? 'online form' : 'formulaire en ligne'}<span class="sr-only">{en ? ' (opens in a new tab)' : ' (nouvel onglet)'}</span></a>{en ? ';' : ' ;'}
+        </li>
+        <li>
+          {en ? 'contact the ' : 'contacter le '}
+          <a href="https://www.defenseurdesdroits.fr/carte-des-delegues" target="_blank" rel="noopener noreferrer">{en ? 'Défenseur des droits delegate in your region' : 'délégué du Défenseur des droits dans votre région'}<span class="sr-only">{en ? ' (opens in a new tab)' : ' (nouvel onglet)'}</span></a>{en ? ';' : ' ;'}
+        </li>
+        <li>
+          {en ? 'send a letter by post (free of charge, no stamp needed): ' : 'envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) : '}
+          <span class="legal-address">Défenseur des droits, Libre réponse 71120, 75342 Paris CEDEX 07</span>.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .legal {
+    padding: 8rem 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .legal-content {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: 12px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    color: var(--color-accent);
+    margin: 2.5rem 0 1rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  p {
+    margin: 0.8rem 0;
+    line-height: 1.6;
+  }
+
+  .legal-list {
+    margin: 0.6rem 0 0.8rem;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.4rem;
+    line-height: 1.6;
+  }
+
+  /* Bloc mis en avant (état de conformité), comme les blocs d'adresse
+     des mentions légales. */
+  .legal-block {
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+    color: var(--off-white);
+  }
+
+  .legal-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .legal-content a:hover {
+    color: var(--off-white);
+  }
+
+  @media (max-width: 768px) {
+    .legal {
+      padding: 6rem 0;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .legal-content {
+      padding: 2rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .legal-content {
+      padding: 1.5rem 1.25rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

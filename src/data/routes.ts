@@ -73,6 +73,7 @@ export const localePairs: LocalePair[] = [
   { fr: '/politique-confidentialite', en: '/en/privacy-policy', label: { fr: 'Politique de confidentialité', en: 'Privacy policy' }, group: 'legal' },
   { fr: '/politique-cookies', en: '/en/cookie-policy', label: { fr: 'Politique cookies', en: 'Cookie policy' }, group: 'legal' },
   { fr: '/cgv', en: '/en/terms-and-conditions', label: { fr: 'Conditions générales de vente', en: 'Terms and conditions' }, group: 'legal' },
+  { fr: '/accessibilite', en: '/en/accessibility', label: { fr: 'Accessibilité', en: 'Accessibility' }, group: 'legal' },
   { fr: '/plan-du-site', en: '/en/site-map', label: { fr: 'Plan du site', en: 'Site map' }, group: 'legal' },
 ];
 

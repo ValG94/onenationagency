@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AccessibilityContent from '../components/AccessibilityContent.astro';
+
+// Corps de page partagé avec /en/accessibility : voir AccessibilityContent.astro.
+---
+
+<Layout
+	title="Déclaration d'accessibilité - One Nation"
+	description="Déclaration d'accessibilité du site One Nation Agency : état de conformité au RGAA 4.1.2, résultats des tests, contact et voies de recours."
+	canonical="/accessibilite"
+>
+	<Header />
+	<main id="main-content">
+		<AccessibilityContent lang="fr" />
+	</main>
+	<Footer />
+</Layout>
