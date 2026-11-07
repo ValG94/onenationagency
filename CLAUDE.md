@@ -441,6 +441,7 @@ Pages `/accessibilite` et `/en/accessibility`, composant unique `AccessibilityCo
 ## 6. Pièges connus
 
 - **OneDrive — piège levé le 03/10/2026.** Le dépôt est sorti de la synchro (`C:\dev\ONA\ona`), les traitements de masse ne tombent plus en `EBUSY`/`Permission denied`. Conservé ici pour une seule raison : si un jour le projet retourne dans un dossier synchronisé, demander la mise en pause **avant** le traitement, pas après.
+- **Déploiement Vercel non déclenché** — le 07/11, un push (`ce7b062`) n'a jamais été déployé : aucun statut Vercel sur le commit, alors que Vercel n'avait aucun incident. Diagnostic sans accès au tableau de bord : `https://api.github.com/repos/ValG94/onenationagency/commits/<sha>/status`, où un état `pending` sans aucun statut signifie que Vercel n'a pas reçu le signal. Un commit vide (`git commit --allow-empty`) puis un push a relancé le déploiement en 45 s. Toujours vérifier qu'une page nouvelle répond 200 en production avant de l'annoncer en ligne.
 - **Previews Vercel** — l'utilisateur teste souvent sur `onenationagency-<hash>-…vercel.app`, figée sur son commit. Devant un bug « qui persiste » après correction, lire d'abord l'URL de sa capture.
 - **Fins de ligne** — les fichiers historiques sont en CRLF, les nouveaux en LF. Comparer en normalisant avant de conclure à une modification.
 - **Styles Astro scopés** — un `<style>` de page ne s'applique pas au markup d'un composant. Déplacer un markup vers un composant impose de déplacer son CSS avec.
