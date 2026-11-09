@@ -1,0 +1,6 @@
+# Versions imposées à des dépendances indirectes, pour fermer des failles
+# connues tant que les paquets qui les embarquent ne sont pas à jour
+# (10/11/2026). Retirer une ligne quand `pnpm audit` reste vert sans elle.
+overrides:
+  esbuild: ^0.28.2        # via vite, faille du serveur de développement
+  source-map-js: ^1.2.2   # via magicast, déni de service

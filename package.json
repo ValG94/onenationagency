@@ -4,6 +4,9 @@
   "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -14,8 +17,8 @@
     "fiche": "node scripts/project-status.mjs"
   },
   "dependencies": {
-    "astro": "^5.4.1",
-    "resend": "^6.10.0",
-    "sharp": "^0.35.3"
+    "astro": "^7.4.8",
+    "resend": "^6.37.0",
+    "sharp": "^0.35.5"
   }
 }

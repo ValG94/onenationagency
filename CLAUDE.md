@@ -8,7 +8,8 @@ Site vitrine bilingue de l'agence. **Ce fichier est la source de vérité sur l'
 
 | | |
 |---|---|
-| Stack | Astro 5, statique, sans framework UI |
+| Stack | Astro 7, statique, sans framework UI |
+| Node | **24.x**, fixé par `engines` dans `package.json` (prime sur le réglage Vercel). Astro 7 exige au moins 22.23.4, en local aussi. |
 | Langues | FR (défaut) et EN, parité complète |
 | Hébergement | Vercel — production `www.onenationagency.com`, déploiement sur push `main` |
 | Fonction serveur | `api/contact.js` (Vercel), envoi via Resend |
@@ -61,7 +62,7 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-11-07 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-11-09 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -72,8 +73,8 @@ _Dernière vérification : 2026-11-07 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 26/26 |
 | URLs dans le sitemap | 26 |
-| Poids total `dist` | 20.32 Mo (dont 8.08 Mo de vidéo) |
-| Variantes d'images générées | 90 |
+| Poids total `dist` | 18.65 Mo (dont 8.08 Mo de vidéo) |
+| Variantes d'images générées | 87 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
 
@@ -403,6 +404,16 @@ Pages `/accessibilite` et `/en/accessibility`, composant unique `AccessibilityCo
 - **À mettre à jour** à chaque nouvelle évaluation ou modification substantielle du site : `DECLARED_ON`, `EVALUATED`, `ENVIRONMENT` en tête du composant. Une déclaration vaut 3 ans au plus ; à revoir au plus tard 18 mois après la publication du RGAA 5, annoncé pour fin 2026.
 - **Vérifié** : validateur W3C 0 erreur et 0 avertissement (FR et EN) ; axe-core 0 violation ; un seul h1, aucun saut de niveau ; 48 éléments au clavier sans piège, focus visible ; lien d'évitement ; 320 px, zoom 200 % et espacement du texte sans défilement ni texte coupé ; liens externes signalés « nouvel onglet ».
 
+### Dépendances à jour, 0 faille connue · 10/11/2026
+GitHub signalait 58 failles (2 critiques), `pnpm audit` 53. **Après : `pnpm audit` → « No known vulnerabilities found ».**
+- **Astro 5.18 → 7.4.8**, `sharp` 0.35.5, `resend` 6.37. Les failles d'Astro (XSS, SSRF, RCE via AVIF…) ne sont corrigées qu'en 6 et 7 ; la plupart visaient le rendu serveur ou le serveur de développement, mais l'utilisatrice ne veut aucune faille, même sur du statique.
+- Deux dépendances indirectes forcées par `overrides` dans **`pnpm-workspace.yaml`** (pnpm n'accepte plus le champ `pnpm` de `package.json`) : `esbuild` (Vite 8 n'en a plus besoin, il n'est plus installé) et `source-map-js`. Retirer une ligne quand `pnpm audit` reste vert sans elle.
+- **Node 24.x** fixé par `engines` : Vercel propose 22.x, 24.x et 26.x et prend toujours le dernier correctif. Astro 7 refuse Node 22.13, celui installé sur le poste en novembre 2026 : la vérification a été faite avec un Node 24 portable, **le Node du poste n'a pas été modifié**.
+- **Deux changements d'Astro 7 qui modifiaient le rendu, neutralisés** :
+  - `compressHTML` passe par défaut en mode `'jsx'` : un saut de ligne entre un texte et l'élément suivant ne donne plus d'espace. Effets constatés : « Agency.Tous droits réservés », flèches collées aux liens « Explorer ». **`compressHTML: true`** dans `astro.config.mjs` rétablit la compression sans perte d'Astro 5.
+  - `<Image>` **recadre** désormais l'image quand `width` et `height` ne respectent pas ses proportions. Le logo source est carré (500×500) et était déclaré en 140×40 : il ressortait tronqué, pictogramme coupé. Déclaré en carré (140×140, 130×130), rendu identique à avant.
+- **Vérifié** : texte visible (`innerText`) identique sur les 26 pages ; comparaison au pixel à 1280 et 390 px, seuls diffèrent les pixels de photos ré-encodées par la nouvelle version de sharp ; aucune erreur JS ; menu mobile après défilement 9/9, Échap ; préremplissage du contact FR et EN ; intro passable ; assistant IA (ouverture, réponse, bascule de langue) ; `astro dev` ; W3C 0 erreur sur accueil, portfolio, contact, offres EN. `dist` passe de 20,3 à 18,6 Mo : Astro 7 ne copie plus les originaux d'images inutilisés.
+
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
@@ -424,6 +435,7 @@ Pages `/accessibilite` et `/en/accessibility`, composant unique `AccessibilityCo
 | Faible | **Description ONC dans le JSON-LD de `/offres`** | L'offre One Nation Civic du catalogue reprend la méta-description de la page entière comme description. Défaut antérieur au 15/10, non corrigé : hors demande. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Attente | **Badge Activateur France Num** | Candidature acceptée (10/11/2026). L'utilisatrice fournit le lien de la page France Num et le badge officiel. À poser dans le pied de page des 26 pages : **logo hébergé sur le site** (pas chargé chez France Num, sinon un tiers de plus dans l'inventaire RGPD), texte alternatif, ouverture en nouvel onglet signalée, respect de la charte d'usage du badge. |
+| À décider | **Assistant IA : Échap ne ferme pas la fenêtre** | Constaté le 10/11/2026 en testant la mise à jour d'Astro, comportement identique avant et après. La fenêtre est un `role="dialog"` `aria-modal="true"` : on s'attend à la fermer au clavier par Échap (motif de dialogue, RGAA 7.1). Le bouton de fermeture reste utilisable au clavier. Non corrigé : hors demande. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
 | À décider | **Images orphelines** | Depuis le retrait des pages V1 (20/10), une cinquantaine d'images ne sont plus utilisées par aucune page en ligne : fonds dans `public/` (afrique.jpg, analyseSeo.jpg, benefit.jpg, conseil-cta.jpg, relationsPresse.jpg…), 8 bannières `public/images/*-banner.jpg`, et des visuels de `src/assets/`, dont certains orphelins depuis plus longtemps (anciens portraits de témoignages, anciennes photos). Celles de `public/` sont encore publiées. Les supprimer allège `dist`, mais une page archivée remise en service en aurait besoin : l'historique git les conserve. **Attention**, `web-app-manifest-512x512.png` est utilisée par `site.webmanifest`, ne pas la supprimer. |
@@ -451,6 +463,9 @@ Pages `/accessibilite` et `/en/accessibility`, composant unique `AccessibilityCo
 - **`<Footer />` sur une page anglaise** — toujours `<Footer lang="en" />`. Sans `lang`, le composant retombe sur le français : le 20/10, cinq pages EN avaient tout leur pied de page en français. Même règle pour `<Header />`.
 - **Ancêtres du menu mobile** — jamais de `transform`, `filter`, `backdrop-filter`, `will-change`, `contain` ni `perspective` sur `.site-header` ou ses parents : le menu, en `position: fixed` à l'intérieur, serait réduit à la hauteur de l'en-tête. Un effet visuel sur l'en-tête se pose sur `::before`. Tester le menu **après défilement**, pas seulement en haut de page.
 - **Tirets cadratins** — le site n'en utilise plus dans le texte visible. Espace dans le texte courant, trait d'union dans les titres, « à »/« to » dans les plages.
+- **Astro 7 et les espaces** — ne pas retirer `compressHTML: true` d'`astro.config.mjs` : le mode par défaut colle un texte à l'élément de la ligne suivante. Relire le texte visible, pas seulement le HTML, après toute mise à jour majeure d'Astro.
+- **`<Image>` avec `width` et `height`** — depuis Astro 7, des proportions différentes de celles de l'image la recadrent. Toujours déclarer les vraies proportions (le logo est carré).
+- **Node local** — Astro 7 exige Node 22.23.4 ou plus. Avec une version plus ancienne, `pnpm run dev` et `pnpm run build` s'arrêtent dès le lancement.
 - **`pnpm` uniquement** — ne pas lancer `npm install`, cela recréerait un `package-lock.json` concurrent et casserait le build Vercel.
 
 ---
