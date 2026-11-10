@@ -5,7 +5,9 @@ interface Props {
 const { lang = 'fr' } = Astro.props;
 import { Image } from 'astro:assets';
 import imgLogoOnenation from '../assets/logoOnenation.jpg';
+import imgFranceNum from '../assets/francenum-activateur.png';
 import { localised } from '../data/routes';
+import { FRANCE_NUM_URL } from '../data/francenum';
 
 // Tous les liens du footer sont dérivés de la table de routes : quand une
 // page est traduite, il suffit de l'y déclarer pour que le footer suive.
@@ -19,9 +21,30 @@ const en = lang === 'en';
     <div class="footer-top">
       <!-- Brand -->
       <div class="footer-brand">
-        <a href={lang === 'en' ? '/en' : '/'} aria-label="One Nation Agency">
-          <Image src={imgLogoOnenation} alt="One Nation Agency" width={130} height={130} decoding="async" />
-        </a>
+        {/* Logo et badge France Num côte à côte, à la même hauteur
+            (80 px) : demande du 10/11/2026. */}
+        <div class="footer-logos">
+          <a class="footer-logo" href={lang === 'en' ? '/en' : '/'} aria-label="One Nation Agency">
+            <Image src={imgLogoOnenation} alt="One Nation Agency" width={80} height={80} densities={[1, 2]} decoding="async" />
+          </a>
+          {/* Badge Activateur France Num : logo officiel, couleurs et fond blanc
+              d'origine (charte d'usage). Hébergé sur le site plutôt que chargé
+              chez France Num, pour n'ajouter aucun tiers (inventaire RGPD).
+              Seule `width` est donnée : Astro 7 recadre si width et height ne
+              respectent pas les proportions. Le alt sert de nom au lien. */}
+          <a class="footer-badge" href={FRANCE_NUM_URL} target="_blank" rel="noopener noreferrer">
+            <Image
+              src={imgFranceNum}
+              alt={en
+                ? 'France Num Activator: One Nation Agency profile on francenum.gouv.fr (opens in a new tab)'
+                : 'Activateur France Num : fiche de One Nation Agency sur francenum.gouv.fr (nouvel onglet)'}
+              width={88}
+              densities={[1, 2]}
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        </div>
         <p class="footer-tagline">
           {lang === 'en'
             ? 'Strategic excellence. Digital innovation.'
@@ -123,10 +146,22 @@ const en = lang === 'en';
   }
 
   /* Brand */
-  .footer-brand img {
-    height: 34px;
-    width: auto;
+  .footer-logos {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     margin-bottom: 1.2rem;
+  }
+
+  .footer-logo {
+    display: inline-block;
+    line-height: 0;
+  }
+
+  .footer-logo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
   }
 
   .footer-tagline {
@@ -158,6 +193,28 @@ const en = lang === 'en';
     border-color: var(--gold);
     color: var(--gold);
     background: rgba(201,168,76,0.08);
+  }
+
+  /* Badge France Num : carte blanche du logo officiel, liseré doré au
+     survol comme les pastilles des réseaux sociaux. */
+  .footer-badge {
+    display: inline-block;
+    line-height: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px var(--border);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  /* 88 × 80 : même hauteur que le logo carré, proportions du badge gardées. */
+  .footer-badge img {
+    width: 88px;
+    height: 80px;
+  }
+
+  .footer-badge:hover {
+    box-shadow: 0 0 0 2px var(--gold);
+    transform: translateY(-2px);
   }
 
   /* Nav groups */

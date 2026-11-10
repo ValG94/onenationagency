@@ -4,6 +4,7 @@ import CookieBanner from '../components/CookieBanner.astro';
 import { counterpart, normalisePath } from '../data/routes';
 import { CIVIC_URL } from '../data/civic';
 import { FOUNDED_YEAR } from '../data/stats';
+import { FRANCE_NUM_URL } from '../data/francenum';
 
 interface Props {
   title: string;
@@ -91,9 +92,11 @@ const orgJsonLd = {
   knowsLanguage: ['fr', 'en'],
   // `sameAs` déclare à Google les profils officiels de l'entreprise :
   // il doit rester aligné sur les liens du footer, sans profil mort.
+  // La fiche France Num en fait partie (badge du footer).
   sameAs: [
     'https://www.linkedin.com/company/one-nation-agency/',
     'https://www.facebook.com/profile.php?id=61591931985235',
+    FRANCE_NUM_URL,
   ],
 };
 

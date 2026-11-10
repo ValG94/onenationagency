@@ -74,14 +74,14 @@ _Dernière vérification : 2026-11-10 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 26/26 |
 | URLs dans le sitemap | 26 |
-| Poids total `dist` | 18.66 Mo (dont 8.08 Mo de vidéo) |
-| Variantes d'images générées | 87 |
+| Poids total `dist` | 18.68 Mo (dont 8.08 Mo de vidéo) |
+| Variantes d'images générées | 90 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
 
 **Chiffres affichés sur le site** — 10 Projets livrés · 7 Pays couverts · 3 Années d'expertise · 100% Clients satisfaits
 
-**Pages les plus lourdes au premier rendu** — `/en/portfolio` 1052 Ko · `/portfolio` 1052 Ko · `/` 804 Ko
+**Pages les plus lourdes au premier rendu** — `/en/portfolio` 1052 Ko · `/portfolio` 1052 Ko · `/` 805 Ko
 
 <!-- AUTO:FIN -->
 
@@ -425,8 +425,16 @@ Demande de l'utilisatrice : une « page GXO » pour être mieux référencé par
 ### Année de création unifiée : 2024 · 10/11/2026
 Le site en affichait trois : « Depuis 2016 » sur les deux accueils, `foundingDate: '2020'` dans le JSON-LD, `FOUNDED_YEAR = 2024` dans `stats.ts`. **2024, confirmé par l'utilisatrice.** Les trois endroits lisent désormais `FOUNDED_YEAR` : accueils FR et EN, `orgJsonLd` de `Layout.astro` (26 pages), et `llms.txt` qui l'annonce (« Fondée en 2024 »). **Ne jamais réécrire l'année en dur.**
 
+### Badge Activateur France Num · 11/11/2026
+Candidature acceptée. Fiche : https://www.francenum.gouv.fr/activateurs/one-nation-agency, constante **`FRANCE_NUM_URL`** dans `src/data/francenum.ts`, lue à trois endroits : badge du pied de page, `sameAs` du JSON-LD (26 pages), `/llms.txt` (« Référencée Activateur France Num »).
+- **Logo officiel fourni par l'utilisatrice**, JPEG d'impression CMJN de 2,8 Mo. Converti en sRVB **avec son profil ICC intégré** (couleurs fidèles, rose #E30040), PNG de 480 px, 9 Ko : `src/assets/francenum-activateur.png`. Original dans `originals/francenum/`. Un visualiseur qui ignore le profil affiche des couleurs plus vives : ce n'est pas une erreur de conversion.
+- **Logo non retouché**, fond blanc d'origine, angles arrondis à 6 px seulement. **Hébergé sur le site**, jamais chargé depuis francenum.gouv.fr : aucun tiers ajouté à l'inventaire RGPD.
+- **Mise en page validée par l'utilisatrice en local** : logo ONA et badge **côte à côte**, en tête de la colonne de marque, **à la même hauteur de 80 px** (logo 80 × 80, badge 88 × 80, proportions gardées), puis slogan et réseaux sociaux. Le logo ONA du pied de page passe ainsi de 34 à 80 px : c'était sa demande, ne pas le réduire. Liseré doré au survol du badge, comme les pastilles sociales. Les deux tiennent sur une ligne à 390 px.
+- Lien du badge nommé par son `alt` : « Activateur France Num : fiche de One Nation Agency sur francenum.gouv.fr (nouvel onglet) », traduit sur les pages EN.
+- **Vérifié** : W3C 0 erreur, 0 avertissement (accueil, contact EN) ; axe-core 0 violation sur le pied de page FR et EN.
+
 ### Divers
-- **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
+- **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées. La fiche France Num y figure aussi depuis le 11/11/2026, via `FRANCE_NUM_URL`.
 - Skip-link : ancre ajoutée sur 5 pages, libellé traduit.
 - `:root` des pages portfolio écrasait le design system globalement → variables scopées.
 - 8 bannières og:image manquantes générées en 1200×630.
@@ -445,7 +453,6 @@ Le site en affichait trois : « Depuis 2016 » sur les deux accueils, `foundingD
 | À valider | **Page dédiée One Nation Civic** | ONC vit dans une section d'accueil, un bandeau sur les pages IA et un bloc sur `/offres`. Une page `/one-nation-civic` + `/en/one-nation-civic` serait le prochain palier SEO : il suffirait d'y poser `<CivicSection />`, d'ajouter la paire dans `routes.ts` et de rebasculer le lien du menu. Non fait : hors demande. |
 | Faible | **Description ONC dans le JSON-LD de `/offres`** | L'offre One Nation Civic du catalogue reprend la méta-description de la page entière comme description. Défaut antérieur au 15/10, non corrigé : hors demande. |
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
-| Attente | **Badge Activateur France Num** | Candidature acceptée (10/11/2026). L'utilisatrice fournit le lien de la page France Num et le badge officiel. À poser dans le pied de page des 26 pages : **logo hébergé sur le site** (pas chargé chez France Num, sinon un tiers de plus dans l'inventaire RGPD), texte alternatif, ouverture en nouvel onglet signalée, respect de la charte d'usage du badge. |
 | À décider | **Assistant IA : Échap ne ferme pas la fenêtre** | Constaté le 10/11/2026 en testant la mise à jour d'Astro, comportement identique avant et après. La fenêtre est un `role="dialog"` `aria-modal="true"` : on s'attend à la fermer au clavier par Échap (motif de dialogue, RGAA 7.1). Le bouton de fermeture reste utilisable au clavier. Non corrigé : hors demande. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
@@ -477,6 +484,7 @@ Le site en affichait trois : « Depuis 2016 » sur les deux accueils, `foundingD
 - **Astro 7 et les espaces** — ne pas retirer `compressHTML: true` d'`astro.config.mjs` : le mode par défaut colle un texte à l'élément de la ligne suivante. Relire le texte visible, pas seulement le HTML, après toute mise à jour majeure d'Astro.
 - **`<Image>` avec `width` et `height`** — depuis Astro 7, des proportions différentes de celles de l'image la recadrent. Toujours déclarer les vraies proportions (le logo est carré).
 - **Node local** — Astro 7 exige Node 22.23.4 ou plus. Avec une version plus ancienne, `pnpm run dev` et `pnpm run build` s'arrêtent dès le lancement.
+- **`astro dev` refuse de démarrer** (« Another astro dev server is already running ») — un serveur arrêté brutalement laisse un verrou. Vérifier qu'aucun serveur ne tourne, puis `pnpm exec astro dev --force`.
 - **`pnpm` uniquement** — ne pas lancer `npm install`, cela recréerait un `package-lock.json` concurrent et casserait le build Vercel.
 
 ---
