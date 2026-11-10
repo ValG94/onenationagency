@@ -15,7 +15,7 @@ import { Image } from 'astro:assets';
 import imgONWhite from '../assets/ON_white.png';
 import heroPoster from '../assets/hero-poster.jpg';
 import imgAgencyAfricaV1 from '../assets/agency_africa_v1.jpg';
-import { getKeyFigures } from '../data/stats';
+import { getKeyFigures, FOUNDED_YEAR } from '../data/stats';
 const figures = getKeyFigures('fr');
 ---
 
@@ -243,7 +243,7 @@ const figures = getKeyFigures('fr');
                 <div class="agency-img-overlay"></div>
               </div>
               <div class="agency-badge-float">
-                <span class="label">Depuis 2016</span>
+                <span class="label">Depuis {FOUNDED_YEAR}</span>
                 <p>Europe · Afrique · International</p>
               </div>
             </div>

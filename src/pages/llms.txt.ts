@@ -3,6 +3,7 @@ import { localePairs, type LocalePair } from '../data/routes';
 import { getCivicCopy, CIVIC_URL, CIVIC_ANCHOR } from '../data/civic';
 import { getPackagesCopy, type OfferCard } from '../data/packages';
 import { getProjects, portfolioStats } from '../data/projects';
+import { FOUNDED_YEAR } from '../data/stats';
 
 // ============================================================
 // LLMS.TXT GÉNÉRÉ AU BUILD
@@ -16,9 +17,8 @@ import { getProjects, portfolioStats } from '../data/projects';
 // prix ou un nouveau projet se répercute ici sans y toucher.
 // Seuls les résumés de pages ci-dessous sont propres à ce fichier.
 //
-// Volontairement absents : l'année de création (trois valeurs
-// différentes sur le site au 10/11/2026), le taux de satisfaction
-// (non vérifié, voir CLAUDE.md section 5) et les avis clients.
+// Volontairement absents : le taux de satisfaction (non vérifié,
+// voir CLAUDE.md section 5) et les avis clients.
 // ============================================================
 
 const SITE = 'https://www.onenationagency.com';
@@ -67,7 +67,7 @@ export const GET: APIRoute = () => {
     '',
     "> Agence de communication stratégique institutionnelle, d'intelligence artificielle et de création web premium, basée en région parisienne et active en France, en Afrique et à l'international. Éditrice de One Nation Civic, plateforme d'agents IA multilingues pour les institutions et services publics.",
     '',
-    `One Nation Agency accompagne institutions, entreprises et personnalités publiques. ${portfolioStats.projects} projets livrés dans ${portfolioStats.countries} pays, présentés dans le portfolio. Site en français et en anglais.`,
+    `Fondée en ${FOUNDED_YEAR}, One Nation Agency accompagne institutions, entreprises et personnalités publiques. ${portfolioStats.projects} projets livrés dans ${portfolioStats.countries} pays, présentés dans le portfolio. Site en français et en anglais.`,
     '',
     '## Expertises',
     '',

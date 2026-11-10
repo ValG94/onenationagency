@@ -15,7 +15,7 @@ import heroPoster from '../../assets/hero-poster.jpg';
 
 // Même source que la home FR et la page portfolio.
 const latestProjects = getLatestProjects(3, 'en');
-import { getKeyFigures } from '../../data/stats';
+import { getKeyFigures, FOUNDED_YEAR } from '../../data/stats';
 const figures = getKeyFigures('en');
 ---
 
@@ -213,7 +213,7 @@ const figures = getKeyFigures('en');
                 <div class="agency-img-overlay"></div>
               </div>
               <div class="agency-badge-float">
-                <span class="label">Since 2016</span>
+                <span class="label">Since {FOUNDED_YEAR}</span>
                 <p>Paris · Africa · International</p>
               </div>
             </div>

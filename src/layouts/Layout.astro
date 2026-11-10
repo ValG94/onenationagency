@@ -3,6 +3,7 @@ import AIAgent from '../components/AIAgent.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import { counterpart, normalisePath } from '../data/routes';
 import { CIVIC_URL } from '../data/civic';
+import { FOUNDED_YEAR } from '../data/stats';
 
 interface Props {
   title: string;
@@ -86,7 +87,7 @@ const orgJsonLd = {
       "Plateforme d'agents IA multilingues pour les institutions et services publics : information sourcée, prise de rendez-vous et escalade vers un agent humain.",
     author: { '@type': 'Organization', name: 'One Nation Agency' },
   },
-  foundingDate: '2020',
+  foundingDate: String(FOUNDED_YEAR),
   knowsLanguage: ['fr', 'en'],
   // `sameAs` déclare à Google les profils officiels de l'entreprise :
   // il doit rester aligné sur les liens du footer, sans profil mort.
