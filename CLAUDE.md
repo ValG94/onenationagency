@@ -9,7 +9,7 @@ Site vitrine bilingue de l'agence. **Ce fichier est la source de vérité sur l'
 | | |
 |---|---|
 | Stack | Astro 7, statique, sans framework UI |
-| Node | **24.x**, fixé par `engines` dans `package.json` (prime sur le réglage Vercel). Astro 7 exige au moins 22.23.4, en local aussi. |
+| Node | **22.x**, fixé par `engines` dans `package.json` (prime sur le réglage Vercel, qui prend le dernier correctif). Astro 7 exige au moins 22.23.4. Poste local en 22.23.4 depuis le 10/11/2026 (winget, `OpenJS.NodeJS.22`). |
 | Langues | FR (défaut) et EN, parité complète |
 | Hébergement | Vercel — production `www.onenationagency.com`, déploiement sur push `main` |
 | Fonction serveur | `api/contact.js` (Vercel), envoi via Resend |
@@ -35,7 +35,7 @@ pnpm run build        # construire + régénérer la section 3 de ce fichier
 
 ## 2. Architecture — où se trouve quoi
 
-Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une page.**
+Neuf sources de vérité uniques. **Ne jamais dupliquer ces données dans une page.**
 
 | Fichier | Rôle |
 |---|---|
@@ -47,6 +47,7 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 | `src/data/packages.ts` | Offres commerciales, FR et EN : les 3 packs, les 3 formules de maintenance, le case study et les CTA. Alimente `PackagesContent.astro` et le lien du menu. |
 | `src/scripts/consent.ts` | Consentement cookies, partagé bannière ↔ agent IA. |
 | `src/pages/sitemap.xml.ts` | Sitemap généré au build depuis les routes. |
+| `src/pages/llms.txt.ts` | `/llms.txt`, présentation de l'agence pour les IA, générée au build depuis les fichiers de données ci-dessus. |
 
 ### Gestes courants
 
@@ -62,7 +63,7 @@ Huit sources de vérité uniques. **Ne jamais dupliquer ces données dans une pa
 
 <!-- AUTO:DEBUT -- ne pas éditer à la main, régénéré par scripts/project-status.mjs -->
 
-_Dernière vérification : 2026-11-09 — régénéré par `pnpm run build`._
+_Dernière vérification : 2026-11-10 — régénéré par `pnpm run build`._
 
 | Indicateur | Valeur |
 |---|---|
@@ -73,7 +74,7 @@ _Dernière vérification : 2026-11-09 — régénéré par `pnpm run build`._
 | Pages sans alternative de langue | aucune |
 | Agent IA aligné sur la langue | ✅ 26/26 |
 | URLs dans le sitemap | 26 |
-| Poids total `dist` | 18.65 Mo (dont 8.08 Mo de vidéo) |
+| Poids total `dist` | 18.66 Mo (dont 8.08 Mo de vidéo) |
 | Variantes d'images générées | 87 |
 | Dépendances | astro, resend, sharp |
 | Gestionnaire de paquets | pnpm@10.34.5 |
@@ -408,11 +409,18 @@ Pages `/accessibilite` et `/en/accessibility`, composant unique `AccessibilityCo
 GitHub signalait 58 failles (2 critiques), `pnpm audit` 53. **Après : `pnpm audit` → « No known vulnerabilities found ».**
 - **Astro 5.18 → 7.4.8**, `sharp` 0.35.5, `resend` 6.37. Les failles d'Astro (XSS, SSRF, RCE via AVIF…) ne sont corrigées qu'en 6 et 7 ; la plupart visaient le rendu serveur ou le serveur de développement, mais l'utilisatrice ne veut aucune faille, même sur du statique.
 - Deux dépendances indirectes forcées par `overrides` dans **`pnpm-workspace.yaml`** (pnpm n'accepte plus le champ `pnpm` de `package.json`) : `esbuild` (Vite 8 n'en a plus besoin, il n'est plus installé) et `source-map-js`. Retirer une ligne quand `pnpm audit` reste vert sans elle.
-- **Node 24.x** fixé par `engines` : Vercel propose 22.x, 24.x et 26.x et prend toujours le dernier correctif. Astro 7 refuse Node 22.13, celui installé sur le poste en novembre 2026 : la vérification a été faite avec un Node 24 portable, **le Node du poste n'a pas été modifié**.
+- **Node fixé par `engines`** : Vercel propose 22.x, 24.x et 26.x et prend toujours le dernier correctif. D'abord 24.x, vérifié avec un Node 24 portable ; passé en **22.x** le même jour, une fois le poste mis à jour en 22.23.4, pour que le poste et Vercel tournent sur la même branche et que pnpm cesse d'avertir.
 - **Deux changements d'Astro 7 qui modifiaient le rendu, neutralisés** :
   - `compressHTML` passe par défaut en mode `'jsx'` : un saut de ligne entre un texte et l'élément suivant ne donne plus d'espace. Effets constatés : « Agency.Tous droits réservés », flèches collées aux liens « Explorer ». **`compressHTML: true`** dans `astro.config.mjs` rétablit la compression sans perte d'Astro 5.
   - `<Image>` **recadre** désormais l'image quand `width` et `height` ne respectent pas ses proportions. Le logo source est carré (500×500) et était déclaré en 140×40 : il ressortait tronqué, pictogramme coupé. Déclaré en carré (140×140, 130×130), rendu identique à avant.
 - **Vérifié** : texte visible (`innerText`) identique sur les 26 pages ; comparaison au pixel à 1280 et 390 px, seuls diffèrent les pixels de photos ré-encodées par la nouvelle version de sharp ; aucune erreur JS ; menu mobile après défilement 9/9, Échap ; préremplissage du contact FR et EN ; intro passable ; assistant IA (ouverture, réponse, bascule de langue) ; `astro dev` ; W3C 0 erreur sur accueil, portfolio, contact, offres EN. `dist` passe de 20,3 à 18,6 Mo : Astro 7 ne copie plus les originaux d'images inutilisés.
+
+### `llms.txt` et robots des IA · 10/11/2026
+Demande de l'utilisatrice : une « page GXO » pour être mieux référencé par les robots. Compris comme du GEO (référencement par les moteurs de réponse IA), **choix confirmé par elle : un fichier `llms.txt`**, pas une page visible.
+- **`/llms.txt`** généré par `src/pages/llms.txt.ts`, au format https://llmstxt.org : résumé de l'agence, expertises, One Nation Civic, offres et tarifs, réalisations, pages principales, contact, pages anglaises, pages légales en « Optional ». **Tout vient de `src/data/`** (`routes.ts`, `packages.ts`, `civic.ts`, `projects.ts`) : un prix ou un projet modifié s'y répercute seul. Seuls les résumés de pages (`PAGE_SUMMARY`) sont propres au fichier.
+- **Volontairement absents** : l'année de création (trois valeurs sur le site, voir section 5), « 100 % clients satisfaits » (non vérifié), les avis, et WhatsApp (numéro encore à vérifier). Les clients politiques y apparaissent sous leur forme anonymisée, comme au portfolio.
+- **`robots.txt`** : groupe explicite pour les robots des IA (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended, Meta-ExternalAgent, MistralAI-User, CCBot). **Un robot nommé ignore le groupe `*`** : la règle `Disallow: /api/` y est répétée, ne pas la retirer.
+- **Portée réelle, à ne pas survendre** : `llms.txt` est une proposition de format, pas un standard. Google a déclaré ne pas s'en servir ; certains assistants le lisent quand ils explorent un site. Le fichier ne nuit à rien et résume l'agence de façon fiable, mais l'essentiel du référencement par les IA reste le contenu des pages, les données structurées et les mentions de l'agence ailleurs sur le web.
 
 ### Divers
 - **Réseaux sociaux — 30/09/2026** : Instagram retiré, Facebook corrigé (l'ancienne URL ne menait nulle part), LinkedIn à jour. Ces liens existent à **deux endroits** qui doivent rester alignés : le footer et le `sameAs` du JSON-LD dans `Layout.astro`, qui déclare à Google les profils officiels. Modifier l'un sans l'autre laisse un profil mort dans les données structurées.
@@ -436,6 +444,7 @@ GitHub signalait 58 failles (2 critiques), `pnpm audit` 53. **Après : `pnpm aud
 | À valider | **Chiffre « 100% clients satisfaits »** | Repris de l'ancien code sans vérification. Modifiable dans `stats.ts`. |
 | Attente | **Badge Activateur France Num** | Candidature acceptée (10/11/2026). L'utilisatrice fournit le lien de la page France Num et le badge officiel. À poser dans le pied de page des 26 pages : **logo hébergé sur le site** (pas chargé chez France Num, sinon un tiers de plus dans l'inventaire RGPD), texte alternatif, ouverture en nouvel onglet signalée, respect de la charte d'usage du badge. |
 | À décider | **Assistant IA : Échap ne ferme pas la fenêtre** | Constaté le 10/11/2026 en testant la mise à jour d'Astro, comportement identique avant et après. La fenêtre est un `role="dialog"` `aria-modal="true"` : on s'attend à la fermer au clavier par Échap (motif de dialogue, RGAA 7.1). Le bouton de fermeture reste utilisable au clavier. Non corrigé : hors demande. |
+| À décider | **Année de création contradictoire** | Trois valeurs : « Depuis 2016 » sur les deux accueils (`index.astro`, `en/index.astro`), `foundingDate: '2020'` dans le JSON-LD de `Layout.astro`, `FOUNDED_YEAR = 2024` dans `stats.ts` (d'où « 3 années d'expertise »). Les moteurs et les IA confrontent ces sources. Demander la bonne date à l'utilisatrice, puis aligner les trois. Absente de `llms.txt` en attendant. |
 | Ouvert | **Flèche retour en haut de page** | L'utilisateur signale une superposition avec le bouton WhatsApp, mais aucune flèche n'existe dans le code, même avant l'audit. Possiblement une extension navigateur. Capture nécessaire. |
 | Moyen | **Rate limiting en mémoire** | Réinitialisé à chaque cold start Vercel. Efficace contre un script isolé, pas contre un botnet. Upstash Redis pour une garantie stricte. |
 | À décider | **Images orphelines** | Depuis le retrait des pages V1 (20/10), une cinquantaine d'images ne sont plus utilisées par aucune page en ligne : fonds dans `public/` (afrique.jpg, analyseSeo.jpg, benefit.jpg, conseil-cta.jpg, relationsPresse.jpg…), 8 bannières `public/images/*-banner.jpg`, et des visuels de `src/assets/`, dont certains orphelins depuis plus longtemps (anciens portraits de témoignages, anciennes photos). Celles de `public/` sont encore publiées. Les supprimer allège `dist`, mais une page archivée remise en service en aurait besoin : l'historique git les conserve. **Attention**, `web-app-manifest-512x512.png` est utilisée par `site.webmanifest`, ne pas la supprimer. |

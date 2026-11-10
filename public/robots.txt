@@ -4,5 +4,24 @@ Allow: /
 # Disallow API routes (not useful for indexing)
 Disallow: /api/
 
+# AI answer engines and assistants, explicitly welcome.
+# A named robot ignores the "*" group above: the /api/ rule is repeated.
+# Site summary for these robots: https://www.onenationagency.com/llms.txt
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: MistralAI-User
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+
 # Sitemap
 Sitemap: https://www.onenationagency.com/sitemap.xml
